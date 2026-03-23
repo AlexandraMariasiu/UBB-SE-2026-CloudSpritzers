@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace CloudSpritzers.src.model.message
 {
     using IResponder = Object;
-    public class TextDialogueOption : IMessage
+    public class TextDialogOption : IMessage
     {
         private int _dialogId;
         private string _message;
         private DateTimeOffset _timestamp;
 
-        public TextDialogueOption(int id, string message)
+        public TextDialogOption(int id, string message)
         {
             this._dialogId = id;
             this._message = message;

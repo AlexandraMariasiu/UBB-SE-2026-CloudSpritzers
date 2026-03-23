@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CloudSpritzers.src.model.message
 {
     using IResponder = Object;
-    public class ButtonDialogueOption : IMessage
+    public class ButtonDialogOption : IMessage
     {
         private int _dialogId;
         private string _message;
@@ -15,7 +15,7 @@ namespace CloudSpritzers.src.model.message
         private List<IMessage> _nextOptions;
         private DateTimeOffset _timestamp;
 
-        private ButtonDialogueOption(int id, string message, string payload, List<IMessage> nextOptions)
+        private ButtonDialogOption(int id, string message, string payload, List<IMessage> nextOptions)
         {
             this._dialogId = id;
             this._message = message;
@@ -48,21 +48,21 @@ namespace CloudSpritzers.src.model.message
             return new List<IMessage>();
         }
 
-        public class ButtonDialogueBuilder
+        public class ButtonDialogBuilder
         {
             private int _dialogId;
             private string _message;
             private string _payload;
             private List<IMessage> _nextOptions = new List<IMessage>();
 
-            public ButtonDialogueBuilder(int dialogId, string message, string payload)
+            public ButtonDialogBuilder(int dialogId, string message, string payload)
             {
                 this._message = message;
                 this._dialogId = dialogId;
                 this._payload = payload;
             }
 
-            public ButtonDialogueBuilder()
+            public ButtonDialogBuilder()
             {
                 this._dialogId = -1;
                 this._message = "";
@@ -89,9 +89,9 @@ namespace CloudSpritzers.src.model.message
                 _nextOptions.Add(addedOption);
             }
 
-            public ButtonDialogueOption build()
+            public ButtonDialogOption build()
             {
-                return new ButtonDialogueOption(this._dialogId, this._message, this._payload, this._nextOptions);
+                return new ButtonDialogOption(this._dialogId, this._message, this._payload, this._nextOptions);
             }
 
         }
