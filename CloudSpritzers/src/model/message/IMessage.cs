@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CloudSpritzers.src.model.message
 {
-    internal interface IMessage
+    public interface IMessage
     {
         string GetMessage();
         IEnumerable<IMessage> GetNextOptions();
@@ -16,7 +16,7 @@ namespace CloudSpritzers.src.model.message
 
         int GetId();
 
-        DateTimeOffset getTimeStamp();
+        DateTimeOffset GetTimeStamp();
 
     }
 }
