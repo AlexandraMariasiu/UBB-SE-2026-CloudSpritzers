@@ -11,47 +11,47 @@ namespace CloudSpritzers.src.model.message
     using Chat = Object;
     public class Message : IMessage
     {
-        private int id;
-        private IResponder sender;
-        private Chat chat;
-        private DateTimeOffset timestamp;
-        private string messageText;
-        private bool isRead;
+        private int _id;
+        private IResponder _sender;
+        private Chat _chat;
+        private DateTimeOffset _timestamp;
+        private string _messageText;
+        private bool _isRead;
 
         public Message(Object sender, Object chat, string messageText, bool isRead)
         {
-            this.sender = sender;
-            this.chat = chat;
-            this.messageText = messageText;
-            this.isRead = isRead;
-            this.timestamp = DateTimeOffset.UtcNow;
+            this._sender = sender;
+            this._chat = chat;
+            this._messageText = messageText;
+            this._isRead = isRead;
+            this._timestamp = DateTimeOffset.UtcNow;
         }
 
         void MarkAsRead()
         {
-            this.isRead = true;
+            this._isRead = true;
         }
 
-        bool isMessageRead()
+        bool IsMessageRead()
         {
-            return isRead;
+            return _isRead;
         }
 
-        Chat getChat()
+        Chat GetChat()
         {
-            return this.chat;
+            return this._chat;
         }
 
         // Interface functionality
 
         public string GetMessage()
         {
-            return this.messageText;
+            return this._messageText;
         }
 
         public IResponder GetSender()
         {
-            return sender;
+            return _sender;
         }
 
         IEnumerable<IMessage> GetNextOptions()
@@ -61,12 +61,12 @@ namespace CloudSpritzers.src.model.message
 
         public int GetId()
         {
-            return this.id;
+            return this._id;
         }
 
-        DateTimeOffset getTimeStamp()
+        DateTimeOffset GetTimeStamp()
         {
-            return getTimeStamp();
+            return _timestamp;
         }
     }
 }
