@@ -1,5 +1,3 @@
-
-
 public interface IRepository<K, V> where V : class
 {
     V GetById(K id);
