@@ -12,5 +12,6 @@ namespace CloudSpritzers.src.repository
         K Add(V elem);
         void DeleteById(K id);
         void UpdateById(K id, V elem);
+        IEnumerable<V> GetAll();
     }
 }
