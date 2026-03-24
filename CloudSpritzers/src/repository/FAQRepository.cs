@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using CloudSpritzers.src.model;
+using CloudSpritzers.src.model.faq;
 
 namespace CloudSpritzers.src.repository
 {
@@ -37,25 +37,16 @@ namespace CloudSpritzers.src.repository
         }
 
 
-        public List<FAQEntry> GetAll()
+        public IEnumerable<FAQEntry> GetAll()
         {
             return faqs.Values.ToList();
         }
 
         public List<FAQEntry> GetByCategory(FAQCategoryEnum category)
-        {
-            List<FAQEntry> result = new List<FAQEntry>();
-            List<FAQEntry> allFaqs = faqs.Values.ToList();
-
-            for (int i=0;i< allFaqs.Count; i++)
-            {
-                if (category== FAQCategoryEnum.All || allFaqs[i].Category==category)
-                {
-                    result.Add(allFaqs[i]);
-                }
-            }
-            return result;
-
+        { 
+            return faqs.Values
+                .Where(f => category == FAQCategoryEnum.All || f.Category == category)
+                .ToList();
         }
 
         public void IncrementViewCount(int id)

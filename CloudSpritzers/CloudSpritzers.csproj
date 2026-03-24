@@ -54,8 +54,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\model\FAQCategoryEnum.cs" />
-    <Compile Include="src\model\FAQEntry.cs" />
+    <Compile Include="src\model\faq\FAQCategoryEnum.cs" />
+    <Compile Include="src\model\faq\FAQEntry.cs" />
     <Compile Include="src\model\message\IMessage.cs" />
     <Compile Include="src\model\message\Message.cs" />
     <Compile Include="src\model\message\ButtonDialogOption.cs" />
