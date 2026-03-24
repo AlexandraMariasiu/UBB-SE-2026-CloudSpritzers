@@ -40,7 +40,7 @@ namespace CloudSpritzers.src.model.message
             return this._timestamp;
         }
 
-        IEnumerable<IMessage> GetNextOptions()
+        IEnumerable<IMessage> IMessage.GetNextOptions()
         {
             return new List<IMessage>();
         }

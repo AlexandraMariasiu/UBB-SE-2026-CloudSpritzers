@@ -43,50 +43,54 @@ namespace CloudSpritzers.src.model.message
             return this._timestamp;
         }
 
-        IEnumerable<IMessage> GetNextOptions()
+        IEnumerable<IMessage> IMessage.GetNextOptions()
         {
-            return new List<IMessage>();
+            return _nextOptions;
         }
 
-        public class ButtonDialogBuilder
+        public class Builder
         {
             private int _dialogId;
             private string _message;
             private string _payload;
             private List<IMessage> _nextOptions = new List<IMessage>();
 
-            public ButtonDialogBuilder(int dialogId, string message, string payload)
+            public Builder(int dialogId, string message, string payload)
             {
                 this._message = message;
                 this._dialogId = dialogId;
                 this._payload = payload;
             }
 
-            public ButtonDialogBuilder()
+            public Builder()
             {
                 this._dialogId = -1;
                 this._message = "";
                 this._payload = "";
             }
 
-            public ButtonDialogueBuilder WithMessage(string setMessage)
+            public Builder WithMessage(string setMessage)
             {
-                this._message = message;
+                this._message = setMessage;
+                return this;
             }
 
-            public ButtonDialogueBuilder WithId(int setId)
+            public Builder WithId(int setId)
             {
-                this._dialogId = id;
+                this._dialogId = setId;
+                return this;
             }
 
-            public ButtonDialogueBuilder WithPayload(string setPayload)
+            public Builder WithPayload(string setPayload)
             {
-                this._payload = payload;
+                this._payload = setPayload;
+                return this;
             }
 
-            public ButtonDialogueBuilder AddOption(IMessage addedOption)
+            public Builder AddOption(IMessage addedOption)
             {
                 _nextOptions.Add(addedOption);
+                return this;
             }
 
             public ButtonDialogOption build()
