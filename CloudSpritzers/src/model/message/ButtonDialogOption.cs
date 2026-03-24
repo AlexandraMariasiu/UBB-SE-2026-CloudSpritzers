@@ -43,9 +43,9 @@ namespace CloudSpritzers.src.model.message
             return this._timestamp;
         }
 
-        IEnumerable<IMessage> GetNextOptions()
+        IEnumerable<IMessage> IMessage.GetNextOptions()
         {
-            return new List<IMessage>();
+            return _nextOptions;
         }
 
         public class ButtonDialogBuilder
@@ -69,22 +69,22 @@ namespace CloudSpritzers.src.model.message
                 this._payload = "";
             }
 
-            public ButtonDialogueBuilder WithMessage(string setMessage)
+            public ButtonDialogBuilder WithMessage(string setMessage)
             {
                 this._message = message;
             }
 
-            public ButtonDialogueBuilder WithId(int setId)
+            public ButtonDialogBuilder WithId(int setId)
             {
                 this._dialogId = id;
             }
 
-            public ButtonDialogueBuilder WithPayload(string setPayload)
+            public ButtonDialogBuilder WithPayload(string setPayload)
             {
                 this._payload = payload;
             }
 
-            public ButtonDialogueBuilder AddOption(IMessage addedOption)
+            public ButtonDialogBuilder AddOption(IMessage addedOption)
             {
                 _nextOptions.Add(addedOption);
             }

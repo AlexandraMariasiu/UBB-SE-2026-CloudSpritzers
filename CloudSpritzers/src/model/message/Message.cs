@@ -54,17 +54,17 @@ namespace CloudSpritzers.src.model.message
             return _sender;
         }
 
-        IEnumerable<IMessage> GetNextOptions()
-        {
-            return new List<IMessage>();
-        }
-
         public int GetId()
         {
             return this._id;
         }
 
-        DateTimeOffset GetTimeStamp()
+        IEnumerable<IMessage> IMessage.GetNextOptions()
+        {
+            return new List<IMessage>();
+        }
+
+        DateTimeOffset IMessage.GetTimeStamp()
         {
             return _timestamp;
         }
