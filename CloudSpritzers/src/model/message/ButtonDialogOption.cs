@@ -48,43 +48,43 @@ namespace CloudSpritzers.src.model.message
             return _nextOptions;
         }
 
-        public class ButtonDialogBuilder
+        public class Builder
         {
             private int _dialogId;
             private string _message;
             private string _payload;
             private List<IMessage> _nextOptions = new List<IMessage>();
 
-            public ButtonDialogBuilder(int dialogId, string message, string payload)
+            public Builder(int dialogId, string message, string payload)
             {
                 this._message = message;
                 this._dialogId = dialogId;
                 this._payload = payload;
             }
 
-            public ButtonDialogBuilder()
+            public Builder()
             {
                 this._dialogId = -1;
                 this._message = "";
                 this._payload = "";
             }
 
-            public ButtonDialogBuilder WithMessage(string setMessage)
+            public Builder WithMessage(string setMessage)
             {
                 this._message = message;
             }
 
-            public ButtonDialogBuilder WithId(int setId)
+            public Builder WithId(int setId)
             {
                 this._dialogId = id;
             }
 
-            public ButtonDialogBuilder WithPayload(string setPayload)
+            public Builder WithPayload(string setPayload)
             {
                 this._payload = payload;
             }
 
-            public ButtonDialogBuilder AddOption(IMessage addedOption)
+            public Builder AddOption(IMessage addedOption)
             {
                 _nextOptions.Add(addedOption);
             }
