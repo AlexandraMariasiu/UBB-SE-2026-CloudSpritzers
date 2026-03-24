@@ -11,7 +11,7 @@ namespace CloudSpritzers.src.model.message
     using Chat = Object;
     public class Message : IMessage
     {
-        private int _id;
+        private int _message_id;
         private IResponder _sender;
         private Chat _chat;
         private DateTimeOffset _timestamp;
@@ -56,7 +56,7 @@ namespace CloudSpritzers.src.model.message
 
         public int GetId()
         {
-            return this._id;
+            return this._message_id;
         }
 
         IEnumerable<IMessage> IMessage.GetNextOptions()

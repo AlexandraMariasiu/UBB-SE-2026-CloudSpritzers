@@ -71,22 +71,26 @@ namespace CloudSpritzers.src.model.message
 
             public Builder WithMessage(string setMessage)
             {
-                this._message = message;
+                this._message = setMessage;
+                return this;
             }
 
             public Builder WithId(int setId)
             {
-                this._dialogId = id;
+                this._dialogId = setId;
+                return this;
             }
 
             public Builder WithPayload(string setPayload)
             {
-                this._payload = payload;
+                this._payload = setPayload;
+                return this;
             }
 
             public Builder AddOption(IMessage addedOption)
             {
                 _nextOptions.Add(addedOption);
+                return this;
             }
 
             public ButtonDialogOption build()
