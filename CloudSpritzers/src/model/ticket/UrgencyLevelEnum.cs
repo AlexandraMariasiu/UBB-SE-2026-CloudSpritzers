@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CloudSpritzers.src.model.ticket
 {
-    enum UrgencyLevelEnum
+    public enum UrgencyLevelEnum
     {
         LOW,
         MEDIUM,

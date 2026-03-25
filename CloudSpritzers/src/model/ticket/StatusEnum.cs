@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CloudSpritzers.src.model.ticket
 {
-    enum StatusEnum
+    public enum StatusEnum
     {
         OPEN,
         IN_PROGRESS,
