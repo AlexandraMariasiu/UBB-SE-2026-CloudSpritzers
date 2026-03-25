@@ -12,9 +12,3 @@
 * **⭐️ Reviews & Feedback:** Interactive rating system for airport facilities (e.g. Flight Experience, Duty Free).
 
 ---
-
-## 📄 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
----
