@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CloudSpritzers1 (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "CloudSpritzers1 (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
