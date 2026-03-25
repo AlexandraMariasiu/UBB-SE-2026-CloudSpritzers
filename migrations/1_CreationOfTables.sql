@@ -1,6 +1,19 @@
 use CloudSpritzers
 go
 
+
+--drop table if exists FAQEntry
+--drop table if exists [Message] 
+--drop table if exists Chat
+--drop table if exists Sender
+--drop table if exists Review
+--drop table if exists Ticket
+--drop table if exists TicketSubcategory
+--drop table if exists TicketCategory
+--drop table if exists [User]
+--drop table if exists Employee
+
+
 create table Employee(
 	employee_id int identity(1,1),
 	constraint PK_Employee primary key (employee_id),
@@ -44,7 +57,7 @@ create table Ticket(
 	constraint FK_Ticket_TicketCategory foreign key (category_id) references TicketCategory(category_id),
 	subcategory_id int,
 	constraint FK_Ticket_TicketSubcategory foreign key (subcategory_id) references TicketSubcategory(subcategory_id),
-	created_at datetime default GETDATE(), 
+	created_at datetime, 
 	employee_id int,
 	constraint FK_Ticket_Employee foreign key (employee_id) references Employee(employee_id)
 )
@@ -58,7 +71,13 @@ create table Review(
 	duty_free_rating int,
 	flight_experience_rating int,
 	staff_friendliness_rating int,
-	cleanliness_rating int
+	cleanliness_rating int,
+	constraint CHK_Review_StarInterval check (
+		(duty_free_rating > 0 and duty_free_rating <= 5) and
+		(flight_experience_rating > 0 and flight_experience_rating <= 5) and
+		(staff_friendliness_rating > 0 and staff_friendliness_rating <= 5) and
+		(cleanliness_rating > 0 and cleanliness_rating <= 5)
+	)
 )
 
 create table Sender(
@@ -91,7 +110,7 @@ create table [Message](
 	constraint FK_Message_Sender foreign key (sender_id) references Sender(sender_id),
 	chat_id int,
 	constraint FK_Message_Chat foreign key (chat_id) references Chat(chat_id),
-	[timestamp] datetime default GETDATE(),
+	[timestamp] datetime,
 	[text] nvarchar(MAX),
 	is_read BIT default 0
 )
@@ -104,5 +123,10 @@ create table FAQEntry(
 	category nvarchar(100),
 	view_count int default 0,
 	was_helpful_votes int default 0,
-	was_not_helpful_votes int default 0
+	was_not_helpful_votes int default 0,
+	constraint CHK_FAQEntry_ViewsAndVotesNotNegative check (
+		(view_count >= 0) and
+		(was_helpful_votes >= 0) and
+		(was_not_helpful_votes >= 0)
+	)
 )
