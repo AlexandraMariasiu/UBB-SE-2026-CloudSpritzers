@@ -60,8 +60,10 @@
     <Compile Include="src\model\message\Message.cs" />
     <Compile Include="src\model\message\ButtonDialogOption.cs" />
     <Compile Include="src\model\message\TextDialogOption.cs" />
+    <Compile Include="src\model\review\Review.cs" />
     <Compile Include="src\repository\FAQRepository.cs" />
     <Compile Include="src\repository\IRepository.cs" />
+    <Compile Include="src\repository\ReviewRepository.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
