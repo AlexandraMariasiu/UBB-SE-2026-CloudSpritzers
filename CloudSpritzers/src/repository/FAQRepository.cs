@@ -15,6 +15,9 @@ namespace CloudSpritzers.src.repository
 
         public int Add(FAQEntry elem)
         {
+            if (faqs.ContainsKey(elem.Id))
+                return -1; 
+
             faqs[elem.Id] = elem;
             return elem.Id;
         }
