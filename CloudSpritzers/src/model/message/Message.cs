@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 namespace CloudSpritzers.src.model.message
 {
     // FIXME: Remove this once the actual classes are implemented
-    using IResponder = Object;
     using Chat = Object;
     public class Message : IMessage
     {
-        private int _id;
+        private int _message_id;
         private IResponder _sender;
         private Chat _chat;
         private DateTimeOffset _timestamp;
         private string _messageText;
         private bool _isRead;
 
-        public Message(Object sender, Object chat, string messageText, bool isRead)
+        public Message(IResponder sender, Object chat, string messageText, bool isRead)
         {
             this._sender = sender;
             this._chat = chat;
@@ -54,17 +53,17 @@ namespace CloudSpritzers.src.model.message
             return _sender;
         }
 
-        IEnumerable<IMessage> GetNextOptions()
+        public int GetId()
+        {
+            return this._message_id;
+        }
+
+        IEnumerable<IMessage> IMessage.GetNextOptions()
         {
             return new List<IMessage>();
         }
 
-        public int GetId()
-        {
-            return this._id;
-        }
-
-        DateTimeOffset GetTimeStamp()
+        DateTimeOffset IMessage.GetTimeStamp()
         {
             return _timestamp;
         }
