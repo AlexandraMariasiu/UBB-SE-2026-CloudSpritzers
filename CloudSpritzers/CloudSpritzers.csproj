@@ -54,12 +54,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\model\chat\Chat.cs" />
+    <Compile Include="src\model\chat\ChatStatusEnum.cs" />
     <Compile Include="src\model\faq\FAQCategoryEnum.cs" />
     <Compile Include="src\model\faq\FAQEntry.cs" />
     <Compile Include="src\model\message\IMessage.cs" />
     <Compile Include="src\model\message\Message.cs" />
     <Compile Include="src\model\message\ButtonDialogOption.cs" />
     <Compile Include="src\model\message\TextDialogOption.cs" />
+    <Compile Include="src\repository\ChatDBRepository.cs" />
+    <Compile Include="src\repository\ChatMemoryRepository.cs" />
     <Compile Include="src\repository\FAQRepository.cs" />
     <Compile Include="src\repository\IRepository.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -87,8 +91,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\model\NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
