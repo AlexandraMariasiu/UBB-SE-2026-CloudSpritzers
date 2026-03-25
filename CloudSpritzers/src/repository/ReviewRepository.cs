@@ -15,6 +15,10 @@ namespace CloudSpritzers.src.repository
 
         public int Add(Review elem)
         {
+            if(reviews.ContainsKey(elem.GetId()))
+            {
+                return -1; // or throw an exception
+            }
             reviews[elem.GetId()] = elem;
             return elem.GetId();
         }

@@ -2,60 +2,60 @@ namespace CloudSpritzers.src.model.review
 {
     public class Review
     {
-        private int id;
-        private int userId;
-        private string message;
-        private int dutyFreeRating;
-        private int flightExperienceRating;
-        private int staffFriendlinessRating;
-        private int cleanlinessRating;
+        private int _id;
+        private int _userId;
+        private string _message;
+        private int _dutyFreeRating;
+        private int _flightExperienceRating;
+        private int _staffFriendlinessRating;
+        private int _cleanlinessRating;
 
         public Review(int id, int userId, string message, int dutyFreeRating, int flightExperienceRating, int staffFriendlinesRating, int cleanlinessRating)
         {
-            this.id = id;
-            this.userId = userId;
-            this.message = message;
-            this.dutyFreeRating = dutyFreeRating;
-            this.flightExperienceRating = flightExperienceRating;
-            this.staffFriendlinessRating = staffFriendlinesRating;
-            this.cleanlinessRating = cleanlinessRating;
+            this._id = id;
+            this._userId = userId;
+            this._message = message;
+            this._dutyFreeRating = dutyFreeRating;
+            this._flightExperienceRating = flightExperienceRating;
+            this._staffFriendlinessRating = staffFriendlinesRating;
+            this._cleanlinessRating = cleanlinessRating;
         }
 
         //GETTERS
 
         public int GetId() 
         { 
-            return this.id; 
+            return this._id; 
         }
 
         public int GetUserId() 
         { 
-            return this.userId; 
+            return this._userId; 
         }
         
         public string GetMessage() 
         { 
-            return this.message; 
+            return this._message; 
         }
         
         public int GetDutyFreeRating()
         {
-            return this.dutyFreeRating;
+            return this._dutyFreeRating;
         }
         
         public int GetFlightExperienceRating()
         {
-            return this.flightExperienceRating;
+            return this._flightExperienceRating;
         }
         
         public int GetStaffFriendlinessRating()
         {
-            return this.staffFriendlinessRating;
+            return this._staffFriendlinessRating;
         }
         
         public int GetCleanlinessRating()
         {
-            return this.cleanlinessRating;
+            return this._cleanlinessRating;
         }
 
     }
