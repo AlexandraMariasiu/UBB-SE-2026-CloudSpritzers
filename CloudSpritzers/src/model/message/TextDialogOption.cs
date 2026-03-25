@@ -44,5 +44,10 @@ namespace CloudSpritzers.src.model.message
         {
             return new List<IMessage>();
         }
+
+        model.IResponder IMessage.GetSender()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
