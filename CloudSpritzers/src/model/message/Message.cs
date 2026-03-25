@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace CloudSpritzers.src.model.message
 {
     // FIXME: Remove this once the actual classes are implemented
-    using IResponder = Object;
     using Chat = Object;
     public class Message : IMessage
     {
@@ -18,7 +17,7 @@ namespace CloudSpritzers.src.model.message
         private string _messageText;
         private bool _isRead;
 
-        public Message(Object sender, Object chat, string messageText, bool isRead)
+        public Message(IResponder sender, Object chat, string messageText, bool isRead)
         {
             this._sender = sender;
             this._chat = chat;
