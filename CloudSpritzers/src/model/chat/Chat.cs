@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using CloudSpritzers.src.model.message;
@@ -8,13 +8,13 @@ namespace CloudSpritzers.src.model.chat
 {
     public class Chat
     {
-        public int ChatId  {  get; set; }
+        public int ChatId { get; set; }
         public int UserId { get; set; }
         public int EmployeeId { get; set; }
         public ChatStatus Status { get; set; }
 
         public List<IMessage> Messages { get; set; }
-    
+
         public Chat(int chatId, int userId, int employeeId, ChatStatus chatStatus)
         {
             ChatId = chatId;
@@ -28,17 +28,17 @@ namespace CloudSpritzers.src.model.chat
         public void AddMessage(IMessage message)
         {
             if (message == null)
-                throw new ArgumentNullException(nameof(message),"message is empty");
+                throw new ArgumentNullException(nameof(message), "message is empty");
             Messages.Add(message);
         }
 
         // TODO: Finish after Employee is implemented
         // REMINDER: Maybe employees need a list of chats..?
-        public void AssignEmployee(Employee employee)
+        public void AssignEmployee(Object employee)
         {
             if (employee == null)
                 throw new ArgumentNullException(nameof(employee), "No employee. Crickets");
-            EmployeeId = employee.Id;
+            EmployeeId = 1; /// employee.Id; FIX LATER
         }
 
         public int MessageCount()
@@ -47,5 +47,6 @@ namespace CloudSpritzers.src.model.chat
         }
 
         //NOTE: IsMessageRead method is private - If we need a getUnreadMsg method 
-        
+
+    }
 }

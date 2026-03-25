@@ -25,9 +25,44 @@ namespace CloudSpritzers.src.repository
         {
             return _chats.Where(chat =>
                 chat.Messages.Count > 0 &&
-                chat.Messages.Last().GetSender() is new Object() // FIXME after it exists
+                chat.Messages.Last().GetSender() is "User" // FIXME after it exists "USER"
                 );
         }
 
+        public Chat GetById(int id)
+        {
+            if (_chats.Any(c => c.ChatId == elem.ChatId))
+                throw new KeyNotFoundException($"Chat with id {id} not found.");
+            return chat;
+        }
+
+        public int Add(Chat elem)
+        {
+            Chat chat = GetById(elem.ChatId);
+            if(chat != null)
+            {
+                throw new InvalidOperationException($"Chat with ID {elem.ChatId} already exists.");
+            }
+            _chats.Add(elem);
+            return elem.ChatId;
+        }
+
+        public void DeleteById(int id)
+        {
+            Chat chat = GetById(id);
+            _chats.Remove(chat);
+        }
+
+        public void UpdateById(int id, Chat elem)
+        {
+            int index = _chats.FindIndex(c => c.ChatId == id);
+            if (index == -1) throw new KeyNotFoundException($"Chat wioth ID {id} not found");
+            _chats[index] = elem;
+        }
+
+        public IEnumerable<Chat> GetAll()
+        {
+            return _chats;
+        }
     }
 }
