@@ -4,51 +4,49 @@ using CloudSpritzers.src.model.faq;
 
 namespace CloudSpritzers.src.repository
 {
-    public class FAQRepository: IRepository<int, FAQEntry>
+    public class FAQRepository : IRepository<int, FAQEntry>
     {
-        private Dictionary<int, FAQEntry> faqs = new Dictionary<int, FAQEntry>();
+        private Dictionary<int, FAQEntry> _faqs = new Dictionary<int, FAQEntry>();
 
         public FAQEntry GetById(int id)
         {
-            return faqs.ContainsKey(id) ? faqs[id] : null;
+            return _faqs.ContainsKey(id) ? _faqs[id] : null;
         }
 
         public int Add(FAQEntry elem)
         {
-            if (faqs.ContainsKey(elem.Id))
-                return -1; 
+            if (_faqs.ContainsKey(elem.GetId()))
+                return -1;
 
-            faqs[elem.Id] = elem;
-            return elem.Id;
+            _faqs[elem.GetId()] = elem;
+            return elem.GetId();
         }
 
         public void UpdateById(int id, FAQEntry elem)
         {
-            if (faqs.ContainsKey(id))
+            if (_faqs.ContainsKey(id))
             {
-                faqs[id] = elem;
+                _faqs[id] = elem;
             }
         }
 
         public void DeleteById(int id)
         {
-            if (faqs.ContainsKey(id))
+            if (_faqs.ContainsKey(id))
             {
-                faqs.Remove(id);
+                _faqs.Remove(id);
             }
-
         }
-
 
         public IEnumerable<FAQEntry> GetAll()
         {
-            return faqs.Values.ToList();
+            return _faqs.Values.ToList();
         }
 
         public List<FAQEntry> GetByCategory(FAQCategoryEnum category)
-        { 
-            return faqs.Values
-                .Where(f => category == FAQCategoryEnum.All || f.Category == category)
+        {
+            return _faqs.Values
+                .Where(f => category == FAQCategoryEnum.All || f.GetCategory() == category)
                 .ToList();
         }
 
@@ -56,21 +54,21 @@ namespace CloudSpritzers.src.repository
         {
             var faq = GetById(id);
             if (faq != null)
-                faq.ViewCount++;
+                faq.IncrementViewCount();
         }
 
         public void IncrementWasHelpfulVotes(int id)
         {
             var faq = GetById(id);
             if (faq != null)
-                faq.WasHelpfulVotes++;
+                faq.IncrementWasHelpfulVotes();
         }
 
         public void IncrementWasNotHelpfulVotes(int id)
         {
             var faq = GetById(id);
             if (faq != null)
-                faq.WasNotHelpfulVotes++;
+                faq.IncrementWasNotHelpfulVotes();
         }
     }
 }
