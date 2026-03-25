@@ -32,21 +32,18 @@ namespace CloudSpritzers.src.model.chat
             Messages.Add(message);
         }
 
-        // TODO: Finish after Employee is implemented
-        // REMINDER: Maybe employees need a list of chats..?
-        public void AssignEmployee(Object employee)
+
+        public void AssignEmployee(Employee employee)
         {
             if (employee == null)
                 throw new ArgumentNullException(nameof(employee), "No employee. Crickets");
-            EmployeeId = 1; /// employee.Id; FIX LATER
+            EmployeeId = employee.EmployeeId; 
         }
 
         public int MessageCount()
         {
             return Messages.Count;
         }
-
-        //NOTE: IsMessageRead method is private - If we need a getUnreadMsg method 
 
     }
 }

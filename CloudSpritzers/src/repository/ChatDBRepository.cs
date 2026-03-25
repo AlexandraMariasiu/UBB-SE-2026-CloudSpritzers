@@ -47,7 +47,6 @@ namespace CloudSpritzers.src.repository
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                // TODO: Check If ChatId is an IDENTITY column in SQL, include it in INSERT if not
                 string query = "INSERT INTO Chat (user_id, employee_id, status) " +
                                "VALUES (@userId, @empId, @status); SELECT SCOPE_IDENTITY();";
 
