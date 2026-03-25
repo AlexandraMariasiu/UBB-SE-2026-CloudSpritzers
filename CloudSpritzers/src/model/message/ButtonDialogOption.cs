@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers.src.model;
 
 namespace CloudSpritzers.src.model.message
 {
@@ -47,11 +46,6 @@ namespace CloudSpritzers.src.model.message
         IEnumerable<IMessage> IMessage.GetNextOptions()
         {
             return _nextOptions;
-        }
-
-        model.IResponder IMessage.GetSender()
-        {
-            throw new NotImplementedException();
         }
 
         public class Builder
