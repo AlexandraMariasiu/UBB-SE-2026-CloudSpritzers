@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CloudSpritzers.src.model;
 using CloudSpritzers.src.model.chat;
 
 namespace CloudSpritzers.src.repository
@@ -25,8 +26,8 @@ namespace CloudSpritzers.src.repository
         {
             return _chats.Where(chat =>
                 chat.Messages.Count > 0 &&
-                chat.Messages.Last().GetSender() is "User" // FIXME after it exists "USER"
-                );
+                chat.Messages.Last().GetSender() is Passenger
+            );
         }
 
         public Chat GetById(int id)
