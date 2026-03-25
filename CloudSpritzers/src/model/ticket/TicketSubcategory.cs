@@ -9,16 +9,16 @@ namespace CloudSpritzers.src.model.ticket
     public class TicketSubcategory
     {
         public int SubcategoryId { get; }
-        public string Name { get; }
+        public string SubcategoryName { get; }
         public int ExternalId { get; }
-        public int CategoryId { get; } // should we use it as id like in the uml or change it to an object?
+        public TicketCategory Category { get; }
 
-        public TicketSubcategory(int subcategoryId, string name, int externalId, int categoryId)
+        public TicketSubcategory(int subcategoryId, string subcategoryName, int externalId, TicketCategory category)
         {
             SubcategoryId = subcategoryId;
-            Name = name;
+            SubcategoryName = subcategoryName;
             ExternalId = externalId;
-            CategoryId = categoryId;
+            Category = category;
         }
     }
 }
