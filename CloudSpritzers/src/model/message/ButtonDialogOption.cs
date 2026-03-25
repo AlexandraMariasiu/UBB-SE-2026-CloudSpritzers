@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace CloudSpritzers.src.model.message
 {
-    using IResponder = Object;
     public class ButtonDialogOption : IMessage
     {
         private int _dialogId;
@@ -32,10 +31,10 @@ namespace CloudSpritzers.src.model.message
         {
             return this._message;
         }
-
+    
         public IResponder GetSender()
         {
-            return new Object(); // FIXME send chat bot engine when implemented 
+            return BotEngine.Instance;
         }
 
         public DateTimeOffset GetTimeStamp()
