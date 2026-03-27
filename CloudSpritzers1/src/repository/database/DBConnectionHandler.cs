@@ -14,7 +14,7 @@ namespace CloudSpritzers1.src.repository.database
         private readonly string _connectionString;
         // https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-connection-pooling
         // Seems like ado.net pools connections by default, sorry Maria
-        public DbConnection Connection => new SqlConnection(_connectionString);
+        public SqlConnection Connection => new SqlConnection(_connectionString);
         
         private DBConnectionHandler()
         {
