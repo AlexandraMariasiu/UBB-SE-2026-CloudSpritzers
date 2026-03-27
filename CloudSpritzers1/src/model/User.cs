@@ -2,13 +2,13 @@ using CloudSpritzers.src.model.message;
 
 namespace CloudSpritzers.src.model
 {
-    public class Passenger : IResponder
+    public class User : IResponder
     {
         private int _userId;
         private string _name;
         private string _email;
 
-        public Passenger(int userId, string name, string email)
+        public User(int userId, string name, string email)
         {
             _userId = userId;
             _name = name;
