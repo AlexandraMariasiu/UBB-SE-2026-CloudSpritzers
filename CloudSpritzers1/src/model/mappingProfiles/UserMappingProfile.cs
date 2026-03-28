@@ -12,6 +12,7 @@ namespace CloudSpritzers.src.model.mappingProfiles
     {
         public UserMappingProfile()
         {
+            System.Diagnostics.Debug.WriteLine("UserMappingProfile Loaded!");
             CreateMap<User, UserDTO>()
             
             .ForMember(dest => dest.Name,

@@ -12,6 +12,7 @@ namespace CloudSpritzers.src.model.mappingProfiles
     {
         public EmployeeMappingProfile()
         {
+            System.Diagnostics.Debug.WriteLine("EmployeeMappingProfile Loaded!");
             CreateMap<Employee, EmployeeDTO>()
 
             .ForMember(dest => dest.Name,

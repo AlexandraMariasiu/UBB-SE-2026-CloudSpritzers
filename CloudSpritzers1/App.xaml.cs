@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CloudSpritzers.src;
 using CloudSpritzers.src.dto;
+using CloudSpritzers.src.model;
 using CloudSpritzers.src.model.mappingProfiles;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
@@ -39,8 +40,10 @@ namespace CloudSpritzers1
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
-            services.AddAutoMapper(typeof(UserMappingProfile).Assembly);
-            services.AddAutoMapper(typeof(EmployeeMappingProfile).Assembly);
+            services.AddAutoMapper(
+                typeof(UserMappingProfile).Assembly, 
+                typeof(EmployeeMappingProfile).Assembly
+            );
 
             // MESSAGE FOR ALL: here we will add ViewModels and Services
             // services.AddTransient<MainViewModel>();
@@ -54,7 +57,7 @@ namespace CloudSpritzers1
 
             //    public MainViewModel(IMapper mapper)
             //    {
-            //        _mapper = mapper;
+            //        _mapper = mapper; // where a mapper could be: var mapper = ((App)Application.Current).Services.GetService<IMapper>();
             //    }
 
             //    public void LoadUserData()
