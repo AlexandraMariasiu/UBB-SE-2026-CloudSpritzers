@@ -9,6 +9,6 @@ namespace CloudSpritzers1.src.service.bot.strategy
 {
     public interface IBotStrategy
     {
-        BotMessage process(BotEngine botEngine, IMessage message);
+        BotMessage Process(BotEngine botEngine, IMessage message);
     }
 }

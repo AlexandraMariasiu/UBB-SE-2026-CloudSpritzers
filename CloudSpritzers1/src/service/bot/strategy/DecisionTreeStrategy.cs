@@ -24,7 +24,7 @@ namespace CloudSpritzers1.src.service.bot.strategy
             this._currentDiscussionNode = null;
         }
 
-        public BotMessage process(BotEngine botEngine, IMessage message)
+        public BotMessage Process(BotEngine botEngine, IMessage message)
         {
             string text = message.GetMessage();
 
