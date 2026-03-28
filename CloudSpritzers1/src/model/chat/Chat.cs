@@ -10,7 +10,6 @@ namespace CloudSpritzers.src.model.chat
     {
         public int ChatId { get; set; }
         public int UserId { get; set; }
-        public int EmployeeId { get; set; }
         public ChatStatus Status { get; set; }
 
         public List<IMessage> Messages { get; set; }
@@ -19,9 +18,7 @@ namespace CloudSpritzers.src.model.chat
         {
             ChatId = chatId;
             UserId = userId;
-            EmployeeId = employeeId;
             Status = chatStatus;
-
             Messages = new List<IMessage>();
         }
 
@@ -30,14 +27,6 @@ namespace CloudSpritzers.src.model.chat
             if (message == null)
                 throw new ArgumentNullException(nameof(message), "message is empty");
             Messages.Add(message);
-        }
-
-
-        public void AssignEmployee(Employee employee)
-        {
-            if (employee == null)
-                throw new ArgumentNullException(nameof(employee), "No employee. Crickets");
-            EmployeeId = employee.EmployeeId; 
         }
 
         public int MessageCount()
