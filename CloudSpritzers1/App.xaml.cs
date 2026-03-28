@@ -40,6 +40,7 @@ namespace CloudSpritzers1
         {
             var services = new ServiceCollection();
             services.AddAutoMapper(typeof(UserMappingProfile).Assembly);
+            services.AddAutoMapper(typeof(EmployeeMappingProfile).Assembly);
 
             // MESSAGE FOR ALL: here we will add ViewModels and Services
             // services.AddTransient<MainViewModel>();
