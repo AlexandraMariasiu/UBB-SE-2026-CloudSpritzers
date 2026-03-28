@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using CloudSpritzers1.src.dto;
+using CloudSpritzers1.src.DTO;
+using CloudSpritzers1.src.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
