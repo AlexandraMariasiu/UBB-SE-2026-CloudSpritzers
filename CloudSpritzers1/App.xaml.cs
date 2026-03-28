@@ -1,4 +1,11 @@
-﻿using Microsoft.UI.Xaml;
+﻿using AutoMapper;
+using CloudSpritzers.src;
+using CloudSpritzers.src.dto;
+using CloudSpritzers.src.model;
+using CloudSpritzers.src.model.mappingProfiles;
+using CloudSpritzers1.src.model.mappingProfiles;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -8,6 +15,7 @@ using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -16,31 +24,54 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace CloudSpritzers1
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
     public partial class App : Application
     {
+        public IServiceProvider Services { get; }
         private Window? _window;
 
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
         public App()
         {
+            Services = ConfigureServices();
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Invoked when the application is launched.
-        /// </summary>
-        /// <param name="args">Details about the launch request and process.</param>
+
+        private static IServiceProvider ConfigureServices()
+        {
+            var services = new ServiceCollection();
+            services.AddAutoMapper(
+                typeof(UserMappingProfile).Assembly, 
+                typeof(EmployeeMappingProfile).Assembly,
+                typeof(TextDialogOptionMappingProfile).Assembly
+            );
+
+            // MESSAGE FOR ALL: here we will add ViewModels and Services
+            // services.AddTransient<MainViewModel>();
+
+            return services.BuildServiceProvider();
+
+            //a way of using this: 
+            //    public class MainViewModel
+            //{
+            //    private readonly IMapper _mapper;
+
+            //    public MainViewModel(IMapper mapper)
+            //    {
+            //        _mapper = mapper; // where a mapper could be: var mapper = ((App)Application.Current).Services.GetService<IMapper>();
+            //    }
+
+            //    public void LoadUserData()
+            //    {
+            //        var internalUser = new User(11, "Abel", "abel@gmail.com");
+            //        UserDTO uiUser = _mapper.Map<UserDTO>(internalUser);
+            //        Debug.WriteLine("Verification: User mapping successful.");
+            //        Debug.WriteLine($"User Name: {uiUser.Name}");
+            //    }
+            //}
+        }
+
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             _window = new MainWindow();
