@@ -11,13 +11,13 @@ namespace CloudSpritzers.src.model.message
     public class Message : IMessage
     {
         private int _message_id;
-        private IResponder _sender;
+        private ISender _sender;
         private Chat _chat;
         private DateTimeOffset _timestamp;
         private string _messageText;
         private bool _isRead;
 
-        public Message(IResponder sender, Object chat, string messageText, bool isRead)
+        public Message(ISender sender, Object chat, string messageText, bool isRead)
         {
             this._sender = sender;
             this._chat = chat;
@@ -48,7 +48,7 @@ namespace CloudSpritzers.src.model.message
             return this._messageText;
         }
 
-        public IResponder GetSender()
+        public ISender GetSender()
         {
             return _sender;
         }

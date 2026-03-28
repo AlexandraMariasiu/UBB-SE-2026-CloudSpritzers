@@ -1,6 +1,6 @@
 namespace CloudSpritzers.src.model.message
 {
-    public interface IResponder
+    public interface ISender
     {
         string GetName();
         string GetEmail();

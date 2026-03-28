@@ -11,7 +11,7 @@ namespace CloudSpritzers.src.model.message
         string GetMessage();
         IEnumerable<IMessage> GetNextOptions();
 
-        IResponder GetSender();
+        ISender GetSender();
 
         int GetId();
 

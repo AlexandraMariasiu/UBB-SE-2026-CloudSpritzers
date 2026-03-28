@@ -5,29 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using CloudSpritzers.src.model.message;
 using CloudSpritzers1.src.model.faq.bot;
+using CloudSpritzers1.src.service.bot.strategy;
 
 namespace CloudSpritzers1.src.service.bot
 {
-    public class BotEngine : IResponder
+    public class BotEngine : ISender
     {
 
-        private Dictionary<string, IMessage> currentSelection;
+        private FAQNode _currentDiscussionNode;
 
-        private IMessage currentDiscussionNode;
+        private IBotStrategy _responseStrategy;
 
-        public IMessage Respond(IMessage message)
+        public BotEngine(IBotStrategy responseStrategy)
+        {
+            this._responseStrategy = responseStrategy;
+            this._currentDiscussionNode = null; 
+        }
+
+
+        public Respond(IMessage message)
         {
             string text = message.GetMessage();
 
-            if(!currentSelection.ContainsKey(text))
+            FAQOption? option = _currentDiscussionNode.Options.FirstOrDefault((option) => option.Label.Equals(text));
+            if(option == null)
             {
-                // TODO take this from repository, map to db the chat options
-                return new FAQNode.Builder(-1, "Sorry, I am experiencing some technical difficulties. Could you start again?", "")
-                    .AddOption(
-                        new FAQNode.Builder(-1, "Yes", "")
-                    )
+                 return new Message(this, )
             }
-
             return null;
         }
         
