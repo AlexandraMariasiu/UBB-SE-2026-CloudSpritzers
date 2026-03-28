@@ -68,5 +68,10 @@ namespace CloudSpritzers1.src.model.message
         {
             return _timestamp;
         }
+
+        object IMessage.GetChat()
+        {
+            return this._chat;
+        }
     }
 }
