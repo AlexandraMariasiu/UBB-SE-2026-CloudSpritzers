@@ -9,13 +9,7 @@ using Microsoft.Data.SqlClient;
 public abstract class DBRepository<K, E>
     where E : class
 {
-    private readonly string _connectionString;
     private readonly Dictionary<K, E> _cache = new();
-
-    protected DBRepository(string connectionString)
-    {
-        _connectionString = connectionString;
-    }
 
     protected SqlConnection CreateConnection() => DBConnectionHandler.Instance.Connection;
     protected abstract E MapRowToEntity(SqlDataReader reader);
