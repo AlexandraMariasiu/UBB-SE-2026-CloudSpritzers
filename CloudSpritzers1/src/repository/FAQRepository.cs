@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using CloudSpritzers.src.model.faq;
+using CloudSpritzers1.src.model.faq;
 
-namespace CloudSpritzers.src.repository
+namespace CloudSpritzers1.src.repository
 {
     public class FAQRepository : IRepository<int, FAQEntry>
     {
@@ -10,32 +11,46 @@ namespace CloudSpritzers.src.repository
 
         public FAQEntry GetById(int id)
         {
-            return _faqs.ContainsKey(id) ? _faqs[id] : null;
+            if (!_faqs.ContainsKey(id))
+                throw new KeyNotFoundException($"FAQ with id {id} was not found.");
+
+            return _faqs[id];
         }
 
         public int Add(FAQEntry elem)
         {
-            if (_faqs.ContainsKey(elem.GetId()))
-                return -1;
+            if (elem == null)
+                throw new ArgumentNullException(nameof(elem), "FAQ entry cannot be null.");
 
+            if (_faqs.ContainsKey(elem.GetId()))
+                throw new InvalidOperationException($"FAQ with id {elem.GetId()} already exists.");
+   
             _faqs[elem.GetId()] = elem;
             return elem.GetId();
         }
 
         public void UpdateById(int id, FAQEntry elem)
         {
-            if (_faqs.ContainsKey(id))
-            {
-                _faqs[id] = elem;
-            }
+
+            if (elem == null)
+                throw new ArgumentNullException(nameof(elem), "FAQ entry cannot be null.");
+
+            if (!_faqs.ContainsKey(id))
+                throw new KeyNotFoundException($"FAQ with id {id} was not found.");
+
+          
+            _faqs[id] = elem;
+         
         }
 
         public void DeleteById(int id)
         {
-            if (_faqs.ContainsKey(id))
-            {
-                _faqs.Remove(id);
-            }
+
+            if (!_faqs.ContainsKey(id))
+                throw new KeyNotFoundException($"FAQ with id {id} was not found.");
+
+            _faqs.Remove(id);
+          
         }
 
         public IEnumerable<FAQEntry> GetAll()
@@ -53,22 +68,19 @@ namespace CloudSpritzers.src.repository
         public void IncrementViewCount(int id)
         {
             var faq = GetById(id);
-            if (faq != null)
-                faq.IncrementViewCount();
+            faq.IncrementViewCount();
         }
 
         public void IncrementWasHelpfulVotes(int id)
         {
             var faq = GetById(id);
-            if (faq != null)
-                faq.IncrementWasHelpfulVotes();
+            faq.IncrementWasHelpfulVotes();
         }
 
         public void IncrementWasNotHelpfulVotes(int id)
         {
             var faq = GetById(id);
-            if (faq != null)
-                faq.IncrementWasNotHelpfulVotes();
+            faq.IncrementWasNotHelpfulVotes();
         }
     }
 }

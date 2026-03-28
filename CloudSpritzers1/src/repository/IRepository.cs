@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudSpritzers.src.repository
+namespace CloudSpritzers1.src.repository
 {
     public interface IRepository<K, V> where V : class
     {
