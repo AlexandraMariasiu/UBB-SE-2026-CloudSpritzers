@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using CloudSpritzers.src.model.review;
+using CloudSpritzers1.src.model.review;
 
-namespace CloudSpritzers.src.repository
+namespace CloudSpritzers1.src.repository
 {
     public class ReviewRepository : IRepository<int, Review>
     {

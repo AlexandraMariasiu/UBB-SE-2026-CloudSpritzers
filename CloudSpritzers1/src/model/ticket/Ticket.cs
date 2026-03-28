@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CloudSpritzers.src.model.ticket
+namespace CloudSpritzers1.src.model.ticket
  {
     public class Ticket
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudSpritzers.src.model.message
+namespace CloudSpritzers1.src.model.message
 {
     // FIXME: Remove this once the actual classes are implemented
     using Chat = Object;

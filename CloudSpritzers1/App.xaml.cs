@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using CloudSpritzers.src;
-using CloudSpritzers.src.dto;
-using CloudSpritzers.src.model;
-using CloudSpritzers.src.model.mappingProfiles;
+using CloudSpritzers1.src;
+using CloudSpritzers1.src.dto;
+using CloudSpritzers1.src.model;
+using CloudSpritzers1.src.model.mappingProfiles;
 using CloudSpritzers1.src.model.mappingProfiles;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;

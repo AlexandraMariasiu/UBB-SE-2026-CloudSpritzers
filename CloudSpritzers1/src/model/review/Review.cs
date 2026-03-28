@@ -1,4 +1,4 @@
-namespace CloudSpritzers.src.model.review
+namespace CloudSpritzers1.src.model.review
 {
     public class Review
     {

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using CloudSpritzers.src.model.faq;
+using CloudSpritzers1.src.model.faq;
 
-namespace CloudSpritzers.src.repository
+namespace CloudSpritzers1.src.repository
 {
     public class FAQRepository : IRepository<int, FAQEntry>
     {

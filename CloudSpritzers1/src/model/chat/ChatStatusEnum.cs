@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace CloudSpritzers.src.model.chat
+namespace CloudSpritzers1.src.model.chat
 {
     public enum ChatStatus
     {
-        HumanActive,
-        BotActive,
+        Active,
         Closed
     }
 }

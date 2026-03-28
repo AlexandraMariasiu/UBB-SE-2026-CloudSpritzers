@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using CloudSpritzers.src.dto;
+using CloudSpritzers1.src.dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudSpritzers.src.model.mappingProfiles
+namespace CloudSpritzers1.src.model.mappingProfiles
 {
     public class EmployeeMappingProfile : Profile
     {

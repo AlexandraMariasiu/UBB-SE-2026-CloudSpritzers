@@ -7,115 +7,84 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
-using CloudSpritzers.src.model.chat;
+using CloudSpritzers1.src.model.chat;
 
-namespace CloudSpritzers.src.repository
+namespace CloudSpritzers1.src.repository
 {
-	public class ChatDBRepository : IRepository<int, Chat>
+	public class ChatDBRepository : DBRepository<int, Chat>, IRepository<int, Chat>
 	{
-		private readonly string _connectionString;
 
         /// <summary>
         /// Helper method to map a reader row to a Chat object to respect DRY 
         /// </summary>
         /// <param name="reader"> SqlDataReader </param>
         /// <returns> Chat object </returns>
-        private Chat MapRowToChat(SqlDataReader reader)
+        protected override Chat MapRowToEntity(SqlDataReader reader)
         {
             int chatId = reader.GetInt32(reader.GetOrdinal("chat_id"));
             int userId = reader.GetInt32(reader.GetOrdinal("user_id"));
-
             string statusStr = reader.GetString(reader.GetOrdinal("status"));
             ChatStatus status = (ChatStatus)Enum.Parse(typeof(ChatStatus), statusStr);
 
             return new Chat(chatId, userId, status);
         }
 
-		public ChatDBRepository(string connectionString)
-		{
-			_connectionString = connectionString;
-		}
+        public ChatDBRepository(string connectionString) : base(connectionString)
+        {
+        }
+
+        protected override int GetEntityId(Chat entity)
+        {
+            return entity.ChatId;
+        }
 
         public int Add(Chat elem)
         {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
-            {
-                string query = "INSERT INTO Chat (user_id, status) " +
+            string query = "INSERT INTO Chat (user_id, status) " +
                                "VALUES (@userId, @status); SELECT SCOPE_IDENTITY();";
 
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@userId", elem.UserId);
-                cmd.Parameters.AddWithValue("@status", elem.Status.ToString());
+            var cmd = new SqlCommand(query);
+            cmd.Parameters.AddWithValue("@userId", elem.UserId);
+            cmd.Parameters.AddWithValue("@status", elem.Status.ToString());
 
-                conn.Open();
-                
-                return Convert.ToInt32(cmd.ExecuteScalar()); //id of new row
-            }
+            return Add(cmd, elem);
         }
 
         public void DeleteById(int id)
         {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
-            {
-                string query = "DELETE FROM Chat WHERE chat_id = @id";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id", id);
+            string query = "DELETE FROM Chat WHERE chat_id = @id";
+            var cmd = new SqlCommand(query);
+            cmd.Parameters.AddWithValue("@id", id);
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
+            DeleteById(id, cmd); 
         }
 
-        public void UpdateById(int id, Chat elem)
+        public void UpdateById(int id, Chat chat)
         {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
-            {
-                string query = "UPDATE Chat SET user_id = @userId,status = @status " +
-                               "WHERE chat_id = @id";
+            string query = "UPDATE Chat SET user_id = @userId, status = @status WHERE chat_id = @id";
+            var cmd = new SqlCommand(query);
+            cmd.Parameters.AddWithValue("@userId", chat.UserId);
+            cmd.Parameters.AddWithValue("@status", chat.Status.ToString());
+            cmd.Parameters.AddWithValue("@id", id);
 
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@userId", elem.UserId);
-                cmd.Parameters.AddWithValue("@status", elem.Status.ToString());
-                cmd.Parameters.AddWithValue("@id", id);
-
-                conn.Open();
-                int rows = cmd.ExecuteNonQuery();
-                if (rows == 0) throw new KeyNotFoundException($"Chat with ID {id} not found.");
-            }
+            UpdateById(id, cmd, chat); 
         }
 
         public IEnumerable<Chat> GetAll()
         {
-            List<Chat> chats = new List<Chat>();
-            using (SqlConnection conn = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM Chat";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read()) chats.Add(MapRowToChat(reader));
-                }
-            }
-            return chats;
+            string query = "SELECT * FROM Chat";
+            var cmd = new SqlCommand(query);
+
+            return GetAll(cmd);
         }
 
         public Chat GetById(int id)
         {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM Chat WHERE chat_id = @id";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id", id);
+            string query = "SELECT * FROM Chat WHERE chat_id = @id";
+            var cmd = new SqlCommand(query);
+            cmd.Parameters.AddWithValue("@id", id);
 
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read()) return MapRowToChat(reader);
-                }
-            }
-            throw new KeyNotFoundException($"Chat with id {id} not found.");
-
+            return GetById(id, cmd) ?? throw new KeyNotFoundException($"Chat with id {id} not found.");
         }
 
     }
