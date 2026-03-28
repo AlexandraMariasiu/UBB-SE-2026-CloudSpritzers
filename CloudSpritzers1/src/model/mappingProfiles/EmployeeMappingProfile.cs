@@ -13,18 +13,7 @@ namespace CloudSpritzers.src.model.mappingProfiles
         public EmployeeMappingProfile()
         {
             System.Diagnostics.Debug.WriteLine("EmployeeMappingProfile Loaded!");
-            CreateMap<Employee, EmployeeDTO>()
-
-            .ForMember(dest => dest.Name,
-                       opt => opt.MapFrom(src => src.GetName()))
-
-            .ForMember(dest => dest.Email,
-                       opt => opt.MapFrom(src => src.GetEmail()))
-
-            .ConstructUsing(src => new EmployeeDTO(
-                src.GetName(),
-                src.GetEmail()
-            ));
+            CreateMap<Employee, EmployeeDTO>();
         }
     }
 }

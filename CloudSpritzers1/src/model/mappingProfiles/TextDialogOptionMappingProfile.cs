@@ -14,15 +14,7 @@ namespace CloudSpritzers1.src.model.mappingProfiles
     {
         public TextDialogOptionMappingProfile() {
             System.Diagnostics.Debug.WriteLine("TextDialogMappingProfile Loaded!");
-            CreateMap<TextDialogOption, TextDialogOptionDTO>()
-
-            //there might be a need for multiple fields in the future
-            .ForMember(dest => dest.Message,
-                       opt => opt.MapFrom(src => src.GetMessage()))
-
-            .ConstructUsing(src => new TextDialogOptionDTO(
-                src.GetMessage()
-            ));
+            CreateMap<TextDialogOption, TextDialogOptionDTO>();
         }
     }
 }
