@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
+using Microsoft.Data;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-
 using System.Configuration;
 using CloudSpritzers.src.model.chat;
 
@@ -25,17 +22,13 @@ namespace CloudSpritzers.src.repository
         /// <returns> Chat object </returns>
         private Chat MapRowToChat(SqlDataReader reader)
         {
-            // TODO: check if fields in DB are the same
             int chatId = reader.GetInt32(reader.GetOrdinal("chat_id"));
             int userId = reader.GetInt32(reader.GetOrdinal("user_id"));
-
-            int empOrdinal = reader.GetOrdinal("employee_id");
-            int employeeId = reader.IsDBNull(empOrdinal) ? 0 : reader.GetInt32(empOrdinal);
 
             string statusStr = reader.GetString(reader.GetOrdinal("status"));
             ChatStatus status = (ChatStatus)Enum.Parse(typeof(ChatStatus), statusStr);
 
-            return new Chat(chatId, userId, employeeId, status);
+            return new Chat(chatId, userId, status);
         }
 
 		public ChatDBRepository(string connectionString)
@@ -47,12 +40,11 @@ namespace CloudSpritzers.src.repository
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                string query = "INSERT INTO Chat (user_id, employee_id, status) " +
-                               "VALUES (@userId, @empId, @status); SELECT SCOPE_IDENTITY();";
+                string query = "INSERT INTO Chat (user_id, status) " +
+                               "VALUES (@userId, @status); SELECT SCOPE_IDENTITY();";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userId", elem.UserId);
-                cmd.Parameters.AddWithValue("@empId", elem.EmployeeId);
                 cmd.Parameters.AddWithValue("@status", elem.Status.ToString());
 
                 conn.Open();
@@ -78,12 +70,11 @@ namespace CloudSpritzers.src.repository
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                string query = "UPDATE Chat SET user_id = @userId, employee_id = @empId, status = @status " +
+                string query = "UPDATE Chat SET user_id = @userId,status = @status " +
                                "WHERE chat_id = @id";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@userId", elem.UserId);
-                cmd.Parameters.AddWithValue("@empId", elem.EmployeeId);
                 cmd.Parameters.AddWithValue("@status", elem.Status.ToString());
                 cmd.Parameters.AddWithValue("@id", id);
 
@@ -127,55 +118,6 @@ namespace CloudSpritzers.src.repository
 
         }
 
-        public IEnumerable<Chat> GetUnresolvedChats()
-		{
-            List<Chat> chats = new List<Chat>();
-            using (SqlConnection conn = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM Chat WHERE status != @closedStatus";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@closedStatus", ChatStatus.Closed.ToString());
-
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read()) chats.Add(MapRowToChat(reader));
-                }
-            }
-            return chats;
-        }
-
-        public IEnumerable<Chat> GetUnansweredChats()
-        {
-            List<Chat> chats = new List<Chat>();
-            using (SqlConnection conn =new SqlConnection(_connectionString))
-            {
-                string query = @"
-                    SELECT c.chat_id, c.user_id, c.employee_id, c.status
-                    FROM Chat c
-                    INNER JOIN (
-                        SELECT chat_id, MAX(message_id) as latest_msg_id
-                        FROM Message
-                        GROUP BY chat_id
-                    ) last_msg ON c.chat_id = last_msg.chat_id
-                    INNER JOIN [Message] m ON m.message_id = last_msg.latest_msg_id
-                    INNER JOIN Sender s ON m.sender_id = s.sender_id
-                    WHERE s.[user_id] IS NOT NULL AND c.[status] != 'Closed'
-                    ORDER BY m.timestamp DESC";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                conn.Open();
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        chats.Add(MapRowToChat(reader));
-                    }
-                }
-            }
-            return chats;
-        }
     }
 
 }

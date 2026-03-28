@@ -17,22 +17,9 @@ namespace CloudSpritzers.src.repository
             _chats = new List<Chat> ();
         }
 
-        public IEnumerable<Chat> GetUnresolvedChats()
-        {
-            return _chats.Where(chat => chat.Status != ChatStatus.Closed);
-        }
-
-        public IEnumerable<Chat> GetUnansweredChats()
-        {
-            return _chats.Where(chat =>
-                chat.Messages.Count > 0 &&
-                chat.Messages.Last().GetSender() is Passenger
-            );
-        }
-
         public Chat GetById(int id)
         {
-            Chat chat = _chats.FirstOrDefault(c => c.ChatId == id);
+            Chat chat = _chats.First(c => c.ChatId == id);
 
             if (chat == null)
                 throw new KeyNotFoundException($"Chat with id {id} not found.");

@@ -14,7 +14,7 @@ namespace CloudSpritzers.src.model.chat
 
         public List<IMessage> Messages { get; set; }
 
-        public Chat(int chatId, int userId, int employeeId, ChatStatus chatStatus)
+        public Chat(int chatId, int userId, ChatStatus chatStatus)
         {
             ChatId = chatId;
             UserId = userId;
@@ -32,6 +32,11 @@ namespace CloudSpritzers.src.model.chat
         public int MessageCount()
         {
             return Messages.Count;
+        }
+
+        public void CloseChat()
+        {
+            Status = ChatStatus.Closed;
         }
 
     }
