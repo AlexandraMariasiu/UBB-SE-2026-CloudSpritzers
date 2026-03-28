@@ -1,7 +1,8 @@
-﻿using System;
+﻿using CloudSpritzers1.src.model;
+using System;
 
-namespace CloudSpritzers.src.model.ticket
- {
+namespace CloudSpritzers1.src.model.ticket
+{
     public class Ticket
     {
         public int TicketId { get; }

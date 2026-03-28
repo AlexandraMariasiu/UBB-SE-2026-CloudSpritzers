@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 //FIXME: This is just a stud for the bot engine, it will need to be implemented.
-namespace CloudSpritzers.src.model.message
+namespace CloudSpritzers1.src.model.message
 {
     public class BotEngine : IResponder
     {

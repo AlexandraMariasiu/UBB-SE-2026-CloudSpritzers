@@ -1,9 +1,9 @@
-﻿using CloudSpritzers.src.model.ticket;
+﻿using CloudSpritzers1.src.model.ticket;
 using System;
 using System.Collections.Generic;
 
 
-namespace CloudSpritzers.src.repository
+namespace CloudSpritzers1.src.repository
 {
     public class TicketRepository : IRepository<int, Ticket>
     {
