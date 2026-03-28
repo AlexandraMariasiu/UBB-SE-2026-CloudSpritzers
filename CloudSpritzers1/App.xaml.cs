@@ -3,6 +3,7 @@ using CloudSpritzers.src;
 using CloudSpritzers.src.dto;
 using CloudSpritzers.src.model;
 using CloudSpritzers.src.model.mappingProfiles;
+using CloudSpritzers1.src.model.mappingProfiles;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -42,7 +43,8 @@ namespace CloudSpritzers1
             var services = new ServiceCollection();
             services.AddAutoMapper(
                 typeof(UserMappingProfile).Assembly, 
-                typeof(EmployeeMappingProfile).Assembly
+                typeof(EmployeeMappingProfile).Assembly,
+                typeof(TextDialogOptionMappingProfile).Assembly
             );
 
             // MESSAGE FOR ALL: here we will add ViewModels and Services
