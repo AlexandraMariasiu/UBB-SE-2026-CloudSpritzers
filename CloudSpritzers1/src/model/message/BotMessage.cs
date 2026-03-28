@@ -19,7 +19,7 @@ namespace CloudSpritzers1.src.model.message
         private bool _isRead;
         private IEnumerable<FAQOption> _faqOptions;
 
-        public BotMessage(int messageId, ISender sender, Chat chat, string messageText, IEnumerable<FAQOption> options, bool isRead)
+        private BotMessage(int messageId, ISender sender, Chat chat, string messageText, IEnumerable<FAQOption> options, bool isRead)
         {
             this._messageId = messageId;
             this._sender = sender;
@@ -70,6 +70,10 @@ namespace CloudSpritzers1.src.model.message
             return _timestamp;
         }
 
+        object IMessage.GetChat()
+        {
+            return this._chat;
+        }
 
         public class Builder
         {
@@ -80,11 +84,18 @@ namespace CloudSpritzers1.src.model.message
             private bool _isRead;
             private List<FAQOption> _faqOptions;
 
-            public Builder(ISender _sender, Chat chat, int messageId, string message)
+            public Builder(ISender sender, Chat chat, int messageId, FAQNode nodeToMessage) 
+                : this(sender, chat, messageId)
             {
-                this._messageText = message;
+                this._messageText = nodeToMessage.QuestionText;
+                this._faqOptions = nodeToMessage.Options.ToList();
+            }
+
+            public Builder(ISender sender, Chat chat, int messageId)
+            {
+                this._messageText = "";
                 this._messageId = messageId;
-                this._sender = _sender;
+                this._sender = sender;
                 this._chat = chat;
                 this._isRead = false;
                 this._faqOptions = new List<FAQOption>();

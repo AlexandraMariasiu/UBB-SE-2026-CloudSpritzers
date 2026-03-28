@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model.message;
 using System;
 using System.Collections.Generic;
@@ -10,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace CloudSpritzers1.src.model.mappingProfiles
 {
-    public class TextDialogOptionMappingProfile : Profile
+    public class BotMessageMappingProfile : Profile
     {
-        public TextDialogOptionMappingProfile() {
-            System.Diagnostics.Debug.WriteLine("TextDialogMappingProfile Loaded!");
-            CreateMap<TextDialogOption, TextDialogOptionDTO>();
+        public BotMessageMappingProfile() {
+            System.Diagnostics.Debug.WriteLine("BotMessageMappingProfile Loaded!");
+            CreateMap<BotMessage, BotMessageDTO>();
         }
     }
 }

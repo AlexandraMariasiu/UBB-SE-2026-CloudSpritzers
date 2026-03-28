@@ -7,6 +7,9 @@ using CloudSpritzers1.src.model.faq.bot;
 
 namespace CloudSpritzers1.src.model.message
 {
+
+    // FIXME: remove when chat exists
+    using Chat = object;
     public interface IMessage
     {
         string GetMessage();
@@ -16,6 +19,8 @@ namespace CloudSpritzers1.src.model.message
 
         int GetId();
 
+        Chat GetChat();
+        
         DateTimeOffset GetTimeStamp();
 
     }

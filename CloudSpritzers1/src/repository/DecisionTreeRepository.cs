@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using CloudSpritzers.src.repository;
 using CloudSpritzers1.src.model.faq.bot;
 using Microsoft.Data.SqlClient;
 
