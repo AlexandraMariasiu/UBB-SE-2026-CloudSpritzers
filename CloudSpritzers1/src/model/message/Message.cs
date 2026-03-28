@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudSpritzers1.src.model.faq.bot;
 
 namespace CloudSpritzers.src.model.message
 {
@@ -58,9 +59,9 @@ namespace CloudSpritzers.src.model.message
             return this._message_id;
         }
 
-        IEnumerable<IMessage> IMessage.GetNextOptions()
+        IEnumerable<FAQOption> IMessage.GetNextOptions()
         {
-            return new List<IMessage>();
+            return new List<FAQOption>();
         }
 
         DateTimeOffset IMessage.GetTimeStamp()
