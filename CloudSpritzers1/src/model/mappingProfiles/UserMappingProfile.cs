@@ -14,9 +14,6 @@ namespace CloudSpritzers.src.model.mappingProfiles
         {
             CreateMap<User, UserDTO>()
             
-            .ForMember(dest => dest.UserId,
-                       opt => opt.MapFrom(src => src.UserId.ToString()))
-            
             .ForMember(dest => dest.Name,
                        opt => opt.MapFrom(src => src.GetName()))
             
@@ -24,7 +21,6 @@ namespace CloudSpritzers.src.model.mappingProfiles
                        opt => opt.MapFrom(src => src.GetEmail()))
 
             .ConstructUsing(src => new UserDTO(
-                src.UserId.ToString(),
                 src.GetName(),
                 src.GetEmail()
             ));
