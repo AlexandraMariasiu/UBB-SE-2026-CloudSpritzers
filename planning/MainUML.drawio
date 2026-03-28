@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" version="29.6.6">
   <diagram name="Pagină-1" id="Vz0KifkGweyrLFLpv6YR">
-    <mxGraphModel dx="2256" dy="842" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2137" dy="772" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -181,7 +181,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="lIgatAJ3T9316m0nGQeB-37" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=none;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Chat&lt;/b&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;ViewModel&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- chat: Chat&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- messages: List&amp;lt;Messages&amp;gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ loadMessages(): void&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ sendMessage(text: string): void&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ closeChat(): void&lt;br&gt;&lt;br&gt;&lt;/p&gt;" vertex="1">
-          <mxGeometry height="210" width="240" x="260" y="2787" as="geometry" />
+          <mxGeometry height="140" width="200" x="260" y="2787" as="geometry" />
         </mxCell>
         <mxCell id="lIgatAJ3T9316m0nGQeB-50" edge="1" parent="1" source="lIgatAJ3T9316m0nGQeB-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="lIgatAJ3T9316m0nGQeB-29">
           <mxGeometry relative="1" as="geometry" />
@@ -244,8 +244,8 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="lIgatAJ3T9316m0nGQeB-62" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=none;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Chat&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;div&gt;&amp;nbsp;- id : Integer&lt;/div&gt;&lt;div&gt;&amp;nbsp;- user: User&lt;/div&gt;&lt;div&gt;&amp;nbsp;- employee : Employee&lt;/div&gt;&lt;div&gt;&amp;nbsp;- status : string&lt;/div&gt;&lt;div&gt;&amp;nbsp;- messages: Message[]&lt;/div&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;div&gt;&amp;nbsp;+ getId(): Integer&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getUserId(): string&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getEmployeeId(): string&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getStatus(): string&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ setStatus( newStatus: string)&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getMessages(): Message[]&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ addMessage( msg: Message)&lt;/div&gt;&lt;div&gt;&lt;div&gt;&amp;nbsp;+ AssignEmployee(employeeId : Employee): void&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ CloseChat(): void&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ MessageCount(): int&lt;/div&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="260" width="300" x="630" y="740" as="geometry" />
+        <mxCell id="lIgatAJ3T9316m0nGQeB-62" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=none;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Chat&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;div&gt;&amp;nbsp;- id : Integer&lt;/div&gt;&lt;div&gt;&amp;nbsp;- user: User&lt;/div&gt;&lt;div&gt;&amp;nbsp;- status : string&lt;/div&gt;&lt;div&gt;&amp;nbsp;- messages: Message[]&lt;/div&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;div&gt;&amp;nbsp;+ getId(): Integer&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getUserId(): string&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;+ getStatus(): string&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ setStatus( newStatus: string)&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ getMessages(): Message[]&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ addMessage( msg: Message)&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;+ CloseChat(): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;+ MessageCount(): int&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="230" width="200" x="630" y="740" as="geometry" />
         </mxCell>
         <mxCell id="lIgatAJ3T9316m0nGQeB-63" edge="1" parent="1" source="lIgatAJ3T9316m0nGQeB-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.453;entryY=0.991;entryDx=0;entryDy=0;entryPerimeter=0;" target="lIgatAJ3T9316m0nGQeB-62">
           <mxGeometry relative="1" as="geometry">
@@ -317,7 +317,7 @@
         <mxCell id="lIgatAJ3T9316m0nGQeB-83" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=none;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;Status&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;OPEN&lt;br&gt;IN_PROGRESS&lt;br&gt;RESOLVED&lt;/p&gt;" vertex="1">
           <mxGeometry height="90" width="160" x="1940" y="924" as="geometry" />
         </mxCell>
-        <mxCell id="lIgatAJ3T9316m0nGQeB-84" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=none;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;ChatStatus&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;HUMAN_ACTIVE&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;BOT_ACTIVE&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;CLOSED&lt;/p&gt;" vertex="1">
+        <mxCell id="lIgatAJ3T9316m0nGQeB-84" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=none;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;ChatStatus&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;ACTIVE&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;CLOSED&lt;/p&gt;" vertex="1">
           <mxGeometry height="90" width="160" x="-40" y="620" as="geometry" />
         </mxCell>
         <mxCell id="lIgatAJ3T9316m0nGQeB-87" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=none;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;UrgencyLevel&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;LOW&lt;br&gt;MEDIUM&lt;br&gt;HIGH&lt;/p&gt;" vertex="1">
@@ -850,20 +850,11 @@
             <mxPoint x="360" y="271" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="rhbwHLdEN5bPg5jUMOGq-357" edge="1" parent="1" source="rhbwHLdEN5bPg5jUMOGq-290" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="lIgatAJ3T9316m0nGQeB-8" value="">
-          <mxGeometry relative="1" width="160" as="geometry">
-            <Array as="points">
-              <mxPoint x="-280" y="1195" />
-            </Array>
-            <mxPoint x="-190" y="1112" as="sourcePoint" />
-            <mxPoint x="-116" y="1400" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="rhbwHLdEN5bPg5jUMOGq-358" parent="1" style="swimlane;startSize=0;" value="" vertex="1">
-          <mxGeometry height="1841" width="1810" x="-730" y="1659" as="geometry" />
+          <mxGeometry height="1841" width="1810" x="-730" y="1666" as="geometry" />
         </mxCell>
         <mxCell id="rhbwHLdEN5bPg5jUMOGq-318" parent="rhbwHLdEN5bPg5jUMOGq-358" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=none;" value="ChatService" vertex="1">
-          <mxGeometry height="138" width="400" x="780" y="607" as="geometry" />
+          <mxGeometry height="112" width="400" x="780" y="607" as="geometry" />
         </mxCell>
         <mxCell id="rhbwHLdEN5bPg5jUMOGq-319" parent="rhbwHLdEN5bPg5jUMOGq-318" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- repository: IRepository&amp;lt;int, Chat&amp;gt;" vertex="1">
           <mxGeometry height="26" width="400" y="26" as="geometry" />
@@ -874,11 +865,8 @@
         <mxCell id="rhbwHLdEN5bPg5jUMOGq-321" parent="rhbwHLdEN5bPg5jUMOGq-318" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ OpenChat(user_id: int): Chat&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="26" width="400" y="60" as="geometry" />
         </mxCell>
-        <mxCell id="rhbwHLdEN5bPg5jUMOGq-322" parent="rhbwHLdEN5bPg5jUMOGq-318" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ AssignEmployee(chatId: Uuid, Employee): void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="rhbwHLdEN5bPg5jUMOGq-323" parent="rhbwHLdEN5bPg5jUMOGq-318" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ CloseChat(chatId: int): void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="26" width="400" y="86" as="geometry" />
-        </mxCell>
-        <mxCell id="rhbwHLdEN5bPg5jUMOGq-323" parent="rhbwHLdEN5bPg5jUMOGq-318" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ CloseChat(chatId: Uuid): void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="26" width="400" y="112" as="geometry" />
         </mxCell>
         <mxCell id="rhbwHLdEN5bPg5jUMOGq-324" parent="rhbwHLdEN5bPg5jUMOGq-358" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=36;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;IRepository&amp;lt;K,V&amp;gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="160" width="220" x="770" y="60" as="geometry" />
@@ -896,13 +884,10 @@
           <mxGeometry height="46" width="220" y="114" as="geometry" />
         </mxCell>
         <mxCell id="rhbwHLdEN5bPg5jUMOGq-329" parent="rhbwHLdEN5bPg5jUMOGq-358" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=none;" value="ChatMemoryRepository&amp;lt;K, V&amp;gt;" vertex="1">
-          <mxGeometry height="108" width="210" x="560" y="221" as="geometry" />
-        </mxCell>
-        <mxCell id="rhbwHLdEN5bPg5jUMOGq-330" parent="rhbwHLdEN5bPg5jUMOGq-329" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ getUnansweredChats() : Chat[]&lt;/div&gt;&lt;div&gt;+ getUnresolvedChats() : Chat[]&lt;/div&gt;" vertex="1">
-          <mxGeometry height="74" width="210" y="26" as="geometry" />
+          <mxGeometry height="34" width="210" x="560" y="221" as="geometry" />
         </mxCell>
         <mxCell id="rhbwHLdEN5bPg5jUMOGq-331" parent="rhbwHLdEN5bPg5jUMOGq-329" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="210" y="100" as="geometry" />
+          <mxGeometry height="8" width="210" y="26" as="geometry" />
         </mxCell>
         <mxCell id="rhbwHLdEN5bPg5jUMOGq-335" edge="1" parent="rhbwHLdEN5bPg5jUMOGq-358" source="rhbwHLdEN5bPg5jUMOGq-324" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="rhbwHLdEN5bPg5jUMOGq-329" value="">
           <mxGeometry relative="1" width="160" as="geometry">
@@ -930,13 +915,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="rhbwHLdEN5bPg5jUMOGq-332" parent="rhbwHLdEN5bPg5jUMOGq-358" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=none;" value="ChatDBRepository" vertex="1">
-          <mxGeometry height="68" width="210" x="840" y="329" as="geometry" />
-        </mxCell>
-        <mxCell id="rhbwHLdEN5bPg5jUMOGq-333" parent="rhbwHLdEN5bPg5jUMOGq-332" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ getUnansweredChats() : Chat[]&lt;/div&gt;&lt;div&gt;+ getUnresolvedChats() : Chat[]&lt;/div&gt;" vertex="1">
-          <mxGeometry height="34" width="210" y="26" as="geometry" />
+          <mxGeometry height="34" width="210" x="840" y="329" as="geometry" />
         </mxCell>
         <mxCell id="rhbwHLdEN5bPg5jUMOGq-334" parent="rhbwHLdEN5bPg5jUMOGq-332" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="210" y="60" as="geometry" />
+          <mxGeometry height="8" width="210" y="26" as="geometry" />
         </mxCell>
         <mxCell id="rhbwHLdEN5bPg5jUMOGq-359" parent="rhbwHLdEN5bPg5jUMOGq-358" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Chat Hurray" vertex="1">
           <mxGeometry height="30" width="60" x="10" y="31" as="geometry" />
