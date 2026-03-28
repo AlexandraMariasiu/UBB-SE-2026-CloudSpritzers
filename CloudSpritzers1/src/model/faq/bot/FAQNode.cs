@@ -4,7 +4,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers.src.model.message;
 using CloudSpritzers1.src.service.bot;
 
 namespace CloudSpritzers1.src.model.faq.bot
