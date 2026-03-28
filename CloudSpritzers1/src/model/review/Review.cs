@@ -3,17 +3,17 @@ namespace CloudSpritzers.src.model.review
     public class Review
     {
         private int _id;
-        private int _userId;
+        private User _user;
         private string _message;
         private int _dutyFreeRating;
         private int _flightExperienceRating;
         private int _staffFriendlinessRating;
         private int _cleanlinessRating;
 
-        public Review(int id, int userId, string message, int dutyFreeRating, int flightExperienceRating, int staffFriendlinesRating, int cleanlinessRating)
+        public Review(int id, User user, string message, int dutyFreeRating, int flightExperienceRating, int staffFriendlinesRating, int cleanlinessRating)
         {
             this._id = id;
-            this._userId = userId;
+            this._user = user;
             this._message = message;
             this._dutyFreeRating = dutyFreeRating;
             this._flightExperienceRating = flightExperienceRating;
@@ -28,9 +28,8 @@ namespace CloudSpritzers.src.model.review
             return this._id; 
         }
 
-        public int GetUserId() 
-        { 
-            return this._userId; 
+        public User GetUser() { 
+            return this._user;
         }
         
         public string GetMessage() 

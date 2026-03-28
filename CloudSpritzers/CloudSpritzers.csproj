@@ -65,6 +65,14 @@
     <Compile Include="src\model\message\IResponder.cs" />
     <Compile Include="src\model\message\Message.cs" />
     <Compile Include="src\model\message\TextDialogOption.cs" />
+    <Compile Include="src\model\ticket\TicketCategory.cs" />
+    <Compile Include="src\model\ticket\StatusEnum.cs" />
+    <Compile Include="src\model\ticket\TicketSubcategory.cs" />
+    <Compile Include="src\model\ticket\Ticket.cs" />
+    <Compile Include="src\model\ticket\UrgencyLevelEnum.cs" />
+    <Compile Include="src\repository\FAQRepository.cs" />
+    <Compile Include="src\repository\IRepository.cs" />
+    <Compile Include="src\repository\TicketRepository.cs" />
     <Compile Include="src\repository\ChatDBRepository.cs" />
     <Compile Include="src\repository\ChatMemoryRepository.cs" />
     <Compile Include="src\model\review\Review.cs" />
