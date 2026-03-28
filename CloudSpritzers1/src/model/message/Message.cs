@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CloudSpritzers1.src.model.faq.bot;
 
-namespace CloudSpritzers.src.model.message
+namespace CloudSpritzers1.src.model.message
 {
     // FIXME: Remove this once the actual classes are implemented
     using Chat = Object;

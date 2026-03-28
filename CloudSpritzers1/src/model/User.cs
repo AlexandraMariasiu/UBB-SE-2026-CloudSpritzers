@@ -1,14 +1,14 @@
-using CloudSpritzers.src.model.message;
+using CloudSpritzers1.src.model.message;
 
-namespace CloudSpritzers.src.model
+namespace CloudSpritzers1.src.model
 {
-    public class Passenger : ISender
+    public class User : IResponder
     {
         private int _userId;
         private string _name;
         private string _email;
 
-        public Passenger(int userId, string name, string email)
+        public User(int userId, string name, string email)
         {
             _userId = userId;
             _name = name;

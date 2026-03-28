@@ -1,4 +1,4 @@
-namespace CloudSpritzers.src.model.message
+namespace CloudSpritzers1.src.model.message
 {
     public interface ISender
     {
