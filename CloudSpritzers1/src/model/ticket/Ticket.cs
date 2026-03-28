@@ -14,11 +14,11 @@ namespace CloudSpritzers1.src.model.ticket
         public string Subject { get; }
         public string Description { get; }
         public DateTime CreatedAt { get; }
-        public Ticket(int ticketId, User user, StatusEnum status, TicketCategory category, TicketSubcategory subcategory, string subject, string description, DateTime createdAt)
+        public Ticket(int ticketId, User user, StatusEnum status, TicketCategory category, TicketSubcategory subcategory, string subject, string description, DateTime createdAt, UrgencyLevelEnum? urgencyLevel = null)
         { 
             TicketId = ticketId;
             User = user;
-            UrgencyLevel = category.UrgencyLevel;
+            UrgencyLevel = urgencyLevel ?? category.UrgencyLevel;
             Status = status;
             Category = category;
             Subcategory = subcategory;
