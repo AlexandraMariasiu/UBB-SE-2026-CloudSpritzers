@@ -1,4 +1,4 @@
 ﻿namespace CloudSpritzers.src.dto
 {
-    public record EmployeeDTO(int EmployeeId, string Name, string Email, int GroupId);
+    public record EmployeeDTO(string Name, string Email);
 }
