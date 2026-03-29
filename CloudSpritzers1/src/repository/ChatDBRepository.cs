@@ -29,10 +29,6 @@ namespace CloudSpritzers1.src.repository
             return new Chat(chatId, userId, status);
         }
 
-        public ChatDBRepository(string connectionString) : base(connectionString)
-        {
-        }
-
         protected override int GetEntityId(Chat entity)
         {
             return entity.ChatId;
