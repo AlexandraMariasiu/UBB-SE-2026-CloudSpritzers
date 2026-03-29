@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CloudSpritzers1.src.model.review;
-using CloudSpritzers1.src.DTO;
+using CloudSpritzers1.src.DTO.CloudSpritzers1.src.DTO;
 
 namespace CloudSpritzers1.src.model.mappingProfiles
 {
