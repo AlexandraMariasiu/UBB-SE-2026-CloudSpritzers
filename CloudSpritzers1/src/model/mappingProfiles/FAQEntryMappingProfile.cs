@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CloudSpritzers1.src.DTO;
+using System.Formats.Tar;
 
 namespace CloudSpritzers1.src.model.mappingProfiles
 {
@@ -15,14 +16,18 @@ namespace CloudSpritzers1.src.model.mappingProfiles
     {
         public FAQEntryMappingProfile()
         {
+            System.Diagnostics.Debug.WriteLine("FAQEntryMappingProfile Loaded!");
+
             CreateMap<FAQEntry, FAQEntryDTO>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GetId()))
-                .ForMember(dest => dest.Question, opt => opt.MapFrom(src => src.GetQuestion()))
-                .ForMember(dest => dest.Answer, opt => opt.MapFrom(src => src.GetAnswer()))
-                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.GetCategory()))
-                .ForMember(dest => dest.ViewCount, opt => opt.MapFrom(src => src.GetViewCount()))
-                .ForMember(dest => dest.WasHelpfulVotes, opt => opt.MapFrom(src => src.GetWasHelpfulVotes()))
-                .ForMember(dest => dest.WasNotHelpfulVotes, opt => opt.MapFrom(src => src.GetWasNotHelpfulVotes()));
+                .ConstructUsing(src => new FAQEntryDTO(
+                    src.GetId(),
+                    src.GetQuestion(),
+                    src.GetAnswer(),
+                    src.GetCategory(),
+                    src.GetViewCount(),
+                    src.GetWasHelpfulVotes(),
+                    src.GetWasNotHelpfulVotes()
+                ));
         }
     }
 }
