@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudSpritzers1.src.DTO;
+using System.Formats.Tar;
 
 namespace CloudSpritzers1.src.model.mappingProfiles
 {
@@ -14,8 +16,18 @@ namespace CloudSpritzers1.src.model.mappingProfiles
     {
         public FAQEntryMappingProfile()
         {
-            System.Diagnostics.Debug.WriteLine("TextDialogMappingProfile Loaded!");
-            CreateMap<FAQEntry, FAQEntryDTO>();
+            System.Diagnostics.Debug.WriteLine("FAQEntryMappingProfile Loaded!");
+
+            CreateMap<FAQEntry, FAQEntryDTO>()
+                .ConstructUsing(src => new FAQEntryDTO(
+                    src.GetId(),
+                    src.GetQuestion(),
+                    src.GetAnswer(),
+                    src.GetCategory(),
+                    src.GetViewCount(),
+                    src.GetWasHelpfulVotes(),
+                    src.GetWasNotHelpfulVotes()
+                ));
         }
     }
 }

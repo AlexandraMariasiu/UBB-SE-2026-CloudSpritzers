@@ -10,15 +10,15 @@ namespace CloudSpritzers1.src.model.faq
         private int _wasHelpfulVotes;
         private int _wasNotHelpfulVotes;
 
-        public FAQEntry(int id, string question, string answer, FAQCategoryEnum category)
+        public FAQEntry(int id, string question, string answer, FAQCategoryEnum category, int viewCount, int wasHelpfulVotes, int wasNotHelpfulVotes)
         {
             _id = id;
             _question = question;
             _answer = answer;
             _category = category;
-            _viewCount = 0;
-            _wasHelpfulVotes = 0;
-            _wasNotHelpfulVotes = 0;
+            _viewCount = viewCount;
+            _wasHelpfulVotes = wasHelpfulVotes;
+            _wasNotHelpfulVotes = wasNotHelpfulVotes;
         }
 
         public int GetId()
