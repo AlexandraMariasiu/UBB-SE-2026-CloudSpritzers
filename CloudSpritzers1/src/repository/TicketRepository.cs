@@ -23,7 +23,7 @@ namespace CloudSpritzers1.src.repository
         public void DeleteById(int id)
         {
             if (!Tickets.ContainsKey(id))
-                throw new KeyNotFoundException("Ticket with ID " + id + " not found.");
+                throw new KeyNotFoundException($"Ticket with ID '{id}' not found.");
 
             Tickets.Remove(id);
         }
@@ -40,7 +40,7 @@ namespace CloudSpritzers1.src.repository
             if (Tickets.TryGetValue(id, out ticket))
                 return ticket;
 
-            throw new KeyNotFoundException("Ticket with ID " + id + " not found.");
+            throw new KeyNotFoundException($"Ticket with ID '{id}' not found.");
         }
 
         public void UpdateById(int id, Ticket elem)
@@ -49,7 +49,7 @@ namespace CloudSpritzers1.src.repository
                 throw new ArgumentNullException();
 
             if (!Tickets.ContainsKey(id))
-                throw new KeyNotFoundException("Ticket with ID " + id + " not found.");
+                throw new KeyNotFoundException($"Ticket with ID '{id}' not found.");
 
             if (id != elem.TicketId)
             {
