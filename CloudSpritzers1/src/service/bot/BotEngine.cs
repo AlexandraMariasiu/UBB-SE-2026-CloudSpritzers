@@ -23,7 +23,7 @@ namespace CloudSpritzers1.src.service.bot
 
         public BotMessage Respond(IMessage message)
         {
-            return _responseStrategy.process(this, message);
+            return _responseStrategy.Process(this, message);
         }
         
         public string GetEmail()

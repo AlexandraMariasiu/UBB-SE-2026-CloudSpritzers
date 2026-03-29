@@ -65,7 +65,7 @@ namespace CloudSpritzers1
 
             //    public void LoadUserData()
             //    {
-            //        var internalUser = new User(11, "Abel", "abel@gmail.com");
+            //        var internalUser = new User(11, "Abel", "abel@gmail.com"); <3<3<3
             //        UserDTO uiUser = _mapper.Map<UserDTO>(internalUser);
             //        Debug.WriteLine("Verification: User mapping successful.");
             //        Debug.WriteLine($"User Name: {uiUser.Name}");
