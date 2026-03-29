@@ -6,9 +6,9 @@
 
 ## ✨ Features
 
-* **💬 Real-Time Chat:** Seamless communication with airport staff or an automated bot agent via asynchronous messaging.
+* **💬 Virtual Assistant Chat:** Seamless communication with an automated bot agent.
 * **🎫 Ticketing:** A robust system for passengers to report issues or file formal complaints with status tracking.
-* **❓ Smart FAQs:** Categorized, searchable knowledge base for instant answers to common travel queries.
+* **❓ Smart FAQs:** Categorised, searchable knowledge base for instant answers to common travel queries.
 * **⭐️ Reviews & Feedback:** Interactive rating system for airport facilities (e.g. Flight Experience, Duty Free).
 
 ---

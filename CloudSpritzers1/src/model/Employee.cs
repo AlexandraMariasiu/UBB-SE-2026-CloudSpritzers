@@ -3,7 +3,7 @@ using CloudSpritzers1.src.model.message;
 
 namespace CloudSpritzers1.src.model
 {
-    public class Employee : IResponder
+    public class Employee : ISender
     {
         private int _employeeId;
         private string _name;
