@@ -2,19 +2,14 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.repository;
 using CloudSpritzers1.src.repository.database;
 using Microsoft.Data.SqlClient;
 
 public abstract class DBRepository<K, E>
     where E : class
 {
-    private readonly string _connectionString;
     private readonly Dictionary<K, E> _cache = new();
-
-    protected DBRepository(string connectionString)
-    {
-        _connectionString = connectionString;
-    }
 
     protected SqlConnection CreateConnection() => DBConnectionHandler.Instance.Connection;
     protected abstract E MapRowToEntity(SqlDataReader reader);

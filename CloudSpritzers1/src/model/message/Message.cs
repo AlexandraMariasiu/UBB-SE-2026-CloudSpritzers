@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudSpritzers1.src.model.faq.bot;
 
 namespace CloudSpritzers1.src.model.message
 {
@@ -11,13 +12,13 @@ namespace CloudSpritzers1.src.model.message
     public class Message : IMessage
     {
         private int _message_id;
-        private IResponder _sender;
+        private ISender _sender;
         private Chat _chat;
         private DateTimeOffset _timestamp;
         private string _messageText;
         private bool _isRead;
 
-        public Message(IResponder sender, Object chat, string messageText, bool isRead)
+        public Message(ISender sender, Object chat, string messageText, bool isRead)
         {
             this._sender = sender;
             this._chat = chat;
@@ -48,7 +49,7 @@ namespace CloudSpritzers1.src.model.message
             return this._messageText;
         }
 
-        public IResponder GetSender()
+        public ISender GetSender()
         {
             return _sender;
         }
@@ -58,14 +59,19 @@ namespace CloudSpritzers1.src.model.message
             return this._message_id;
         }
 
-        IEnumerable<IMessage> IMessage.GetNextOptions()
+        IEnumerable<FAQOption> IMessage.GetNextOptions()
         {
-            return new List<IMessage>();
+            return new List<FAQOption>();
         }
 
         DateTimeOffset IMessage.GetTimeStamp()
         {
             return _timestamp;
+        }
+
+        object IMessage.GetChat()
+        {
+            return this._chat;
         }
     }
 }
