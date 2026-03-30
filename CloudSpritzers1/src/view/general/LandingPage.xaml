@@ -7,7 +7,7 @@
 
     <ScrollViewer>
         <StackPanel Spacing="50">
-            
+
             <Grid Height="500">
                 <FlipView x:Name="SupportCarousel" Background="Black"
                           IsHitTestVisible="False"
@@ -21,7 +21,7 @@
                             </StackPanel>
                         </Grid>
                     </FlipViewItem>
-                    
+
                     <FlipViewItem>
                         <Grid>
                             <Image Source="/Assets/Airport2.jpg" Stretch="UniformToFill" Opacity="0.7"/>
@@ -36,8 +36,7 @@
                         </Grid>
                     </FlipViewItem>
                 </FlipView>
-
-                </Grid>
+            </Grid>
 
             <StackPanel Spacing="20" Margin="40,0,40,40">
                 <TextBlock Text="What Our Customers Say" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center"/>
@@ -55,13 +54,32 @@
                                     Margin="10" Padding="24" CornerRadius="12" 
                                     BorderThickness="1" BorderBrush="#E0E0E0">
                                 <StackPanel Spacing="10">
-                                    <TextBlock Text="⭐⭐⭐⭐⭐" Foreground="Teal" FontSize="18"/>
 
-                                    <TextBlock Text="{x:Bind message}" TextWrapping="Wrap" FontStyle="Italic" FontSize="16"/>
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <RatingControl Value="{x:Bind overallRating}" 
+                                                       IsReadOnly="True" 
+                                                       MaxRating="5" 
+                                                       Foreground="Teal"/>
+                                        <TextBlock Text="{x:Bind overallRating}" 
+                                                   VerticalAlignment="Center" 
+                                                   FontSize="14" 
+                                                   FontWeight="SemiBold" 
+                                                   Foreground="Gray"/>
+                                    </StackPanel>
+
+                                    <TextBlock Text="{x:Bind message}" 
+                                               TextWrapping="Wrap" 
+                                               FontStyle="Italic" 
+                                               FontSize="16" 
+                                               MinHeight="60"/>
 
                                     <StackPanel Margin="0,10,0,0">
-                                        <TextBlock Text="{x:Bind userName}" FontWeight="Bold"/>
-                                        <TextBlock Text="Verified Traveler" FontSize="12" Opacity="0.6"/>
+                                        <TextBlock Text="{x:Bind userName}" 
+                                                   FontWeight="Bold" 
+                                                   FontSize="16"/>
+                                        <TextBlock Text="Verified Traveler" 
+                                                   FontSize="12" 
+                                                   Opacity="0.6"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Border>

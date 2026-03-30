@@ -42,7 +42,8 @@ namespace CloudSpritzers1.src.model.mappingProfiles
                 src.GetDutyFreeRating(),
                 src.GetFlightExperienceRating(),
                 src.GetStaffFriendlinessRating(),
-                src.GetCleanlinessRating()
+                src.GetCleanlinessRating(),
+                0
             ));
         }
     }

@@ -14,6 +14,7 @@ namespace CloudSpritzers1.src.dto
         int dutyFreeRating,
         int flightExperienceRating,
         int staffFriendlinessRating,
-        int cleanlinessRating
+        int cleanlinessRating,
+        float overallRating
     );
 }
