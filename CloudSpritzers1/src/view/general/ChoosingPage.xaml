@@ -10,7 +10,7 @@
     <Grid>
         <StackPanel VerticalAlignment="Center" Spacing="30">
             <StackPanel HorizontalAlignment="Center" Margin="0,0,0,20">
-                <TextBlock Text="Welcome to CloudSpritzers" 
+                <TextBlock Text="Welcome to CloudSpritzers!" 
                            FontSize="42" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
                 <TextBlock Text="How can we assist you today?" 
                            FontSize="18" Foreground="White" Opacity="0.8" HorizontalAlignment="Center"/>
@@ -20,7 +20,7 @@
 
                 <Button Width="350" Height="400" CornerRadius="12" Background="White" Padding="30">
                     <StackPanel Spacing="15" VerticalAlignment="Center">
-                        <FontIcon Glyph="&#xE77B;" FontSize="60" Foreground="#23A6B1"/>
+                        <FontIcon Glyph="&#xE77B;" FontSize="60" Foreground="Black"/>
                         <TextBlock Text="I'm a Customer" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="Black"/>
                         <TextBlock Text="Access customer support, submit tickets, and chat with our team." 
                                    TextWrapping="Wrap" TextAlignment="Center" Foreground="#555555"/>
@@ -29,7 +29,7 @@
 
                 <Button Width="350" Height="400" CornerRadius="12" Background="White" Padding="30">
                     <StackPanel Spacing="15" VerticalAlignment="Center">
-                        <FontIcon Glyph="&#xE7EE;" FontSize="60" Foreground="#1B212E"/>
+                        <FontIcon Glyph="&#xE7EE;" FontSize="60" Foreground="Black"/>
                         <TextBlock Text="I'm an Employee" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="Black"/>
                         <TextBlock Text="Access employee portal, manage tickets, and internal resources." 
                                    TextWrapping="Wrap" TextAlignment="Center" Foreground="#555555"/>
