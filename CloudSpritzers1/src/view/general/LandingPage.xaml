@@ -60,7 +60,7 @@
                                     <TextBlock Text="{x:Bind message}" TextWrapping="Wrap" FontStyle="Italic" FontSize="16"/>
 
                                     <StackPanel Margin="0,10,0,0">
-                                        <TextBlock Text="{x:Bind userId}" FontWeight="Bold"/>
+                                        <TextBlock Text="{x:Bind userName}" FontWeight="Bold"/>
                                         <TextBlock Text="Verified Traveler" FontSize="12" Opacity="0.6"/>
                                     </StackPanel>
                                 </StackPanel>

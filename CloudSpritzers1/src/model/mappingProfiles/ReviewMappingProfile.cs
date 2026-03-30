@@ -16,6 +16,9 @@ namespace CloudSpritzers1.src.model.mappingProfiles
             .ForMember(dest => dest.userId,
                         opt => opt.MapFrom(src => src.GetUser().UserId))
 
+            .ForMember(dest => dest.userName,
+                        opt => opt.MapFrom(src => src.GetUser().GetName()))
+
             .ForMember(dest => dest.message,
                         opt => opt.MapFrom(src => src.GetMessage()))
 
@@ -34,6 +37,7 @@ namespace CloudSpritzers1.src.model.mappingProfiles
             .ConstructUsing(src => new ReviewDTO(
                 src.GetId(),
                 src.GetUser().UserId,
+                src.GetUser().GetName(),
                 src.GetMessage(),
                 src.GetDutyFreeRating(),
                 src.GetFlightExperienceRating(),

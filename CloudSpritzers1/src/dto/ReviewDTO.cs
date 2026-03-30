@@ -9,6 +9,7 @@ namespace CloudSpritzers1.src.dto
     public record ReviewDTO(
         int id,
         int userId,
+        string userName,
         string message,
         int dutyFreeRating,
         int flightExperienceRating,
