@@ -20,13 +20,7 @@ namespace CloudSpritzers1.src.model.mappingProfiles
 
             CreateMap<FAQEntry, FAQEntryDTO>()
                 .ConstructUsing(src => new FAQEntryDTO(
-                    src.GetId(),
-                    src.GetQuestion(),
-                    src.GetAnswer(),
-                    src.GetCategory(),
-                    src.GetViewCount(),
-                    src.GetWasHelpfulVotes(),
-                    src.GetWasNotHelpfulVotes()
+                    src
                 ));
         }
     }

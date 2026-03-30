@@ -1,3 +1,5 @@
+using CloudSpritzers1.src.viewmodel;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -8,8 +10,12 @@ namespace CloudSpritzers1.src.view.general
     {
         private DispatcherTimer _carouselTimer = new DispatcherTimer();
 
+        public LandingViewModel ViewModel { get; }
+
         public LandingPage()
         {
+
+            ViewModel = (App.Current as App).Services.GetService<LandingViewModel>();
             InitializeComponent();
             StartCarousel();
         }

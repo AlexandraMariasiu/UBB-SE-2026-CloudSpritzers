@@ -3,6 +3,9 @@ using CloudSpritzers1.src;
 using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.mappingProfiles;
+using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.service;
+using CloudSpritzers1.src.viewmodel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -36,40 +39,25 @@ namespace CloudSpritzers1
             InitializeComponent();
         }
 
-
         private static IServiceProvider ConfigureServices()
         {
+            DotNetEnv.Env.Load(System.IO.Path.Combine(AppContext.BaseDirectory, ".env"));
+
             var services = new ServiceCollection();
             services.AddAutoMapper(
-                typeof(UserMappingProfile).Assembly, 
+                typeof(UserMappingProfile).Assembly,
                 typeof(EmployeeMappingProfile).Assembly,
                 typeof(BotMessageMappingProfile).Assembly,
-                typeof(FAQEntryMappingProfile).Assembly
+                typeof(FAQEntryMappingProfile).Assembly,
+                typeof(ReviewMappingProfile).Assembly
             );
 
-            // MESSAGE FOR ALL: here we will add ViewModels and Services
-            // services.AddTransient<MainViewModel>();
+            services.AddSingleton<ReviewRepository>();
+            services.AddSingleton<ReviewService>();
+
+            services.AddTransient<LandingViewModel>();
 
             return services.BuildServiceProvider();
-
-            //a way of using this: 
-            //    public class MainViewModel
-            //{
-            //    private readonly IMapper _mapper;
-
-            //    public MainViewModel(IMapper mapper)
-            //    {
-            //        _mapper = mapper; // where a mapper could be: var mapper = ((App)Application.Current).Services.GetService<IMapper>();
-            //    }
-
-            //    public void LoadUserData()
-            //    {
-            //        var internalUser = new User(11, "Abel", "abel@gmail.com"); <3<3<3
-            //        UserDTO uiUser = _mapper.Map<UserDTO>(internalUser);
-            //        Debug.WriteLine("Verification: User mapping successful.");
-            //        Debug.WriteLine($"User Name: {uiUser.Name}");
-            //    }
-            //}
         }
 
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)

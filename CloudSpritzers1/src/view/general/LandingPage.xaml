@@ -2,6 +2,7 @@
     x:Class="CloudSpritzers1.src.view.general.LandingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dto="using:CloudSpritzers1.src.dto"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <ScrollViewer>
@@ -39,34 +40,34 @@
                 </Grid>
 
             <StackPanel Spacing="20" Margin="40,0,40,40">
-                <TextBlock Text="What Our Customers Say" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
-                <TextBlock Text="Real reviews from real travelers" HorizontalAlignment="Center" Margin="0,-15,0,20" Opacity="0.7"/>
+                <TextBlock Text="What Our Customers Say" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center"/>
 
-                <VariableSizedWrapGrid Orientation="Horizontal" HorizontalAlignment="Center" ItemWidth="400" MaximumRowsOrColumns="2">
-                    
-                    <Border Background="{ThemeResource SystemControlBackgroundAltHighBrush}" Margin="10" Padding="24" CornerRadius="12" BorderThickness="1" BorderBrush="#E0E0E0">
-                        <StackPanel Spacing="10">
-                            <TextBlock Text="⭐⭐⭐⭐⭐" Foreground="Teal" FontSize="18"/>
-                            <TextBlock Text="&quot;Outstanding customer support! They helped me resolve my booking issue within minutes.&quot;" TextWrapping="Wrap" FontStyle="Italic" FontSize="16"/>
-                            <StackPanel Margin="0,10,0,0">
-                                <TextBlock Text="Sarah Johnson" FontWeight="Bold"/>
-                                <TextBlock Text="March 15, 2026" FontSize="12" Opacity="0.6"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
+                <ItemsControl ItemsSource="{x:Bind ViewModel.Reviews}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VariableSizedWrapGrid Orientation="Horizontal" HorizontalAlignment="Center" ItemWidth="400" MaximumRowsOrColumns="2"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-                    <Border Background="{ThemeResource SystemControlBackgroundAltHighBrush}" Margin="10" Padding="24" CornerRadius="12" BorderThickness="1" BorderBrush="#E0E0E0">
-                        <StackPanel Spacing="10">
-                            <TextBlock Text="⭐⭐⭐⭐⭐" Foreground="Teal" FontSize="18"/>
-                            <TextBlock Text="&quot;Best airline support I've ever experienced. Highly recommend!&quot;" TextWrapping="Wrap" FontStyle="Italic" FontSize="16"/>
-                            <StackPanel Margin="0,10,0,0">
-                                <TextBlock Text="Michael Chen" FontWeight="Bold"/>
-                                <TextBlock Text="March 12, 2026" FontSize="12" Opacity="0.6"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="dto:ReviewDTO">
+                            <Border Background="{ThemeResource SystemControlBackgroundAltHighBrush}" 
+                                    Margin="10" Padding="24" CornerRadius="12" 
+                                    BorderThickness="1" BorderBrush="#E0E0E0">
+                                <StackPanel Spacing="10">
+                                    <TextBlock Text="⭐⭐⭐⭐⭐" Foreground="Teal" FontSize="18"/>
 
-                </VariableSizedWrapGrid>
+                                    <TextBlock Text="{x:Bind message}" TextWrapping="Wrap" FontStyle="Italic" FontSize="16"/>
+
+                                    <StackPanel Margin="0,10,0,0">
+                                        <TextBlock Text="{x:Bind userId}" FontWeight="Bold"/>
+                                        <TextBlock Text="Verified Traveler" FontSize="12" Opacity="0.6"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
         </StackPanel>
     </ScrollViewer>
