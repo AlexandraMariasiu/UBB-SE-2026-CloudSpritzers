@@ -3,83 +3,82 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dto="using:CloudSpritzers1.src.dto"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="White">
 
     <ScrollViewer>
         <StackPanel Spacing="50">
 
             <Grid Height="500">
-                <FlipView x:Name="SupportCarousel" Background="Black"
+                <FlipView x:Name="SupportCarousel" Background="#F5FDFD"
                           IsHitTestVisible="False"
                           UseTouchAnimationsForAllNavigation="False">
                     <FlipViewItem>
                         <Grid>
-                            <Image Source="/Assets/Support1.jpg" Stretch="UniformToFill" Opacity="0.7"/>
+                            <Image Source="/Assets/Airport2.jpg" Stretch="UniformToFill" Opacity="0.7"/>
                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <TextBlock Text="Premium Customer Support" FontSize="48" FontWeight="Bold" Foreground="White" TextAlignment="Center"/>
-                                <TextBlock Text="Available 24/7 for all your travel needs" FontSize="20" Foreground="White" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Available 24/7 for all your travel needs" FontSize="20" Foreground="Teal" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Grid>
                     </FlipViewItem>
 
                     <FlipViewItem>
                         <Grid>
-                            <Image Source="/Assets/Airport2.jpg" Stretch="UniformToFill" Opacity="0.7"/>
+                            <Image Source="/Assets/Bags.jpg" Stretch="UniformToFill" Opacity="0.7"/>
                             <TextBlock Text="Seamless Airport Assistance" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="48" FontWeight="Bold" Foreground="White"/>
                         </Grid>
                     </FlipViewItem>
 
                     <FlipViewItem>
                         <Grid>
-                            <Image Source="/Assets/Travel3.jpg" Stretch="UniformToFill" Opacity="0.7"/>
+                            <Image Source="/Assets/Travel3.jpeg" Stretch="UniformToFill" Opacity="0.7"/>
                             <TextBlock Text="Global Coverage" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="48" FontWeight="Bold" Foreground="White"/>
                         </Grid>
                     </FlipViewItem>
                 </FlipView>
             </Grid>
 
-            <StackPanel Spacing="20" Margin="40,0,40,40">
-                <TextBlock Text="What Our Customers Say" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <StackPanel Spacing="30" Margin="40,0,40,60">
+                <TextBlock Text="What Our Customers Say" FontSize="36" FontWeight="Bold" Foreground="#333333" HorizontalAlignment="Center"/>
+                <Rectangle Height="3" Width="50" Fill="#2bb8c0" HorizontalAlignment="Center" Margin="0,-15,0,10"/>
 
                 <ItemsControl ItemsSource="{x:Bind ViewModel.Reviews}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <VariableSizedWrapGrid Orientation="Horizontal" HorizontalAlignment="Center" ItemWidth="400" MaximumRowsOrColumns="2"/>
+                            <VariableSizedWrapGrid Orientation="Horizontal" HorizontalAlignment="Center" ItemWidth="420" MaximumRowsOrColumns="2"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="dto:ReviewDTO">
-                            <Border Background="{ThemeResource SystemControlBackgroundAltHighBrush}" 
-                                    Margin="10" Padding="24" CornerRadius="12" 
+                            <Border Background="White" 
+                                    Margin="12" Padding="25" CornerRadius="8" 
                                     BorderThickness="1" BorderBrush="#E0E0E0">
-                                <StackPanel Spacing="10">
+                                <StackPanel Spacing="15">
 
-                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <Viewbox Height="20" HorizontalAlignment="Left">
                                         <RatingControl Value="{x:Bind overallRating}" 
                                                        IsReadOnly="True" 
                                                        MaxRating="5" 
-                                                       Foreground="Teal"/>
-                                        <TextBlock Text="{x:Bind overallRating}" 
-                                                   VerticalAlignment="Center" 
-                                                   FontSize="14" 
-                                                   FontWeight="SemiBold" 
-                                                   Foreground="Gray"/>
-                                    </StackPanel>
+                                                       Foreground="#2bb8c0"/>
+                                    </Viewbox>
 
                                     <TextBlock Text="{x:Bind message}" 
                                                TextWrapping="Wrap" 
-                                               FontStyle="Italic" 
                                                FontSize="16" 
-                                               MinHeight="60"/>
+                                               LineHeight="24"
+                                               Foreground="#444444" 
+                                               FontStyle="Italic"
+                                               MinHeight="70"/>
 
-                                    <StackPanel Margin="0,10,0,0">
+                                    <StackPanel>
                                         <TextBlock Text="{x:Bind userName}" 
                                                    FontWeight="Bold" 
-                                                   FontSize="16"/>
+                                                   FontSize="16" 
+                                                   Foreground="#2bb8c0"/>
                                         <TextBlock Text="Verified Traveler" 
                                                    FontSize="12" 
-                                                   Opacity="0.6"/>
+                                                   Foreground="Gray"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
