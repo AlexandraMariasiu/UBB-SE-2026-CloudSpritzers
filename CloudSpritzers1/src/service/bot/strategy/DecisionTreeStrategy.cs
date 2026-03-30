@@ -31,13 +31,13 @@ namespace CloudSpritzers1.src.service.bot.strategy
             FAQOption? option = _currentDiscussionNode.Options.FirstOrDefault((option) => option.Label.Equals(text));
             if (option == null)
             {
-                return new BotMessage.Builder(botEngine, message.GetChat(), UNASSIGNED_ID,
+                return new BotMessage.BotMessageBuilder(botEngine, message.GetChat(), UNASSIGNED_ID,
                     _faqDecisionRepository.GetById((int)BotStandardMessages.RESTART_CONVERSATION)).Build();
             }
 
             FAQNode nextQuestion = _faqDecisionRepository.GetById(option.NextOptionId);
 
-            return new BotMessage.Builder(botEngine, message.GetChat(), UNASSIGNED_ID, nextQuestion).Build();
+            return new BotMessage.BotMessageBuilder(botEngine, message.GetChat(), UNASSIGNED_ID, nextQuestion).Build();
         }
     }
 }

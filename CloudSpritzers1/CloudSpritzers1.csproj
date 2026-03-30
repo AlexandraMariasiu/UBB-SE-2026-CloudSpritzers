@@ -58,6 +58,12 @@
     <None Update="src\view\chat\ChatPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <Page Update="src\view\generic\ThemeResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="src\view\generic\EnterYourId.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--
