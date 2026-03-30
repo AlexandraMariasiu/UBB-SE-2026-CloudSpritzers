@@ -7,7 +7,7 @@ using CloudSpritzers1.src.model.chat;
 using CloudSpritzers1.src.dto;
 using AutoMapper;
 
-namespace CloudSpritzers1.src.model.mappingProfiles
+namespace CloudSpritzers1.src.dto.mappingProfiles
 {
     public class ChatMappingProfile : Profile
     {

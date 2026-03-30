@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using CloudSpritzers1.src;
 using CloudSpritzers1.src.dto;
+using CloudSpritzers1.src.dto.mappingProfiles;
 using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.model.mappingProfiles;
-using CloudSpritzers1.src.model.mappingProfiles;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -44,7 +43,7 @@ namespace CloudSpritzers1
             services.AddAutoMapper(
                 typeof(UserMappingProfile).Assembly, 
                 typeof(EmployeeMappingProfile).Assembly,
-                typeof(BotMessageMappingProfile).Assembly,
+                typeof(MessageMappingProfile).Assembly,
                 typeof(FAQEntryMappingProfile).Assembly
             );
 

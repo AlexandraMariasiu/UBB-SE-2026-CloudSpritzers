@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudSpritzers1.src.model.chat;
 using CloudSpritzers1.src.model.faq.bot;
 
 namespace CloudSpritzers1.src.model.message
 {
-    // FIXME: Remove this once the actual classes are implemented
-    using Chat = Object;
     public class Message : IMessage
     {
         private int _message_id;
@@ -16,28 +15,16 @@ namespace CloudSpritzers1.src.model.message
         private Chat _chat;
         private DateTimeOffset _timestamp;
         private string _messageText;
-        private bool _isRead;
 
-        public Message(ISender sender, Object chat, string messageText, bool isRead)
+        public Message(ISender sender, Chat chat, string messageText)
         {
             this._sender = sender;
             this._chat = chat;
             this._messageText = messageText;
-            this._isRead = isRead;
             this._timestamp = DateTimeOffset.UtcNow;
         }
 
-        void MarkAsRead()
-        {
-            this._isRead = true;
-        }
-
-        bool IsMessageRead()
-        {
-            return _isRead;
-        }
-
-        Chat GetChat()
+        public Chat GetChat()
         {
             return this._chat;
         }

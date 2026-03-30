@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using CloudSpritzers1.src.DTO;
 using System.Formats.Tar;
 
-namespace CloudSpritzers1.src.model.mappingProfiles
+namespace CloudSpritzers1.src.dto.mappingProfiles
 {
     public class FAQEntryMappingProfile : Profile
     {
@@ -18,16 +18,7 @@ namespace CloudSpritzers1.src.model.mappingProfiles
         {
             System.Diagnostics.Debug.WriteLine("FAQEntryMappingProfile Loaded!");
 
-            CreateMap<FAQEntry, FAQEntryDTO>()
-                .ConstructUsing(src => new FAQEntryDTO(
-                    src.GetId(),
-                    src.GetQuestion(),
-                    src.GetAnswer(),
-                    src.GetCategory(),
-                    src.GetViewCount(),
-                    src.GetWasHelpfulVotes(),
-                    src.GetWasNotHelpfulVotes()
-                ));
+            CreateMap<FAQEntry, FAQEntryDTO>();
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudSpritzers1.src.model.mappingProfiles
+namespace CloudSpritzers1.src.dto.mappingProfiles
 {
     public class EmployeeMappingProfile : Profile
     {
