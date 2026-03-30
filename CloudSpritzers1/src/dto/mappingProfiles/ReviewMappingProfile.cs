@@ -2,7 +2,7 @@
 using CloudSpritzers1.src.model.review;
 using CloudSpritzers1.src.dto;
 
-namespace CloudSpritzers1.src.model.mappingProfiles
+namespace CloudSpritzers1.src.dto.mappingProfiles
 {
     public class ReviewMappingProfile : Profile
     {
@@ -10,10 +10,10 @@ namespace CloudSpritzers1.src.model.mappingProfiles
         {
             System.Diagnostics.Debug.WriteLine("ReviewMappingProfile Loaded!");
             CreateMap<Review, ReviewDTO>()
-            .ForMember(dest => dest.id,
+            .ForMember(dest => dest.Id,
                         opt => opt.MapFrom(src => src.GetId()))
 
-            .ForMember(dest => dest.userId,
+            .ForMember(dest => dest.UserId,
                         opt => opt.MapFrom(src => src.GetUser().UserId))
 
             .ForMember(dest => dest.userName,
@@ -22,16 +22,16 @@ namespace CloudSpritzers1.src.model.mappingProfiles
             .ForMember(dest => dest.message,
                         opt => opt.MapFrom(src => src.GetMessage()))
 
-            .ForMember(dest => dest.dutyFreeRating,
+            .ForMember(dest => dest.DutyFreeRating,
                         opt => opt.MapFrom(src => src.GetDutyFreeRating()))
 
-            .ForMember(dest => dest.flightExperienceRating,
+            .ForMember(dest => dest.FlightExperienceRating,
                         opt => opt.MapFrom(src => src.GetFlightExperienceRating()))
 
-            .ForMember(dest => dest.staffFriendlinessRating,
+            .ForMember(dest => dest.StaffFriendlinessRating,
                         opt => opt.MapFrom(src => src.GetStaffFriendlinessRating()))
 
-            .ForMember(dest => dest.cleanlinessRating,
+            .ForMember(dest => dest.CleanlinessRating,
                         opt => opt.MapFrom(src => src.GetCleanlinessRating()))
 
             .ConstructUsing(src => new ReviewDTO(

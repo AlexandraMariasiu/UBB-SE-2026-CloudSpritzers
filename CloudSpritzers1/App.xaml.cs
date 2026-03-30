@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CloudSpritzers1.src;
 using CloudSpritzers1.src.dto;
+using CloudSpritzers1.src.dto.mappingProfiles;
 using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.mappingProfiles;
 using CloudSpritzers1.src.repository;

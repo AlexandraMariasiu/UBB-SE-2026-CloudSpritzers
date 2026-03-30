@@ -13,6 +13,7 @@ namespace CloudSpritzers1.src.service.bot
 {
     public class BotEngine : ISender
     {
+        public const int BOT_CANNONIZED_ID = 0;
         private IBotStrategy _responseStrategy;
 
         public BotEngine(IBotStrategy responseStrategy)
@@ -34,6 +35,11 @@ namespace CloudSpritzers1.src.service.bot
         public string GetName()
         {
             return "Carlos";
+        }
+
+        public int GetId()
+        {
+            return 0; // ChatBot is always identified as the first 
         }
     }
 }

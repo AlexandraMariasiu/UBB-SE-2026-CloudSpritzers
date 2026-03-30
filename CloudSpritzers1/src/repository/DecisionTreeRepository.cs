@@ -14,7 +14,7 @@ namespace CloudSpritzers1.src.repository
             conn.Open();
 
             using var cmd = new SqlCommand(
-                "SELECT Label, NextOptionId FROM FAQOption WHERE NodeId = @NodeId", conn);
+                "SELECT label, next_option_id FROM FAQOption WHERE node_id = @NodeId", conn);
             cmd.Parameters.AddWithValue("@NodeId", nodeId);
 
             using var reader = cmd.ExecuteReader();
@@ -22,8 +22,8 @@ namespace CloudSpritzers1.src.repository
             while (reader.Read())
             {
                 options.Add(new FAQOption(
-                    reader.GetString(reader.GetOrdinal("Label")),
-                    reader.GetInt32(reader.GetOrdinal("NextOptionId"))
+                    reader.GetString(reader.GetOrdinal("label")),
+                    reader.GetInt32(reader.GetOrdinal("next_option_id"))
                 ));
             }
             return options.ToImmutableArray();
@@ -35,17 +35,17 @@ namespace CloudSpritzers1.src.repository
             conn.Open();
 
             using var cmd = new SqlCommand(
-                "SELECT NodeId, Label, NextOptionId FROM FAQOption", conn);
+                "SELECT node_id, label, next_option_id FROM FAQOption", conn);
 
             using var reader = cmd.ExecuteReader();
             var grouped = new Dictionary<int, List<FAQOption>>();
 
             while (reader.Read())
             {
-                int nodeId = reader.GetInt32(reader.GetOrdinal("NodeId"));
+                int nodeId = reader.GetInt32(reader.GetOrdinal("node_id"));
                 var option = new FAQOption(
-                    reader.GetString(reader.GetOrdinal("Label")),
-                    reader.GetInt32(reader.GetOrdinal("NextOptionId"))
+                    reader.GetString(reader.GetOrdinal("label")),
+                    reader.GetInt32(reader.GetOrdinal("next_option_id"))
                 );
 
                 if (!grouped.ContainsKey(nodeId))
@@ -63,7 +63,7 @@ namespace CloudSpritzers1.src.repository
         public FAQNode GetById(int id)
         {
             using var cmd = new SqlCommand(
-                "SELECT NodeId, QuestionText, IsFinalAnswer FROM FAQNode WHERE NodeId = @Id");
+                "SELECT node_id, question_text, is_final_answer FROM FAQNode WHERE node_id = @Id");
             cmd.Parameters.AddWithValue("@Id", id);
 
            
@@ -77,8 +77,8 @@ namespace CloudSpritzers1.src.repository
         public int Add(FAQNode elem)
         {
             using var addSqlCommand = new SqlCommand(@"
-                INSERT INTO FAQNode (QuestionText, IsFinalAnswer)
-                OUTPUT INSERTED.NodeId
+                INSERT INTO FAQNode (question_text, is_final_answer)
+                OUTPUT INSERTED.node_id
                 VALUES (@QuestionText, @IsFinalAnswer)");
 
             addSqlCommand.Parameters.AddWithValue("@QuestionText", elem.QuestionText);
@@ -89,7 +89,7 @@ namespace CloudSpritzers1.src.repository
             foreach (var option in elem.Options)
             {
                 using var optCmd = new SqlCommand(@"
-                    INSERT INTO FAQOption (NodeId, Label, NextOptionId)
+                    INSERT INTO FAQOption (node_id, label, next_option_id)
                     VALUES (@NodeId, @Label, @NextOptionId)");
 
                 optCmd.Parameters.AddWithValue("@NodeId", newId);
@@ -105,12 +105,12 @@ namespace CloudSpritzers1.src.repository
         public void DeleteById(int id)
         {
             using var deleteOptions = new SqlCommand(
-                "DELETE FROM FAQOption WHERE NodeId = @Id");
+                "DELETE FROM FAQOption WHERE node_id = @Id");
             deleteOptions.Parameters.AddWithValue("@Id", id);
             base.ExecuteNonQuery(deleteOptions);
 
             using var deleteNode = new SqlCommand(
-                "DELETE FROM FAQNode WHERE NodeId = @Id");
+                "DELETE FROM FAQNode WHERE node_id = @Id");
             deleteNode.Parameters.AddWithValue("@Id", id);
             base.DeleteById(id, deleteNode);
         }
@@ -119,9 +119,9 @@ namespace CloudSpritzers1.src.repository
         {
             using var updateByIdSqlCommand = new SqlCommand(@"
                 UPDATE FAQNode
-                SET QuestionText = @QuestionText,
-                    IsFinalAnswer = @IsFinalAnswer
-                WHERE NodeId = @Id");
+                SET question_text = @QuestionText,
+                    is_final_answer = @IsFinalAnswer
+                WHERE node_id = @Id");
 
             updateByIdSqlCommand.Parameters.AddWithValue("@Id", id);
             updateByIdSqlCommand.Parameters.AddWithValue("@QuestionText", elem.QuestionText);
@@ -130,14 +130,14 @@ namespace CloudSpritzers1.src.repository
             base.UpdateById(id, updateByIdSqlCommand, elem);
 
             using var deleteOptions = new SqlCommand(
-                "DELETE FROM FAQOption WHERE NodeId = @Id");
+                "DELETE FROM FAQOption WHERE node_id = @Id");
             deleteOptions.Parameters.AddWithValue("@Id", id);
             base.ExecuteNonQuery(deleteOptions);
 
             foreach (var option in elem.Options)
             {
                 using var optionSqlCommand = new SqlCommand(@"
-                    INSERT INTO FAQOption (NodeId, Label, NextOptionId)
+                    INSERT INTO FAQOption (node_id, label, next_option_id)
                     VALUES (@NodeId, @Label, @NextOptionId)");
 
                 optionSqlCommand.Parameters.AddWithValue("@NodeId", id);
@@ -151,7 +151,7 @@ namespace CloudSpritzers1.src.repository
         public IEnumerable<FAQNode> GetAll()
         {
             using var getAllSqlCommand = new SqlCommand(
-                "SELECT NodeId, QuestionText, IsFinalAnswer FROM FAQNode");
+                "SELECT node_id, question_text, is_final_answer FROM FAQNode");
 
             var nodes = base.GetAll(getAllSqlCommand).ToList();
 
@@ -170,10 +170,10 @@ namespace CloudSpritzers1.src.repository
         protected override FAQNode MapRowToEntity(SqlDataReader reader)
         {
             return new FAQNode(
-                reader.GetInt32(reader.GetOrdinal("NodeId")),
-                reader.GetString(reader.GetOrdinal("QuestionText")),
+                reader.GetInt32(reader.GetOrdinal("node_id")),
+                reader.GetString(reader.GetOrdinal("question_text")),
                 new ImmutableArray<FAQOption>(),
-                reader.GetBoolean(reader.GetOrdinal("IsFinalAnswer"))
+                reader.GetBoolean(reader.GetOrdinal("is_final_answer"))
             );
         }
 

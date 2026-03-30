@@ -67,6 +67,12 @@
     <Page Update="src\view\general\ChoosingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Update="src\view\generic\ThemeResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="src\view\generic\EnterYourId.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--

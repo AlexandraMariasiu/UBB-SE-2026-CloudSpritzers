@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using CloudSpritzers1.src.repository;
 using CloudSpritzers1.src.repository;
 using CloudSpritzers1.src.repository.database;
 using Microsoft.Data.SqlClient;
 
 public abstract class DBRepository<K, E>
     where E : class
+    where K : notnull
 {
     private readonly Dictionary<K, E> _cache = new();
 
@@ -38,7 +39,6 @@ public abstract class DBRepository<K, E>
         var results = ExecuteQueryMany(command).ToList();
         foreach (var entity in results)
             _cache[GetEntityId(entity)] = entity;
-
         return results;
     }
 
@@ -61,12 +61,15 @@ public abstract class DBRepository<K, E>
         _cache[id] = elem;
     }
 
+
+    //NOTE : If testing becomes a requirement, override the following query methods to work over something in memory.
+
     /// <summary>
     /// Returns one entity matching the query. If no matching row in db is found => null!
     /// </summary>
     /// <param name="command"></param>
     /// <returns></returns>
-    protected E ExecuteQuerySingle(SqlCommand command)
+    protected virtual E ExecuteQuerySingle(SqlCommand command)
     {
         using var conn = CreateConnection();
         command.Connection = conn;
@@ -75,7 +78,7 @@ public abstract class DBRepository<K, E>
         return reader.Read() ? MapRowToEntity(reader) : null;
     }
 
-    protected IEnumerable<E> ExecuteQueryMany(SqlCommand command)
+    protected virtual IEnumerable<E> ExecuteQueryMany(SqlCommand command)
     {
         using var conn = CreateConnection();
         command.Connection = conn;
@@ -87,7 +90,7 @@ public abstract class DBRepository<K, E>
         return results;
     }
 
-    protected void ExecuteNonQuery(SqlCommand command)
+    protected virtual void ExecuteNonQuery(SqlCommand command)
     {
         using var conn = CreateConnection();
         command.Connection = conn;
@@ -95,7 +98,7 @@ public abstract class DBRepository<K, E>
         command.ExecuteNonQuery();
     }
 
-    protected T ExecuteScalar<T>(SqlCommand command)
+    protected virtual T ExecuteScalar<T>(SqlCommand command)
     {
         using var conn = CreateConnection();
         command.Connection = conn;
