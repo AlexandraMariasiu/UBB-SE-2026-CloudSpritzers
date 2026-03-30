@@ -61,12 +61,12 @@ namespace CloudSpritzers1.src.model.message
             return _timestamp;
         }
 
-        object IMessage.GetChat()
+        Chat IMessage.GetChat()
         {
             return this._chat;
         }
 
-        public class Builder
+        public class BotMessageBuilder
         {
             private int _messageId;
             private ISender _sender;
@@ -74,14 +74,14 @@ namespace CloudSpritzers1.src.model.message
             private string _messageText;
             private List<FAQOption> _faqOptions;
 
-            public Builder(ISender sender, Chat chat, int messageId, FAQNode nodeToMessage) 
+            public BotMessageBuilder(ISender sender, Chat chat, int messageId, FAQNode nodeToMessage) 
                 : this(sender, chat, messageId)
             {
                 this._messageText = nodeToMessage.QuestionText;
                 this._faqOptions = nodeToMessage.Options.ToList();
             }
 
-            public Builder(ISender sender, Chat chat, int messageId)
+            public BotMessageBuilder(ISender sender, Chat chat, int messageId)
             {
                 this._messageText = "";
                 this._messageId = messageId;
@@ -90,25 +90,25 @@ namespace CloudSpritzers1.src.model.message
                 this._faqOptions = new List<FAQOption>();
             }
 
-            public Builder WithMessage(string setMessage)
+            public BotMessageBuilder WithMessage(string setMessage)
             {
                 this._messageText = setMessage;
                 return this;
             }
 
-            public Builder WithId(int setId)
+            public BotMessageBuilder WithId(int setId)
             {
                 this._messageId = setId;
                 return this;
             }
 
-            public Builder AddOption(FAQOption addedOption)
+            public BotMessageBuilder AddOption(FAQOption addedOption)
             {
                 _faqOptions.Add(addedOption);
                 return this;
             }
 
-            public Builder AddOptions(IEnumerable<FAQOption> setOptions)
+            public BotMessageBuilder AddOptions(IEnumerable<FAQOption> setOptions)
             {
                 _faqOptions.Clear();
                 _faqOptions.AddRange(setOptions);

@@ -11,9 +11,8 @@ namespace CloudSpritzers1.src.repository
         {
             int senderId = reader.GetInt32(reader.GetOrdinal("sender_id"));
             string text = reader.GetString(reader.GetOrdinal("text"));
-            bool isRead = reader.GetBoolean(reader.GetOrdinal("is_read"));
 
-            return new Message(new UserStub(senderId), null, text, isRead);
+            return new Message(new UserStub(senderId), null, text);
         }
 
         protected override int GetEntityId(Message entity)
@@ -24,14 +23,13 @@ namespace CloudSpritzers1.src.repository
         public int Add(Message elem)
         {
             string query = "INSERT INTO Message (sender_id, chat_id, timestamp, text, is_read) " +
-                           "VALUES (@senderId, @chatId, @timestamp, @text, @isRead); SELECT SCOPE_IDENTITY();";
+                           "VALUES (@senderId, @chatId, @timestamp, @text); SELECT SCOPE_IDENTITY();";
 
             var cmd = new SqlCommand(query);
             cmd.Parameters.AddWithValue("@senderId", elem.GetSender() is UserStub s ? s.UserId : 0);
             cmd.Parameters.AddWithValue("@chatId", ((IMessage)elem).GetChat() is CloudSpritzers1.src.model.chat.Chat c ? c.ChatId : 0);
             cmd.Parameters.AddWithValue("@timestamp", DateTimeOffset.UtcNow);
             cmd.Parameters.AddWithValue("@text", elem.GetMessage());
-            cmd.Parameters.AddWithValue("@isRead", false);
 
             return Add(cmd, elem);
         }
@@ -47,10 +45,9 @@ namespace CloudSpritzers1.src.repository
 
         public void UpdateById(int id, Message message)
         {
-            string query = "UPDATE Message SET text = @text, is_read = @isRead WHERE message_id = @id";
+            string query = "UPDATE Message SET text = @text WHERE message_id = @id";
             var cmd = new SqlCommand(query);
             cmd.Parameters.AddWithValue("@text", message.GetMessage());
-            cmd.Parameters.AddWithValue("@isRead", false);
             cmd.Parameters.AddWithValue("@id", id);
 
             UpdateById(id, cmd, message);
@@ -98,6 +95,8 @@ namespace CloudSpritzers1.src.repository
             public UserStub(int userId) => UserId = userId;
             public string GetName() => string.Empty;
             public string GetEmail() => string.Empty;
+
+            public int GetId() => UserId;
         }
     }
 }

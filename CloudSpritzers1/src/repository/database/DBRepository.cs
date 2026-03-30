@@ -39,7 +39,6 @@ public abstract class DBRepository<K, E>
         var results = ExecuteQueryMany(command).ToList();
         foreach (var entity in results)
             _cache[GetEntityId(entity)] = entity;
-
         return results;
     }
 
