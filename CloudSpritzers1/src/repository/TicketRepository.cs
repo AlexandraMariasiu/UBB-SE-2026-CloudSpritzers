@@ -1,61 +1,127 @@
 ﻿using CloudSpritzers1.src.model.ticket;
-using System;
 using System.Collections.Generic;
-
+using System;
+using Microsoft.Data.SqlClient;
+using CloudSpritzers1.src.model;
+using CloudSpritzers1.src.model.faq;
 
 namespace CloudSpritzers1.src.repository
 {
-    public class TicketRepository : IRepository<int, Ticket>
+    public class TicketRepository : DBRepository<int, Ticket>, IRepository<int, Ticket>
     {
-        private Dictionary<int, Ticket> Tickets = new Dictionary<int, Ticket>();
-        public int Add(Ticket elem)
+        public TicketRepository() { }
+
+        public Ticket GetById(int id)
         {
-            if (elem == null)
-                throw new ArgumentNullException();
+            string query = "SELECT * FROM Ticket WHERE ticket_id = @id";
+            SqlCommand command = new SqlCommand(query);
+            command.Parameters.AddWithValue("@id", id);
 
-            if (Tickets.ContainsKey(elem.TicketId))
-                throw new ArgumentException("Ticket with the same ID already exists.");
+            Ticket ticket = base.GetById(id, command);
 
-            Tickets[elem.TicketId] = elem;
-            return elem.TicketId;
-        }
+            if (ticket == null)
+                throw new KeyNotFoundException($"Ticket with id {id} was not found.");
 
-        public void DeleteById(int id)
-        {
-            if (!Tickets.ContainsKey(id))
-                throw new KeyNotFoundException($"Ticket with ID '{id}' not found.");
-
-            Tickets.Remove(id);
+            return ticket;
         }
 
         public IEnumerable<Ticket> GetAll()
         {
-            return Tickets.Values;
+            string query = "SELECT * FROM Ticket";
+            SqlCommand command = new SqlCommand(query);
+            return base.GetAll(command);
         }
 
-        public Ticket GetById(int id)
+        public int Add(Ticket elem)
         {
-            Ticket ticket;
+            if (elem == null)
+                throw new ArgumentNullException(nameof(elem), "Ticket can not be null.");
 
-            if (Tickets.TryGetValue(id, out ticket))
-                return ticket;
+            string query = @"INSERT INTO Ticket 
+                (user_id, status, category_id, subcategory_id, subject, description, created_at, urgency_level) " +
+                "OUTPUT INSERTED.ticket_id " +
+                "VALUES (@userId, @status, @categoryId, @subcategoryId, @subject, @description, @createdAt, @urgency)";
 
-            throw new KeyNotFoundException($"Ticket with ID '{id}' not found.");
+            SqlCommand command = new SqlCommand(query);
+
+            command.Parameters.AddWithValue("@userId", elem.User.UserId);
+            command.Parameters.AddWithValue("@status", elem.Status.ToString());
+            command.Parameters.AddWithValue("@categoryId", elem.Category.CategoryId);
+            command.Parameters.AddWithValue("@subcategoryId", elem.Subcategory.SubcategoryId);
+            command.Parameters.AddWithValue("@subject", elem.Subject);
+            command.Parameters.AddWithValue("@description", elem.Description);
+            command.Parameters.AddWithValue("@createdAt", elem.CreatedAt);
+            command.Parameters.AddWithValue("@urgency", elem.UrgencyLevel.ToString());
+
+            int id = base.Add(command, elem);
+            return id;
         }
 
         public void UpdateById(int id, Ticket elem)
         {
             if (elem == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(elem), "Ticket cannot be null.");
 
-            if (!Tickets.ContainsKey(id))
-                throw new KeyNotFoundException($"Ticket with ID '{id}' not found.");
+            string query = @"UPDATE Ticket SET 
+                user_id = @userId, 
+                status = @status, 
+                category_id = @categoryId, 
+                subcategory_id = @subcategoryId, 
+                subject = @subject, 
+                description = @description, 
+                created_at = @createdAt, 
+                urgency_level = @urgency 
+                WHERE ticket_id = @id";
 
-            if (id != elem.TicketId)
-            {
-                throw new ArgumentException("ID mismatch between key and ticket.");
-            }
-            Tickets[id] = elem;
+            SqlCommand command = new SqlCommand(query);
+            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@userId", elem.User.UserId);
+            command.Parameters.AddWithValue("@status", elem.Status.ToString());
+            command.Parameters.AddWithValue("@categoryId", elem.Category.CategoryId);
+            command.Parameters.AddWithValue("@subcategoryId", elem.Subcategory.SubcategoryId);
+            command.Parameters.AddWithValue("@subject", elem.Subject);
+            command.Parameters.AddWithValue("@description", elem.Description);
+            command.Parameters.AddWithValue("@createdAt", elem.CreatedAt);
+            command.Parameters.AddWithValue("@urgency", elem.UrgencyLevel.ToString());
+
+            base.UpdateById(id, command, elem);
+        }
+
+        public void DeleteById(int id)
+        {
+            string query = "DELETE FROM Ticket WHERE ticket_id = @id";
+            SqlCommand command = new SqlCommand(query);
+            command.Parameters.AddWithValue("@id", id);
+
+            base.DeleteById(id, command);
+        }
+
+        protected override Ticket MapRowToEntity(SqlDataReader reader)
+        {
+            int ticketId = reader.GetInt32(reader.GetOrdinal("ticket_id"));
+            int userId = reader.GetInt32(reader.GetOrdinal("user_id"));
+            StatusEnum status = Enum.Parse<StatusEnum>(reader.GetString(reader.GetOrdinal("status")).ToString());
+            int categoryId = reader.GetInt32(reader.GetOrdinal("category_id"));
+            int subcategoryId = reader.GetInt32(reader.GetOrdinal("subcategory_id"));
+            string subject = reader.GetString(reader.GetOrdinal("subject"));
+            string description = reader.GetString(reader.GetOrdinal("description"));
+            DateTime createdAt = reader.GetDateTime(reader.GetOrdinal("created_at"));
+            UrgencyLevelEnum urgency = Enum.Parse<UrgencyLevelEnum>(reader.GetString(reader.GetOrdinal("urgency_level")).ToString());
+
+            var categoryStub = new TicketCategory(categoryId, string.Empty, urgency);
+            var subcategoryStub = new TicketSubcategory(subcategoryId, string.Empty, 0, categoryStub);
+
+            return new Ticket(ticketId, new UserStub(userId), status, categoryStub, subcategoryStub, subject, description, createdAt, urgency);
+        }
+
+        protected override int GetEntityId(Ticket entity)
+        {
+            return entity.TicketId;
+        }
+
+        private sealed class UserStub : User
+        {
+            public UserStub(int userId) : base(userId, string.Empty, string.Empty) { }
         }
     }
 }
