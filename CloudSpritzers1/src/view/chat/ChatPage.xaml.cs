@@ -11,5 +11,6 @@ namespace CloudSpritzers1.src.view.chat
         {
             this.InitializeComponent();
         }
+       
     }
 }

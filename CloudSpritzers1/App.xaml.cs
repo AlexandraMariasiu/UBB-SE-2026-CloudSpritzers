@@ -64,7 +64,7 @@ namespace CloudSpritzers1
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             _window = new MainWindow();
-            _window.Content = new CloudSpritzers1.src.view.general.LandingPage();
+            _window.Content = new CloudSpritzers1.src.view.chat.ChatPage();
             _window.Activate();
         }
     }
