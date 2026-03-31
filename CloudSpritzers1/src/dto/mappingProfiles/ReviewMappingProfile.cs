@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using CloudSpritzers1.src.model.review;
 using CloudSpritzers1.src.dto;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CloudSpritzers1.src.dto.mappingProfiles
 {
     public class ReviewMappingProfile : Profile
     {
+        const int OVERALL_RATING = 0;
         public ReviewMappingProfile()
         {
             System.Diagnostics.Debug.WriteLine("ReviewMappingProfile Loaded!");
@@ -20,7 +22,7 @@ namespace CloudSpritzers1.src.dto.mappingProfiles
                 src.GetFlightExperienceRating(),
                 src.GetStaffFriendlinessRating(),
                 src.GetCleanlinessRating(),
-                0
+                OVERALL_RATING
             ));
         }
     }
