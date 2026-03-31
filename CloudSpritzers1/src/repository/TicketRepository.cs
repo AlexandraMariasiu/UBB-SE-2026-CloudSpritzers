@@ -35,7 +35,7 @@ namespace CloudSpritzers1.src.repository
         public int Add(Ticket elem)
         {
             if (elem == null)
-                throw new ArgumentNullException(nameof(elem), "Ticket can not be null.");
+                throw new ArgumentNullException(nameof(elem), "Ticket can't be null.");
 
             string query = @"INSERT INTO Ticket 
                 (user_id, status, category_id, subcategory_id, subject, description, created_at, urgency_level) " +
@@ -60,7 +60,7 @@ namespace CloudSpritzers1.src.repository
         public void UpdateById(int id, Ticket elem)
         {
             if (elem == null)
-                throw new ArgumentNullException(nameof(elem), "Ticket cannot be null.");
+                throw new ArgumentNullException(nameof(elem), "Ticket can't be null.");
 
             string query = @"UPDATE Ticket SET 
                 user_id = @userId, 
@@ -108,10 +108,11 @@ namespace CloudSpritzers1.src.repository
             DateTime createdAt = reader.GetDateTime(reader.GetOrdinal("created_at"));
             UrgencyLevelEnum urgency = Enum.Parse<UrgencyLevelEnum>(reader.GetString(reader.GetOrdinal("urgency_level")).ToString());
 
-            var categoryStub = new TicketCategory(categoryId, string.Empty, urgency);
-            var subcategoryStub = new TicketSubcategory(subcategoryId, string.Empty, 0, categoryStub);
+            TicketCategory category = new TicketCategory(categoryId, string.Empty, urgency);
+            TicketSubcategory subcategory = new TicketSubcategory(subcategoryId, string.Empty, 0, category);
+            User user = new User(userId, string.Empty, string.Empty);
 
-            return new Ticket(ticketId, new UserStub(userId), status, categoryStub, subcategoryStub, subject, description, createdAt, urgency);
+            return new Ticket(ticketId, user, status, category, subcategory, subject, description, createdAt, urgency);
         }
 
         protected override int GetEntityId(Ticket entity)
@@ -119,9 +120,5 @@ namespace CloudSpritzers1.src.repository
             return entity.TicketId;
         }
 
-        private sealed class UserStub : User
-        {
-            public UserStub(int userId) : base(userId, string.Empty, string.Empty) { }
-        }
     }
 }
