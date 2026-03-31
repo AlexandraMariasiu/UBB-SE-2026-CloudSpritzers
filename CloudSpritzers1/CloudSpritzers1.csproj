@@ -16,6 +16,8 @@
     <None Remove=".env" />
     <None Remove="src\view\general\ChoosingPage.xaml" />
     <None Remove="src\view\general\LandingPage.xaml" />
+    <None Remove="src\view\review\EmployeeSeeReviews.xaml" />
+    <None Remove="src\view\review\ReviewPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="ChatPage.xaml" />
@@ -61,6 +63,12 @@
     <None Update="src\view\chat\ChatPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <Page Update="src\view\review\EmployeeSeeReviews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="src\view\review\ReviewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="src\view\general\LandingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
