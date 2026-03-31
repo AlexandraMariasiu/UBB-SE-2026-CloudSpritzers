@@ -18,9 +18,11 @@
     <None Remove="src\view\general\ChoosingPage.xaml" />
     <None Remove="src\view\general\LandingPage.xaml" />
     <None Remove="src\view\general\UpperBar.xaml" />
+    <None Remove="src\view\general\YouSure.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="ChatPage.xaml" />
+    <Page Remove="src\view\general\AreYouSure.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,6 +65,12 @@
     <None Update="src\view\chat\ChatPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Update="src\view\general\AreYouSure.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <Page Update="src\view\general\YouSure.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="src\view\general\LandingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

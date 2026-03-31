@@ -1,13 +1,11 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System;
 
-namespace CloudSpritzers1.src.view.chat
+namespace CloudSpritzers1.src.view.general
 {
-
-    public sealed partial class ChatPage : Page
+    public sealed partial class YouSure : ContentDialog
     {
-        public ChatPage()
+        public YouSure()
         {
             this.InitializeComponent();
         }
