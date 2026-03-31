@@ -15,7 +15,7 @@ using Windows.Foundation.Collections;
 
 
 
-namespace CloudSpritzers1.src.view.generic
+namespace CloudSpritzers1.src.view.general
 {
     public sealed partial class EnterYourId : Page
     {
