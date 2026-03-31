@@ -12,6 +12,9 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Windows.UI;
+using Windows.UI.Xaml;
+
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -105,9 +108,35 @@ namespace CloudSpritzers1.src.view.faq
 
         private void EditFaqButton_Click(object sender, RoutedEventArgs e) { }
 
-        private void HelpfulButton_Click(object sender, RoutedEventArgs e) { }
+        private void HelpfulButton_Click(object sender, RoutedEventArgs e)
+        {
+            FeedbackThankYouText.Visibility = Visibility.Visible;
 
-        private void NotHelpfulButton_Click(object sender, RoutedEventArgs e) { }
+            // Yes selected = green
+            HelpfulButton.Background = new SolidColorBrush(Color.FromArgb(255, 231, 248, 236));   // #E7F8EC
+            HelpfulButton.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 34, 197, 94));    // #22C55E
+            HelpfulButton.Foreground = new SolidColorBrush(Color.FromArgb(255, 2, 122, 72));      // #027A48
+
+            // No unselected = neutral
+            NotHelpfulButton.Background = new SolidColorBrush(Color.FromArgb(255, 248, 249, 251)); // #F8F9FB
+            NotHelpfulButton.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 209, 213, 219)); // #D1D5DB
+            NotHelpfulButton.Foreground = new SolidColorBrush(Color.FromArgb(255, 107, 114, 128));  // #6B7280
+        }
+
+        private void NotHelpfulButton_Click(object sender, RoutedEventArgs e) {
+            FeedbackThankYouText.Visibility = Visibility.Visible;
+
+            // No selected = red
+            NotHelpfulButton.Background = new SolidColorBrush(Color.FromArgb(255, 254, 242, 242)); // light red
+            NotHelpfulButton.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 239, 68, 68));   // red
+            NotHelpfulButton.Foreground = new SolidColorBrush(Color.FromArgb(255, 185, 28, 28));    // dark red
+
+            // Yes unselected = neutral
+            HelpfulButton.Background = new SolidColorBrush(Color.FromArgb(255, 248, 249, 251));     // #F8F9FB
+            HelpfulButton.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 209, 213, 219));    // #D1D5DB
+            HelpfulButton.Foreground = new SolidColorBrush(Color.FromArgb(255, 107, 114, 128));     // #6B7280
+        
+        }
 
         private void DeleteFaqButton_Click(object sender, RoutedEventArgs e) { }
     
