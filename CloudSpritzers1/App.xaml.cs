@@ -49,7 +49,8 @@ namespace CloudSpritzers1
                 typeof(EmployeeMappingProfile).Assembly,
                 typeof(MessageMappingProfile).Assembly,
                 typeof(FAQEntryMappingProfile).Assembly,
-                typeof(ReviewMappingProfile).Assembly
+                typeof(ReviewMappingProfile).Assembly,
+                typeof(TicketMappingProfile).Assembly
             );
 
             services.AddSingleton<ReviewRepository>();
