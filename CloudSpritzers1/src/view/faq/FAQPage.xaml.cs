@@ -56,6 +56,20 @@ namespace CloudSpritzers1.src.view.faq
             }
         }
 
+        private void SelectedFaqHeaderButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedFaqDetailsPanel.Visibility == Visibility.Visible)
+            {
+                SelectedFaqDetailsPanel.Visibility = Visibility.Collapsed;
+                SelectedFaqChevron.Glyph = "\uE76C"; // right chevron
+            }
+            else
+            {
+                SelectedFaqDetailsPanel.Visibility = Visibility.Visible;
+                SelectedFaqChevron.Glyph = "\uE70D"; // down chevron
+            }
+        }
+
         private void AddFaqButton_Click(object sender, RoutedEventArgs e) { }
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) { }
