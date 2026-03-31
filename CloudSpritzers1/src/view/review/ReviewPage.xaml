@@ -1,0 +1,267 @@
+<Page
+    x:Class="CloudSpritzers1.src.view.review.ReviewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="#F8FAFC">
+
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <!-- Visual states to slightly lighten the button on hover/press -->
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="RootBorder"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0.8"
+                                                     Duration="0"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="RootBorder"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0.5"
+                                                     Duration="0"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Border x:Name="RootBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#F1F5F9"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="TextBoxRoot"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <Grid>
+                                <ScrollViewer x:Name="ContentElement"
+                                              Foreground="{TemplateBinding Foreground}"
+                                              HorizontalScrollBarVisibility="Hidden"
+                                              VerticalScrollBarVisibility="Hidden"
+                                              IsHorizontalScrollChainingEnabled="False"
+                                              IsVerticalScrollChainingEnabled="False"
+                                              IsTabStop="False"/>
+
+                                <ContentPresenter x:Name="PlaceholderTextContentPresenter"
+                                                  Content="{TemplateBinding PlaceholderText}"
+                                                  Foreground="{TemplateBinding PlaceholderForeground}"
+                                                  Margin="2"
+                                                  IsHitTestVisible="False"
+                                                  HorizontalAlignment="Left"
+                                                  VerticalAlignment="Top"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer>
+        <StackPanel Padding="40" Spacing="28">
+
+            <!-- Header -->
+            <StackPanel Spacing="12" HorizontalAlignment="Center">
+                <Border Width="64" Height="64"
+                        CornerRadius="32"
+                        Background="#0EA5E9">
+
+                    <FontIcon Glyph="&#xE734;"
+                              FontFamily="Segoe MDL2 Assets"
+                              Foreground="White"
+                              FontSize="28"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+                </Border>
+
+                <TextBlock Text="Share Your Experience"
+                           FontSize="28"
+                           FontWeight="SemiBold"
+                           Foreground="#0F172A"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Help us improve by rating your airport experience"
+                           Foreground="#64748B"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Assistance Box -->
+            <Border Background="#ECFEFF"
+                    CornerRadius="14"
+                    Padding="16"
+                    BorderBrush="#67E8F9"
+                    BorderThickness="1">
+
+                <Grid ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
+
+                    <FontIcon Glyph="&#xE897;"
+                              FontFamily="Segoe MDL2 Assets"
+                              Foreground="#06B6D4"
+                              FontSize="20"/>
+
+                    <StackPanel Grid.Column="1" Margin="12,0">
+                        <TextBlock Text="Need assistance?"
+                                   FontWeight="SemiBold"
+                                   Foreground="#0F172A"/>
+
+                        <TextBlock Text="If you're experiencing issues, we're here to help!"
+                                   Foreground="#64748B"
+                                   FontSize="12"/>
+                    </StackPanel>
+
+                    <Button Grid.Column="2"
+                            Content="Get help"
+                            Background="#06B6D4"
+                            Foreground="White"
+                            CornerRadius="20"
+                            Padding="16,6"/>
+                </Grid>
+            </Border>
+
+            <!-- Ratings Card -->
+            <Border Background="White"
+                    CornerRadius="16"
+                    Padding="20"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1">
+
+                <StackPanel Spacing="20">
+
+                    <!-- Duty Free -->
+                    <StackPanel>
+                        <TextBlock Text="Duty Free Shops"
+                                   FontWeight="SemiBold"
+                                   Foreground="#0F172A"/>
+
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <RatingControl x:Name="DutyRating"
+                                           MaxRating="5"
+                                           ValueChanged="Rating_ValueChanged" RequestedTheme="Light"/>
+
+                            <TextBlock x:Name="DutyText"
+                                       Text="Not rated"
+                                       VerticalAlignment="Center"
+                                       Foreground="#64748B"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Flight -->
+                    <StackPanel>
+                        <TextBlock Text="Flight Experience" FontWeight="SemiBold" Foreground="#0F172A"/>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <RatingControl x:Name="FlightRating" MaxRating="5" ValueChanged="Rating_ValueChanged" RequestedTheme="Light"/>
+                            <TextBlock x:Name="FlightText" Text="Not rated" Foreground="#64748B"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Staff -->
+                    <StackPanel>
+                        <TextBlock Text="Staff Friendliness" FontWeight="SemiBold" Foreground="#0F172A"/>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <RatingControl x:Name="StaffRating" MaxRating="5" ValueChanged="Rating_ValueChanged" RequestedTheme="Light"/>
+                            <TextBlock x:Name="StaffText" Text="Not rated" Foreground="#64748B"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Cleanliness -->
+                    <StackPanel>
+                        <TextBlock Text="Cleanliness" FontWeight="SemiBold" Foreground="#0F172A"/>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <RatingControl x:Name="CleanRating" MaxRating="5" ValueChanged="Rating_ValueChanged" RequestedTheme="Light"/>
+                            <TextBlock x:Name="CleanText" Text="Not rated" Foreground="#64748B"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+
+            <!-- Review Card -->
+            <Border Background="White"
+                    CornerRadius="16"
+                    Padding="20"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1">
+
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Your Review"
+                               FontWeight="SemiBold"
+                               Foreground="#0F172A"/>
+
+                    <TextBox x:Name="ReviewBox"
+                             PlaceholderText="Tell us about your experience..."
+                             PlaceholderForeground="#64748B"
+                             Foreground="Black"
+                             AcceptsReturn="True"
+                             Height="140"
+                             TextWrapping="Wrap"
+                             Background="#F1F5F9"
+                             BorderThickness="0"
+                             TextChanged="ReviewBox_TextChanged"/>
+
+                    <TextBlock x:Name="CharCount"
+                               Text="0 characters"
+                               FontSize="12"
+                               Foreground="#64748B"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Submit -->
+            <StackPanel Spacing="8">
+                <Button x:Name="SubmitButton"
+                        Height="56"
+                        IsEnabled="True"
+                        Background="#06B6D4"
+                        Foreground="White"
+                        CornerRadius="14">
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Spacing="8">
+
+                        <FontIcon Glyph="&#xE724;" FontFamily="Segoe MDL2 Assets"/>
+                        <TextBlock Text="Send Review" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Button>
+
+                <TextBlock Text="Please rate all categories and write a review to submit"
+                           FontSize="12"
+                           Foreground="#64748B"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>
