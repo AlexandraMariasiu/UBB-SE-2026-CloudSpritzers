@@ -9,118 +9,203 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="#F5F5F5" Padding="24">
+    <Grid Background="White" Padding="24">
+
         <Border MaxWidth="700"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Background="White"
-            BorderBrush="#D8DDE3"
-            BorderThickness="1"
-            CornerRadius="8"
-            Padding="24">
-
-           <StackPanel Spacing="18">
-
-    <TextBlock Text="Add FAQ"
-               FontSize="28"
-               FontWeight="SemiBold"
-               Foreground="#1F2937"/>
-
-    <StackPanel Spacing="8">
-        <TextBlock Text="Category"
-                   FontSize="14"
-                   FontWeight="SemiBold"
-                   Foreground="#374151"/>
-        <Border Background="White"
-                BorderBrush="#D1D5DB"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="White"
+                BorderBrush="#256D85"
                 BorderThickness="1"
-                CornerRadius="8"
-                Padding="10,2">
-            <ComboBox x:Name="CategoryComboBox"
-                      PlaceholderText="Select category"
-                      MinWidth="300"
-                      MinHeight="44"
-                      Background="Transparent"
-                      Foreground="#111827"
-                      BorderThickness="0">
-                <ComboBoxItem Content="CheckIn"/>
-                <ComboBoxItem Content="Parking"/>
-                <ComboBoxItem Content="Baggage"/>
-                <ComboBoxItem Content="Tickets"/>
-                <ComboBoxItem Content="Facilities"/>
-            </ComboBox>
-        </Border>
-    </StackPanel>
+                CornerRadius="12"
+                Padding="0">
 
-    <StackPanel Spacing="8">
-        <TextBlock Text="Question"
-                   FontSize="14"
-                   FontWeight="SemiBold"
-                   Foreground="#374151"/>
-        <Border Background="White"
-                BorderBrush="#D1D5DB"
-                BorderThickness="1"
-                CornerRadius="8"
-                Padding="10,6">
-            <TextBox x:Name="QuestionTextBox"
-                     PlaceholderText="Enter the question"
-                     TextWrapping="Wrap"
-                     MinWidth="300"
-                     MinHeight="44"
-                     Background="Transparent"
-                     Foreground="#111827"
-                     BorderThickness="0"/>
-        </Border>
-    </StackPanel>
+            <StackPanel>
 
-    <StackPanel Spacing="8">
-        <TextBlock Text="Answer"
-                   FontSize="14"
-                   FontWeight="SemiBold"
-                   Foreground="#374151"/>
-        <Border Background="White"
-                BorderBrush="#D1D5DB"
-                BorderThickness="1"
-                CornerRadius="8"
-                Padding="10,6">
-            <TextBox x:Name="AnswerTextBox"
-                     PlaceholderText="Enter the answer"
-                     AcceptsReturn="True"
-                     TextWrapping="Wrap"
-                     MinWidth="300"
-                     Height="140"
-                     Background="Transparent"
-                     Foreground="#111827"
-                     BorderThickness="0"/>
-        </Border>
-    </StackPanel>
+                <!-- Top accent bar -->
+                <Border Background="#2CC7CF"
+                        Height="8"
+                        CornerRadius="12,12,0,0"/>
 
-    <StackPanel Orientation="Horizontal"
-                HorizontalAlignment="Right"
-                Spacing="10"
-                Margin="0,8,0,0">
+                <StackPanel Padding="24" Spacing="18">
 
-        <Button x:Name="CancelButton"
-                Content="Cancel"
-                Click="CancelButton_Click"
-                Background="#E5E7EB"
-                Foreground="#111827"
-                BorderThickness="0"
-                CornerRadius="8"
-                Padding="18,10"/>
+                    <TextBlock Text="Add FAQ"
+                               FontSize="28"
+                               FontWeight="SemiBold"
+                               Foreground="#1F2937"/>
 
-        <Button x:Name="SaveButton"
-                Content="Save Changes"
-                Click="SaveButton_Click"
-                Background="#2CC7CF"
-                Foreground="White"
-                BorderThickness="0"
-                CornerRadius="8"
-                Padding="18,10"/>
-    </StackPanel>
+                    <TextBlock Text="Create a frequently asked question entry"
+                               FontSize="13"
+                               Foreground="#6B7280"
+                               Margin="0,-8,0,4"/>
 
-</StackPanel>
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Category"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   Foreground="#256D85"/>
+                        <Border Background="#F9FEFF"
+                                BorderBrush="#A8DDE3"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="10,2">
+                            <ComboBox x:Name="CategoryComboBox"
+                                      PlaceholderText="Select category"
+                                      MinWidth="300"
+                                      MinHeight="44"
+                                      Background="Transparent"
+                                      Foreground="#111827"
+                                      BorderThickness="0">
+                                <ComboBoxItem Content="CheckIn"/>
+                                <ComboBoxItem Content="Parking"/>
+                                <ComboBoxItem Content="Baggage"/>
+                                <ComboBoxItem Content="Tickets"/>
+                                <ComboBoxItem Content="Facilities"/>
+                                <ComboBoxItem Content="All"/>
+                            </ComboBox>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Question"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   Foreground="#256D85"/>
+                        <Border Background="#F9FEFF"
+                                BorderBrush="#A8DDE3"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="10,6">
+                            <TextBox x:Name="QuestionTextBox"
+                                     PlaceholderText="Enter the question"
+                                     TextWrapping="Wrap"
+                                     MinWidth="300"
+                                     MinHeight="44"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     Foreground="#111827">
+                                <TextBox.Resources>
+                                    <SolidColorBrush x:Key="TextControlBackground" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="TextControlBackgroundDisabled" Color="Transparent"/>
+
+                                    <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="TextControlBorderBrushDisabled" Color="Transparent"/>
+
+                                    <SolidColorBrush x:Key="TextControlForeground" Color="#111827"/>
+                                    <SolidColorBrush x:Key="TextControlForegroundFocused" Color="#111827"/>
+                                    <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="#111827"/>
+                                    <SolidColorBrush x:Key="TextControlForegroundDisabled" Color="#9CA3AF"/>
+                                    <SolidColorBrush x:Key="TextControlPlaceholderForeground" Color="#94A3B8"/>
+                                </TextBox.Resources>
+                            </TextBox>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Answer"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   Foreground="#256D85"/>
+                        <Border Background="#F9FEFF"
+                                BorderBrush="#A8DDE3"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="10,6">
+                            <TextBox x:Name="AnswerTextBox"
+                                     PlaceholderText="Enter the answer"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     MinWidth="300"
+                                     Height="140"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     Foreground="#111827">
+                                <TextBox.Resources>
+                                    <SolidColorBrush x:Key="TextControlBackground" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="TextControlBackgroundDisabled" Color="Transparent"/>
+
+                                    <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="Transparent"/>
+                                    <SolidColorBrush x:Key="TextControlBorderBrushDisabled" Color="Transparent"/>
+
+                                    <SolidColorBrush x:Key="TextControlForeground" Color="#111827"/>
+                                    <SolidColorBrush x:Key="TextControlForegroundFocused" Color="#111827"/>
+                                    <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="#111827"/>
+                                    <SolidColorBrush x:Key="TextControlForegroundDisabled" Color="#9CA3AF"/>
+                                    <SolidColorBrush x:Key="TextControlPlaceholderForeground" Color="#94A3B8"/>
+                                </TextBox.Resources>
+                            </TextBox>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Spacing="10"
+                                Margin="0,8,0,0">
+
+
+                        <Button x:Name="CancelButton"
+                                Content="Cancel"
+                                Click="CancelButton_Click"
+                                Background="#E6F7F9"
+                                Foreground="#256D85"
+                                BorderBrush="#BFE8EC"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="18,10">
+                            <Button.Resources>
+                                <SolidColorBrush x:Key="ButtonBackground" Color="#E6F7F9"/>
+                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#D6F1F4"/>
+                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#C4E8ED"/>
+                                <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="#F3F4F6"/>
+
+                                <SolidColorBrush x:Key="ButtonForeground" Color="#256D85"/>
+                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#256D85"/>
+                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#1F5B70"/>
+                                <SolidColorBrush x:Key="ButtonForegroundDisabled" Color="#9CA3AF"/>
+
+                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#BFE8EC"/>
+                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#A8DDE3"/>
+                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#8FD2DA"/>
+                                <SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="#E5E7EB"/>
+                            </Button.Resources>
+                        </Button>
+
+
+                        <Button x:Name="SaveButton"
+                                Content="Save Changes"
+                                Click="SaveButton_Click"
+                                Background="#2CC7CF"
+                                Foreground="White"
+                                BorderThickness="0"
+                                CornerRadius="8"
+                                Padding="18,10">
+                            <Button.Resources>
+                                <SolidColorBrush x:Key="ButtonBackground" Color="#2CC7CF"/>
+                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#25B8C0"/>
+                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#1FA7AF"/>
+                                <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="#A8DDE3"/>
+
+                                <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
+                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
+                                <SolidColorBrush x:Key="ButtonForegroundDisabled" Color="#E5E7EB"/>
+
+                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#2CC7CF"/>
+                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#25B8C0"/>
+                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#1FA7AF"/>
+                                <SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="#A8DDE3"/>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
+
+                </StackPanel>
+            </StackPanel>
         </Border>
     </Grid>
-
 </Page>
