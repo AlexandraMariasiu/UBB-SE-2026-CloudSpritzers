@@ -14,8 +14,10 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove=".env" />
+    <None Remove="Assets\CloudSpritzersLogo.png" />
     <None Remove="src\view\general\ChoosingPage.xaml" />
     <None Remove="src\view\general\LandingPage.xaml" />
+    <None Remove="src\view\general\UpperBar.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="ChatPage.xaml" />
@@ -91,4 +93,7 @@
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
   </PropertyGroup>
+  <ItemGroup>
+    <Resource Remove="src\view\general\UpperBar.xaml" />
+  </ItemGroup>
 </Project>
