@@ -306,6 +306,7 @@ namespace CloudSpritzers1.src.view
             {
                 XamlRoot = this.XamlRoot,
                 Background = new SolidColorBrush(Colors.White),
+                RequestedTheme = ElementTheme.Light
                 Content = new ScrollViewer
                 {
                     MaxHeight = 500,
