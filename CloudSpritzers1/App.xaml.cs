@@ -57,8 +57,12 @@ namespace CloudSpritzers1
             services.AddSingleton<ReviewRepository>();
             services.AddSingleton<ReviewService>();
 
+            services.AddSingleton<UserRepository>();
+            services.AddSingleton<UserService>();
+
             services.AddTransient<LandingViewModel>();
             services.AddTransient<AllReviewsViewModel>();
+            services.AddTransient<AddReviewViewModel>();
 
             return services.BuildServiceProvider();
         }
