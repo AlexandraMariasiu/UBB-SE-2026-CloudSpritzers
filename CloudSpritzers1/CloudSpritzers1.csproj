@@ -13,7 +13,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="src\view\faq\FAQPage.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove=".env" />
+    <None Remove="src\view\faq\FAQAddEditPage.xaml" />
+    <None Remove="src\view\faq\FAQView.xaml" />
     <None Remove="src\view\general\ChoosingPage.xaml" />
     <None Remove="src\view\general\LandingPage.xaml" />
   </ItemGroup>
@@ -61,6 +66,12 @@
     <None Update="src\view\chat\ChatPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <Page Update="src\view\faq\FAQView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="src\view\faq\FAQAddEditPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="src\view\general\LandingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
