@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using CloudSpritzers1.src.model.message;
+using CloudSpritzers1.src.model.chat;
 
 namespace CloudSpritzers1.src.repository
 {
@@ -9,34 +10,40 @@ namespace CloudSpritzers1.src.repository
     {
         protected override Message MapRowToEntity(SqlDataReader reader)
         {
+            int messageId = reader.GetInt32(reader.GetOrdinal("message_id"));
+            int chatId = reader.GetInt32(reader.GetOrdinal("chat_id"));
             int senderId = reader.GetInt32(reader.GetOrdinal("sender_id"));
             string text = reader.GetString(reader.GetOrdinal("text"));
+            DateTimeOffset timestamp = reader.GetDateTimeOffset(reader.GetOrdinal("timestamp"));
 
-            return new Message(new UserStub(senderId), null, text);
+            var senderStub = new SenderStub(senderId);
+            var chatStub = new ChatStub(chatId);
+
+            return new Message(messageId, senderStub, chatStub, text, timestamp);
         }
 
-        protected override int GetEntityId(Message entity)
-        {
-            return entity.GetId();
-        }
+        protected override int GetEntityId(Message entity) => entity.GetId();
 
         public int Add(Message elem)
         {
-            string query = "INSERT INTO Message (sender_id, chat_id, timestamp, text, is_read) " +
-                           "VALUES (@senderId, @chatId, @timestamp, @text); SELECT SCOPE_IDENTITY();";
+            const string query =
+                "INSERT INTO Message (sender_id, chat_id, timestamp, text, is_read) " +
+                "VALUES (@senderId, @chatId, @timestamp, @text, @isRead); " +
+                "SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             var cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("@senderId", elem.GetSender() is UserStub s ? s.UserId : 0);
-            cmd.Parameters.AddWithValue("@chatId", ((IMessage)elem).GetChat() is CloudSpritzers1.src.model.chat.Chat c ? c.ChatId : 0);
+            cmd.Parameters.AddWithValue("@senderId", elem.GetSender().GetId());
+            cmd.Parameters.AddWithValue("@chatId", ((IMessage)elem).GetChat().ChatId);
             cmd.Parameters.AddWithValue("@timestamp", DateTimeOffset.UtcNow);
             cmd.Parameters.AddWithValue("@text", elem.GetMessage());
+            cmd.Parameters.AddWithValue("@isRead", false);
 
             return Add(cmd, elem);
         }
 
         public void DeleteById(int id)
         {
-            string query = "DELETE FROM Message WHERE message_id = @id";
+            const string query = "DELETE FROM Message WHERE message_id = @id";
             var cmd = new SqlCommand(query);
             cmd.Parameters.AddWithValue("@id", id);
 
@@ -45,7 +52,7 @@ namespace CloudSpritzers1.src.repository
 
         public void UpdateById(int id, Message message)
         {
-            string query = "UPDATE Message SET text = @text WHERE message_id = @id";
+            const string query = "UPDATE Message SET text = @text WHERE message_id = @id";
             var cmd = new SqlCommand(query);
             cmd.Parameters.AddWithValue("@text", message.GetMessage());
             cmd.Parameters.AddWithValue("@id", id);
@@ -55,24 +62,24 @@ namespace CloudSpritzers1.src.repository
 
         public IEnumerable<Message> GetAll()
         {
-            string query = "SELECT * FROM Message";
-            var cmd = new SqlCommand(query);
-
-            return GetAll(cmd);
+            const string query = "SELECT * FROM Message";
+            return GetAll(new SqlCommand(query));
         }
 
         public Message GetById(int id)
         {
-            string query = "SELECT * FROM Message WHERE message_id = @id";
+            const string query = "SELECT * FROM Message WHERE message_id = @id";
             var cmd = new SqlCommand(query);
             cmd.Parameters.AddWithValue("@id", id);
 
-            return GetById(id, cmd) ?? throw new KeyNotFoundException($"Message with id {id} not found.");
+            return GetById(id, cmd)
+                ?? throw new KeyNotFoundException($"Message with id {id} not found.");
         }
 
         public IEnumerable<Message> GetByChatId(int chatId)
         {
-            string query = "SELECT * FROM Message WHERE chat_id = @chatId ORDER BY timestamp";
+            const string query =
+                "SELECT * FROM Message WHERE chat_id = @chatId ORDER BY timestamp ASC";
             var cmd = new SqlCommand(query);
             cmd.Parameters.AddWithValue("@chatId", chatId);
 
@@ -81,7 +88,10 @@ namespace CloudSpritzers1.src.repository
 
         public IEnumerable<Message> GetMessagesSince(int chatId, int firstMessageId)
         {
-            string query = "SELECT * FROM Message WHERE chat_id = @chatId AND message_id >= @firstMessageId ORDER BY timestamp";
+            const string query =
+                "SELECT * FROM Message " +
+                "WHERE chat_id = @chatId AND message_id >= @firstMessageId " +
+                "ORDER BY timestamp ASC";
             var cmd = new SqlCommand(query);
             cmd.Parameters.AddWithValue("@chatId", chatId);
             cmd.Parameters.AddWithValue("@firstMessageId", firstMessageId);
@@ -89,14 +99,31 @@ namespace CloudSpritzers1.src.repository
             return GetAll(cmd);
         }
 
-        private sealed class UserStub : ISender
+        public void MarkAsRead(int messageId)
         {
-            public int UserId { get; }
-            public UserStub(int userId) => UserId = userId;
+            const string query = "UPDATE Message SET is_read = 1 WHERE message_id = @id";
+            var cmd = new SqlCommand(query);
+            cmd.Parameters.AddWithValue("@id", messageId);
+
+            ExecuteNonQuery(cmd);
+            InvalidateCacheEntry(messageId);
+        }
+
+
+        // TODO: I swear I wanted to remove stubs, not end more. I hope God and Mihai will forgive me, at least Mihai.
+        private sealed class SenderStub : ISender
+        {
+            private readonly int _id;
+            public SenderStub(int id) => _id = id;
+            public int GetId() => _id;
             public string GetName() => string.Empty;
             public string GetEmail() => string.Empty;
+        }
 
-            public int GetId() => UserId;
+
+        private sealed class ChatStub : Chat
+        {
+            public ChatStub(int chatId) : base(chatId, userId: 0, ChatStatus.Active) { }
         }
     }
 }

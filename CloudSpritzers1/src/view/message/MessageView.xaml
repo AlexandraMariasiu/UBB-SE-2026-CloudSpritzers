@@ -4,34 +4,33 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dto="using:CloudSpritzers1.src.dto"
     mc:Ignorable="d">
-
     <Border x:Name="BubbleBorder"
-            CornerRadius="12"
-            Padding="15,10"
+            Style="{StaticResource CardStyle}"
             MaxWidth="400"
             HorizontalAlignment="Left"
-            Background="White"
             BorderBrush="#E0E0E0"
             BorderThickness="1">
-
         <StackPanel>
-
             <TextBlock x:Name="SenderLabel"
+                       Text="{x:Bind ViewModel.SenderId}"
                        FontSize="11"
                        FontWeight="SemiBold"
-                       Foreground="#3AB0B0"
+                       Foreground="{StaticResource PrimaryBrush}"
                        Visibility="Visible" />
-
             <TextBlock x:Name="MessageTextBlock"
+                       Text="{x:Bind ViewModel.MessageText}"
+                       FontSize="14"
                        TextWrapping="Wrap"
-                       FontSize="14" />
-
+                       Foreground="{StaticResource PrimaryTextColor}"
+                       Margin="0,4" />
             <TextBlock x:Name="TimestampLabel"
+                       Text="{x:Bind ViewModel.Timestamp}"
+                       Style="{StaticResource SubtitleTextStyle}"
                        FontSize="10"
-                       Foreground="Gray"
-                       Margin="0,5,0,0" />
-
+                       Margin="0,5,0,0"
+                       HorizontalAlignment="Right"/>
         </StackPanel>
     </Border>
 </UserControl>

@@ -1,22 +1,15 @@
-﻿using System;
-using CloudSpritzers1.src.model.message;
+﻿using CloudSpritzers1.src.dto;
+using Microsoft.UI.Xaml.Controls;
 
 namespace CloudSpritzers1.src.view.message
 {
-    public class MessageViewModel
+    public sealed partial class MessageView : UserControl
     {
-        private readonly IMessage _message;
-        private readonly bool _isOutgoing;
+        public MessageDTO ViewModel => (MessageDTO)DataContext;
 
-        public MessageViewModel(IMessage message, bool isOutgoing)
+        public MessageView()
         {
-            _message = message;
-            _isOutgoing = isOutgoing;
+            this.InitializeComponent();
         }
-
-        public string MessageText => _message.GetMessage();
-        public string SenderName => _message.GetSender().GetName();
-        public DateTimeOffset Timestamp => _message.GetTimeStamp();
-        public bool IsOutgoing => _isOutgoing;
     }
 }
