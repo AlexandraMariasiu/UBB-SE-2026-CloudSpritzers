@@ -37,8 +37,15 @@ namespace CloudSpritzers1.src.service.bot.strategy
             }
 
             FAQNode nextQuestion = _faqDecisionRepository.GetById(option.NextOptionId);
+            //added this! sorry
+            _currentDiscussionNode = nextQuestion;
 
             return new BotMessage.BotMessageBuilder(botEngine, message.GetChat(), UNASSIGNED_ID, nextQuestion).Build();
+        }
+
+        public void ResetToRoot()
+        {
+            _currentDiscussionNode = _faqDecisionRepository.GetById(1);
         }
     }
 }

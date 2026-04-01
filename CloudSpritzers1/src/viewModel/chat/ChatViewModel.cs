@@ -20,12 +20,15 @@ namespace CloudSpritzers1.src.viewModel.chat
     public sealed partial class ChatViewModel : ObservableObject
     {
         public ObservableCollection<FAQOption> CurrentOptions { get; } = new();
+        public ObservableCollection<IMessage> ChatHistory { get; } = new();
+
         private MessageService _messageService;
         private ChatService _chatService;
         private IMapper _mapper;
         private Chat _chat;
         private User _user;
         private const int _FIRST_OPTION = 1;
+
 
         public ChatViewModel(MessageService msgService,ChatService chatService, IMapper mapper) {
             _messageService = msgService;
@@ -36,18 +39,36 @@ namespace CloudSpritzers1.src.viewModel.chat
             _user = (App.Current as App).User; 
 
             _chat = _chatService.OpenChat(_user.GetId());
-            
-            LoadFirstMessage();
 
+            LoadChatHistory();
+
+            if (ChatHistory.Count == 0)
+            {
+                LoadFirstMessage();
+            }
+
+        }
+
+        private void LoadChatHistory()
+        {
+            ChatHistory.Clear();
+            var messages = _messageService.GetAllMessages(_chat.ChatId);
+            foreach (var msg in messages)
+            {
+                ChatHistory.Add(msg);
+            }
         }
 
         [RelayCommand]
         private void HandleOptionClick(FAQOption option)
         {
             if (option == null) return;
+
+
             BotMessage botReply = _messageService.SendMessage(_chat.ChatId, _user, option);
             System.Diagnostics.Debug.WriteLine($"User selected: {option.Label}");
 
+            LoadChatHistory() ;
             UpdateAvailableOptions(botReply);
 
         }
@@ -58,13 +79,16 @@ namespace CloudSpritzers1.src.viewModel.chat
             var nextOptions = (botReply as IMessage).GetNextOptions();
             //var dto = _mapper.Map<MessageDTO>();
 
-            // TODO UPDATE
             if (nextOptions != null)
             {
                 foreach (var opt in nextOptions)
                 {
                     CurrentOptions.Add(opt); 
                 }
+            }
+            else
+            {
+                CurrentOptions.Add(new FAQOption("Restart Chat", 1));
             }
         }
 
@@ -73,5 +97,6 @@ namespace CloudSpritzers1.src.viewModel.chat
             HandleOptionClick(new FAQOption("Hello! I need help.", _FIRST_OPTION));
             //_messageService.SendMessage(_chat.ChatId, _user, new FAQOption("Hello! I need help.", _FIRST_OPTION));
         }
+
     }
 }

@@ -1,7 +1,7 @@
 <Page
     x:Class="CloudSpritzers1.src.view.chat.ChatPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:msg="using:CloudSpritzers1.src.view.message"
+    xmlns:msg="using:CloudSpritzers1.src.model.message"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -69,12 +69,19 @@
                 Margin="-20,10,-20,0"/>
 
 		<!-- CHAT AREA -->
-        <ScrollViewer Grid.Row="1" Padding="20" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
-                <msg:MessageView />
-            </StackPanel>
-        </ScrollViewer>
-
+        <ListView Grid.Row="1" 
+          Padding="20"
+          ItemsSource="{x:Bind ViewModel.ChatHistory, Mode=OneWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="msg:IMessage">
+                    <TextBlock Text="{x:Bind GetMessage()}" 
+                       Foreground="Black" 
+                       FontSize="16" 
+                       Margin="0,5"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
         <!-- OPTIONS -->
         <StackPanel Grid.Row="2"
             Spacing="10"
