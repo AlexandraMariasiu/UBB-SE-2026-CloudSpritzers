@@ -73,12 +73,14 @@
                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
 
                                 <TextBox PlaceholderText="Enter your ID"
+                                       Text="{x:Bind UserId, Mode=TwoWay}"
                                      Height="36"/>
                             </StackPanel>
 
                             <!-- Button -->
                             <Button Content="Continue"
                                 Height="40"
+                                Click="Button_Click" 
                                 Background="#2CB1A6"
                                 Foreground="White"
                                 HorizontalAlignment="Stretch"
