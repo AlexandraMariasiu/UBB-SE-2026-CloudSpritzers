@@ -1,160 +1,147 @@
-using Microsoft.UI;
+using System;
+using System.Linq;
+using AutoMapper;
+using CloudSpritzers1.src.dto.mappingProfiles;
+using CloudSpritzers1.src.DTO;
+using CloudSpritzers1.src.model.faq;
+using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.service;
+using CloudSpritzers1.src.viewModel.faq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
 
 namespace CloudSpritzers1.src.view.faq
 {
-    public enum FAQViewMode
-    {
-        User,
-        Employee
-    }
-
     public sealed partial class FAQView : Page
     {
-        private FAQViewMode _mode = FAQViewMode.User;
-        private bool _isFaqExpanded = false;
+        public FAQViewModel ViewModel { get; }
 
         public FAQView()
         {
             this.InitializeComponent();
-            ApplyMode();
-        }
 
-        public FAQView(FAQViewMode mode)
-        {
-            this.InitializeComponent();
-            _mode = mode;
-            ApplyMode();
-        }
-
-        private void ApplyMode()
-        {
-            if (EmployeeActionsPanel != null)
+            var mapperConfig = new MapperConfiguration(cfg =>
             {
-                EmployeeActionsPanel.Visibility =
-                    _mode == FAQViewMode.Employee
-                    ? Visibility.Visible
-                    : Visibility.Collapsed;
-            }
-        }
+                cfg.AddProfile<FAQEntryMappingProfile>();
+            });
 
-        private void AddFaqButton_Click(object sender, RoutedEventArgs e)
-        {
-           
-            // Frame.Navigate(typeof(FAQAddEditPage));
-        }
+            var mapper = mapperConfig.CreateMapper();
+            var repository = new FAQRepository();
+            var service = new FAQService(repository);
 
-        private void EditFaqButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-            // Frame.Navigate(typeof(FAQAddEditPage));
-        }
+            bool isAdmin =true; // set true for testing admin mode
+            ViewModel = new FAQViewModel(service, mapper, isAdmin);
 
-        private void DeleteFaqButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Delete logic here later
+            DataContext = ViewModel;
+
+            UpdateAdminVisibility();
         }
 
         private void OpenFaqButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is string tag)
+            if (sender is Button button && button.DataContext is FAQEntryDTO faq)
             {
-                switch (tag)
-                {
-                    case "1":
-                        SelectedQuestionText.Text = "What is the baggage allowance?";
-                        SelectedCategoryText.Text = "Baggage Policies";
-                        SelectedViewsText.Text = "3421 views";
-                        SelectedAnswerText.Text = "Passengers may bring one cabin bag and one personal item. Checked baggage allowance depends on ticket type and airline policy.";
-                        break;
-
-                    case "2":
-                        SelectedQuestionText.Text = "How do I buy a ticket?";
-                        SelectedCategoryText.Text = "Ticket Purchasing";
-                        SelectedViewsText.Text = "2654 views";
-                        SelectedAnswerText.Text = "You can buy tickets through the airline website, mobile app, airport counters, or approved travel agencies.";
-                        break;
-
-                    case "3":
-                        SelectedQuestionText.Text = "Is there free WiFi at the airport?";
-                        SelectedCategoryText.Text = "Airport Facilities & Services";
-                        SelectedViewsText.Text = "2567 views";
-                        SelectedAnswerText.Text = "Yes, free WiFi is available throughout the airport. Connect to the public airport network and follow the login instructions.";
-                        break;
-
-                    case "4":
-                        SelectedQuestionText.Text = "How much does airport parking cost?";
-                        SelectedCategoryText.Text = "Parking Information";
-                        SelectedViewsText.Text = "2301 views";
-                        SelectedAnswerText.Text = "Parking prices depend on duration and parking zone. Short-stay and long-stay areas have different rates.";
-                        break;
-
-                    case "5":
-                        SelectedQuestionText.Text = "Where can I park at the airport?";
-                        SelectedCategoryText.Text = "Parking Information";
-                        SelectedViewsText.Text = "2145 views";
-                        SelectedAnswerText.Text = "The airport provides short-stay, long-stay, premium, and accessible parking near the terminals.";
-                        break;
-                }
-
-                _isFaqExpanded = true;
-                SelectedFaqDetailsPanel.Visibility = Visibility.Visible;
-                SelectedFaqChevron.Glyph = "\uE70E";
-
-                FeedbackThankYouText.Visibility = Visibility.Collapsed;
-                ResetFeedbackButtons();
+                ViewModel.ToggleFAQ(faq);
             }
         }
 
-        private void SelectedFaqHeaderButton_Click(object sender, RoutedEventArgs e)
+        private void AccordionHeader_Click(object sender, RoutedEventArgs e)
         {
-            _isFaqExpanded = !_isFaqExpanded;
+            if (sender is Button button && button.DataContext is FAQEntryDTO faq)
+            {
+                ViewModel.ToggleFAQ(faq);
+            }
+        }
 
-            SelectedFaqDetailsPanel.Visibility =
-                _isFaqExpanded ? Visibility.Visible : Visibility.Collapsed;
+        private void AllQuestionsButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.FilterByCategory(FAQCategoryEnum.All);
+        }
 
-            SelectedFaqChevron.Glyph = _isFaqExpanded ? "\uE70E" : "\uE76C";
+        private void CheckInButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.FilterByCategory(FAQCategoryEnum.CheckIn);
+        }
+
+        private void ParkingButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.FilterByCategory(FAQCategoryEnum.Parking);
+        }
+
+        private void BaggageButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.FilterByCategory(FAQCategoryEnum.Baggage);
+        }
+
+        private void TicketButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.FilterByCategory(FAQCategoryEnum.Tickets);
+        }
+
+        private void FacilitiesButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.FilterByCategory(FAQCategoryEnum.Facilities);
+        }
+
+        private void AddFaqButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(FAQAddEditPage));
+        }
+
+        private void EditFaqButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.SelectedFAQEntry == null)
+                return;
+
+            Frame.Navigate(typeof(FAQAddEditPage), ViewModel.SelectedFAQEntry);
+        }
+
+        private async void DeleteFaqButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.SelectedFAQEntry == null)
+                return;
+
+            var dialog = new ContentDialog
+            {
+                Title = "Delete FAQ",
+                Content = $"Are you sure you want to delete \"{ViewModel.SelectedFAQEntry.Question}\"?",
+                PrimaryButtonText = "Delete",
+                CloseButtonText = "Cancel",
+                XamlRoot = this.XamlRoot
+            };
+
+            var result = await dialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                ViewModel.DeleteFAQEntry(ViewModel.SelectedFAQEntry);
+                ViewModel.SelectedFAQEntry = null;
+            }
         }
 
         private void HelpfulButton_Click(object sender, RoutedEventArgs e)
         {
-            FeedbackThankYouText.Visibility = Visibility.Visible;
-
-            HelpfulButton.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 231, 248, 236));
-            HelpfulButton.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 34, 197, 94));
-            HelpfulButton.Foreground = new SolidColorBrush(ColorHelper.FromArgb(255, 2, 122, 72));
-
-            NotHelpfulButton.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 248, 249, 251));
-            NotHelpfulButton.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 209, 213, 219));
-            NotHelpfulButton.Foreground = new SolidColorBrush(ColorHelper.FromArgb(255, 107, 114, 128));
+            if (sender is Button button && button.Tag is FAQEntryDTO faq)
+            {
+                ViewModel.SelectedFAQEntry = faq;
+                ViewModel.IncrementWasHelpfulVotes();
+            }
         }
 
         private void NotHelpfulButton_Click(object sender, RoutedEventArgs e)
         {
-            FeedbackThankYouText.Visibility = Visibility.Visible;
-
-            NotHelpfulButton.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 254, 242, 242));
-            NotHelpfulButton.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 239, 68, 68));
-            NotHelpfulButton.Foreground = new SolidColorBrush(ColorHelper.FromArgb(255, 185, 28, 28));
-
-            HelpfulButton.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 248, 249, 251));
-            HelpfulButton.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 209, 213, 219));
-            HelpfulButton.Foreground = new SolidColorBrush(ColorHelper.FromArgb(255, 107, 114, 128));
+            if (sender is Button button && button.Tag is FAQEntryDTO faq)
+            {
+                ViewModel.SelectedFAQEntry = faq;
+                ViewModel.IncrementWasNotHelpfulVotes();
+            }
         }
 
-        private void ResetFeedbackButtons()
+        private void UpdateAdminVisibility()
         {
-            HelpfulButton.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 248, 249, 251));
-            HelpfulButton.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 209, 213, 219));
-            HelpfulButton.Foreground = new SolidColorBrush(ColorHelper.FromArgb(255, 107, 114, 128));
-
-            NotHelpfulButton.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 248, 249, 251));
-            NotHelpfulButton.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 209, 213, 219));
-            NotHelpfulButton.Foreground = new SolidColorBrush(ColorHelper.FromArgb(255, 107, 114, 128));
+            EmployeeActionsPanel.Visibility = ViewModel.IsAdmin
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
-
-
     }
 }

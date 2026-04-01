@@ -10,7 +10,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="White" Padding="24">
-
         <Border MaxWidth="700"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -21,8 +20,6 @@
                 Padding="0">
 
             <StackPanel>
-
-                <!-- Top accent bar -->
                 <Border Background="#2CC7CF"
                         Height="8"
                         CornerRadius="12,12,0,0"/>
@@ -54,7 +51,7 @@
                                       MinWidth="300"
                                       MinHeight="44"
                                       Background="Transparent"
-                                      RequestedTheme = "Light"
+                                      RequestedTheme="Light"
                                       Foreground="#111827"
                                       BorderThickness="0">
                                 <ComboBoxItem Content="CheckIn"/>
@@ -90,11 +87,9 @@
                                     <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="Transparent"/>
                                     <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="Transparent"/>
                                     <SolidColorBrush x:Key="TextControlBackgroundDisabled" Color="Transparent"/>
-
                                     <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="Transparent"/>
                                     <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="Transparent"/>
                                     <SolidColorBrush x:Key="TextControlBorderBrushDisabled" Color="Transparent"/>
-
                                     <SolidColorBrush x:Key="TextControlForeground" Color="#111827"/>
                                     <SolidColorBrush x:Key="TextControlForegroundFocused" Color="#111827"/>
                                     <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="#111827"/>
@@ -129,11 +124,9 @@
                                     <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="Transparent"/>
                                     <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="Transparent"/>
                                     <SolidColorBrush x:Key="TextControlBackgroundDisabled" Color="Transparent"/>
-
                                     <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="Transparent"/>
                                     <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="Transparent"/>
                                     <SolidColorBrush x:Key="TextControlBorderBrushDisabled" Color="Transparent"/>
-
                                     <SolidColorBrush x:Key="TextControlForeground" Color="#111827"/>
                                     <SolidColorBrush x:Key="TextControlForegroundFocused" Color="#111827"/>
                                     <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="#111827"/>
@@ -149,7 +142,6 @@
                                 Spacing="10"
                                 Margin="0,8,0,0">
 
-
                         <Button x:Name="CancelButton"
                                 Content="Cancel"
                                 Click="CancelButton_Click"
@@ -164,19 +156,16 @@
                                 <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#D6F1F4"/>
                                 <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#C4E8ED"/>
                                 <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="#F3F4F6"/>
-
                                 <SolidColorBrush x:Key="ButtonForeground" Color="#256D85"/>
                                 <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#256D85"/>
                                 <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#1F5B70"/>
                                 <SolidColorBrush x:Key="ButtonForegroundDisabled" Color="#9CA3AF"/>
-
                                 <SolidColorBrush x:Key="ButtonBorderBrush" Color="#BFE8EC"/>
                                 <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#A8DDE3"/>
                                 <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#8FD2DA"/>
                                 <SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="#E5E7EB"/>
                             </Button.Resources>
                         </Button>
-
 
                         <Button x:Name="SaveButton"
                                 Content="Save Changes"
@@ -191,20 +180,18 @@
                                 <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#25B8C0"/>
                                 <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#1FA7AF"/>
                                 <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="#A8DDE3"/>
-
                                 <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
                                 <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
                                 <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
                                 <SolidColorBrush x:Key="ButtonForegroundDisabled" Color="#E5E7EB"/>
-
                                 <SolidColorBrush x:Key="ButtonBorderBrush" Color="#2CC7CF"/>
                                 <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#25B8C0"/>
                                 <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#1FA7AF"/>
                                 <SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="#A8DDE3"/>
                             </Button.Resources>
                         </Button>
-                    </StackPanel>
 
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </Border>

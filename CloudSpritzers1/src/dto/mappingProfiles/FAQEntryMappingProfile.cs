@@ -16,9 +16,28 @@ namespace CloudSpritzers1.src.dto.mappingProfiles
     {
         public FAQEntryMappingProfile()
         {
-            System.Diagnostics.Debug.WriteLine("FAQEntryMappingProfile Loaded!");
+            CreateMap<FAQEntry, FAQEntryDTO>()
+                .ConstructUsing(src => new FAQEntryDTO(
+                    src.GetId(),
+                    src.GetQuestion(),
+                    src.GetAnswer(),
+                    src.GetCategory(),
+                    src.GetViewCount(),
+                    src.GetWasHelpfulVotes(),
+                    src.GetWasNotHelpfulVotes()
+                ));
 
-            CreateMap<FAQEntry, FAQEntryDTO>();
-        }
+            CreateMap<FAQEntryDTO, FAQEntry>()
+                .ConstructUsing(src => new FAQEntry(
+                    src.Id,
+                    src.Question,
+                    src.Answer,
+                    src.Category,
+                    src.ViewCount,
+                    src.WasHelpfulVotes,
+                    src.WasNotHelpfulVotes
+                ));
+        
+    }
     }
 }
