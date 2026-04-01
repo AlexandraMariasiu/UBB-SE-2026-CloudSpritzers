@@ -4,12 +4,28 @@ using CloudSpritzers1.src.model.faq.bot;
 
 namespace CloudSpritzers1.src.dto
 {
-    public record MessageDTO(
-        int MessageId,
-        int ChatId,
-        int SenderId,
-        string MessageText,
-        DateTimeOffset Timestamp,
-        IEnumerable<FAQOption> FaqOptions
-    );
+        public class MessageDTO
+        {
+            public int MessageId { get; set; }
+            public int ChatId { get; set; }
+            public int SenderId { get; set; }
+            public string MessageText { get; set; }
+            public DateTimeOffset Timestamp { get; set; }
+            public IEnumerable<FAQOption> FaqOptions { get; set; }
+
+            public string SenderName { get; set; }
+
+            public MessageDTO() { }
+
+            public MessageDTO(int messageId, int chatId, int senderId, string senderName, string messageText, DateTimeOffset timestamp, IEnumerable<CloudSpritzers1.src.model.faq.bot.FAQOption> faqOptions)
+            {
+                MessageId = messageId;
+                ChatId = chatId;
+                SenderId = senderId;
+                MessageText = messageText;
+                Timestamp = timestamp;
+                FaqOptions = faqOptions;
+                SenderName = senderName;
+            }
+        }
 }

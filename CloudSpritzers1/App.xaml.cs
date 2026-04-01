@@ -67,8 +67,8 @@ namespace CloudSpritzers1
             );
 
             services.AddSingleton<DecisionTreeRepository>();
-            services.AddSingleton<IBotStrategy, DecisionTreeStrategy>();
-            services.AddSingleton<BotEngine>();
+            services.AddTransient<IBotStrategy, DecisionTreeStrategy>(); // I am not sure this is the way to do it :(
+            services.AddTransient<BotEngine>();
 
             services.AddSingleton<MessageDBRepository>();
             services.AddSingleton<MessageService>();

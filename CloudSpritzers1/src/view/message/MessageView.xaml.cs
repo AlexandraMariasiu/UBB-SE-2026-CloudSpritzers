@@ -10,6 +10,13 @@ namespace CloudSpritzers1.src.view.message
         public MessageView()
         {
             this.InitializeComponent();
+            this.DataContextChanged += (s, e) =>
+            {
+                if (e.NewValue is MessageDTO)
+                {
+                    this.Bindings.Update();
+                }
+            };
         }
     }
 }

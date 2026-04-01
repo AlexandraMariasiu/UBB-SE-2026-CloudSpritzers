@@ -20,7 +20,7 @@ namespace CloudSpritzers1.src.viewModel.chat
     public sealed partial class ChatViewModel : ObservableObject
     {
         public ObservableCollection<FAQOption> CurrentOptions { get; } = new();
-        public ObservableCollection<IMessage> ChatHistory { get; } = new();
+        public ObservableCollection<MessageDTO> ChatHistory { get; } = new();
 
         private MessageService _messageService;
         private ChatService _chatService;
@@ -55,7 +55,8 @@ namespace CloudSpritzers1.src.viewModel.chat
             var messages = _messageService.GetAllMessages(_chat.ChatId);
             foreach (var msg in messages)
             {
-                ChatHistory.Add(msg);
+                var dto = _mapper.Map<MessageDTO>(msg);
+                ChatHistory.Add(dto);
             }
         }
 
