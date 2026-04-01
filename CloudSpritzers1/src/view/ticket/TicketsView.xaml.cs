@@ -189,7 +189,8 @@ namespace CloudSpritzers1.src.view
             {
                 PlaceholderText = "Select a subcategory",
                 Width = 400,
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 243, 243, 245)),
+                RequestedTheme = ElementTheme.Light,
+                Background = new SolidColorBrush(Colors.White),
                 Foreground = new SolidColorBrush(Colors.Black),
                 HorizontalAlignment = HorizontalAlignment.Left,
                 PlaceholderForeground = new SolidColorBrush(Colors.DarkGray)
