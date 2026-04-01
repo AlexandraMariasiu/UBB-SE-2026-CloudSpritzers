@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using AutoMapper;
-using CloudSpritzers1.src.DTO;
+using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model.faq;
 using CloudSpritzers1.src.service;
 

@@ -7,7 +7,7 @@
     xmlns:local="using:CloudSpritzers1.src.view.faq"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:dto="using:CloudSpritzers1.src.DTO"
+    xmlns:dto="using:CloudSpritzers1.src.dto"
     mc:Ignorable="d"
     Background="White">
 

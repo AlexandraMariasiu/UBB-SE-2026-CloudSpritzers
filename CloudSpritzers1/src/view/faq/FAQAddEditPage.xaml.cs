@@ -12,7 +12,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using CloudSpritzers1.src.DTO;
+using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.viewModel.faq;
 using CloudSpritzers1.src.dto.mappingProfiles;
 using AutoMapper;

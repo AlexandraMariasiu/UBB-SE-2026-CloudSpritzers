@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using AutoMapper;
 using CloudSpritzers1.src.dto.mappingProfiles;
-using CloudSpritzers1.src.DTO;
+using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model.faq;
 using CloudSpritzers1.src.repository;
 using CloudSpritzers1.src.service;
