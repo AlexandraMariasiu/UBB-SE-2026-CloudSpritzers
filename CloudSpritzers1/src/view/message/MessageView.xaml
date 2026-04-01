@@ -9,11 +9,12 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <conv:DateTimeToLocalConverter x:Key="DateConverter"/>
+        <conv:BooleanToAlignmentConverter x:Key="AlignConverter"/>
     </UserControl.Resources>
     <Border x:Name="BubbleBorder"
             Style="{StaticResource CardStyle}"
             MaxWidth="400"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="{x:Bind ViewModel.IsOutgoing, Converter={StaticResource AlignConverter}, Mode=OneWay}"
             BorderBrush="#E0E0E0"
             BorderThickness="1">
         <StackPanel>
