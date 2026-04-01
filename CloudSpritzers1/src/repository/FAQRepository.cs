@@ -44,28 +44,33 @@ namespace CloudSpritzers1.src.repository
             return id;
         }
 
-    public void UpdateById(int id, FAQEntry elem)
-    {
-        if (elem == null)
-            throw new ArgumentNullException(nameof(elem), "FAQ entry cannot be null.");
+  public void UpdateById(int id, FAQEntry elem)
+{
+    if (elem == null)
+        throw new ArgumentNullException(nameof(elem), "FAQ entry cannot be null.");
 
-        SqlCommand command = new SqlCommand(
-            "UPDATE FAQEntry " +
-            "SET Question = @question, Answer = @answer, Category = @category, " +
-            "ViewCount = @viewCount, WasHelpfulVotes = @wasHelpfulVotes, WasNotHelpfulVotes = @wasNotHelpfulVotes " +
-            "WHERE FAQentry_id= @id"
-        );
+    SqlCommand command = new SqlCommand(
+        "UPDATE FAQEntry " +
+        "SET question = @question, " +
+        "answer = @answer, " +
+        "category = @category, " +
+        "view_count = @viewCount, " +
+        "was_helpful_votes = @wasHelpfulVotes, " +
+        "was_not_helpful_votes = @wasNotHelpfulVotes " +
+        "WHERE FAQentry_id = @id"
+    );
 
-        command.Parameters.AddWithValue("@id", id);
-        command.Parameters.AddWithValue("@question", elem.GetQuestion());
-        command.Parameters.AddWithValue("@answer", elem.GetAnswer());
-        command.Parameters.AddWithValue("@category", elem.GetCategory().ToString());
-        command.Parameters.AddWithValue("@viewCount", elem.GetViewCount());
-        command.Parameters.AddWithValue("@wasHelpfulVotes", elem.GetWasHelpfulVotes());
-        command.Parameters.AddWithValue("@wasNotHelpfulVotes", elem.GetWasNotHelpfulVotes());
+    command.Parameters.AddWithValue("@id", id);
+    command.Parameters.AddWithValue("@question", elem.GetQuestion());
+    command.Parameters.AddWithValue("@answer", elem.GetAnswer());
+    command.Parameters.AddWithValue("@category", elem.GetCategory().ToString());
+    command.Parameters.AddWithValue("@viewCount", elem.GetViewCount());
+    command.Parameters.AddWithValue("@wasHelpfulVotes", elem.GetWasHelpfulVotes());
+    command.Parameters.AddWithValue("@wasNotHelpfulVotes", elem.GetWasNotHelpfulVotes());
 
-        base.UpdateById(id, command, elem);
-    }
+    base.UpdateById(id, command, elem);
+    InvalidateCacheEntry(id);
+}
 
     public void DeleteById(int id)
     {

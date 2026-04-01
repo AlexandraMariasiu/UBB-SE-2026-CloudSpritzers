@@ -9,6 +9,7 @@ using CloudSpritzers1.src.service;
 using CloudSpritzers1.src.viewModel.faq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace CloudSpritzers1.src.view.faq
 {
@@ -29,11 +30,18 @@ namespace CloudSpritzers1.src.view.faq
             var repository = new FAQRepository();
             var service = new FAQService(repository);
 
-            bool isAdmin =false; // set true for testing admin mode
+            bool isAdmin =true; // set true for testing admin mode
             ViewModel = new FAQViewModel(service, mapper, isAdmin);
 
             DataContext = ViewModel;
 
+            UpdateAdminVisibility();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            ViewModel.LoadFAQ();
             UpdateAdminVisibility();
         }
 
@@ -85,15 +93,29 @@ namespace CloudSpritzers1.src.view.faq
 
         private void AddFaqButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(FAQAddEditPage));
+            if (this.Frame != null)
+            {
+                this.Frame.Navigate(typeof(FAQAddEditPage));
+            }
         }
 
-        private void EditFaqButton_Click(object sender, RoutedEventArgs e)
+        private async void EditFaqButton_Click(object sender, RoutedEventArgs e)
         {
             if (ViewModel.SelectedFAQEntry == null)
-                return;
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "No FAQ selected",
+                    Content = "Please open an FAQ first, then click Edit.",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.XamlRoot
+                };
 
-            Frame.Navigate(typeof(FAQAddEditPage), ViewModel.SelectedFAQEntry);
+                await dialog.ShowAsync();
+                return;
+            }
+
+            Frame?.Navigate(typeof(FAQAddEditPage), ViewModel.SelectedFAQEntry);
         }
 
         private async void DeleteFaqButton_Click(object sender, RoutedEventArgs e)
@@ -101,10 +123,12 @@ namespace CloudSpritzers1.src.view.faq
             if (ViewModel.SelectedFAQEntry == null)
                 return;
 
+            var faq = ViewModel.SelectedFAQEntry;
+
             var dialog = new ContentDialog
             {
                 Title = "Delete FAQ",
-                Content = $"Are you sure you want to delete \"{ViewModel.SelectedFAQEntry.Question}\"?",
+                Content = $"Are you sure you want to delete \"{faq.Question}\"?",
                 PrimaryButtonText = "Delete",
                 CloseButtonText = "Cancel",
                 XamlRoot = this.XamlRoot
@@ -114,7 +138,7 @@ namespace CloudSpritzers1.src.view.faq
 
             if (result == ContentDialogResult.Primary)
             {
-                ViewModel.DeleteFAQEntry(ViewModel.SelectedFAQEntry);
+                ViewModel.DeleteFAQEntry(faq);
                 ViewModel.SelectedFAQEntry = null;
             }
         }

@@ -26,12 +26,14 @@
 
                 <StackPanel Padding="24" Spacing="18">
 
-                    <TextBlock Text="Add FAQ"
+                    <TextBlock x:Name="PageTitleText"
+                                Text="Add FAQ"
                                FontSize="28"
                                FontWeight="SemiBold"
                                Foreground="#1F2937"/>
 
-                    <TextBlock Text="Create a frequently asked question entry"
+                    <TextBlock x:Name="PageSubtitleText"
+                               Text="Create a frequently asked question entry"
                                FontSize="13"
                                Foreground="#6B7280"
                                Margin="0,-8,0,4"/>
