@@ -21,7 +21,8 @@ namespace CloudSpritzers1.src.service.bot.strategy
         public DecisionTreeStrategy(DecisionTreeRepository faqRepository)
         {
             this._faqDecisionRepository = faqRepository;
-            this._currentDiscussionNode = null;
+            ///this._currentDiscussionNode = null;
+            this._currentDiscussionNode = _faqDecisionRepository.GetById(1);
         }
 
         public BotMessage Process(BotEngine botEngine, IMessage message)

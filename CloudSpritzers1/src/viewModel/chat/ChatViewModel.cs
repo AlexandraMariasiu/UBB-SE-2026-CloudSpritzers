@@ -3,6 +3,7 @@ using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.chat;
 using CloudSpritzers1.src.model.faq.bot;
+using CloudSpritzers1.src.model.message;
 using CloudSpritzers1.src.service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -44,21 +45,27 @@ namespace CloudSpritzers1.src.viewModel.chat
         private void HandleOptionClick(FAQOption option)
         {
             if (option == null) return;
-
-            
+            BotMessage botReply = _messageService.SendMessage(_chat.ChatId, _user, option);
             System.Diagnostics.Debug.WriteLine($"User selected: {option.Label}");
 
-            UpdateAvailableOptions(option.NextOptionId);
+            UpdateAvailableOptions(botReply);
 
         }
 
-        private void UpdateAvailableOptions(int nextNodeId)
+        private void UpdateAvailableOptions(BotMessage botReply)
         {
-            //var dto = _mapper.Map<MessageDTO>();
             CurrentOptions.Clear();
+            var nextOptions = (botReply as IMessage).GetNextOptions();
+            //var dto = _mapper.Map<MessageDTO>();
+
             // TODO UPDATE
-            CurrentOptions.Add(new FAQOption("Tell me more", 101));
-            CurrentOptions.Add(new FAQOption("Back to start", 0));
+            if (nextOptions != null)
+            {
+                foreach (var opt in nextOptions)
+                {
+                    CurrentOptions.Add(opt); 
+                }
+            }
         }
 
         private void LoadFirstMessage()
