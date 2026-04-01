@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using CloudSpritzers1.src.view.chat;
+using CloudSpritzers1.src.view.general;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -10,10 +7,13 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-
-using CloudSpritzers1.src.view.general;
 
 
 namespace CloudSpritzers1.src.view.general
@@ -45,6 +45,8 @@ namespace CloudSpritzers1.src.view.general
                     try
                     {
                         (App.Current as App).SetUser(parsedId);
+                        // NOTE - only temporary so i can test it
+                        this.Frame.Navigate(typeof(CloudSpritzers1.src.view.chat.ChatPage));
                     }
                     catch (Exception ex)
                     {

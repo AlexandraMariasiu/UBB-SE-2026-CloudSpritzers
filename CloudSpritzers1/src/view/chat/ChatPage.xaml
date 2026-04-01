@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:CloudSpritzers1.src.view.chat"
+    xmlns:bot="using:CloudSpritzers1.src.model.faq.bot"
+    x:Name="RootPage"
     mc:Ignorable="d"
     Background="White"
     
@@ -129,10 +131,23 @@
                     </Style>
                 </StackPanel.Resources>
 
-                <Button Content="Flight Information"/>
-                <Button Content="Baggage Issue"/>
-                <Button Content="Refund Request"/>
-                <Button Content="Other Issue"/>
+                <ItemsControl ItemsSource="{x:Bind ViewModel.CurrentOptions}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VariableSizedWrapGrid Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="bot:FAQOption">
+                            <Button Content="{x:Bind Label}" 
+                    Margin="4"
+                    Command="{Binding ElementName=RootPage, Path=ViewModel.HandleOptionClickCommand}"
+                    CommandParameter="{x:Bind}">
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
             </StackPanel>
         </StackPanel>

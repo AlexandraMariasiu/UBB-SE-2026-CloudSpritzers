@@ -8,11 +8,11 @@ using CloudSpritzers1.src.model.chat;
 
 namespace CloudSpritzers1.src.service
 {
-    internal class ChatService
+    public class ChatService
     {
         private IRepository<int, Chat> _repository;
 
-        public ChatService(IRepository<int, Chat> repository)
+        public ChatService(ChatDBRepository repository)
         {
             _repository = repository;
         }

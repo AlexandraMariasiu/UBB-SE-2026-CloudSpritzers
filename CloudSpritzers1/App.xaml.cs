@@ -3,9 +3,13 @@ using CloudSpritzers1.src;
 using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.dto.mappingProfiles;
 using CloudSpritzers1.src.model;
+using CloudSpritzers1.src.model.chat;
 using CloudSpritzers1.src.repository;
 using CloudSpritzers1.src.service;
+using CloudSpritzers1.src.service.bot;
+using CloudSpritzers1.src.service.bot.strategy;
 using CloudSpritzers1.src.viewmodel;
+using CloudSpritzers1.src.viewModel.chat;
 using CloudSpritzers1.src.viewModel.review;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
@@ -62,6 +66,16 @@ namespace CloudSpritzers1
                 typeof(TicketMappingProfile).Assembly
             );
 
+            services.AddSingleton<DecisionTreeRepository>();
+            services.AddSingleton<IBotStrategy, DecisionTreeStrategy>();
+            services.AddSingleton<BotEngine>();
+
+            services.AddSingleton<MessageDBRepository>();
+            services.AddSingleton<MessageService>();
+
+            services.AddSingleton<ChatDBRepository>();
+            services.AddSingleton<ChatService>();
+
             services.AddSingleton<ReviewRepository>();
             services.AddSingleton<ReviewService>();
 
@@ -71,6 +85,8 @@ namespace CloudSpritzers1
             services.AddTransient<LandingViewModel>();
             services.AddTransient<AllReviewsViewModel>();
             services.AddTransient<AddReviewViewModel>();
+            services.AddTransient<ChatViewModel>();
+            
 
             return services.BuildServiceProvider();
         }
@@ -78,7 +94,11 @@ namespace CloudSpritzers1
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             _window = new MainWindow();
-            _window.Content = new CloudSpritzers1.src.view.general.EnterYourId();
+            Frame rootFrame = new Frame();
+            _window.Content = rootFrame;
+
+            rootFrame.Navigate(typeof(CloudSpritzers1.src.view.general.EnterYourId));
+            //_window.Content = new CloudSpritzers1.src.view.general.EnterYourId();
             _window.Activate();
         }
     }
