@@ -54,6 +54,7 @@
                                       MinWidth="300"
                                       MinHeight="44"
                                       Background="Transparent"
+                                      RequestedTheme = "Light"
                                       Foreground="#111827"
                                       BorderThickness="0">
                                 <ComboBoxItem Content="CheckIn"/>
