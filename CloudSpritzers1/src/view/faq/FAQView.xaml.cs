@@ -91,11 +91,35 @@ namespace CloudSpritzers1.src.view.faq
             ViewModel.FilterByCategory(FAQCategoryEnum.Facilities);
         }
 
-        private void AddFaqButton_Click(object sender, RoutedEventArgs e)
+        private async void AddFaqButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.Frame != null)
+            if (Frame == null)
             {
-                this.Frame.Navigate(typeof(FAQAddEditPage));
+                var dialog = new ContentDialog
+                {
+                    Title = "Navigation error",
+                    Content = "Frame is null. FAQAddEditPage cannot open.",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.XamlRoot
+                };
+
+                await dialog.ShowAsync();
+                return;
+            }
+
+            bool navigated = Frame.Navigate(typeof(FAQAddEditPage));
+
+            if (!navigated)
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "Navigation error",
+                    Content = "Navigate returned false.",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.XamlRoot
+                };
+
+                await dialog.ShowAsync();
             }
         }
 
@@ -115,7 +139,34 @@ namespace CloudSpritzers1.src.view.faq
                 return;
             }
 
-            Frame?.Navigate(typeof(FAQAddEditPage), ViewModel.SelectedFAQEntry);
+            if (Frame == null)
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "Navigation error",
+                    Content = "Frame is null. FAQAddEditPage cannot open.",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.XamlRoot
+                };
+
+                await dialog.ShowAsync();
+                return;
+            }
+
+            bool navigated = Frame.Navigate(typeof(FAQAddEditPage), ViewModel.SelectedFAQEntry);
+
+            if (!navigated)
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "Navigation error",
+                    Content = "Navigate returned false.",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.XamlRoot
+                };
+
+                await dialog.ShowAsync();
+            }
         }
 
         private async void DeleteFaqButton_Click(object sender, RoutedEventArgs e)

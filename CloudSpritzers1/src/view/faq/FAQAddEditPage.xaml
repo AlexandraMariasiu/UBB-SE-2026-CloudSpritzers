@@ -61,7 +61,7 @@
                                 <ComboBoxItem Content="Baggage"/>
                                 <ComboBoxItem Content="Tickets"/>
                                 <ComboBoxItem Content="Facilities"/>
-                                <ComboBoxItem Content="All"/>
+                               
                             </ComboBox>
                         </Border>
                     </StackPanel>

@@ -177,12 +177,6 @@ namespace CloudSpritzers1.src.view.faq
             }
 
 
-
-            System.Diagnostics.Debug.WriteLine($"SAVE CLICKED | EditMode={_isEditMode}");
-            System.Diagnostics.Debug.WriteLine($"Editing FAQ Id = {_editingFaq?.Id}");
-            System.Diagnostics.Debug.WriteLine($"Question = {question}");
-            System.Diagnostics.Debug.WriteLine($"Answer = {answer}");
-            System.Diagnostics.Debug.WriteLine($"Category = {selectedCategoryItem.Content}");
         }
 
         private async System.Threading.Tasks.Task ShowMessage(string title, string message)
