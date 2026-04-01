@@ -26,6 +26,13 @@ namespace CloudSpritzers1.src.view.general
             this.InitializeComponent();
         }
 
+        private async void showError(string message, string title)
+        {
+            var dialog1 = new MaiBoule(message, title);
+            dialog1.XamlRoot = this.Content.XamlRoot;
+            await dialog1.ShowAsync();
+        }
+
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             if (int.TryParse(UserId, out int parsedId))
@@ -35,8 +42,19 @@ namespace CloudSpritzers1.src.view.general
 
                 if (await dialog.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    (App.Current as App).SetUser(parsedId);
+                    try
+                    {
+                        (App.Current as App).SetUser(parsedId);
+                    }
+                    catch (Exception ex)
+                    {
+                        showError("Invalid Id - does not exist", "ERROR");
+                    }
                 }
+            }
+            else
+            {
+                showError("NOT an int. Boule.", "ERROR");
             }
         }
     }
