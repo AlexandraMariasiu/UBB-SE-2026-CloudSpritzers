@@ -6,6 +6,7 @@ using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.repository;
 using CloudSpritzers1.src.service;
 using CloudSpritzers1.src.viewmodel;
+using CloudSpritzers1.src.viewModel.review;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -56,7 +57,12 @@ namespace CloudSpritzers1
             services.AddSingleton<ReviewRepository>();
             services.AddSingleton<ReviewService>();
 
+            services.AddSingleton<UserRepository>();
+            services.AddSingleton<UserService>();
+
             services.AddTransient<LandingViewModel>();
+            services.AddTransient<AllReviewsViewModel>();
+            services.AddTransient<AddReviewViewModel>();
 
             return services.BuildServiceProvider();
         }
