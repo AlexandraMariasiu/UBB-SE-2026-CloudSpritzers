@@ -10,9 +10,8 @@ namespace CloudSpritzers1.src.viewModel.review
     public partial class AddReviewViewModel : ObservableObject
     {
         private readonly ReviewService _reviewService;
-        private readonly UserService _userService;
 
-        public event EventHandler<string>? AlertRequested;
+        public event EventHandler<(string Title, string Message)>? AlertRequested;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SubmitReviewCommand))]
@@ -44,10 +43,9 @@ namespace CloudSpritzers1.src.viewModel.review
         private string _reviewMessage = string.Empty;
         public string CharCountText => $"{ReviewMessage?.Length ?? 0} characters";
 
-        public AddReviewViewModel(ReviewService reviewService, UserService userService)
+        public AddReviewViewModel(ReviewService reviewService)
         {
             _reviewService = reviewService;
-            _userService = userService;
         }
 
         private bool CanSubmitReview()
@@ -64,10 +62,17 @@ namespace CloudSpritzers1.src.viewModel.review
         {
             try
             {
-                //TODO: Replace with actual logged-in user retrieval logic
 
-                User sampleUser = _userService.GetById(2);
-                _reviewService.CreateReview(1, sampleUser, ReviewMessage, DutyRating, FlightRating, StaffRating, CleanRating);
+                var app = App.Current as App;
+                User? currentUser = app?.User; 
+
+                if (currentUser == null)
+                {
+                    AlertRequested?.Invoke(this, ("Not Logged In", "Oopsie Daisy! You must be logged in to leave a review"));
+                    return;
+                }
+
+                _reviewService.CreateReview(1, currentUser, ReviewMessage, DutyRating, FlightRating, StaffRating, CleanRating);
             
              
                 DutyRating = 0;
@@ -76,11 +81,11 @@ namespace CloudSpritzers1.src.viewModel.review
                 CleanRating = 0;
                 ReviewMessage = string.Empty;
 
-                Debug.WriteLine("Review successfully submitted!");
+                AlertRequested?.Invoke(this, ("Success", "Your review has been successfully submitted!"));
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error submitting review: {ex.Message}");
+                AlertRequested?.Invoke(this, ("Oopsie Daisy! Error", $"We couldn't submit your review: {ex.Message}"));
             }
         }
     }
