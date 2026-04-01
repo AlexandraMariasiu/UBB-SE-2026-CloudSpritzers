@@ -21,6 +21,8 @@
     <None Remove="src\view\faq\FAQView.xaml" />
     <None Remove="src\view\general\ChoosingPage.xaml" />
     <None Remove="src\view\general\LandingPage.xaml" />
+    <None Remove="src\view\review\EmployeeSeeReviews.xaml" />
+    <None Remove="src\view\review\ReviewPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="ChatPage.xaml" />
@@ -66,10 +68,17 @@
     <None Update="src\view\chat\ChatPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+<<<<<<< HEAD
     <Page Update="src\view\faq\FAQView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="src\view\faq\FAQAddEditPage.xaml">
+=======
+    <Page Update="src\view\review\EmployeeSeeReviews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="src\view\review\ReviewPage.xaml">
+>>>>>>> main
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="src\view\general\LandingPage.xaml">
