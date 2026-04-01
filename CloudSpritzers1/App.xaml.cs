@@ -33,11 +33,19 @@ namespace CloudSpritzers1
     {
         public IServiceProvider Services { get; }
         private Window? _window;
+        public User User { get; private set; }
 
         public App()
         {
             Services = ConfigureServices();
             InitializeComponent();
+        }
+
+        public void SetUser(int userId)
+        {
+            if (User != null)
+                return;
+            User = Services.GetService<UserService>().GetById(userId);
         }
 
         private static IServiceProvider ConfigureServices()
@@ -70,7 +78,7 @@ namespace CloudSpritzers1
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             _window = new MainWindow();
-            _window.Content = new CloudSpritzers1.src.view.general.LandingPage();
+            _window.Content = new CloudSpritzers1.src.view.general.EnterYourId();
             _window.Activate();
         }
     }

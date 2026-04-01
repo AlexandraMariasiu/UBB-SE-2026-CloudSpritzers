@@ -16,6 +16,7 @@
             <TextBlock x:Name="SenderLabel"
                        Text="{x:Bind ViewModel.SenderId}"
                        FontSize="11"
+                       Text="Carlos"
                        FontWeight="SemiBold"
                        Foreground="{StaticResource PrimaryBrush}"
                        Visibility="Visible" />
