@@ -24,16 +24,18 @@ namespace CloudSpritzers1.src.viewModel.chat
 
         private MessageService _messageService;
         private ChatService _chatService;
+        private UserService _userService;
         private IMapper _mapper;
         private Chat _chat;
         private User _user;
         private const int _FIRST_OPTION = 1;
 
 
-        public ChatViewModel(MessageService msgService,ChatService chatService, IMapper mapper) {
+        public ChatViewModel(MessageService msgService,ChatService chatService, IMapper mapper, UserService userService) {
             _messageService = msgService;
             _chatService = chatService;
             _mapper = mapper;
+            _userService = userService;
 
             // TODO: add null guard
             _user = (App.Current as App).User; 
@@ -56,6 +58,7 @@ namespace CloudSpritzers1.src.viewModel.chat
             foreach (var msg in messages)
             {
                 var dto = _mapper.Map<MessageDTO>(msg);
+                dto.SenderName = _userService.GetById(dto.SenderId)?.GetName();
                 ChatHistory.Add(dto);
             }
         }

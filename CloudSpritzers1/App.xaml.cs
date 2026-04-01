@@ -66,6 +66,7 @@ namespace CloudSpritzers1
                 typeof(TicketMappingProfile).Assembly
             );
 
+
             services.AddSingleton<DecisionTreeRepository>();
             services.AddTransient<IBotStrategy, DecisionTreeStrategy>(); // I am not sure this is the way to do it :(
             services.AddTransient<BotEngine>();

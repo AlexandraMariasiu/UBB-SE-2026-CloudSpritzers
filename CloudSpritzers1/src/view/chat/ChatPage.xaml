@@ -14,8 +14,7 @@
     Background="White"
     
     >
-
-	<Grid Padding="20">
+    <Grid Padding="20">
 
 		<!-- ROWS -->
 		<Grid.RowDefinitions>
