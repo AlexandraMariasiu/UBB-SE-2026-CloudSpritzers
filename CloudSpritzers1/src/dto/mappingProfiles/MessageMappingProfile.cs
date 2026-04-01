@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.DTO;
+using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model.message;
 using CloudSpritzers1.src.service.bot;
 using System;

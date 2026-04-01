@@ -167,12 +167,11 @@
                                    Foreground="#0F172A"/>
 
                         <StackPanel Orientation="Horizontal" Spacing="12">
-                            <RatingControl x:Name="DutyRating"
+                            <RatingControl Value="{Binding DutyRating, Mode=TwoWay}"
                                            MaxRating="5"
-                                           ValueChanged="Rating_ValueChanged" RequestedTheme="Light"/>
+                                           RequestedTheme="Light"/>
 
-                            <TextBlock x:Name="DutyText"
-                                       Text="Not rated"
+                            <TextBlock Text="{Binding DutyText}"
                                        VerticalAlignment="Center"
                                        Foreground="#64748B"/>
                         </StackPanel>
@@ -182,8 +181,12 @@
                     <StackPanel>
                         <TextBlock Text="Flight Experience" FontWeight="SemiBold" Foreground="#0F172A"/>
                         <StackPanel Orientation="Horizontal" Spacing="12">
-                            <RatingControl x:Name="FlightRating" MaxRating="5" ValueChanged="Rating_ValueChanged" RequestedTheme="Light"/>
-                            <TextBlock x:Name="FlightText" Text="Not rated" Foreground="#64748B"/>
+                            <RatingControl Value="{Binding FlightRating, Mode=TwoWay}"
+                                           MaxRating="5" 
+                                           RequestedTheme="Light"/>
+                            <TextBlock Text="{Binding FlightText}"
+                                       VerticalAlignment="Center"
+                                       Foreground="#64748B"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -191,8 +194,12 @@
                     <StackPanel>
                         <TextBlock Text="Staff Friendliness" FontWeight="SemiBold" Foreground="#0F172A"/>
                         <StackPanel Orientation="Horizontal" Spacing="12">
-                            <RatingControl x:Name="StaffRating" MaxRating="5" ValueChanged="Rating_ValueChanged" RequestedTheme="Light"/>
-                            <TextBlock x:Name="StaffText" Text="Not rated" Foreground="#64748B"/>
+                            <RatingControl Value="{Binding StaffRating, Mode=TwoWay}"
+                                           MaxRating="5" 
+                                           RequestedTheme="Light"/>
+                            <TextBlock Text="{Binding StaffText}" 
+                                       VerticalAlignment="Center"
+                                       Foreground="#64748B"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -200,8 +207,12 @@
                     <StackPanel>
                         <TextBlock Text="Cleanliness" FontWeight="SemiBold" Foreground="#0F172A"/>
                         <StackPanel Orientation="Horizontal" Spacing="12">
-                            <RatingControl x:Name="CleanRating" MaxRating="5" ValueChanged="Rating_ValueChanged" RequestedTheme="Light"/>
-                            <TextBlock x:Name="CleanText" Text="Not rated" Foreground="#64748B"/>
+                            <RatingControl Value="{Binding CleanRating, Mode=TwoWay}"
+                                           MaxRating="5"
+                                           RequestedTheme="Light"/>
+                            <TextBlock Text="{Binding CleanText}" 
+                                       VerticalAlignment="Center"
+                                       Foreground="#64748B"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -220,19 +231,17 @@
                                FontWeight="SemiBold"
                                Foreground="#0F172A"/>
 
-                    <TextBox x:Name="ReviewBox"
-                             PlaceholderText="Tell us about your experience..."
+                    <TextBox PlaceholderText="Tell us about your experience..."
+                             Text="{Binding ReviewMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              PlaceholderForeground="#64748B"
                              Foreground="Black"
                              AcceptsReturn="True"
                              Height="140"
                              TextWrapping="Wrap"
                              Background="#F1F5F9"
-                             BorderThickness="0"
-                             TextChanged="ReviewBox_TextChanged"/>
+                             BorderThickness="0"/>
 
-                    <TextBlock x:Name="CharCount"
-                               Text="0 characters"
+                    <TextBlock Text="{Binding CharCountText}"
                                FontSize="12"
                                Foreground="#64748B"/>
                 </StackPanel>
@@ -240,9 +249,8 @@
 
             <!-- Submit -->
             <StackPanel Spacing="8">
-                <Button x:Name="SubmitButton"
+                <Button Command="{Binding SubmitReviewCommand}"
                         Height="56"
-                        IsEnabled="True"
                         Background="#06B6D4"
                         Foreground="White"
                         CornerRadius="14">

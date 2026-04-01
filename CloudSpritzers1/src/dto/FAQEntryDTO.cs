@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using CloudSpritzers1.src.model.faq;
 
-namespace CloudSpritzers1.src.DTO
+namespace CloudSpritzers1.src.dto
 {
     public class FAQEntryDTO : INotifyPropertyChanged
     {

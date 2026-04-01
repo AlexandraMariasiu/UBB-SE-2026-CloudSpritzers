@@ -6,6 +6,7 @@ using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.repository;
 using CloudSpritzers1.src.service;
 using CloudSpritzers1.src.viewmodel;
+using CloudSpritzers1.src.viewModel.review;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -32,11 +33,19 @@ namespace CloudSpritzers1
     {
         public IServiceProvider Services { get; }
         private Window? _window;
+        public User User { get; private set; }
 
         public App()
         {
             Services = ConfigureServices();
             InitializeComponent();
+        }
+
+        public void SetUser(int userId)
+        {
+            if (User != null)
+                return;
+            User = Services.GetService<UserService>().GetById(userId);
         }
 
         private static IServiceProvider ConfigureServices()
@@ -56,7 +65,12 @@ namespace CloudSpritzers1
             services.AddSingleton<ReviewRepository>();
             services.AddSingleton<ReviewService>();
 
+            services.AddSingleton<UserRepository>();
+            services.AddSingleton<UserService>();
+
             services.AddTransient<LandingViewModel>();
+            services.AddTransient<AllReviewsViewModel>();
+            services.AddTransient<AddReviewViewModel>();
 
             return services.BuildServiceProvider();
         }
@@ -64,7 +78,7 @@ namespace CloudSpritzers1
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             _window = new MainWindow();
-            _window.Content = new CloudSpritzers1.src.view.general.LandingPage();
+            _window.Content = new CloudSpritzers1.src.view.general.EnterYourId();
             _window.Activate();
         }
     }

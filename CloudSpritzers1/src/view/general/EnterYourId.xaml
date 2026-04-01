@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Page
-    x:Class="CloudSpritzers1.src.view.generic.EnterYourId"
+    x:Class="CloudSpritzers1.src.view.general.EnterYourId"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CloudSpritzers1.src.view.generic"
+    xmlns:local="using:CloudSpritzers1.src.view.general"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -73,12 +73,14 @@
                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
 
                                 <TextBox PlaceholderText="Enter your ID"
+                                       Text="{x:Bind UserId, Mode=TwoWay}"
                                      Height="36"/>
                             </StackPanel>
 
                             <!-- Button -->
                             <Button Content="Continue"
                                 Height="40"
+                                Click="Button_Click" 
                                 Background="#2CB1A6"
                                 Foreground="White"
                                 HorizontalAlignment="Stretch"

@@ -9,6 +9,8 @@ namespace CloudSpritzers1.src.repository
 {
     public class ReviewRepository : DBRepository<int, Review>, IRepository<int, Review>
     {
+        private UserRepository _userRepository = new UserRepository();
+
         public ReviewRepository() { }
 
         public Review GetById(int id)
@@ -101,7 +103,9 @@ namespace CloudSpritzers1.src.repository
             int staffFriendlinessRating = reader.GetInt32(reader.GetOrdinal("staff_friendliness_rating"));
             int cleanlinessRating = reader.GetInt32(reader.GetOrdinal("cleanliness_rating"));
 
-            return new Review(id, new UserStub(userId), message, dutyFreeRating, flightExperienceRating, staffFriendlinessRating, cleanlinessRating);
+            User user = _userRepository.GetById(userId);
+
+            return new Review(id, user, message, dutyFreeRating, flightExperienceRating, staffFriendlinessRating, cleanlinessRating);
         }
 
         protected override int GetEntityId(Review entity)
@@ -109,10 +113,5 @@ namespace CloudSpritzers1.src.repository
             return entity.GetId();
         }
 
-
-        private sealed class UserStub : User
-        {
-            public UserStub(int userId) : base(userId, string.Empty, string.Empty) { }
-        }
     }
 }
