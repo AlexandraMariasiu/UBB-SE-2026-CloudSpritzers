@@ -29,7 +29,7 @@ namespace CloudSpritzers1.src.view.faq
             var repository = new FAQRepository();
             var service = new FAQService(repository);
 
-            bool isAdmin =true; // set true for testing admin mode
+            bool isAdmin =false; // set true for testing admin mode
             ViewModel = new FAQViewModel(service, mapper, isAdmin);
 
             DataContext = ViewModel;
@@ -125,6 +125,10 @@ namespace CloudSpritzers1.src.view.faq
             {
                 ViewModel.SelectedFAQEntry = faq;
                 ViewModel.IncrementWasHelpfulVotes();
+
+                faq.IsHelpfulSelected = true;
+                faq.IsNotHelpfulSelected = false;
+                faq.HasFeedback = true;
             }
         }
 
@@ -134,6 +138,10 @@ namespace CloudSpritzers1.src.view.faq
             {
                 ViewModel.SelectedFAQEntry = faq;
                 ViewModel.IncrementWasNotHelpfulVotes();
+
+                faq.IsHelpfulSelected = false;
+                faq.IsNotHelpfulSelected = true;
+                faq.HasFeedback = true;
             }
         }
 

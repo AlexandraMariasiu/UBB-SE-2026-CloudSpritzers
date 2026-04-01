@@ -14,6 +14,14 @@
     <Page.Resources>
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:BooleanToGlyphConverter x:Key="BooleanToGlyphConverter"/>
+        <local:HelpfulBackgroundConverter x:Key="HelpfulBackgroundConverter"/>
+        <local:HelpfulForegroundConverter x:Key="HelpfulForegroundConverter"/>
+        <local:HelpfulBorderConverter x:Key="HelpfulBorderConverter"/>
+
+        <local:NotHelpfulBackgroundConverter x:Key="NotHelpfulBackgroundConverter"/>
+        <local:NotHelpfulForegroundConverter x:Key="NotHelpfulForegroundConverter"/>
+        <local:NotHelpfulBorderConverter x:Key="NotHelpfulBorderConverter"/>
+        <local:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
 
         <Style x:Key="CategoryButtonStyle" TargetType="Button">
                     <Setter Property="Background" Value="#EAEAEE"/>
@@ -359,22 +367,48 @@ Click="FacilitiesButton_Click"/>
                                            FontSize="13"
                                            Foreground="#374151"
                                            LineHeight="22"/>
-                                                    <StackPanel Spacing="12">
-                                                        <TextBlock Text="Was this answer helpful?"
+
+                                                    <!-- ADMIN ONLY -->
+                                                    <StackPanel Spacing="8"
+                Visibility="{Binding DataContext.IsAdmin, ElementName=RootPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                                                        <TextBlock Text="Feedback summary"
                    FontSize="12"
-                   Foreground="#4B5563"/>
+                   FontWeight="SemiBold"
+                   Foreground="#374151"/>
+
+                                                        <StackPanel Orientation="Horizontal" Spacing="16">
+                                                            <TextBlock FontSize="12" Foreground="#15803D">
+                <Run Text="Helpful: "/>
+                <Run Text="{Binding WasHelpfulVotes}"/>
+                                                            </TextBlock>
+
+                                                            <TextBlock FontSize="12" Foreground="#B42318">
+                <Run Text="Not helpful: "/>
+                <Run Text="{Binding WasNotHelpfulVotes}"/>
+                                                            </TextBlock>
+                                                        </StackPanel>
+                                                    </StackPanel>
+
+                                                    <!-- USER ONLY -->
+                                                    <StackPanel Spacing="12"
+            Visibility="{Binding DataContext.IsAdmin, ElementName=RootPage, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+
+                                                        <TextBlock Text="Was this answer helpful?"
+               FontSize="12"
+               Foreground="#4B5563"/>
+                                                        
 
                                                         <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
-                                                            
-                                                            
+
                                                             <Button Click="HelpfulButton_Click"
-                    Tag="{Binding}"
-                    Background="#E8F7EC"
-                    Foreground="#15803D"
-                    BorderBrush="#86EFAC"
-                    BorderThickness="1"
-                    CornerRadius="8"
-                    Padding="12,8">
+                Tag="{Binding}"
+                Background="{Binding IsHelpfulSelected, Converter={StaticResource HelpfulBackgroundConverter}}"
+                Foreground="{Binding IsHelpfulSelected, Converter={StaticResource HelpfulForegroundConverter}}"
+                BorderBrush="{Binding IsHelpfulSelected, Converter={StaticResource HelpfulBorderConverter}}"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="12,8">
                                                                 <StackPanel Orientation="Horizontal" Spacing="6">
                                                                     <FontIcon Glyph="&#xE00B;" FontSize="12"/>
                                                                     <TextBlock Text="Yes" FontSize="12"/>
@@ -382,13 +416,13 @@ Click="FacilitiesButton_Click"/>
                                                             </Button>
 
                                                             <Button Click="NotHelpfulButton_Click"
-                    Tag="{Binding}"
-                    Background="#FDECEC"
-                    Foreground="#B42318"
-                    BorderBrush="#F5B5B0"
-                    BorderThickness="1"
-                    CornerRadius="8"
-                    Padding="12,8">
+                Tag="{Binding}"
+                Background="{Binding IsNotHelpfulSelected, Converter={StaticResource NotHelpfulBackgroundConverter}}"
+                Foreground="{Binding IsNotHelpfulSelected, Converter={StaticResource NotHelpfulForegroundConverter}}"
+                BorderBrush="{Binding IsNotHelpfulSelected, Converter={StaticResource NotHelpfulBorderConverter}}"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="12,8">
                                                                 <StackPanel Orientation="Horizontal" Spacing="6">
                                                                     <FontIcon Glyph="&#xE00C;" FontSize="12"/>
                                                                     <TextBlock Text="No" FontSize="12"/>
@@ -396,12 +430,14 @@ Click="FacilitiesButton_Click"/>
                                                             </Button>
 
                                                             <TextBlock Text="Thank you for your feedback!"
-                       FontSize="12"
-                       Foreground="#6B7280"
-                       VerticalAlignment="Center"
-                       Visibility="{Binding HasFeedback, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                   FontSize="12"
+                   Foreground="#6B7280"
+                   VerticalAlignment="Center"
+                   Visibility="{Binding HasFeedback, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                                                         </StackPanel>
                                                     </StackPanel>
+
+
                                                 </StackPanel>
                                             </StackPanel>
                                         </Border>

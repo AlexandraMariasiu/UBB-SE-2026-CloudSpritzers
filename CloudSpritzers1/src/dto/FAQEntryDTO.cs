@@ -53,6 +53,46 @@ namespace CloudSpritzers1.src.DTO
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-      
+        private bool _hasFeedback;
+        public bool HasFeedback
+        {
+            get => _hasFeedback;
+            set
+            {
+                if (_hasFeedback != value)
+                {
+                    _hasFeedback = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _isHelpfulSelected;
+        public bool IsHelpfulSelected
+        {
+            get => _isHelpfulSelected;
+            set
+            {
+                if (_isHelpfulSelected != value)
+                {
+                    _isHelpfulSelected = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _isNotHelpfulSelected;
+        public bool IsNotHelpfulSelected
+        {
+            get => _isNotHelpfulSelected;
+            set
+            {
+                if (_isNotHelpfulSelected != value)
+                {
+                    _isNotHelpfulSelected = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
     }
 }
