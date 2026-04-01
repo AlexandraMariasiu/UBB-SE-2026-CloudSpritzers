@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.DTO;
+using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.ticket;
 using System;

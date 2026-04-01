@@ -1,6 +1,6 @@
 ﻿using CloudSpritzers1.src.model.faq;
 
-namespace CloudSpritzers1.src.DTO
+namespace CloudSpritzers1.src.dto
 {
     public record FAQEntryDTO(
         int Id, 

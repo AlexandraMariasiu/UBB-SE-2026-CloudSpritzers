@@ -1,93 +1,90 @@
-//using CloudSpritzers1.src.model.chat;
-//using CloudSpritzers1.src.model.message;
-//using CloudSpritzers1.src.repository;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
+using System;
+using System.Collections.Generic;
+using CloudSpritzers1.src.model.chat;
+using CloudSpritzers1.src.model.faq.bot;
+using CloudSpritzers1.src.model.message;
+using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.service.bot;
 
-//namespace CloudSpritzers1.src.service
-//{
-//    internal class MessageService
-//    {
-//        private readonly ChatDBRepository    _chatRepository;
-//        private readonly MessageDBRepository _messageRepository;
+namespace CloudSpritzers1.src.service
+{
+    public class MessageService
+    {
+        private readonly ChatDBRepository _chatRepository;
+        private readonly MessageDBRepository _messageRepository;
+        private readonly BotEngine _botEngine;
 
-//        public MessageService(ChatDBRepository chatRepository, MessageDBRepository messageRepository)
-//        {
-//            _chatRepository    = chatRepository    ?? throw new ArgumentNullException(nameof(chatRepository));
-//            _messageRepository = messageRepository ?? throw new ArgumentNullException(nameof(messageRepository));
-//        }
+        public MessageService(
+            ChatDBRepository chatRepository,
+            MessageDBRepository messageRepository,
+            BotEngine botEngine)
+        {
+            _chatRepository = chatRepository ?? throw new ArgumentNullException(nameof(chatRepository));
+            _messageRepository = messageRepository ?? throw new ArgumentNullException(nameof(messageRepository));
+            _botEngine = botEngine ?? throw new ArgumentNullException(nameof(botEngine));
+        }
 
-//        // Sender is an ISender, so we extract the name and look up the chat from the DB
-//        public void SendMessage(int chatId, ISender sender, string text)
-//        {
-//            if (string.IsNullOrWhiteSpace(text))
-//                throw new ArgumentException("Message text cannot be empty.", nameof(text));
+        // -------------------------------------------------------------------------
+        // Send
+        // -------------------------------------------------------------------------
 
-//            Chat chat = GetActiveChat(chatId);
+        /// Persists the user's selected FAQ option as a message, feeds it to the BotEngine,
+        /// persists the bot reply, and returns the BotMessage so the ViewModel can display it.
 
-//            // Persist to DB — sender_id resolved via the chat's user
-//            _messageRepository.Add(chatId, chat.UserId, text);
+        public BotMessage SendMessage(int chatId, ISender sender, FAQOption selectedOption)
+        {
+            if (selectedOption == null)
+                throw new ArgumentNullException(nameof(selectedOption));
 
-//            var message = new Message(sender, chat, text, isRead: false);
-//            chat.AddMessage(message);
-//        }
+            Chat chat = GetActiveChat(chatId);
 
-//        // Overload for bot / system IMessage responses
-//        public void SendMessage(int chatId, IMessage message)
-//        {
-//            ArgumentNullException.ThrowIfNull(message);
+            // 1. Persist the user's option selection using its label as the message text.
+            var userMessage = new Message(sender, chat, selectedOption.Label);
+            _messageRepository.Add(userMessage);
 
-//            Chat chat = GetActiveChat(chatId);
+            // 2. Let the bot produce a response.
+            //    The strategy matches selectedOption.Label against the current node's options.
+            BotMessage botReply = _botEngine.Respond(userMessage);
 
-//            // Bot messages stored with sender_id = 0 (system convention)
-//            _messageRepository.Add(chatId, senderId: 0, message.GetMessage());
+            // 3. Persist the bot reply.
+            //    BotEngine implements ISender with id = BOT_CANNONIZED_ID (0).
+            var botRow = new Message(_botEngine, chat, botReply.GetMessage());
+            _messageRepository.Add(botRow);
 
-//            chat.AddMessage(message);
-//        }
+            return botReply;
+        }
 
-//        public IEnumerable<IMessage> HandleIncomingMessage(int chatId, IMessage incomingMessage)
-//        {
-//            ArgumentNullException.ThrowIfNull(incomingMessage);
+        // -------------------------------------------------------------------------
+        // Read
+        // -------------------------------------------------------------------------
 
-//            Chat chat = GetActiveChat(chatId);
+        /// Returns a single message, validated to belong to the given chat.
+        public IMessage GetMessage(int chatId, int messageId)
+        {
+            IMessage message = _messageRepository.GetById(messageId);
+            if (message.GetChat().ChatId != chatId)
+                throw new InvalidOperationException(
+                    $"Message {messageId} does not belong to chat {chatId}.");
+            return message;
+        }
 
-//            int messageId = incomingMessage.GetId();
-//            if (messageId > 0)
-//                _messageRepository.MarkAsRead(messageId);
+        /// Returns all messages for a chat, ordered by timestamp ascending.
+        public IEnumerable<Message> GetAllMessages(int chatId)
+        {
+            _ = _chatRepository.GetById(chatId);
+            return _messageRepository.GetByChatId(chatId);
+        }
 
-//            chat.AddMessage(incomingMessage);
+        // -------------------------------------------------------------------------
+        // Helpers
+        // -------------------------------------------------------------------------
 
-//            return incomingMessage.GetNextOptions()
-//                .Select(opt => (IMessage)incomingMessage)   // return next bot prompts to caller
-//                .ToList();
-//        }
-
-//        public IMessage GetMessage(int chatId, int messageId)
-//        {
-//            _ = GetActiveChat(chatId);
-//            return _messageRepository.GetById(messageId);
-//        }
-
-//        public IEnumerable<IMessage> GetAllMessages(int chatId)
-//        {
-//            _ = GetActiveChat(chatId);
-//            return _messageRepository.GetByChatId(chatId);
-//        }
-
-//        public IEnumerable<IMessage> GetMessagesSince(int chatId, int firstMessageId)
-//        {
-//            _ = GetActiveChat(chatId);
-//            return _messageRepository.GetMessagesSince(chatId, firstMessageId);
-//        }
-
-//        // Loads the chat from the DB and guards against writing to a closed session
-//        private Chat GetActiveChat(int chatId)
-//        {
-//            Chat chat = _chatRepository.GetById(chatId);
-//            if (chat.Status != ChatStatus.Active)
-//                throw new InvalidOperationException($"Chat {chatId} is not active.");
-//            return chat;
-//        }
-//    }
-//}
+        private Chat GetActiveChat(int chatId)
+        {
+            Chat chat = _chatRepository.GetById(chatId);
+            if (chat.Status != ChatStatus.Active)
+                throw new InvalidOperationException($"Chat {chatId} is not active.");
+            return chat;
+        }
+    }
+}

@@ -9,6 +9,7 @@
     <!-- ========================= -->
     <Color x:Key="PrimaryColor">#2CB1A6</Color>
     <Color x:Key="CardBackgroundColor">#FFFFFFFF</Color>
+    <Color x:Key="PrimaryTextColor">#202020</Color>
     <Color x:Key="SecondaryTextColor">#6B7280</Color>
 
     <!-- ========================= -->

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudSpritzers1.src.DTO
+namespace CloudSpritzers1.src.dto
 {
     public record TicketDTO(
         int TicketId, 

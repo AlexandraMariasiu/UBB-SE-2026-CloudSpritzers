@@ -24,6 +24,16 @@ namespace CloudSpritzers1.src.model.message
             this._timestamp = DateTimeOffset.UtcNow;
         }
 
+        // TODO: This constructor is currently used only for mapping from DB. Without this message_id and timestamp are unsettable.
+        public Message(int id, ISender sender, Chat chat, string messageText, DateTimeOffset timestamp)
+        {
+            this._message_id = id;
+            this._sender = sender;
+            this._chat = chat;
+            this._messageText = messageText;
+            this._timestamp = timestamp;
+        }
+
         public Chat GetChat()
         {
             return this._chat;
@@ -60,5 +70,6 @@ namespace CloudSpritzers1.src.model.message
         {
             return this._chat;
         }
+
     }
 }
