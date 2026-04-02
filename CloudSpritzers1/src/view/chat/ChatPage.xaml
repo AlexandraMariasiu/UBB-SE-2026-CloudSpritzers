@@ -51,13 +51,13 @@
                FontSize="18"
                FontWeight="SemiBold"/>
 
-                <TextBlock Text="User ID: e"
+                <TextBlock Text="{x:Bind ViewModel.FormatUserId}"
                Foreground="#666666" 
                FontSize="12"/>
             </StackPanel>
 
             <HyperlinkButton Grid.Column="2"
-                             Content="End Chat &amp; Rate"
+                             Content="End Chat"
                              Foreground="#3AB0B0"
                              VerticalAlignment="Center"/>
 		</Grid>
@@ -139,7 +139,8 @@
                 <ItemsControl ItemsSource="{x:Bind ViewModel.CurrentOptions}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <VariableSizedWrapGrid Orientation="Horizontal" />
+                            <ItemsWrapGrid Orientation="Horizontal" 
+                           MaximumRowsOrColumns="-1"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 
@@ -147,6 +148,8 @@
                         <DataTemplate x:DataType="bot:FAQOption">
                             <Button Content="{x:Bind Label}" 
                     Margin="4"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Center"
                     Command="{Binding ElementName=RootPage, Path=ViewModel.HandleOptionClickCommand}"
                     CommandParameter="{x:Bind}">
                             </Button>

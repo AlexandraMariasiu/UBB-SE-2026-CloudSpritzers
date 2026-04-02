@@ -51,14 +51,19 @@ namespace CloudSpritzers1.src.viewModel.chat
 
         }
 
+        public string FormatUserId => "User Id: " + _user.GetId().ToString();
+        
+
         private void LoadChatHistory()
         {
             ChatHistory.Clear();
             var messages = _messageService.GetAllMessages(_chat.ChatId);
+            var currentUserId = _user.GetId();
             foreach (var msg in messages)
             {
                 var dto = _mapper.Map<MessageDTO>(msg);
                 dto.SenderName = _userService.GetById(dto.SenderId)?.GetName();
+                dto.IsOutgoing = (dto.SenderId == currentUserId);
                 ChatHistory.Add(dto);
             }
         }

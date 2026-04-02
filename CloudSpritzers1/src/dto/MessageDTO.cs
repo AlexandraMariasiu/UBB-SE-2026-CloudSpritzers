@@ -13,6 +13,8 @@ namespace CloudSpritzers1.src.dto
             public DateTimeOffset Timestamp { get; set; }
             public IEnumerable<FAQOption> FaqOptions { get; set; }
 
+            public bool IsOutgoing { get; set; }
+            
             public string SenderName { get; set; }
 
             public MessageDTO() { }
@@ -26,6 +28,7 @@ namespace CloudSpritzers1.src.dto
                 Timestamp = timestamp;
                 FaqOptions = faqOptions;
                 SenderName = senderName;
+                IsOutgoing = false;
             }
         }
 }
