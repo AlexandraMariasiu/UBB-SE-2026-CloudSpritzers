@@ -25,6 +25,7 @@ namespace CloudSpritzers1.src.view.general
 
             ViewModel = (App.Current as App).Services.GetService<UpperBarViewModel>();
             this.DataContext = ViewModel;
+            ViewModel.IsEmployee = !(App.Current as App).isEmployee;
         }
 
         private DependencyObject FindParentFrame()
