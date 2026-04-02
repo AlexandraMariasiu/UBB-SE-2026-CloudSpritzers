@@ -28,6 +28,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using CloudSpritzers1.src.viewModel.general;
+using CloudSpritzers1.src.viewModel;
 
 namespace CloudSpritzers1
 {
@@ -81,6 +82,16 @@ namespace CloudSpritzers1
             services.AddTransient<AllReviewsViewModel>();
             services.AddTransient<AddReviewViewModel>();
             services.AddTransient<UpperBarViewModel>();
+            
+            services.AddSingleton<TicketRepository>();
+            services.AddSingleton<TicketCategoryRepository>();
+            services.AddSingleton<TicketSubcategoryRepository>();
+
+            services.AddSingleton<TicketService>();
+            services.AddSingleton<TicketCategoryService>();
+            services.AddSingleton<TicketSubcategoryService>();
+
+            services.AddTransient<TicketsViewModel>();
 
             return services.BuildServiceProvider();
         }
@@ -90,7 +101,8 @@ namespace CloudSpritzers1
             _window = new MainWindow();
 
             var frame = new Frame();
-            frame.Navigate(typeof(CloudSpritzers1.src.view.faq.FAQView));
+
+            frame.Navigate(typeof(CloudSpritzers1.src.view.ticket.TicketsView));
             _window.Content = frame;
 
             _window.Activate();
