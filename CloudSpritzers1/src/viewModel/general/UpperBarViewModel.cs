@@ -32,7 +32,7 @@ namespace CloudSpritzers1.src.viewModel.general
                 if(IsEmployee) {
                     return $"ID: {_user.GetId()}";
                 }
-                return IsEmployee ? $"ID: {_employee.GetId()}" : "Not signed in";
+                return !IsEmployee ? $"ID: {_employee.GetId()}" : "Not signed in";
             }
          }
     }
