@@ -7,6 +7,7 @@ using CloudSpritzers1.src.repository;
 using CloudSpritzers1.src.service;
 using CloudSpritzers1.src.viewmodel;
 using CloudSpritzers1.src.viewModel.review;
+using CloudSpritzers1.src.model.employee;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -34,6 +35,8 @@ namespace CloudSpritzers1
         public IServiceProvider Services { get; }
         private Window? _window;
         public User User { get; private set; }
+        public Employee Employee { get; private set; }
+        public bool isEmployee = false;
 
         public App()
         {
@@ -43,8 +46,13 @@ namespace CloudSpritzers1
 
         public void SetUser(int userId)
         {
-            if (User != null)
+            if (User != null || Employee != null)
                 return;
+            if(isEmployee)
+            {
+                Employee = Services.GetService<EmployeeService>().GetById(userId);
+                return;
+            }
             User = Services.GetService<UserService>().GetById(userId);
         }
 
@@ -78,7 +86,11 @@ namespace CloudSpritzers1
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             _window = new MainWindow();
-            _window.Content = new CloudSpritzers1.src.view.general.EnterYourId();
+
+            var frame = new Frame();
+            frame.Navigate(typeof(CloudSpritzers1.src.view.general.ChoosingPage));
+            _window.Content = frame;
+
             _window.Activate();
         }
     }

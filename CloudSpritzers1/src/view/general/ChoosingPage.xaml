@@ -18,7 +18,7 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="40">
 
-                <Button Width="350" Height="400" CornerRadius="12" Background="White" Padding="30">
+                <Button Tag="Customer" Click="Button_Click" Width="350" Height="400" CornerRadius="12" Background="White" Padding="30">
                     <StackPanel Spacing="15" VerticalAlignment="Center">
                         <FontIcon Glyph="&#xE77B;" FontSize="60" Foreground="Black"/>
                         <TextBlock Text="I'm a Customer" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="Black"/>
@@ -27,7 +27,7 @@
                     </StackPanel>
                 </Button>
 
-                <Button Width="350" Height="400" CornerRadius="12" Background="White" Padding="30">
+                <Button Tag="Employee" Click="Button_Click" Width="350" Height="400" CornerRadius="12" Background="White" Padding="30">
                     <StackPanel Spacing="15" VerticalAlignment="Center">
                         <FontIcon Glyph="&#xE7EE;" FontSize="60" Foreground="Black"/>
                         <TextBlock Text="I'm an Employee" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="Black"/>
