@@ -154,6 +154,7 @@
                             </StackPanel>
 
                             <Button Grid.Column="2"
+                            Click="OnClick"
                             Content="Get help"
                             Background="#06B6D4"
                             Foreground="White"
