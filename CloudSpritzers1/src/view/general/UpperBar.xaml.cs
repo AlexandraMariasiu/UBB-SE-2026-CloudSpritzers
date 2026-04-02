@@ -1,4 +1,6 @@
-﻿using CloudSpritzers1.src.viewModel.general;
+﻿using CloudSpritzers1.src.model;
+using CloudSpritzers1.src.model.employee;
+using CloudSpritzers1.src.viewModel.general;
 using CloudSpritzers1.src.viewModel.review;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
@@ -16,6 +18,7 @@ namespace CloudSpritzers1.src.view.general
             this.InitializeComponent();
             ViewModel = (App.Current as App).Services.GetService<UpperBarViewModel>();
             this.DataContext = ViewModel;
+            ViewModel.IsEmployee = !(App.Current as App).isEmployee;
         }
 
         private DependencyObject FindParentFrame()
