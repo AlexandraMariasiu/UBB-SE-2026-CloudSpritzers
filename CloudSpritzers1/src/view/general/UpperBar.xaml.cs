@@ -66,7 +66,10 @@ namespace CloudSpritzers1.src.view.general
         {
             if (FindParentFrame() is Frame frame)
             {
-                frame.Navigate(typeof(CloudSpritzers1.src.view.ticket.TicketsView));
+                if(_user != null)
+                    frame.Navigate(typeof(CloudSpritzers1.src.view.ticket.TicketsView));
+                else
+                    frame.Navigate(typeof(CloudSpritzers1.src.view.ticket.TicketEmployeeView));
             }
         }
 
