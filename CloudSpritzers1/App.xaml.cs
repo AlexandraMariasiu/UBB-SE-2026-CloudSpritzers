@@ -3,9 +3,13 @@ using CloudSpritzers1.src;
 using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.dto.mappingProfiles;
 using CloudSpritzers1.src.model;
+using CloudSpritzers1.src.model.chat;
 using CloudSpritzers1.src.repository;
 using CloudSpritzers1.src.service;
+using CloudSpritzers1.src.service.bot;
+using CloudSpritzers1.src.service.bot.strategy;
 using CloudSpritzers1.src.viewmodel;
+using CloudSpritzers1.src.viewModel.chat;
 using CloudSpritzers1.src.viewModel.review;
 using CloudSpritzers1.src.model.employee;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,12 +54,15 @@ namespace CloudSpritzers1
         {
             if (User != null || Employee != null)
                 return;
-            if(isEmployee)
+            if (isEmployee)
             {
                 Employee = Services.GetService<EmployeeService>().GetById(userId);
                 return;
             }
-            User = Services.GetService<UserService>().GetById(userId);
+            else
+            {
+                User = Services.GetService<UserService>().GetById(userId);
+            }
         }
 
         private static IServiceProvider ConfigureServices()
@@ -72,8 +79,22 @@ namespace CloudSpritzers1
                 typeof(TicketMappingProfile).Assembly
             );
 
+
+            services.AddSingleton<DecisionTreeRepository>();
+            services.AddTransient<IBotStrategy, DecisionTreeStrategy>(); // I am not sure this is the way to do it :(
+            services.AddTransient<BotEngine>();
+
+            services.AddSingleton<MessageDBRepository>();
+            services.AddSingleton<MessageService>();
+
+            services.AddSingleton<ChatDBRepository>();
+            services.AddSingleton<ChatService>();
+
             services.AddSingleton<ReviewRepository>();
             services.AddSingleton<ReviewService>();
+
+            services.AddSingleton<EmployeeRepository>();
+            services.AddSingleton<EmployeeService>();
 
             services.AddSingleton<UserRepository>();
             services.AddSingleton<UserService>();
@@ -81,6 +102,8 @@ namespace CloudSpritzers1
             services.AddTransient<LandingViewModel>();
             services.AddTransient<AllReviewsViewModel>();
             services.AddTransient<AddReviewViewModel>();
+            services.AddTransient<ChatViewModel>();
+            
             services.AddTransient<UpperBarViewModel>();
             
             services.AddSingleton<TicketRepository>();
@@ -101,8 +124,7 @@ namespace CloudSpritzers1
             _window = new MainWindow();
 
             var frame = new Frame();
-
-            frame.Navigate(typeof(CloudSpritzers1.src.view.ticket.TicketsView));
+            frame.Navigate(typeof(CloudSpritzers1.src.view.general.ChoosingPage));
             _window.Content = frame;
 
             _window.Activate();

@@ -1,62 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="CloudSpritzers1.src.view.faq.FAQView"
+    x:Name="RootPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CloudSpritzers1.src.view.faq"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:general="using:CloudSpritzers1.src.view.general"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dto="using:CloudSpritzers1.src.dto"
     mc:Ignorable="d"
     Background="White">
 
-        <Page.Resources>
+    <Page.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <local:BooleanToGlyphConverter x:Key="BooleanToGlyphConverter"/>
+        <local:HelpfulBackgroundConverter x:Key="HelpfulBackgroundConverter"/>
+        <local:HelpfulForegroundConverter x:Key="HelpfulForegroundConverter"/>
+        <local:HelpfulBorderConverter x:Key="HelpfulBorderConverter"/>
+        <local:NotHelpfulBackgroundConverter x:Key="NotHelpfulBackgroundConverter"/>
+        <local:NotHelpfulForegroundConverter x:Key="NotHelpfulForegroundConverter"/>
+        <local:NotHelpfulBorderConverter x:Key="NotHelpfulBorderConverter"/>
+        <local:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
 
-            <Style x:Key="CategoryButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="#EAEAEE"/>
-                <Setter Property="Foreground" Value="#374151"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="CornerRadius" Value="8"/>
-                <Setter Property="Padding" Value="16,10"/>
-                <Setter Property="MinHeight" Value="40"/>
-                <Setter Property="Margin" Value="0,0,8,0"/>
-            </Style>
+        <Style x:Key="CategoryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#EAEAEE"/>
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="MinHeight" Value="40"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+        </Style>
 
-            <Style x:Key="SelectedCategoryButtonStyle" TargetType="Button" BasedOn="{StaticResource CategoryButtonStyle}">
-                <Setter Property="Background" Value="#2CC7CF"/>
-                <Setter Property="Foreground" Value="White"/>
-            </Style>
+        <Style x:Key="SelectedCategoryButtonStyle" TargetType="Button" BasedOn="{StaticResource CategoryButtonStyle}">
+            <Setter Property="Background" Value="#2CC7CF"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
 
-            <Style x:Key="PopularQuestionButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="#49C9D0"/>
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="CornerRadius" Value="8"/>
-                <Setter Property="Padding" Value="14,11"/>
-                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                <Setter Property="MinHeight" Value="52"/>
-            </Style>
+        <Style x:Key="PopularQuestionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#49C9D0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="14,11"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="MinHeight" Value="52"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
 
-            <Style x:Key="FaqAccordionHeaderButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                <Setter Property="Padding" Value="0"/>
-            </Style>
-
-        </Page.Resources>
+        <Style x:Key="FaqAccordionHeaderButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+    </Page.Resources>
 
     <Grid>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
         <general:UpperBar Grid.Row="0" />
 
         <Grid Grid.Row="1">
-
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid Padding="10">
                     <Border MaxWidth="1050"
@@ -64,639 +72,138 @@
                     Background="White"
                     BorderBrush="#D8DDE3"
                     BorderThickness="1"
-                    CornerRadius="4"
-                    Padding="0">
+                    CornerRadius="4">
 
                         <StackPanel Spacing="16">
-
-                            <!-- Header -->
                             <StackPanel HorizontalAlignment="Center" Spacing="4" Margin="0,8,0,0">
-                                <TextBlock Text="Frequently Asked Questions"
-                                   FontSize="22"
-                                   FontWeight="SemiBold"
-                                   Foreground="#1F2937"
-                                   HorizontalAlignment="Center"/>
-                                <TextBlock Text="Find quick answers to common questions"
-                                   FontSize="12"
-                                   Foreground="#6B7280"
-                                   HorizontalAlignment="Center"/>
+                                <TextBlock Text="Frequently Asked Questions" FontSize="22" FontWeight="SemiBold" Foreground="#1F2937" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Find quick answers to common questions" FontSize="12" Foreground="#6B7280" HorizontalAlignment="Center"/>
                             </StackPanel>
 
-                            <!-- Most Popular -->
-                            <Border Margin="8,0,8,0"
-                            CornerRadius="6"
-                            Padding="14">
+                            <Border Margin="8,0,8,0" CornerRadius="6" Padding="14">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#2CC7CF" Offset="0"/>
                                         <GradientStop Color="#2AA9C9" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Border.Background>
-
                                 <StackPanel Spacing="12">
-                                    <TextBlock Text="↗ Most Popular Questions"
-                                       FontSize="15"
-                                       Foreground="White"
-                                       FontWeight="SemiBold"/>
-
-                                    <Grid ColumnSpacing="10" RowSpacing="10">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-
-                                        <Button Grid.Row="0" Grid.Column="0"
-                                        Style="{StaticResource PopularQuestionButtonStyle}"
-                                        Click="OpenFaqButton_Click"
-                                        Tag="1">
-                                            <Button.Resources>
-                                                <SolidColorBrush x:Key="ButtonBackground" Color="#49C9D0"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#3DBBC2"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#30A9B1"/>
-                                                <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#49C9D0"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#3DBBC2"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#30A9B1"/>
-                                            </Button.Resources>
-
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <TextBlock Text="What is the baggage allowance?"
-                                                   VerticalAlignment="Center"
-                                                   TextWrapping="Wrap"/>
-
-                                                <Border Grid.Column="1"
-                                                Background="#6ED6DB"
-                                                CornerRadius="5"
-                                                Padding="8,2">
-                                                    <StackPanel Orientation="Horizontal" Spacing="4">
-                                                        <FontIcon Glyph="&#xE8A7;" FontSize="11"/>
-                                                        <TextBlock Text="3421" FontSize="11"/>
-                                                    </StackPanel>
-                                                </Border>
-                                            </Grid>
-                                        </Button>
-
-                                        <Button Grid.Row="0" Grid.Column="1"
-                                        Style="{StaticResource PopularQuestionButtonStyle}"
-                                        Click="OpenFaqButton_Click"
-                                        Tag="2">
-                                            <Button.Resources>
-                                                <SolidColorBrush x:Key="ButtonBackground" Color="#49C9D0"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#3DBBC2"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#30A9B1"/>
-                                                <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#49C9D0"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#3DBBC2"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#30A9B1"/>
-                                            </Button.Resources>
-
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <TextBlock Text="How do I buy a ticket?"
-                                                   VerticalAlignment="Center"
-                                                   TextWrapping="Wrap"/>
-
-                                                <Border Grid.Column="1"
-                                                Background="#6ED6DB"
-                                                CornerRadius="5"
-                                                Padding="8,2">
-                                                    <StackPanel Orientation="Horizontal" Spacing="4">
-                                                        <FontIcon Glyph="&#xE8A7;" FontSize="11"/>
-                                                        <TextBlock Text="2654" FontSize="11"/>
-                                                    </StackPanel>
-                                                </Border>
-                                            </Grid>
-                                        </Button>
-
-                                        <Button Grid.Row="1" Grid.Column="0"
-                                        Style="{StaticResource PopularQuestionButtonStyle}"
-                                        Click="OpenFaqButton_Click"
-                                        Tag="3">
-                                            <Button.Resources>
-                                                <SolidColorBrush x:Key="ButtonBackground" Color="#49C9D0"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#3DBBC2"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#30A9B1"/>
-                                                <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#49C9D0"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#3DBBC2"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#30A9B1"/>
-                                            </Button.Resources>
-
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <TextBlock Text="Is there free WiFi at the airport?"
-                                                   VerticalAlignment="Center"
-                                                   TextWrapping="Wrap"/>
-
-                                                <Border Grid.Column="1"
-                                                Background="#6ED6DB"
-                                                CornerRadius="5"
-                                                Padding="8,2">
-                                                    <StackPanel Orientation="Horizontal" Spacing="4">
-                                                        <FontIcon Glyph="&#xE8A7;" FontSize="11"/>
-                                                        <TextBlock Text="2567" FontSize="11"/>
-                                                    </StackPanel>
-                                                </Border>
-                                            </Grid>
-                                        </Button>
-
-                                        <Button Grid.Row="1" Grid.Column="1"
-                                        Style="{StaticResource PopularQuestionButtonStyle}"
-                                        Click="OpenFaqButton_Click"
-                                        Tag="4">
-                                            <Button.Resources>
-                                                <SolidColorBrush x:Key="ButtonBackground" Color="#49C9D0"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#3DBBC2"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#30A9B1"/>
-                                                <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#49C9D0"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#3DBBC2"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#30A9B1"/>
-                                            </Button.Resources>
-
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <TextBlock Text="How much does airport parking cost?"
-                                                   VerticalAlignment="Center"
-                                                   TextWrapping="Wrap"/>
-
-                                                <Border Grid.Column="1"
-                                                Background="#6ED6DB"
-                                                CornerRadius="5"
-                                                Padding="8,2">
-                                                    <StackPanel Orientation="Horizontal" Spacing="4">
-                                                        <FontIcon Glyph="&#xE8A7;" FontSize="11"/>
-                                                        <TextBlock Text="2301" FontSize="11"/>
-                                                    </StackPanel>
-                                                </Border>
-                                            </Grid>
-                                        </Button>
-
-                                        <Button Grid.Row="2" Grid.Column="0"
-                                        Style="{StaticResource PopularQuestionButtonStyle}"
-                                        Click="OpenFaqButton_Click"
-                                        Tag="5">
-                                            <Button.Resources>
-                                                <SolidColorBrush x:Key="ButtonBackground" Color="#49C9D0"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#3DBBC2"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#30A9B1"/>
-                                                <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#49C9D0"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#3DBBC2"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#30A9B1"/>
-                                            </Button.Resources>
-
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <TextBlock Text="Where can I park at the airport?"
-                                                   VerticalAlignment="Center"
-                                                   TextWrapping="Wrap"/>
-
-                                                <Border Grid.Column="1"
-                                                Background="#6ED6DB"
-                                                CornerRadius="5"
-                                                Padding="8,2">
-                                                    <StackPanel Orientation="Horizontal" Spacing="4">
-                                                        <FontIcon Glyph="&#xE8A7;" FontSize="11"/>
-                                                        <TextBlock Text="2145" FontSize="11"/>
-                                                    </StackPanel>
-                                                </Border>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
+                                    <TextBlock Text="↗ Popular Questions" FontSize="15" Foreground="White" FontWeight="SemiBold"/>
+                                    <ItemsControl ItemsSource="{Binding FilteredFAQs}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <ItemsWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="2"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="dto:FAQEntryDTO">
+                                                <Button Style="{StaticResource PopularQuestionButtonStyle}" Click="OpenFaqButton_Click" Width="280" Margin="0,0,24,18">
+                                                    <Grid ColumnSpacing="10">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Text="{Binding Question}" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" MaxLines="2" FontSize="17" FontWeight="SemiBold" Foreground="White"/>
+                                                        <Border Grid.Column="1" Background="#78DDE1" CornerRadius="10" Padding="8,4" VerticalAlignment="Top">
+                                                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                                                <FontIcon Glyph="&#xE8A7;" FontSize="11" Foreground="White"/>
+                                                                <TextBlock Text="{Binding ViewCount}" FontSize="11" FontWeight="SemiBold" Foreground="White"/>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </Grid>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
                                 </StackPanel>
                             </Border>
 
-                            <!-- Categories -->
-                            <Border Margin="0"
-                            Background="#F8F8FA"
-                            BorderBrush="#E5E7EB"
-                            BorderThickness="0,1,0,1"
-                            Padding="10">
+                            <Border Background="#F8F8FA" BorderBrush="#E5E7EB" BorderThickness="0,1,0,1" Padding="10">
                                 <StackPanel Spacing="10">
-
-                                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                                          HorizontalScrollMode="Enabled"
-                                          VerticalScrollBarVisibility="Disabled"
-                                          VerticalScrollMode="Disabled">
+                                    <ScrollViewer HorizontalScrollBarVisibility="Auto" HorizontalScrollMode="Enabled" VerticalScrollBarVisibility="Disabled">
                                         <StackPanel Orientation="Horizontal">
-
-                                            <Button x:Name="AllQuestionsButton"
-                                            Content="All Questions"
-                                            Style="{StaticResource SelectedCategoryButtonStyle}">
-                                                <Button.Resources>
-                                                    <SolidColorBrush x:Key="ButtonBackground" Color="#2CC7CF"/>
-                                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#25B8C0"/>
-                                                    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#1FA7AF"/>
-                                                    <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                                    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrush" Color="#2CC7CF"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#25B8C0"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#1FA7AF"/>
-                                                </Button.Resources>
-                                            </Button>
-
-                                            <Button Content="Check-in Procedures"
-                                            Style="{StaticResource CategoryButtonStyle}">
-                                                <Button.Resources>
-                                                    <SolidColorBrush x:Key="ButtonBackground" Color="#EAEAEE"/>
-                                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#DDE3E8"/>
-                                                    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#CED6DD"/>
-                                                    <SolidColorBrush x:Key="ButtonForeground" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrush" Color="#EAEAEE"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#DDE3E8"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#CED6DD"/>
-                                                </Button.Resources>
-                                            </Button>
-
-                                            <Button Content="Parking Information"
-                                            Style="{StaticResource CategoryButtonStyle}">
-                                                <Button.Resources>
-                                                    <SolidColorBrush x:Key="ButtonBackground" Color="#EAEAEE"/>
-                                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#DDE3E8"/>
-                                                    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#CED6DD"/>
-                                                    <SolidColorBrush x:Key="ButtonForeground" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrush" Color="#EAEAEE"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#DDE3E8"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#CED6DD"/>
-                                                </Button.Resources>
-                                            </Button>
-
-                                            <Button Content="Baggage Policies"
-                                            Style="{StaticResource CategoryButtonStyle}">
-                                                <Button.Resources>
-                                                    <SolidColorBrush x:Key="ButtonBackground" Color="#EAEAEE"/>
-                                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#DDE3E8"/>
-                                                    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#CED6DD"/>
-                                                    <SolidColorBrush x:Key="ButtonForeground" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrush" Color="#EAEAEE"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#DDE3E8"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#CED6DD"/>
-                                                </Button.Resources>
-                                            </Button>
-
-                                            <Button Content="Ticket Purchasing"
-                                            Style="{StaticResource CategoryButtonStyle}">
-                                                <Button.Resources>
-                                                    <SolidColorBrush x:Key="ButtonBackground" Color="#EAEAEE"/>
-                                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#DDE3E8"/>
-                                                    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#CED6DD"/>
-                                                    <SolidColorBrush x:Key="ButtonForeground" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrush" Color="#EAEAEE"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#DDE3E8"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#CED6DD"/>
-                                                </Button.Resources>
-                                            </Button>
-
-                                            <Button Content="Airport Facilities &amp; Services"
-                                            Style="{StaticResource CategoryButtonStyle}">
-                                                <Button.Resources>
-                                                    <SolidColorBrush x:Key="ButtonBackground" Color="#EAEAEE"/>
-                                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#DDE3E8"/>
-                                                    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#CED6DD"/>
-                                                    <SolidColorBrush x:Key="ButtonForeground" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#374151"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrush" Color="#EAEAEE"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#DDE3E8"/>
-                                                    <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#CED6DD"/>
-                                                </Button.Resources>
-                                            </Button>
-
+                                            <Button x:Name="AllQuestionsButton" Content="All Questions" Style="{StaticResource SelectedCategoryButtonStyle}" Click="AllQuestionsButton_Click"/>
+                                            <Button Content="Check-in Procedures" Style="{StaticResource CategoryButtonStyle}" Click="CheckInButton_Click"/>
+                                            <Button Content="Parking" Style="{StaticResource CategoryButtonStyle}" Click="ParkingButton_Click"/>
+                                            <Button Content="Baggage" Style="{StaticResource CategoryButtonStyle}" Click="BaggageButton_Click"/>
                                         </StackPanel>
                                     </ScrollViewer>
 
-                                    <StackPanel x:Name="EmployeeActionsPanel"
-                                        Orientation="Horizontal"
-                                        HorizontalAlignment="Right"
-                                        Spacing="10"
-                                        Visibility="Collapsed">
-
-                                        <Button x:Name="AddFaqButton"
-                                        Content="Add FAQ"
-                                        Click="AddFaqButton_Click"
-                                        Background="#2CC7CF"
-                                        Foreground="White"
-                                        BorderThickness="0"
-                                        CornerRadius="8"
-                                        Padding="16,10">
-                                            <Button.Resources>
-                                                <SolidColorBrush x:Key="ButtonBackground" Color="#2CC7CF"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#25B8C0"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#1FA7AF"/>
-                                                <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#2CC7CF"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#25B8C0"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#1FA7AF"/>
-                                            </Button.Resources>
-                                        </Button>
-
-                                        <Button x:Name="EditFaqButton"
-                                        Content="Edit FAQ"
-                                        Click="EditFaqButton_Click"
-                                        Background="#E5E7EB"
-                                        Foreground="#111827"
-                                        BorderThickness="0"
-                                        CornerRadius="8"
-                                        Padding="16,10">
-                                            <Button.Resources>
-                                                <SolidColorBrush x:Key="ButtonBackground" Color="#E5E7EB"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#D7DCE2"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#C7CED6"/>
-                                                <SolidColorBrush x:Key="ButtonForeground" Color="#111827"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#111827"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#111827"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#E5E7EB"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#D7DCE2"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#C7CED6"/>
-                                            </Button.Resources>
-                                        </Button>
-
-                                        <Button x:Name="DeleteFaqButton"
-                                        Content="Delete FAQ"
-                                        Click="DeleteFaqButton_Click"
-                                        Background="#FDE2E2"
-                                        Foreground="#B42318"
-                                        BorderThickness="0"
-                                        CornerRadius="8"
-                                        Padding="16,10">
-                                            <Button.Resources>
-                                                <SolidColorBrush x:Key="ButtonBackground" Color="#FDE2E2"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#F9D0D0"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#F4BABA"/>
-                                                <SolidColorBrush x:Key="ButtonForeground" Color="#B42318"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#B42318"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#991B1B"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#FDE2E2"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#F9D0D0"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#F4BABA"/>
-                                            </Button.Resources>
-                                        </Button>
+                                    <StackPanel x:Name="EmployeeActionsPanel" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Visibility="Collapsed">
+                                        <Button x:Name="AddFaqButton" Content="Add FAQ" Click="AddFaqButton_Click" Style="{StaticResource SelectedCategoryButtonStyle}"/>
+                                        <Button x:Name="EditFaqButton" Content="Edit FAQ" Click="EditFaqButton_Click" Style="{StaticResource CategoryButtonStyle}"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
 
-                            <!-- Opened FAQ -->
-                            <Border Margin="0,0,0,8"
-                            Background="White"
-                            BorderBrush="#E5E7EB"
-                            BorderThickness="0,0,0,1"
-                            Padding="14">
-
+                            <Border Margin="8,0,8,8" Background="White" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="8" Padding="14">
                                 <StackPanel Spacing="12">
+                                    <TextBlock Text="All Questions" FontSize="16" FontWeight="SemiBold" Foreground="#111827"/>
+                                    <ItemsControl ItemsSource="{Binding FilteredFAQs}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="dto:FAQEntryDTO">
+                                                <Border Margin="0,0,0,12" Background="White" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="8" Padding="14">
+                                                    <StackPanel Spacing="10">
+                                                        <Button Click="AccordionHeader_Click" Style="{StaticResource FaqAccordionHeaderButtonStyle}">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="Auto"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <StackPanel Spacing="6">
+                                                                    <TextBlock Text="{Binding Question}" FontSize="16" FontWeight="SemiBold" Foreground="#111827" TextWrapping="Wrap"/>
+                                                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                                                        <TextBlock Text="{Binding Category}" FontSize="11" Foreground="#2AA9C9"/>
+                                                                        <StackPanel Orientation="Horizontal" Spacing="4">
+                                                                            <FontIcon Glyph="&#xE8A7;" FontSize="11" Foreground="#6B7280"/>
+                                                                            <TextBlock Text="{Binding ViewCount}" FontSize="11" Foreground="#6B7280"/>
+                                                                        </StackPanel>
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <FontIcon Grid.Column="1" Glyph="{Binding IsExpanded, Converter={StaticResource BooleanToGlyphConverter}}" Foreground="#6B7280" VerticalAlignment="Center"/>
+                                                            </Grid>
+                                                        </Button>
 
-                                    <Button x:Name="SelectedFaqHeaderButton"
-                                    Style="{StaticResource FaqAccordionHeaderButtonStyle}"
-                                    Click="SelectedFaqHeaderButton_Click">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
+                                                        <StackPanel Visibility="{Binding IsExpanded, Converter={StaticResource BooleanToVisibilityConverter}}" Spacing="12">
+                                                            <TextBlock Text="{Binding Answer}" TextWrapping="Wrap" FontSize="13" Foreground="#374151" LineHeight="22"/>
 
-                                            <StackPanel Spacing="6">
-                                                <TextBlock x:Name="SelectedQuestionText"
-                                                   Text="What facilities are available at the airport?"
-                                                   FontSize="16"
-                                                   FontWeight="SemiBold"
-                                                   Foreground="#111827"
-                                                   TextWrapping="Wrap"/>
+                                                            <StackPanel Spacing="8" Visibility="{Binding DataContext.IsAdmin, ElementName=RootPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                                <TextBlock Text="Feedback summary" FontSize="12" FontWeight="SemiBold"/>
+                                                                <StackPanel Orientation="Horizontal" Spacing="16">
+                                                                    <TextBlock Text="{Binding WasHelpfulVotes, ConverterParameter='Helpful: \{0\}'}" Foreground="#15803D" FontSize="12"/>
+                                                                    <TextBlock Text="{Binding WasNotHelpfulVotes, ConverterParameter='Not helpful: \{0\}'}" Foreground="#B42318" FontSize="12"/>
+                                                                </StackPanel>
+                                                            </StackPanel>
 
-                                                <StackPanel Orientation="Horizontal" Spacing="10">
-                                                    <TextBlock x:Name="SelectedCategoryText"
-                                                       Text="Airport Facilities &amp; Services"
-                                                       FontSize="11"
-                                                       Foreground="#2AA9C9"/>
-
-                                                    <StackPanel Orientation="Horizontal" Spacing="4">
-                                                        <FontIcon Glyph="&#xE8A7;"
-                                                          FontSize="11"
-                                                          Foreground="#6B7280"/>
-                                                        <TextBlock x:Name="SelectedViewsText"
-                                                           Text="1234 views"
-                                                           FontSize="11"
-                                                           Foreground="#6B7280"/>
+                                                            <StackPanel Spacing="12" Visibility="{Binding DataContext.IsAdmin, ElementName=RootPage, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                                                                <TextBlock Text="Was this answer helpful?" FontSize="12" Foreground="#4B5563"/>
+                                                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                                                    <Button Click="HelpfulButton_Click" Tag="{Binding}" Background="{Binding IsHelpfulSelected, Converter={StaticResource HelpfulBackgroundConverter}}" CornerRadius="8">
+                                                                        <StackPanel Orientation="Horizontal" Spacing="6">
+                                                                            <FontIcon Glyph="&#xE00B;" FontSize="12"/>
+                                                                            <TextBlock Text="Yes" FontSize="12"/>
+                                                                        </StackPanel>
+                                                                    </Button>
+                                                                    <Button Click="NotHelpfulButton_Click" Tag="{Binding}" Background="{Binding IsNotHelpfulSelected, Converter={StaticResource NotHelpfulBackgroundConverter}}" CornerRadius="8">
+                                                                        <StackPanel Orientation="Horizontal" Spacing="6">
+                                                                            <FontIcon Glyph="&#xE00C;" FontSize="12"/>
+                                                                            <TextBlock Text="No" FontSize="12"/>
+                                                                        </StackPanel>
+                                                                    </Button>
+                                                                </StackPanel>
+                                                            </StackPanel>
+                                                        </StackPanel>
                                                     </StackPanel>
-                                                </StackPanel>
-                                            </StackPanel>
-
-                                            <FontIcon x:Name="SelectedFaqChevron"
-                                              Grid.Column="1"
-                                              Glyph="&#xE76C;"
-                                              Foreground="#6B7280"
-                                              VerticalAlignment="Center"
-                                              Margin="12,0,0,0"/>
-
-                                        </Grid>
-                                    </Button>
-
-                                    <StackPanel x:Name="SelectedFaqDetailsPanel"
-                                        Spacing="12"
-                                         Visibility="Collapsed">
-
-                                        <TextBlock x:Name="SelectedAnswerText"
-                                           Text="Our airport offers restaurants and cafes, Duty-free shopping, Free WiFi, Charging stations, Business lounges, Prayer rooms, Children's play areas, Medical services, Currency exchange, and ATMs."
-                                           TextWrapping="Wrap"
-                                           FontSize="13"
-                                           Foreground="#374151"
-                                           LineHeight="22"/>
-
-                                        <StackPanel Spacing="12">
-                                            <TextBlock Text="Was this answer helpful?"
-               FontSize="12"
-               Foreground="#4B5563"/>
-
-                                            <StackPanel Orientation="Horizontal" Spacing="10">
-                                                <Button x:Name="HelpfulButton"
-                Click="HelpfulButton_Click"
-                Background="#F8F9FB"
-                Foreground="#6B7280"
-                BorderBrush="#D1D5DB"
-                BorderThickness="1"
-                CornerRadius="8"
-                Padding="12,8">
-                                                    <Button.Resources>
-                                                        <SolidColorBrush x:Key="ButtonBackground" Color="#F8F9FB"/>
-                                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#EEF1F5"/>
-                                                        <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#E4E9EF"/>
-                                                        <SolidColorBrush x:Key="ButtonForeground" Color="#6B7280"/>
-                                                        <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#6B7280"/>
-                                                        <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#4B5563"/>
-                                                        <SolidColorBrush x:Key="ButtonBorderBrush" Color="#D1D5DB"/>
-                                                        <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#C4CAD3"/>
-                                                        <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#B5BDC8"/>
-                                                    </Button.Resources>
-
-                                                    <StackPanel Orientation="Horizontal" Spacing="6">
-                                                        <FontIcon Glyph="&#xE00B;" FontSize="12"/>
-                                                        <TextBlock Text="Yes" FontSize="12"/>
-                                                    </StackPanel>
-                                                </Button>
-
-                                                <Button x:Name="NotHelpfulButton"
-                Click="NotHelpfulButton_Click"
-                Background="#F8F9FB"
-                Foreground="#6B7280"
-                BorderBrush="#D1D5DB"
-                BorderThickness="1"
-                CornerRadius="8"
-                Padding="12,8">
-                                                    <Button.Resources>
-                                                        <SolidColorBrush x:Key="ButtonBackground" Color="#F8F9FB"/>
-                                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#EEF1F5"/>
-                                                        <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#E4E9EF"/>
-                                                        <SolidColorBrush x:Key="ButtonForeground" Color="#6B7280"/>
-                                                        <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#6B7280"/>
-                                                        <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#4B5563"/>
-                                                        <SolidColorBrush x:Key="ButtonBorderBrush" Color="#D1D5DB"/>
-                                                        <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#C4CAD3"/>
-                                                        <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#B5BDC8"/>
-                                                    </Button.Resources>
-
-                                                    <StackPanel Orientation="Horizontal" Spacing="6">
-                                                        <FontIcon Glyph="&#xE00C;" FontSize="12"/>
-                                                        <TextBlock Text="No" FontSize="12"/>
-                                                    </StackPanel>
-                                                </Button>
-                                            </StackPanel>
-
-                                            <TextBlock x:Name="FeedbackThankYouText"
-               Text="Thanks for your feedback."
-               FontSize="12"
-               Foreground="#6B7280"
-               Visibility="Collapsed"/>
-                                        </StackPanel>
-                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
                                 </StackPanel>
                             </Border>
-
-                            <!-- Closed FAQ rows -->
-                            <Border Background="White"
-                            BorderBrush="#E5E7EB"
-                            BorderThickness="0,0,0,1"
-                            Padding="14">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <StackPanel Spacing="6">
-                                        <TextBlock Text="Is there free WiFi at the airport?"
-                                           FontSize="15"
-                                           Foreground="#111827"/>
-                                        <StackPanel Orientation="Horizontal" Spacing="10">
-                                            <TextBlock Text="Airport Facilities &amp; Services"
-                                               FontSize="11"
-                                               Foreground="#2AA9C9"/>
-                                            <StackPanel Orientation="Horizontal" Spacing="4">
-                                                <FontIcon Glyph="&#xE8A7;"
-                                                  FontSize="11"
-                                                  Foreground="#6B7280"/>
-                                                <TextBlock Text="2567 views"
-                                                   FontSize="11"
-                                                   Foreground="#6B7280"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </StackPanel>
-
-                                    <FontIcon Grid.Column="1"
-                                      Glyph="&#xE70D;"
-                                      Foreground="#9CA3AF"
-                                      VerticalAlignment="Center"/>
-                                </Grid>
-                            </Border>
-
-                            <Border Background="White"
-                            BorderBrush="#E5E7EB"
-                            BorderThickness="0,0,0,1"
-                            Padding="14">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <StackPanel Spacing="6">
-                                        <TextBlock Text="How much does airport parking cost?"
-                                           FontSize="15"
-                                           Foreground="#111827"/>
-                                        <StackPanel Orientation="Horizontal" Spacing="10">
-                                            <TextBlock Text="Parking Information"
-                                               FontSize="11"
-                                               Foreground="#2AA9C9"/>
-                                            <StackPanel Orientation="Horizontal" Spacing="4">
-                                                <FontIcon Glyph="&#xE8A7;"
-                                                  FontSize="11"
-                                                  Foreground="#6B7280"/>
-                                                <TextBlock Text="2301 views"
-                                                   FontSize="11"
-                                                   Foreground="#6B7280"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </StackPanel>
-
-                                    <FontIcon Grid.Column="1"
-                                      Glyph="&#xE70D;"
-                                      Foreground="#9CA3AF"
-                                      VerticalAlignment="Center"/>
-                                </Grid>
-                            </Border>
-
-
-
                         </StackPanel>
                     </Border>
                 </Grid>
             </ScrollViewer>
         </Grid>
     </Grid>
-
 </Page>

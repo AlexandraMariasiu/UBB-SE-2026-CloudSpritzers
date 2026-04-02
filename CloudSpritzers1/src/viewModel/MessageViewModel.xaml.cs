@@ -61,5 +61,5 @@ namespace CloudSpritzers1.src.viewmodel
             Messages.Add(_mapper.Map<MessageDTO>(new Message(sender, botReply.GetChat(), selectedOption.Label)));
             Messages.Add(_mapper.Map<MessageDTO>(botReply));
         }
-    }
+    }   
 }
