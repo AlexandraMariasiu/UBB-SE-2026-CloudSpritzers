@@ -11,11 +11,31 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
+
 namespace CloudSpritzers1.src.view.faq
 {
     public sealed partial class FAQView : Page
     {
         public FAQViewModel ViewModel { get; }
+
+        private int _currentPersonId;
+
+
+        private bool IsEmployee(int id)
+        {
+            try
+            {
+                var employeeRepository = new EmployeeRepository();
+                var employee = employeeRepository.GetById(id);
+                return employee != null;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+       
 
         public FAQView()
         {
@@ -30,8 +50,9 @@ namespace CloudSpritzers1.src.view.faq
             var repository = new FAQRepository();
             var service = new FAQService(repository);
 
-            bool isAdmin =true; // set true for testing admin mode
-            ViewModel = new FAQViewModel(service, mapper, isAdmin);
+            //bool isAdmin =true; // set true for testing admin mode
+            //ViewModel = new FAQViewModel(service, mapper, isAdmin);
+            ViewModel = new FAQViewModel(service, mapper, false);
 
             DataContext = ViewModel;
 
@@ -40,9 +61,21 @@ namespace CloudSpritzers1.src.view.faq
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            //base.OnNavigatedTo(e);
+            //ViewModel.LoadFAQ();
+            //UpdateAdminVisibility();
+
             base.OnNavigatedTo(e);
+
+            if (e.Parameter is int id)
+            {
+                _currentPersonId = id;
+                ViewModel.IsAdmin = IsEmployee(id);
+            }
+
             ViewModel.LoadFAQ();
             UpdateAdminVisibility();
+        
         }
 
         private void OpenFaqButton_Click(object sender, RoutedEventArgs e)
@@ -107,7 +140,12 @@ namespace CloudSpritzers1.src.view.faq
                 return;
             }
 
-            bool navigated = Frame.Navigate(typeof(FAQAddEditPage));
+            //bool navigated = Frame.Navigate(typeof(FAQAddEditPage));
+            bool navigated = Frame.Navigate(typeof(FAQAddEditPage), new FAQNavigationData
+            {
+                CurrentPersonId = _currentPersonId,
+                FAQEntry = null
+            });
 
             if (!navigated)
             {
@@ -153,7 +191,12 @@ namespace CloudSpritzers1.src.view.faq
                 return;
             }
 
-            bool navigated = Frame.Navigate(typeof(FAQAddEditPage), ViewModel.SelectedFAQEntry);
+            //bool navigated = Frame.Navigate(typeof(FAQAddEditPage), ViewModel.SelectedFAQEntry);
+            bool navigated = Frame.Navigate(typeof(FAQAddEditPage), new FAQNavigationData
+{
+    CurrentPersonId = _currentPersonId,
+    FAQEntry = ViewModel.SelectedFAQEntry
+});
 
             if (!navigated)
             {

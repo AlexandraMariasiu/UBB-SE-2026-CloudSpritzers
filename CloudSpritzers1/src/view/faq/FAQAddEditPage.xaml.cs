@@ -32,7 +32,21 @@ namespace CloudSpritzers1.src.view.faq
         private FAQViewModel _viewModel;
         private FAQEntryDTO? _editingFaq;
         private bool _isEditMode;
+        private int _currentPersonId;
 
+        private bool IsEmployee(int id)
+        {
+            try
+            {
+                var employeeRepository = new EmployeeRepository();
+                var employee = employeeRepository.GetById(id);
+                return employee != null;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         public FAQAddEditPage()
         {
@@ -46,36 +60,76 @@ namespace CloudSpritzers1.src.view.faq
             var repository = new FAQRepository();
             var service = new FAQService(repository);
 
-            bool isAdmin = true; // for testing admin features
-            _viewModel = new FAQViewModel(service, mapper, isAdmin);
+            //bool isAdmin = true; // for testing admin features
+            //_viewModel = new FAQViewModel(service, mapper, isAdmin);
+            _viewModel = new FAQViewModel(service, mapper, false);
 
         }
+
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    base.OnNavigatedTo(e);
+
+        //    if (e.Parameter is FAQEntryDTO faq)
+        //    {
+        //        _editingFaq = faq;
+        //        _isEditMode = true;
+
+        //        QuestionTextBox.Text = faq.Question;
+        //        AnswerTextBox.Text = faq.Answer;
+        //        CategoryComboBox.SelectedItem = FindCategoryComboBoxItem(faq.Category);
+
+        //        PageTitleText.Text = "Edit FAQ";
+        //        PageSubtitleText.Text = "Update the selected frequently asked question entry";
+        //        SaveButton.Content = "Save Changes";
+        //    }
+        //    else
+        //    {
+        //        _editingFaq = null;
+        //        _isEditMode = false;
+
+        //        PageTitleText.Text = "Add FAQ";
+        //        PageSubtitleText.Text = "Create a frequently asked question entry";
+        //        SaveButton.Content = "Add FAQ";
+        //    }
+        //}
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is FAQEntryDTO faq)
+            if (e.Parameter is FAQNavigationData navData)
             {
-                _editingFaq = faq;
-                _isEditMode = true;
+                _currentPersonId = navData.CurrentPersonId;
+                _viewModel.IsAdmin = IsEmployee(_currentPersonId);
 
-                QuestionTextBox.Text = faq.Question;
-                AnswerTextBox.Text = faq.Answer;
-                CategoryComboBox.SelectedItem = FindCategoryComboBoxItem(faq.Category);
+                if (navData.FAQEntry != null)
+                {
+                    var faq = navData.FAQEntry;
+                    _editingFaq = faq;
+                    _isEditMode = true;
 
-                PageTitleText.Text = "Edit FAQ";
-                PageSubtitleText.Text = "Update the selected frequently asked question entry";
-                SaveButton.Content = "Save Changes";
-            }
-            else
-            {
-                _editingFaq = null;
-                _isEditMode = false;
+                    QuestionTextBox.Text = faq.Question;
+                    AnswerTextBox.Text = faq.Answer;
+                    CategoryComboBox.SelectedItem = FindCategoryComboBoxItem(faq.Category);
 
-                PageTitleText.Text = "Add FAQ";
-                PageSubtitleText.Text = "Create a frequently asked question entry";
-                SaveButton.Content = "Add FAQ";
+                    PageTitleText.Text = "Edit FAQ";
+                    PageSubtitleText.Text = "Update the selected frequently asked question entry";
+                    SaveButton.Content = "Save Changes";
+                }
+                else
+                {
+                    _editingFaq = null;
+                    _isEditMode = false;
+
+                    QuestionTextBox.Text = string.Empty;
+                    AnswerTextBox.Text = string.Empty;
+                    CategoryComboBox.SelectedItem = null;
+
+                    PageTitleText.Text = "Add FAQ";
+                    PageSubtitleText.Text = "Create a frequently asked question entry";
+                    SaveButton.Content = "Add FAQ";
+                }
             }
         }
 
