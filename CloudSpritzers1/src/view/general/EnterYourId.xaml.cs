@@ -45,8 +45,7 @@ namespace CloudSpritzers1.src.view.general
                     try
                     {
                         (App.Current as App).SetUser(parsedId);
-                        // NOTE - only temporary so i can test it
-                        this.Frame.Navigate(typeof(CloudSpritzers1.src.view.chat.ChatPage));
+                        this.Frame.Navigate(typeof(CloudSpritzers1.src.view.general.LandingPage));
                     }
                     catch (Exception ex)
                     {

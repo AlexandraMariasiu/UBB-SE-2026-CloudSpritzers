@@ -107,7 +107,7 @@ namespace CloudSpritzers1
             _window = new MainWindow();
 
             var frame = new Frame();
-            frame.Navigate(typeof(CloudSpritzers1.src.view.faq.FAQView));
+            frame.Navigate(typeof(CloudSpritzers1.src.view.general.ChoosingPage));
             _window.Content = frame;
 
             _window.Activate();

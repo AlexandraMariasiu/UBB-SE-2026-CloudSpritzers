@@ -56,7 +56,8 @@
                FontSize="12"/>
             </StackPanel>
 
-            <HyperlinkButton Grid.Column="2"
+            <Button Grid.Column="2"
+                    Click="EndChat"
                              Content="End Chat"
                              Foreground="#3AB0B0"
                              VerticalAlignment="Center"/>

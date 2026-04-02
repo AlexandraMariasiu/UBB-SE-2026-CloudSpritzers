@@ -53,6 +53,11 @@ namespace CloudSpritzers1.src.viewModel.chat
 
         public string FormatUserId => "User Id: " + _user.GetId().ToString();
         
+        public void CloseChat()
+        {
+            _chatService.CloseChat(_chat.ChatId);
+        }
+
 
         private void LoadChatHistory()
         {
