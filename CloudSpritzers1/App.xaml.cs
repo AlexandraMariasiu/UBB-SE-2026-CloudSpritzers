@@ -31,6 +31,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using CloudSpritzers1.src.viewModel.general;
 
 namespace CloudSpritzers1
 {
@@ -96,6 +97,7 @@ namespace CloudSpritzers1
             services.AddTransient<AddReviewViewModel>();
             services.AddTransient<ChatViewModel>();
             
+            services.AddTransient<UpperBarViewModel>();
 
             return services.BuildServiceProvider();
         }
@@ -105,7 +107,7 @@ namespace CloudSpritzers1
             _window = new MainWindow();
 
             var frame = new Frame();
-            frame.Navigate(typeof(CloudSpritzers1.src.view.general.ChoosingPage));
+            frame.Navigate(typeof(CloudSpritzers1.src.view.faq.FAQView));
             _window.Content = frame;
 
             _window.Activate();

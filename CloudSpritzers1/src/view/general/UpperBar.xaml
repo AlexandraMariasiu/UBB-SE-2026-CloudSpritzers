@@ -71,7 +71,7 @@
                     <FontIcon Glyph="&#xE77B;" FontSize="18" Foreground="#001B3D"
                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
-                <TextBlock Text="ID: 12345" 
+                <TextBlock Text="{Binding UserId}"
                        FontSize="9" 
                        Foreground="Gray" 
                        HorizontalAlignment="Center"/>
