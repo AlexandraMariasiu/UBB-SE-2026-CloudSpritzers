@@ -42,6 +42,7 @@ public class TicketSubcategoryRepository : DBRepository<int, TicketSubcategory>
         int categoryId = reader.GetInt32(reader.GetOrdinal("category_id"));
         var categoryRepository = new TicketCategoryRepository();
         TicketCategory category = categoryRepository.GetById(categoryId);
+
         //TicketCategory category = new TicketCategory(categoryId, string.Empty, UrgencyLevelEnum.LOW); // You can load full category if needed
         return new TicketSubcategory(subcategoryId, name, externId, category);
     }
