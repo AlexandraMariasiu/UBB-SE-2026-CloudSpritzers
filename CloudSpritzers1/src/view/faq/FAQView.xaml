@@ -132,6 +132,7 @@
                                     <StackPanel x:Name="EmployeeActionsPanel" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Visibility="Collapsed">
                                         <Button x:Name="AddFaqButton" Content="Add FAQ" Click="AddFaqButton_Click" Style="{StaticResource SelectedCategoryButtonStyle}"/>
                                         <Button x:Name="EditFaqButton" Content="Edit FAQ" Click="EditFaqButton_Click" Style="{StaticResource CategoryButtonStyle}"/>
+                                        <Button x:Name="DeleteFaqButton" Content="Delete FAQ" Click="DeleteFaqButton_Click" Style="{StaticResource CategoryButtonStyle}"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Border>

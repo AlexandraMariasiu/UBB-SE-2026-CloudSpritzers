@@ -59,23 +59,42 @@ namespace CloudSpritzers1.src.view.faq
             UpdateAdminVisibility();
         }
 
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+
+
+        //    base.OnNavigatedTo(e);
+
+        //    if (e.Parameter is FAQNavigationData navData)
+        //    {
+        //        _currentPersonId = navData.CurrentPersonId;
+        //        ViewModel.IsAdmin = navData.IsEmployee;
+        //    }
+        //    else
+        //    {
+        //        ViewModel.IsAdmin = false;
+        //    }
+
+        //    ViewModel.LoadFAQ();
+        //    UpdateAdminVisibility();
+        //}
+
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //base.OnNavigatedTo(e);
-            //ViewModel.LoadFAQ();
-            //UpdateAdminVisibility();
-
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is int id)
-            {
-                _currentPersonId = id;
-                ViewModel.IsAdmin = IsEmployee(id);
-            }
+            var app = (App)App.Current;
+
+            ViewModel.IsAdmin = app.isEmployee;
+
+            if (app.isEmployee && app.Employee != null)
+                _currentPersonId = app.Employee.GetId();
+            else if (app.User != null)
+                _currentPersonId = app.User.GetId();
 
             ViewModel.LoadFAQ();
             UpdateAdminVisibility();
-        
         }
 
         private void OpenFaqButton_Click(object sender, RoutedEventArgs e)
@@ -140,10 +159,11 @@ namespace CloudSpritzers1.src.view.faq
                 return;
             }
 
-            //bool navigated = Frame.Navigate(typeof(FAQAddEditPage));
+            
             bool navigated = Frame.Navigate(typeof(FAQAddEditPage), new FAQNavigationData
             {
                 CurrentPersonId = _currentPersonId,
+                IsEmployee = ViewModel.IsAdmin,
                 FAQEntry = null
             });
 
@@ -195,7 +215,8 @@ namespace CloudSpritzers1.src.view.faq
             bool navigated = Frame.Navigate(typeof(FAQAddEditPage), new FAQNavigationData
 {
     CurrentPersonId = _currentPersonId,
-    FAQEntry = ViewModel.SelectedFAQEntry
+                IsEmployee = ViewModel.IsAdmin,
+                FAQEntry = ViewModel.SelectedFAQEntry
 });
 
             if (!navigated)
