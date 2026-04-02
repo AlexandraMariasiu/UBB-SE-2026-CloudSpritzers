@@ -68,20 +68,27 @@
 
             <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="0,0,0,24">
                 <StackPanel Spacing="24">
+
+
+                    <!-- HEADER -->
                     <StackPanel Orientation="Horizontal" Spacing="16">
                         <Border Width="60" Height="60" CornerRadius="8" Background="#2bb8c0">
-                            <SymbolIcon Symbol="Repair" Foreground="White" RenderTransformOrigin="0.5,0.5">
-                                <SymbolIcon.RenderTransform>
-                                    <ScaleTransform ScaleX="2" ScaleY="2"/>
-                                </SymbolIcon.RenderTransform>
-                            </SymbolIcon>
+                            <Grid>
+                                <Path Fill="White" Stretch="Uniform" Width="34" Height="34"
+                                  Data="M4,10 A2,2 0 0 1 6,8 H26 A2,2 0 0 1 28,10 V14 A2,2 0 0 0 28,18 V22 A2,2 0 0 1 26,24 H6 A2,2 0 0 1 4,22 V18 A2,2 0 0 0 4,14 Z"/>
+                                <Line X1="18" Y1="16" X2="18" Y2="44" Stroke="#2bb8c0" StrokeThickness="2" StrokeDashArray="2,2"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
                         </Border>
-                        <StackPanel VerticalAlignment="Center">
+
+                        <StackPanel>
                             <TextBlock Text="Support Tickets" FontSize="28" FontWeight="SemiBold" Foreground="Black"/>
                             <TextBlock Width="600" TextWrapping="Wrap" Foreground="#6b7280"
-                               Text="Resolve the requests of our customers."/>
+                                   Text="Resolve the requests of our customers."/>
                         </StackPanel>
                     </StackPanel>
+
+                    <!-- WHITE BOX FOR TICKETS -->
 
                     <Border Background="White" CornerRadius="8" Padding="32" BorderBrush="#e5e7eb" BorderThickness="1">
                         <Grid>
@@ -101,15 +108,19 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                                    <SymbolIcon Symbol="Filter" Foreground="#6b7280" Margin="0,0,8,0"/>
-                                    <ComboBox Width="180" Background="#f3f4f6" SelectedIndex="0" SelectionChanged="FilterChanged">
-                                        <ComboBoxItem Content="All Tickets" Tag="All"/>
-                                        <ComboBoxItem Content="Open" Tag="Open"/>
-                                        <ComboBoxItem Content="In Progress" Tag="InProgress"/>
-                                        <ComboBoxItem Content="Resolved" Tag="Resolved"/>
+                                <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="180"/>
+                                    </Grid.ColumnDefinitions>
+                                    <SymbolIcon Symbol="Filter" Foreground="#6b7280" VerticalAlignment="Center" Width="24" Height="24" Margin="0,0,8,0"/>
+                                    <ComboBox Grid.Column="1" Width="180" Background="#e5e7eb" Foreground="Black" PlaceholderText="Filter tickets" SelectedIndex="0" SelectionChanged="FilterChanged">
+                                        <ComboBoxItem Content="All Tickets" Tag="ALL"/>
+                                        <ComboBoxItem Content="Open" Tag="OPEN"/>
+                                        <ComboBoxItem Content="In Progress" Tag="IN_PROGRESS"/>
+                                        <ComboBoxItem Content="Resolved" Tag="RESOLVED"/>
                                     </ComboBox>
-                                </StackPanel>
+                                </Grid>
                             </Grid>
 
                             <ItemsControl Grid.Row="1" x:Name="TicketList" ItemsSource="{x:Bind ViewModel.TicketsRead, Mode=OneWay}" Margin="0,24,0,0">
