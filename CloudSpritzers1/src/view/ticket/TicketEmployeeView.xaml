@@ -5,6 +5,7 @@
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    xmlns:controls="using:Microsoft.UI.Xaml.Controls" 
    xmlns:ticket="using:CloudSpritzers1.src.model.ticket"
+   xmlns:general="using:CloudSpritzers1.src.view.general"
    xmlns:dto ="using:CloudSpritzers1.src.dto"
    RequestedTheme="Light"
    Background="#f9fafb">
@@ -51,165 +52,114 @@
         </Style>
     </Page.Resources>
 
-    <!-- ================= PAGE LAYOUT ================= -->
-    <Grid Padding="40">
-
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <general:UpperBar Grid.Row="0" />
 
-        <!-- ================= MAIN CONTENT ================= -->
-        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel Spacing="24">
+        <!-- ================= PAGE LAYOUT ================= -->
+        <Grid Grid.Row="1" Padding="40">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-                <!-- HEADER -->
-                <StackPanel Orientation="Horizontal" Spacing="16">
-                    <Border Width="60" Height="60" CornerRadius="8" Background="#2bb8c0">
+            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="0,0,0,24">
+                <StackPanel Spacing="24">
+                    <StackPanel Orientation="Horizontal" Spacing="16">
+                        <Border Width="60" Height="60" CornerRadius="8" Background="#2bb8c0">
+                            <SymbolIcon Symbol="Repair" Foreground="White" RenderTransformOrigin="0.5,0.5">
+                                <SymbolIcon.RenderTransform>
+                                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                </SymbolIcon.RenderTransform>
+                            </SymbolIcon>
+                        </Border>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Support Tickets" FontSize="28" FontWeight="SemiBold" Foreground="Black"/>
+                            <TextBlock Width="600" TextWrapping="Wrap" Foreground="#6b7280"
+                               Text="Resolve the requests of our customers."/>
+                        </StackPanel>
+
+                    <Border Background="White" CornerRadius="8" Padding="32" BorderBrush="#e5e7eb" BorderThickness="1">
                         <Grid>
-                            <Path Fill="White" Stretch="Uniform" Width="34" Height="34"
-                                  Data="M4,10 A2,2 0 0 1 6,8 H26 A2,2 0 0 1 28,10 V14 A2,2 0 0 0 28,18 V22 A2,2 0 0 1 26,24 H6 A2,2 0 0 1 4,22 V18 A2,2 0 0 0 4,14 Z"/>
-                            <Line X1="18" Y1="16" X2="18" Y2="44" Stroke="#2bb8c0" StrokeThickness="2" StrokeDashArray="2,2"
-                                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Grid>
-                    </Border>
-
-                    <StackPanel>
-                        <TextBlock Text="Support Tickets" FontSize="28" FontWeight="SemiBold" Foreground="Black"/>
-                        <TextBlock Width="600" TextWrapping="Wrap" Foreground="#6b7280"
-                                   Text="Resolve the requests of our customers."/>
-                    </StackPanel>
-                </StackPanel>
-
-                <!-- WHITE BOX FOR TICKETS -->
-                <Border Background="White" CornerRadius="8" Padding="32" BorderBrush="#e5e7eb" BorderThickness="1"
-                        Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="16">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <!-- Header + Filter -->
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
                             <StackPanel Orientation="Vertical" Spacing="4">
                                 <TextBlock Text="Tickets" FontSize="28" FontWeight="SemiBold" Foreground="Black"/>
                                 <TextBlock Text="Change the status of submitted tickets." FontSize="14" Foreground="#6b7280"/>
                             </StackPanel>
 
-                            <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top">
+                            <Grid Grid.Row="0">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="180"/>
                                 </Grid.ColumnDefinitions>
-                                <SymbolIcon Symbol="Filter" Foreground="#6b7280" VerticalAlignment="Center" Width="24" Height="24" Margin="0,0,8,0"/>
-                                <ComboBox Grid.Column="1" Width="180" Background="#e5e7eb" Foreground="Black" PlaceholderText="Filter tickets" SelectedIndex="0" SelectionChanged="FilterChanged">
-                                    <ComboBoxItem Content="All Tickets" Tag="ALL"/>
-                                    <ComboBoxItem Content="Open" Tag="OPEN"/>
-                                    <ComboBoxItem Content="In Progress" Tag="IN_PROGRESS"/>
-                                    <ComboBoxItem Content="Resolved" Tag="RESOLVED"/>
-                                </ComboBox>
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="Recent Tickets" FontSize="20" FontWeight="SemiBold" Foreground="Black"/>
+                                    <TextBlock Text="Track the status of your submitted tickets" FontSize="14" Foreground="#6b7280"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <SymbolIcon Symbol="Filter" Foreground="#6b7280" Margin="0,0,8,0"/>
+                                    <ComboBox Width="180" Background="#f3f4f6" PlaceholderText="Filter tickets" SelectedIndex="0">
+                                        <ComboBoxItem Content="All Tickets"/>
+                                        <ComboBoxItem Content="Open"/>
+                                        <ComboBoxItem Content="In Progress"/>
+                                        <ComboBoxItem Content="Resolved"/>
+                                    </ComboBox>
+                                </StackPanel>
                             </Grid>
-                        </Grid>
 
-                        <!-- Ticket list -->
-                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,24,0,0">
-                            <ItemsControl x:Name="TicketList" ItemsSource="{x:Bind ViewModel.TicketsRead, Mode=OneWay}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate x:DataType="dto:TicketDTO">
-                                        <Border Background="White" CornerRadius="8" Padding="16" BorderBrush="#e5e7eb" BorderThickness="1" Margin="0,0,0,16">
-                                            <StackPanel Spacing="16">
-
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="Auto"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <TextBlock Text="{x:Bind TicketId}" FontSize="12" Foreground="#6b7280" VerticalAlignment="Center"/>
-                                                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
-                                                        <Border CornerRadius="4" Padding="6,2" Background="#dbeafe">
-                                                            <TextBlock Text="{x:Bind Status}" FontSize="12" Foreground="#383cb8"/>
-                                                        </Border>
-                                                        <Border CornerRadius="4" Padding="6,2" Background="#ffe2e2">
-                                                            <TextBlock Text="{x:Bind UrgencyLevel}" FontSize="12" Foreground="#aa161e"/>
-                                                        </Border>
-                                                    </StackPanel>
-                                                </Grid>
-
-                                                <TextBlock Text="{x:Bind Subject}" FontSize="16" FontWeight="SemiBold" Foreground="Black"/>
-                                                <TextBlock Text="{x:Bind Description}" FontSize="14" Foreground="#6b7280" TextWrapping="Wrap"/>
-                                                <TextBlock FontSize="12" Foreground="#6b7280" TextWrapping="Wrap">
-                                                    <Run Text="Category: "/><Run Text="{x:Bind CategoryName}"/>
-                                                    <Run Text=" | Subcategory: "/><Run Text="{x:Bind SubcategoryName}"/>
-                                                    <Run Text=" | Created: "/><Run Text="{x:Bind CreatedAt}"/>
-                                                    <Run Text=" | Email: "/><Run Text="{x:Bind UserEmail}"/>
-                                                </TextBlock>
-
-                                                <!-- Edit Status Button -->
-                                                <Button Content="Edit Status" Width="120" Height="32"
-                                                        Style="{StaticResource TicketButtonStyle}"
-                                                        Click="EditTicketStatus_Click"
-                                                        Tag="{x:Bind TicketId}"/>
-                                            </StackPanel>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
+                            <ItemsControl Grid.Row="1" x:Name="TicketList" ItemsSource="{x:Bind ViewModel.TicketsRead, Mode=OneWay}" Margin="0,24,0,0">
                             </ItemsControl>
-                        </ScrollViewer>
-                    </Grid>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+            <Grid Grid.Row="1" ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="#fff4e5" CornerRadius="8" Padding="12" Height="70">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <SymbolIcon Symbol="Clock" Foreground="#ffb347" VerticalAlignment="Top" Margin="0,2,0,0"/>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Open" FontWeight="SemiBold" FontSize="14" Foreground="Black"/>
+                            <TextBlock Text="Awaiting review" FontSize="11" Foreground="#6b7280" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </StackPanel>
                 </Border>
 
-            </StackPanel>
-        </ScrollViewer>
-
-        <!-- ================= STATUS LEGEND ================= -->
-        <Grid Grid.Row="1" Margin="0,24,0,0" ColumnSpacing="16">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <!-- Open -->
-            <Border Grid.Column="0" Background="#fff4e5" CornerRadius="8" Padding="16">
-                <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-                    <SymbolIcon Symbol="Clock" Foreground="#ffb347"/>
-                    <StackPanel>
-                        <TextBlock Text="Open" FontWeight="SemiBold" Foreground="Black"/>
-                        <TextBlock Text="Your ticket has been received and is awaiting review" FontSize="12" Foreground="#6b7280" TextWrapping="Wrap"/>
+                <Border Grid.Column="1" Background="#e5f0ff" CornerRadius="8" Padding="12" Height="70">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <SymbolIcon Symbol="Sync" Foreground="#5ca0ff" VerticalAlignment="Top" Margin="0,2,0,0"/>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="In Progress" FontWeight="SemiBold" FontSize="14" Foreground="Black"/>
+                            <TextBlock Text="Under investigation" FontSize="11" Foreground="#6b7280" TextWrapping="Wrap"/>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </Border>
+                </Border>
 
-            <!-- In Progress -->
-            <Border Grid.Column="1" Background="#e5f0ff" CornerRadius="8" Padding="16">
-                <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-                    <SymbolIcon Symbol="Sync" Foreground="#5ca0ff"/>
-                    <StackPanel>
-                        <TextBlock Text="In Progress" FontWeight="SemiBold" Foreground="Black"/>
-                        <TextBlock Text="An employee is currently investigating or resolving your issue" FontSize="12" Foreground="#6b7280" TextWrapping="Wrap"/>
+                <Border Grid.Column="2" Background="#e6ffed" CornerRadius="8" Padding="12" Height="70">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <SymbolIcon Symbol="Accept" Foreground="#22c55e" VerticalAlignment="Top" Margin="0,2,0,0"/>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Resolved" FontWeight="SemiBold" FontSize="14" Foreground="Black"/>
+                            <TextBlock Text="Issue closed" FontSize="11" Foreground="#6b7280" TextWrapping="Wrap"/>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </Border>
-
-            <!-- Resolved -->
-            <Border Grid.Column="2" Background="#e6ffed" CornerRadius="8" Padding="16">
-                <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-                    <SymbolIcon Symbol="Accept" Foreground="#22c55e"/>
-                    <StackPanel>
-                        <TextBlock Text="Resolved" FontWeight="SemiBold" Foreground="Black"/>
-                        <TextBlock Text="Your issue has been addressed and the ticket is closed" FontSize="12" Foreground="#6b7280" TextWrapping="Wrap"/>
-                    </StackPanel>
-                </StackPanel>
-            </Border>
+                </Border>
+            </Grid>
         </Grid>
-
     </Grid>
 </Page>
+
 
