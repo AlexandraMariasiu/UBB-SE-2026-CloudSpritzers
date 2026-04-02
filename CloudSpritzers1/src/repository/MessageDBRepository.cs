@@ -14,7 +14,10 @@ namespace CloudSpritzers1.src.repository
             int chatId = reader.GetInt32(reader.GetOrdinal("chat_id"));
             int senderId = reader.GetInt32(reader.GetOrdinal("sender_id"));
             string text = reader.GetString(reader.GetOrdinal("text"));
-            DateTimeOffset timestamp = reader.GetDateTimeOffset(reader.GetOrdinal("timestamp"));
+            ///DateTimeOffset timestamp = reader.GetDateTimeOffset(reader.GetOrdinal("timestamp"));
+            // Read as DateTime, then convert to DateTimeOffset
+            DateTime dbDt = reader.GetDateTime(reader.GetOrdinal("timestamp"));
+            DateTimeOffset timestamp = new DateTimeOffset(dbDt);
 
             var senderStub = new SenderStub(senderId);
             var chatStub = new ChatStub(chatId);

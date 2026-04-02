@@ -30,6 +30,11 @@ namespace CloudSpritzers1.src.model.message
             this._faqOptions = options;
         }
 
+        private BotMessage(int messageId, ISender sender, Chat chat, string messageText, IEnumerable<FAQOption> options, DateTimeOffset timestamp) : this(messageId,sender,chat,messageText,options)
+        {
+            this._timestamp = timestamp;
+        }
+
 
         public Chat GetChat()
         {
@@ -73,6 +78,8 @@ namespace CloudSpritzers1.src.model.message
             private Chat _chat;
             private string _messageText;
             private List<FAQOption> _faqOptions;
+            private DateTimeOffset _timestamp;
+
 
             public BotMessageBuilder(ISender sender, Chat chat, int messageId, FAQNode nodeToMessage) 
                 : this(sender, chat, messageId)
@@ -88,6 +95,13 @@ namespace CloudSpritzers1.src.model.message
                 this._sender = sender;
                 this._chat = chat;
                 this._faqOptions = new List<FAQOption>();
+                this._timestamp = DateTimeOffset.UtcNow;
+            }
+
+            public BotMessageBuilder WithTimestamp(DateTimeOffset timestamp)
+            {
+                this._timestamp = timestamp;
+                return this;
             }
 
             public BotMessageBuilder WithMessage(string setMessage)
@@ -117,7 +131,7 @@ namespace CloudSpritzers1.src.model.message
 
             public BotMessage Build()
             {
-                return new BotMessage(this._messageId, this._sender, this._chat, this._messageText, this._faqOptions.ToImmutableArray());
+                return new BotMessage(this._messageId, this._sender, this._chat, this._messageText, this._faqOptions.ToImmutableArray(), this._timestamp);
             }
 
         }

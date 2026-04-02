@@ -37,10 +37,10 @@ namespace CloudSpritzers1.src.repository
         public int Add(Chat elem)
         {
             string query = "INSERT INTO Chat (user_id, status) " +
-                               "VALUES (@userId, @status); SELECT SCOPE_IDENTITY();";
+                               "VALUES (@userId, @status); SELECT CAST( SCOPE_IDENTITY() AS INT);";
 
             var cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("@userId", elem.UserId);
+            cmd.Parameters.AddWithValue("@userId", Convert.ToInt32(elem.UserId));
             cmd.Parameters.AddWithValue("@status", elem.Status.ToString());
 
             return Add(cmd, elem);

@@ -13,6 +13,6 @@ namespace CloudSpritzers1.src.model.employee
         CASHBACK,
         LEGAL,
         SECURITY,
-        MEDICAL
+        MEDICAL,
     }
 }

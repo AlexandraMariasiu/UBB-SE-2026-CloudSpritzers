@@ -17,5 +17,55 @@ namespace CloudSpritzers1.src.view.general
             ViewModel = (App.Current as App).Services.GetService<UpperBarViewModel>();
             this.DataContext = ViewModel;
         }
+
+        private DependencyObject FindParentFrame()
+        {
+            DependencyObject parent = this.Parent;
+            while (parent != null && !(parent is Frame))
+            {
+                parent = Microsoft.UI.Xaml.Media.VisualTreeHelper.GetParent(parent);
+            }
+            return parent;
+        }
+
+        public void NavigateToChat(object sender, RoutedEventArgs e)
+        {
+            if (FindParentFrame() is Frame frame)
+            {
+                frame.Navigate(typeof(CloudSpritzers1.src.view.chat.ChatPage));
+            }
+        }
+
+        public void NavigateToLanding(object sender, RoutedEventArgs e)
+        {
+            if (FindParentFrame() is Frame frame)
+            {
+                frame.Navigate(typeof(CloudSpritzers1.src.view.general.LandingPage));
+            }
+        }
+
+        public void NavigateToFAQ(object sender, RoutedEventArgs e)
+        {
+            if (FindParentFrame() is Frame frame)
+            {
+                frame.Navigate(typeof(CloudSpritzers1.src.view.faq.FAQView));
+            }
+        }
+
+        public void NavigateToTickets(object sender, RoutedEventArgs e)
+        {
+            if (FindParentFrame() is Frame frame)
+            {
+                frame.Navigate(typeof(CloudSpritzers1.src.view.TicketsView));
+            }
+        }
+
+        public void NavigateToReviews(object sender, RoutedEventArgs e)
+        {
+            if (FindParentFrame() is Frame frame)
+            {
+                frame.Navigate(typeof(CloudSpritzers1.src.view.review.ReviewPage));
+            }
+        }
     }
 }

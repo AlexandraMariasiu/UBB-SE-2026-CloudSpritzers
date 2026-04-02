@@ -8,11 +8,11 @@ using CloudSpritzers1.src.model.chat;
 
 namespace CloudSpritzers1.src.service
 {
-    internal class ChatService
+    public class ChatService
     {
         private IRepository<int, Chat> _repository;
 
-        public ChatService(IRepository<int, Chat> repository)
+        public ChatService(ChatDBRepository repository)
         {
             _repository = repository;
         }
@@ -22,7 +22,8 @@ namespace CloudSpritzers1.src.service
             try
             {
                 Chat newChat = new Chat(0, userId, ChatStatus.Active);
-                int newId = _repository.Add(newChat);
+                int newId = Convert.ToInt32(_repository.Add(newChat));
+                newChat.ChatId = newId;
                 return newChat;
 
             }

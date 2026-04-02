@@ -21,39 +21,41 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-            <Image Source="ms-appx:///Assets/CloudSpritzersLogo.png" Width="70" Height="70"/>
-            <TextBlock Text="CloudSpritzers" 
+        <Button Click="NavigateToLanding">
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                <Image Source="ms-appx:///Assets/CloudSpritzersLogo.png" Width="70" Height="70"/>
+                <TextBlock Text="CloudSpritzers" 
                    FontSize="22" 
                    FontWeight="Bold" 
                    Foreground="#001B3D"
                    Margin="10,0,0,0" 
                    VerticalAlignment="Center"/>
-        </StackPanel>
+            </StackPanel>
+        </Button>
 
         <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Spacing="30">
-            <Button Style="{StaticResource TextBlockButtonStyle}" Foreground="#001B3D">
+            <Button Style="{StaticResource TextBlockButtonStyle}" Foreground="#001B3D" Click="NavigateToChat">
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <FontIcon Glyph="&#xE8BD;" FontSize="16"/>
                     <TextBlock Text="Chat" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
-            <Button Style="{StaticResource TextBlockButtonStyle}" Foreground="#001B3D">
+            <Button Style="{StaticResource TextBlockButtonStyle}" Foreground="#001B3D" Click="NavigateToFAQ">
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <FontIcon Glyph="&#xE11B;" FontSize="16"/>
                     <TextBlock Text="FAQ" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
-            <Button Style="{StaticResource TextBlockButtonStyle}" Foreground="#001B3D">
+            <Button Style="{StaticResource TextBlockButtonStyle}" Foreground="#001B3D" Click="NavigateToTickets">
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <FontIcon Glyph="&#xE8A1;" FontSize="16"/>
                     <TextBlock Text="Tickets" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
-            <Button Style="{StaticResource TextBlockButtonStyle}" Foreground="#001B3D">
+            <Button Style="{StaticResource TextBlockButtonStyle}" Foreground="#001B3D" Click="NavigateToReviews">
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <FontIcon Glyph="&#xE734;" FontSize="16"/>
                     <TextBlock Text="Reviews" VerticalAlignment="Center"/>
