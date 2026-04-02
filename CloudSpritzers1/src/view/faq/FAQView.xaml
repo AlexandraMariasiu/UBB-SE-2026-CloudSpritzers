@@ -18,50 +18,53 @@
         <local:HelpfulBackgroundConverter x:Key="HelpfulBackgroundConverter"/>
         <local:HelpfulForegroundConverter x:Key="HelpfulForegroundConverter"/>
         <local:HelpfulBorderConverter x:Key="HelpfulBorderConverter"/>
-
         <local:NotHelpfulBackgroundConverter x:Key="NotHelpfulBackgroundConverter"/>
         <local:NotHelpfulForegroundConverter x:Key="NotHelpfulForegroundConverter"/>
         <local:NotHelpfulBorderConverter x:Key="NotHelpfulBorderConverter"/>
         <local:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
 
         <Style x:Key="CategoryButtonStyle" TargetType="Button">
-                    <Setter Property="Background" Value="#EAEAEE"/>
-                    <Setter Property="Foreground" Value="#374151"/>
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="CornerRadius" Value="8"/>
-                    <Setter Property="Padding" Value="16,10"/>
-                    <Setter Property="MinHeight" Value="40"/>
-                    <Setter Property="Margin" Value="0,0,8,0"/>
-                </Style>
+            <Setter Property="Background" Value="#EAEAEE"/>
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="MinHeight" Value="40"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+        </Style>
 
-                <Style x:Key="SelectedCategoryButtonStyle" TargetType="Button" BasedOn="{StaticResource CategoryButtonStyle}">
-                    <Setter Property="Background" Value="#2CC7CF"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Style>
+        <Style x:Key="SelectedCategoryButtonStyle" TargetType="Button" BasedOn="{StaticResource CategoryButtonStyle}">
+            <Setter Property="Background" Value="#2CC7CF"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
 
-                <Style x:Key="PopularQuestionButtonStyle" TargetType="Button">
-                    <Setter Property="Background" Value="#49C9D0"/>
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="CornerRadius" Value="8"/>
-                    <Setter Property="Padding" Value="14,11"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="MinHeight" Value="52"/>
-                    <Setter Property="Margin" Value="0,0,0,10"/>
-                </Style>
+        <Style x:Key="PopularQuestionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#49C9D0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="14,11"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="MinHeight" Value="52"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
 
-                <Style x:Key="FaqAccordionHeaderButtonStyle" TargetType="Button">
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="Padding" Value="0"/>
-                </Style>
+        <Style x:Key="FaqAccordionHeaderButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+    </Page.Resources>
 
-            </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <general:UpperBar Grid.Row="0" />
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <Grid Padding="10">
-                    <Border MaxWidth="1050"
+        <Grid Grid.Row="1">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid Padding="10">
                     <Border MaxWidth="1050"
@@ -69,424 +72,138 @@
                     Background="White"
                     BorderBrush="#D8DDE3"
                     BorderThickness="1"
-                    CornerRadius="4"
-                    Padding="0">
+                    CornerRadius="4">
 
                         <StackPanel Spacing="16">
-
-                            <!-- Header -->
                             <StackPanel HorizontalAlignment="Center" Spacing="4" Margin="0,8,0,0">
-                                <TextBlock Text="Frequently Asked Questions"
-                                   FontSize="22"
-                                   FontWeight="SemiBold"
-                                   Foreground="#1F2937"
-                                   HorizontalAlignment="Center"/>
-                                <TextBlock Text="Find quick answers to common questions"
-                                   FontSize="12"
-                                   Foreground="#6B7280"
-                                   HorizontalAlignment="Center"/>
+                                <TextBlock Text="Frequently Asked Questions" FontSize="22" FontWeight="SemiBold" Foreground="#1F2937" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Find quick answers to common questions" FontSize="12" Foreground="#6B7280" HorizontalAlignment="Center"/>
                             </StackPanel>
 
-                            <!-- FAQ List -->
-                            <Border Margin="8,0,8,0"
-                            <!-- FAQ List -->
-                            <Border Margin="8,0,8,0"
-                            CornerRadius="6"
-                            Padding="14">
+                            <Border Margin="8,0,8,0" CornerRadius="6" Padding="14">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#2CC7CF" Offset="0"/>
                                         <GradientStop Color="#2AA9C9" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Border.Background>
-
                                 <StackPanel Spacing="12">
-                                    <TextBlock Text="↗ Frequently Asked Questions"
-                                       FontSize="15"
-                                       Foreground="White"
-                                       FontWeight="SemiBold"/>
-
-                            <ItemsControl ItemsSource="{Binding FilteredFAQs}">
-                                <ItemsControl.ItemsPanel>
+                                    <TextBlock Text="↗ Popular Questions" FontSize="15" Foreground="White" FontWeight="SemiBold"/>
+                                    <ItemsControl ItemsSource="{Binding FilteredFAQs}">
+                                        <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <ItemsWrapGrid Orientation="Horizontal"
-                                                       MaximumRowsOrColumns="2"/>
+                                                <ItemsWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="2"/>
                                             </ItemsPanelTemplate>
                                         </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate x:DataType="dto:FAQEntryDTO">
-                                        <Button Style="{StaticResource PopularQuestionButtonStyle}"
-                Click="OpenFaqButton_Click"
-                Width="280"
-                Margin="0,0,24,18">
-                                            <Button.Resources>
-                                                <SolidColorBrush x:Key="ButtonBackground" Color="#49C9D0"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#3DBBC2"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#30A9B1"/>
-                                                <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#49C9D0"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#3DBBC2"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#30A9B1"/>
-                                            </Button.Resources>
-
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-                                            <Grid ColumnSpacing="10">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <TextBlock Text="What is the baggage allowance?"
-                                                   VerticalAlignment="Center"
-                                                   TextWrapping="Wrap"/>
-                                                <TextBlock Text="{Binding Question}"
-                           Grid.Column="0"
-                           TextWrapping="WrapWholeWords"
-                           TextTrimming="CharacterEllipsis"
-                           MaxLines="2"
-                           FontSize="17"
-                           FontWeight="SemiBold"
-                           LineHeight="24"
-                           Foreground="White"
-                           VerticalAlignment="Top"
-                           Margin="0"/>
-
-                                                <Border Grid.Column="1"
-                        Background="#78DDE1"
-                        CornerRadius="10"
-                        Padding="8,4"
-                        VerticalAlignment="Top">
-                                                    <StackPanel Orientation="Horizontal" Spacing="4">
-                                                        <FontIcon Glyph="&#xE8A7;"
-                                  FontSize="11"
-                                  Foreground="White"/>
-                                                        <TextBlock Text="{Binding ViewCount}"
-                                   FontSize="11"
-                                   FontWeight="SemiBold"
-                                   Foreground="White"/>
-                                                    </StackPanel>
-                                                </Border>
-                                            </Grid>
-                                        </Button>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="dto:FAQEntryDTO">
+                                                <Button Style="{StaticResource PopularQuestionButtonStyle}" Click="OpenFaqButton_Click" Width="280" Margin="0,0,24,18">
+                                                    <Grid ColumnSpacing="10">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Text="{Binding Question}" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" MaxLines="2" FontSize="17" FontWeight="SemiBold" Foreground="White"/>
+                                                        <Border Grid.Column="1" Background="#78DDE1" CornerRadius="10" Padding="8,4" VerticalAlignment="Top">
+                                                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                                                <FontIcon Glyph="&#xE8A7;" FontSize="11" Foreground="White"/>
+                                                                <TextBlock Text="{Binding ViewCount}" FontSize="11" FontWeight="SemiBold" Foreground="White"/>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </Grid>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
                                 </StackPanel>
                             </Border>
 
-                            <!-- Categories -->
-                            <Border Margin="0"
-                            <!-- Categories -->
-                            <Border Margin="0"
-                            Background="#F8F8FA"
-                            BorderBrush="#E5E7EB"
-                            BorderThickness="0,1,0,1"
-                            Padding="10">
+                            <Border Background="#F8F8FA" BorderBrush="#E5E7EB" BorderThickness="0,1,0,1" Padding="10">
                                 <StackPanel Spacing="10">
+                                    <ScrollViewer HorizontalScrollBarVisibility="Auto" HorizontalScrollMode="Enabled" VerticalScrollBarVisibility="Disabled">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button x:Name="AllQuestionsButton" Content="All Questions" Style="{StaticResource SelectedCategoryButtonStyle}" Click="AllQuestionsButton_Click"/>
+                                            <Button Content="Check-in Procedures" Style="{StaticResource CategoryButtonStyle}" Click="CheckInButton_Click"/>
+                                            <Button Content="Parking" Style="{StaticResource CategoryButtonStyle}" Click="ParkingButton_Click"/>
+                                            <Button Content="Baggage" Style="{StaticResource CategoryButtonStyle}" Click="BaggageButton_Click"/>
+                                        </StackPanel>
+                                    </ScrollViewer>
 
-                                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                                          HorizontalScrollMode="Enabled"
-                                          VerticalScrollBarVisibility="Disabled"
-                                          VerticalScrollMode="Disabled">
-                                <StackPanel Orientation="Horizontal">
-
-                                    <Button x:Name="AllQuestionsButton"
-                            Content="All Questions"
-                            Style="{StaticResource SelectedCategoryButtonStyle}"
-                            Click="AllQuestionsButton_Click">
-                                        <Button.Resources>
-                                            <SolidColorBrush x:Key="ButtonBackground" Color="#2CC7CF"/>
-                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#25B8C0"/>
-                                            <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#1FA7AF"/>
-                                            <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                            <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
-                                            <SolidColorBrush x:Key="ButtonBorderBrush" Color="#2CC7CF"/>
-                                            <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#25B8C0"/>
-                                            <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#1FA7AF"/>
-                                        </Button.Resources>
-                                    </Button>
-
-                                    <Button Content="Check-in Procedures"
-                            Style="{StaticResource CategoryButtonStyle}"
-                            Click="CheckInButton_Click"/>
-                                    <Button Content="Parking Information"
-Style="{StaticResource CategoryButtonStyle}"
-Click="ParkingButton_Click"/>
-
-                                    <Button Content="Baggage Policies"
-Style="{StaticResource CategoryButtonStyle}"
-Click="BaggageButton_Click"/>
-                                    <Button Content="Ticket Purchasing"
-Style="{StaticResource CategoryButtonStyle}"
-Click="TicketButton_Click"/>
-
-                                    <Button Content="Airport Facilities &amp; Services"
-Style="{StaticResource CategoryButtonStyle}"
-Click="FacilitiesButton_Click"/>
-
-                                </StackPanel>
-                            </ScrollViewer>
-
-
-
-                            <StackPanel x:Name="EmployeeActionsPanel"
-                                        Orientation="Horizontal"
-                                        HorizontalAlignment="Right"
-                                        Spacing="10"
-                                        Visibility="Collapsed">
-
-                                        <Button x:Name="AddFaqButton"
-                                        Content="Add FAQ"
-                                        Click="AddFaqButton_Click"
-                                        Background="#2CC7CF"
-                                        Foreground="White"
-                                        BorderThickness="0"
-                                        CornerRadius="8"
-                                        Padding="16,10">
-                                            <Button.Resources>
-                                                <SolidColorBrush x:Key="ButtonBackground" Color="#2CC7CF"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#25B8C0"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#1FA7AF"/>
-                                                <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#2CC7CF"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#25B8C0"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#1FA7AF"/>
-                                            </Button.Resources>
-                                        </Button>
-
-                                        <Button x:Name="EditFaqButton"
-                                        Content="Edit FAQ"
-                                        Click="EditFaqButton_Click"
-                                        Background="#E5E7EB"
-                                        Foreground="#111827"
-                                        BorderThickness="0"
-                                        CornerRadius="8"
-                                        Padding="16,10">
-                                            <Button.Resources>
-                                                <SolidColorBrush x:Key="ButtonBackground" Color="#E5E7EB"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#D7DCE2"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#C7CED6"/>
-                                                <SolidColorBrush x:Key="ButtonForeground" Color="#111827"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#111827"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#111827"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#E5E7EB"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#D7DCE2"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#C7CED6"/>
-                                            </Button.Resources>
-                                        </Button>
-
-                                        <Button x:Name="DeleteFaqButton"
-                                        Content="Delete FAQ"
-                                        Click="DeleteFaqButton_Click"
-                                        Background="#FDE2E2"
-                                        Foreground="#B42318"
-                                        BorderThickness="0"
-                                        CornerRadius="8"
-                                        Padding="16,10">
-                                            <Button.Resources>
-                                                <SolidColorBrush x:Key="ButtonBackground" Color="#FDE2E2"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#F9D0D0"/>
-                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#F4BABA"/>
-                                                <SolidColorBrush x:Key="ButtonForeground" Color="#B42318"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#B42318"/>
-                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#991B1B"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#FDE2E2"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#F9D0D0"/>
-                                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#F4BABA"/>
-                                            </Button.Resources>
-                                        </Button>
+                                    <StackPanel x:Name="EmployeeActionsPanel" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Visibility="Collapsed">
+                                        <Button x:Name="AddFaqButton" Content="Add FAQ" Click="AddFaqButton_Click" Style="{StaticResource SelectedCategoryButtonStyle}"/>
+                                        <Button x:Name="EditFaqButton" Content="Edit FAQ" Click="EditFaqButton_Click" Style="{StaticResource CategoryButtonStyle}"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
 
-
-                    <Border Margin="8,0,8,8"
-        Background="White"
-        BorderBrush="#E5E7EB"
-        BorderThickness="1"
-        CornerRadius="8"
-        Padding="14">
-
+                            <Border Margin="8,0,8,8" Background="White" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="8" Padding="14">
                                 <StackPanel Spacing="12">
-                        <StackPanel Spacing="12">
-                            <TextBlock Text="All Questions"
-                   FontSize="16"
-                   FontWeight="SemiBold"
-                   Foreground="#111827"/>
+                                    <TextBlock Text="All Questions" FontSize="16" FontWeight="SemiBold" Foreground="#111827"/>
+                                    <ItemsControl ItemsSource="{Binding FilteredFAQs}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="dto:FAQEntryDTO">
+                                                <Border Margin="0,0,0,12" Background="White" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="8" Padding="14">
+                                                    <StackPanel Spacing="10">
+                                                        <Button Click="AccordionHeader_Click" Style="{StaticResource FaqAccordionHeaderButtonStyle}">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="Auto"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <StackPanel Spacing="6">
+                                                                    <TextBlock Text="{Binding Question}" FontSize="16" FontWeight="SemiBold" Foreground="#111827" TextWrapping="Wrap"/>
+                                                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                                                        <TextBlock Text="{Binding Category}" FontSize="11" Foreground="#2AA9C9"/>
+                                                                        <StackPanel Orientation="Horizontal" Spacing="4">
+                                                                            <FontIcon Glyph="&#xE8A7;" FontSize="11" Foreground="#6B7280"/>
+                                                                            <TextBlock Text="{Binding ViewCount}" FontSize="11" Foreground="#6B7280"/>
+                                                                        </StackPanel>
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                                <FontIcon Grid.Column="1" Glyph="{Binding IsExpanded, Converter={StaticResource BooleanToGlyphConverter}}" Foreground="#6B7280" VerticalAlignment="Center"/>
+                                                            </Grid>
+                                                        </Button>
 
-                                    <Button x:Name="SelectedFaqHeaderButton"
-                                    Style="{StaticResource FaqAccordionHeaderButtonStyle}"
-                                    Click="SelectedFaqHeaderButton_Click">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                            <ItemsControl ItemsSource="{Binding FilteredFAQs}" HorizontalAlignment="Stretch">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate x:DataType="dto:FAQEntryDTO">
-                                        <Border Margin="0,0,0,12"
-        Background="White"
-        BorderBrush="#E5E7EB"
-        BorderThickness="1"
-        CornerRadius="8"
-        Padding="14"
-        HorizontalAlignment="Stretch">
-                                            <StackPanel Spacing="10">
-                                                <Button Click="AccordionHeader_Click"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    HorizontalContentAlignment="Stretch"
-                                    HorizontalAlignment="Stretch"
-                                    Padding="0">
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="*"/>
-                                                            <ColumnDefinition Width="Auto"/>
-                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Visibility="{Binding IsExpanded, Converter={StaticResource BooleanToVisibilityConverter}}" Spacing="12">
+                                                            <TextBlock Text="{Binding Answer}" TextWrapping="Wrap" FontSize="13" Foreground="#374151" LineHeight="22"/>
 
-                                                        <StackPanel Spacing="6">
-                                                            <TextBlock Text="{Binding Question}"
-                                                   FontSize="16"
-                                                   FontWeight="SemiBold"
-                                                   Foreground="#111827"
-                                                   TextWrapping="Wrap"/>
+                                                            <StackPanel Spacing="8" Visibility="{Binding DataContext.IsAdmin, ElementName=RootPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                                <TextBlock Text="Feedback summary" FontSize="12" FontWeight="SemiBold"/>
+                                                                <StackPanel Orientation="Horizontal" Spacing="16">
+                                                                    <TextBlock Text="{Binding WasHelpfulVotes, ConverterParameter='Helpful: \{0\}'}" Foreground="#15803D" FontSize="12"/>
+                                                                    <TextBlock Text="{Binding WasNotHelpfulVotes, ConverterParameter='Not helpful: \{0\}'}" Foreground="#B42318" FontSize="12"/>
+                                                                </StackPanel>
+                                                            </StackPanel>
 
-                                                            <StackPanel Orientation="Horizontal" Spacing="10">
-                                                                <TextBlock Text="{Binding Category}"
-                                                       FontSize="11"
-                                                       Foreground="#2AA9C9"/>
-
-                                                    <StackPanel Orientation="Horizontal" Spacing="4">
-                                                        <FontIcon Glyph="&#xE8A7;"
-                                                                <StackPanel Orientation="Horizontal" Spacing="4">
-                                                                    <FontIcon Glyph="&#xE8A7;"
-                                                          FontSize="11"
-                                                          Foreground="#6B7280"/>
-                                                        <TextBlock x:Name="SelectedViewsText"
-                                                           Text="1234 views"
-                                                                    <TextBlock Text="{Binding ViewCount}"
-                                                           FontSize="11"
-                                                           Foreground="#6B7280"/>
+                                                            <StackPanel Spacing="12" Visibility="{Binding DataContext.IsAdmin, ElementName=RootPage, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                                                                <TextBlock Text="Was this answer helpful?" FontSize="12" Foreground="#4B5563"/>
+                                                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                                                    <Button Click="HelpfulButton_Click" Tag="{Binding}" Background="{Binding IsHelpfulSelected, Converter={StaticResource HelpfulBackgroundConverter}}" CornerRadius="8">
+                                                                        <StackPanel Orientation="Horizontal" Spacing="6">
+                                                                            <FontIcon Glyph="&#xE00B;" FontSize="12"/>
+                                                                            <TextBlock Text="Yes" FontSize="12"/>
+                                                                        </StackPanel>
+                                                                    </Button>
+                                                                    <Button Click="NotHelpfulButton_Click" Tag="{Binding}" Background="{Binding IsNotHelpfulSelected, Converter={StaticResource NotHelpfulBackgroundConverter}}" CornerRadius="8">
+                                                                        <StackPanel Orientation="Horizontal" Spacing="6">
+                                                                            <FontIcon Glyph="&#xE00C;" FontSize="12"/>
+                                                                            <TextBlock Text="No" FontSize="12"/>
+                                                                        </StackPanel>
+                                                                    </Button>
                                                                 </StackPanel>
                                                             </StackPanel>
                                                         </StackPanel>
-                                                        <FontIcon Grid.Column="1"
-          Glyph="{Binding IsExpanded, Converter={StaticResource BooleanToGlyphConverter}}"
-          Foreground="#6B7280"
-          VerticalAlignment="Center"
-          Margin="12,0,0,0"/>
-                                                    </Grid>
-                                                </Button>
-
-                                                <StackPanel Visibility="{Binding IsExpanded, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                             Spacing="12">
-
-                                                    <TextBlock Text="{Binding Answer}"
-                                           TextWrapping="Wrap"
-                                           FontSize="13"
-                                           Foreground="#374151"
-                                           LineHeight="22"/>
-
-                                                    <!-- ADMIN ONLY -->
-                                                    <StackPanel Spacing="8"
-                Visibility="{Binding DataContext.IsAdmin, ElementName=RootPage, Converter={StaticResource BooleanToVisibilityConverter}}">
-
-                                                        <TextBlock Text="Feedback summary"
-                   FontSize="12"
-                   FontWeight="SemiBold"
-                   Foreground="#374151"/>
-
-                                                        <StackPanel Orientation="Horizontal" Spacing="16">
-                                                            <TextBlock FontSize="12" Foreground="#15803D">
-                <Run Text="Helpful: "/>
-                <Run Text="{Binding WasHelpfulVotes}"/>
-                                                            </TextBlock>
-
-                                                            <TextBlock FontSize="12" Foreground="#B42318">
-                <Run Text="Not helpful: "/>
-                <Run Text="{Binding WasNotHelpfulVotes}"/>
-                                                            </TextBlock>
-                                                        </StackPanel>
                                                     </StackPanel>
-
-                                                    <!-- USER ONLY -->
-                                                    <StackPanel Spacing="12"
-            Visibility="{Binding DataContext.IsAdmin, ElementName=RootPage, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-
-                                                        <TextBlock Text="Was this answer helpful?"
-               FontSize="12"
-               Foreground="#4B5563"/>
-
-                                            <StackPanel Orientation="Horizontal" Spacing="10">
-                                                <Button x:Name="HelpfulButton"
-                Click="HelpfulButton_Click"
-                Background="#F8F9FB"
-                Foreground="#6B7280"
-                BorderBrush="#D1D5DB"
-                                                        
-
-                                                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
-
-                                                            <Button Click="HelpfulButton_Click"
-                Tag="{Binding}"
-                Background="{Binding IsHelpfulSelected, Converter={StaticResource HelpfulBackgroundConverter}}"
-                Foreground="{Binding IsHelpfulSelected, Converter={StaticResource HelpfulForegroundConverter}}"
-                BorderBrush="{Binding IsHelpfulSelected, Converter={StaticResource HelpfulBorderConverter}}"
-                BorderThickness="1"
-                CornerRadius="8"
-                Padding="12,8">
-                                                                <StackPanel Orientation="Horizontal" Spacing="6">
-                                                                    <FontIcon Glyph="&#xE00B;" FontSize="12"/>
-                                                                    <TextBlock Text="Yes" FontSize="12"/>
-                                                                </StackPanel>
-                                                            </Button>
-
-                                                            <Button Click="NotHelpfulButton_Click"
-                Tag="{Binding}"
-                Background="{Binding IsNotHelpfulSelected, Converter={StaticResource NotHelpfulBackgroundConverter}}"
-                Foreground="{Binding IsNotHelpfulSelected, Converter={StaticResource NotHelpfulForegroundConverter}}"
-                BorderBrush="{Binding IsNotHelpfulSelected, Converter={StaticResource NotHelpfulBorderConverter}}"
-                BorderThickness="1"
-                CornerRadius="8"
-                Padding="12,8">
-                                                                <StackPanel Orientation="Horizontal" Spacing="6">
-                                                                    <FontIcon Glyph="&#xE00C;" FontSize="12"/>
-                                                                    <TextBlock Text="No" FontSize="12"/>
-                                                                </StackPanel>
-                                                            </Button>
-
-                                                            <TextBlock Text="Thank you for your feedback!"
-                   FontSize="12"
-                   Foreground="#6B7280"
-                   VerticalAlignment="Center"
-                   Visibility="{Binding HasFeedback, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                                                        </StackPanel>
-                                                    </StackPanel>
-
-
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
-                    </Border>
-
-                   
-
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
                         </StackPanel>
                     </Border>
                 </Grid>
             </ScrollViewer>
- </Page>
+        </Grid>
+    </Grid>
+</Page>

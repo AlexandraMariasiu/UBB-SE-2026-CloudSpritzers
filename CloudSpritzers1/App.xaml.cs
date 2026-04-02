@@ -53,12 +53,15 @@ namespace CloudSpritzers1
         {
             if (User != null || Employee != null)
                 return;
-            if(isEmployee)
+            if (isEmployee)
             {
                 Employee = Services.GetService<EmployeeService>().GetById(userId);
                 return;
             }
-            User = Services.GetService<UserService>().GetById(userId);
+            else
+            {
+                User = Services.GetService<UserService>().GetById(userId);
+            }
         }
 
         private static IServiceProvider ConfigureServices()
@@ -88,6 +91,9 @@ namespace CloudSpritzers1
 
             services.AddSingleton<ReviewRepository>();
             services.AddSingleton<ReviewService>();
+
+            services.AddSingleton<EmployeeRepository>();
+            services.AddSingleton<EmployeeService>();
 
             services.AddSingleton<UserRepository>();
             services.AddSingleton<UserService>();
