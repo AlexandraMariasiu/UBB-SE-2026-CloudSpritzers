@@ -1,4 +1,5 @@
-﻿using CloudSpritzers1.src.viewModel.review;
+﻿using CloudSpritzers1.src.view.general;
+using CloudSpritzers1.src.viewModel.review;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -15,6 +16,17 @@ namespace CloudSpritzers1.src.view.review
             ViewModel = (App.Current as App).Services.GetService<AddReviewViewModel>();
 
             this.DataContext = ViewModel;
+            ViewModel.AlertRequested += OnAlertRequested;
+        }
+
+        private async void OnAlertRequested(object? sender, (string Title, string Message) args)
+        {
+            var dialog = new MaiBoule(args.Message, args.Title)
+            {
+                XamlRoot = this.Content.XamlRoot
+            };
+
+            await dialog.ShowAsync();
         }
     }
 }
