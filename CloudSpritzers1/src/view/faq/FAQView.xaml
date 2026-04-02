@@ -1,50 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="CloudSpritzers1.src.view.faq.FAQView"
+    x:Name="RootPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CloudSpritzers1.src.view.faq"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:general="using:CloudSpritzers1.src.view.general"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dto="using:CloudSpritzers1.src.dto"
     mc:Ignorable="d"
     Background="White">
 
-        <Page.Resources>
+    <Page.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <local:BooleanToGlyphConverter x:Key="BooleanToGlyphConverter"/>
+        <local:HelpfulBackgroundConverter x:Key="HelpfulBackgroundConverter"/>
+        <local:HelpfulForegroundConverter x:Key="HelpfulForegroundConverter"/>
+        <local:HelpfulBorderConverter x:Key="HelpfulBorderConverter"/>
 
-            <Style x:Key="CategoryButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="#EAEAEE"/>
-                <Setter Property="Foreground" Value="#374151"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="CornerRadius" Value="8"/>
-                <Setter Property="Padding" Value="16,10"/>
-                <Setter Property="MinHeight" Value="40"/>
-                <Setter Property="Margin" Value="0,0,8,0"/>
-            </Style>
+        <local:NotHelpfulBackgroundConverter x:Key="NotHelpfulBackgroundConverter"/>
+        <local:NotHelpfulForegroundConverter x:Key="NotHelpfulForegroundConverter"/>
+        <local:NotHelpfulBorderConverter x:Key="NotHelpfulBorderConverter"/>
+        <local:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
 
-            <Style x:Key="SelectedCategoryButtonStyle" TargetType="Button" BasedOn="{StaticResource CategoryButtonStyle}">
-                <Setter Property="Background" Value="#2CC7CF"/>
-                <Setter Property="Foreground" Value="White"/>
-            </Style>
+        <Style x:Key="CategoryButtonStyle" TargetType="Button">
+                    <Setter Property="Background" Value="#EAEAEE"/>
+                    <Setter Property="Foreground" Value="#374151"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="CornerRadius" Value="8"/>
+                    <Setter Property="Padding" Value="16,10"/>
+                    <Setter Property="MinHeight" Value="40"/>
+                    <Setter Property="Margin" Value="0,0,8,0"/>
+                </Style>
 
-            <Style x:Key="PopularQuestionButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="#49C9D0"/>
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="CornerRadius" Value="8"/>
-                <Setter Property="Padding" Value="14,11"/>
-                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                <Setter Property="MinHeight" Value="52"/>
-            </Style>
+                <Style x:Key="SelectedCategoryButtonStyle" TargetType="Button" BasedOn="{StaticResource CategoryButtonStyle}">
+                    <Setter Property="Background" Value="#2CC7CF"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
 
-            <Style x:Key="FaqAccordionHeaderButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                <Setter Property="Padding" Value="0"/>
-            </Style>
+                <Style x:Key="PopularQuestionButtonStyle" TargetType="Button">
+                    <Setter Property="Background" Value="#49C9D0"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="CornerRadius" Value="8"/>
+                    <Setter Property="Padding" Value="14,11"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="MinHeight" Value="52"/>
+                    <Setter Property="Margin" Value="0,0,0,10"/>
+                </Style>
 
-        </Page.Resources>
+                <Style x:Key="FaqAccordionHeaderButtonStyle" TargetType="Button">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+
+            </Page.Resources>
 
     <Grid>
 
@@ -57,6 +70,9 @@
 
         <Grid Grid.Row="1">
 
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid Padding="10">
+                    <Border MaxWidth="1050"
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid Padding="10">
                     <Border MaxWidth="1050"
@@ -84,6 +100,8 @@
 
                             <!-- Most Popular -->
                             <Border Margin="8,0,8,0"
+                            <!-- FAQ List -->
+                            <Border Margin="8,0,8,0"
                             CornerRadius="6"
                             Padding="14">
                                 <Border.Background>
@@ -95,6 +113,8 @@
 
                                 <StackPanel Spacing="12">
                                     <TextBlock Text="↗ Most Popular Questions"
+                                <StackPanel Spacing="12">
+                                    <TextBlock Text="↗ Frequently Asked Questions"
                                        FontSize="15"
                                        Foreground="White"
                                        FontWeight="SemiBold"/>
@@ -125,16 +145,56 @@
                                                 <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#3DBBC2"/>
                                                 <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#30A9B1"/>
                                             </Button.Resources>
+                            <ItemsControl ItemsSource="{Binding FilteredFAQs}">
+                                <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <ItemsWrapGrid Orientation="Horizontal"
+                                                       MaximumRowsOrColumns="2"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="dto:FAQEntryDTO">
+                                        <Button Style="{StaticResource PopularQuestionButtonStyle}"
+                Click="OpenFaqButton_Click"
+                Width="280"
+                Margin="0,0,24,18">
+                                            <Button.Resources>
+                                                <SolidColorBrush x:Key="ButtonBackground" Color="#49C9D0"/>
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#3DBBC2"/>
+                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#30A9B1"/>
+                                                <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
+                                                <SolidColorBrush x:Key="ButtonBorderBrush" Color="#49C9D0"/>
+                                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#3DBBC2"/>
+                                                <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#30A9B1"/>
+                                            </Button.Resources>
 
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
+                                            <Grid ColumnSpacing="10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
 
                                                 <TextBlock Text="What is the baggage allowance?"
                                                    VerticalAlignment="Center"
                                                    TextWrapping="Wrap"/>
+                                                <TextBlock Text="{Binding Question}"
+                           Grid.Column="0"
+                           TextWrapping="WrapWholeWords"
+                           TextTrimming="CharacterEllipsis"
+                           MaxLines="2"
+                           FontSize="17"
+                           FontWeight="SemiBold"
+                           LineHeight="24"
+                           Foreground="White"
+                           VerticalAlignment="Top"
+                           Margin="0"/>
 
                                                 <Border Grid.Column="1"
                                                 Background="#6ED6DB"
@@ -185,6 +245,28 @@
                                                 </Border>
                                             </Grid>
                                         </Button>
+                                                <Border Grid.Column="1"
+                        Background="#78DDE1"
+                        CornerRadius="10"
+                        Padding="8,4"
+                        VerticalAlignment="Top">
+                                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                                        <FontIcon Glyph="&#xE8A7;"
+                                  FontSize="11"
+                                  Foreground="White"/>
+                                                        <TextBlock Text="{Binding ViewCount}"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Foreground="White"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </Grid>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                                </StackPanel>
+                            </Border>
 
                                         <Button Grid.Row="1" Grid.Column="0"
                                         Style="{StaticResource PopularQuestionButtonStyle}"
@@ -305,6 +387,8 @@
 
                             <!-- Categories -->
                             <Border Margin="0"
+                            <!-- Categories -->
+                            <Border Margin="0"
                             Background="#F8F8FA"
                             BorderBrush="#E5E7EB"
                             BorderThickness="0,1,0,1"
@@ -316,6 +400,7 @@
                                           VerticalScrollBarVisibility="Disabled"
                                           VerticalScrollMode="Disabled">
                                         <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal">
 
                                             <Button x:Name="AllQuestionsButton"
                                             Content="All Questions"
@@ -332,6 +417,22 @@
                                                     <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#1FA7AF"/>
                                                 </Button.Resources>
                                             </Button>
+                                    <Button x:Name="AllQuestionsButton"
+                            Content="All Questions"
+                            Style="{StaticResource SelectedCategoryButtonStyle}"
+                            Click="AllQuestionsButton_Click">
+                                        <Button.Resources>
+                                            <SolidColorBrush x:Key="ButtonBackground" Color="#2CC7CF"/>
+                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#25B8C0"/>
+                                            <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#1FA7AF"/>
+                                            <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
+                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White"/>
+                                            <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White"/>
+                                            <SolidColorBrush x:Key="ButtonBorderBrush" Color="#2CC7CF"/>
+                                            <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#25B8C0"/>
+                                            <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#1FA7AF"/>
+                                        </Button.Resources>
+                                    </Button>
 
                                             <Button Content="Check-in Procedures"
                                             Style="{StaticResource CategoryButtonStyle}">
@@ -362,6 +463,12 @@
                                                     <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#CED6DD"/>
                                                 </Button.Resources>
                                             </Button>
+                                    <Button Content="Check-in Procedures"
+                            Style="{StaticResource CategoryButtonStyle}"
+                            Click="CheckInButton_Click"/>
+                                    <Button Content="Parking Information"
+Style="{StaticResource CategoryButtonStyle}"
+Click="ParkingButton_Click"/>
 
                                             <Button Content="Baggage Policies"
                                             Style="{StaticResource CategoryButtonStyle}">
@@ -392,6 +499,12 @@
                                                     <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#CED6DD"/>
                                                 </Button.Resources>
                                             </Button>
+                                    <Button Content="Baggage Policies"
+Style="{StaticResource CategoryButtonStyle}"
+Click="BaggageButton_Click"/>
+                                    <Button Content="Ticket Purchasing"
+Style="{StaticResource CategoryButtonStyle}"
+Click="TicketButton_Click"/>
 
                                             <Button Content="Airport Facilities &amp; Services"
                                             Style="{StaticResource CategoryButtonStyle}">
@@ -407,11 +520,19 @@
                                                     <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#CED6DD"/>
                                                 </Button.Resources>
                                             </Button>
+                                    <Button Content="Airport Facilities &amp; Services"
+Style="{StaticResource CategoryButtonStyle}"
+Click="FacilitiesButton_Click"/>
 
                                         </StackPanel>
                                     </ScrollViewer>
+                                </StackPanel>
+                            </ScrollViewer>
 
                                     <StackPanel x:Name="EmployeeActionsPanel"
+
+
+                            <StackPanel x:Name="EmployeeActionsPanel"
                                         Orientation="Horizontal"
                                         HorizontalAlignment="Right"
                                         Spacing="10"
@@ -490,7 +611,19 @@
                             BorderThickness="0,0,0,1"
                             Padding="14">
 
+                    <Border Margin="8,0,8,8"
+        Background="White"
+        BorderBrush="#E5E7EB"
+        BorderThickness="1"
+        CornerRadius="8"
+        Padding="14">
+
                                 <StackPanel Spacing="12">
+                        <StackPanel Spacing="12">
+                            <TextBlock Text="All Questions"
+                   FontSize="16"
+                   FontWeight="SemiBold"
+                   Foreground="#111827"/>
 
                                     <Button x:Name="SelectedFaqHeaderButton"
                                     Style="{StaticResource FaqAccordionHeaderButtonStyle}"
@@ -500,10 +633,34 @@
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
+                            <ItemsControl ItemsSource="{Binding FilteredFAQs}" HorizontalAlignment="Stretch">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="dto:FAQEntryDTO">
+                                        <Border Margin="0,0,0,12"
+        Background="White"
+        BorderBrush="#E5E7EB"
+        BorderThickness="1"
+        CornerRadius="8"
+        Padding="14"
+        HorizontalAlignment="Stretch">
+                                            <StackPanel Spacing="10">
+                                                <Button Click="AccordionHeader_Click"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    HorizontalContentAlignment="Stretch"
+                                    HorizontalAlignment="Stretch"
+                                    Padding="0">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
 
                                             <StackPanel Spacing="6">
                                                 <TextBlock x:Name="SelectedQuestionText"
                                                    Text="What facilities are available at the airport?"
+                                                        <StackPanel Spacing="6">
+                                                            <TextBlock Text="{Binding Question}"
                                                    FontSize="16"
                                                    FontWeight="SemiBold"
                                                    Foreground="#111827"
@@ -512,15 +669,20 @@
                                                 <StackPanel Orientation="Horizontal" Spacing="10">
                                                     <TextBlock x:Name="SelectedCategoryText"
                                                        Text="Airport Facilities &amp; Services"
+                                                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                                                <TextBlock Text="{Binding Category}"
                                                        FontSize="11"
                                                        Foreground="#2AA9C9"/>
 
                                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                                         <FontIcon Glyph="&#xE8A7;"
+                                                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                                                    <FontIcon Glyph="&#xE8A7;"
                                                           FontSize="11"
                                                           Foreground="#6B7280"/>
                                                         <TextBlock x:Name="SelectedViewsText"
                                                            Text="1234 views"
+                                                                    <TextBlock Text="{Binding ViewCount}"
                                                            FontSize="11"
                                                            Foreground="#6B7280"/>
                                                     </StackPanel>
@@ -536,13 +698,26 @@
 
                                         </Grid>
                                     </Button>
+                                                                </StackPanel>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                        <FontIcon Grid.Column="1"
+          Glyph="{Binding IsExpanded, Converter={StaticResource BooleanToGlyphConverter}}"
+          Foreground="#6B7280"
+          VerticalAlignment="Center"
+          Margin="12,0,0,0"/>
+                                                    </Grid>
+                                                </Button>
 
                                     <StackPanel x:Name="SelectedFaqDetailsPanel"
                                         Spacing="12"
                                          Visibility="Collapsed">
+                                                <StackPanel Visibility="{Binding IsExpanded, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                             Spacing="12">
 
                                         <TextBlock x:Name="SelectedAnswerText"
                                            Text="Our airport offers restaurants and cafes, Duty-free shopping, Free WiFi, Charging stations, Business lounges, Prayer rooms, Children's play areas, Medical services, Currency exchange, and ATMs."
+                                                    <TextBlock Text="{Binding Answer}"
                                            TextWrapping="Wrap"
                                            FontSize="13"
                                            Foreground="#374151"
@@ -550,6 +725,33 @@
 
                                         <StackPanel Spacing="12">
                                             <TextBlock Text="Was this answer helpful?"
+                                                    <!-- ADMIN ONLY -->
+                                                    <StackPanel Spacing="8"
+                Visibility="{Binding DataContext.IsAdmin, ElementName=RootPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                                                        <TextBlock Text="Feedback summary"
+                   FontSize="12"
+                   FontWeight="SemiBold"
+                   Foreground="#374151"/>
+
+                                                        <StackPanel Orientation="Horizontal" Spacing="16">
+                                                            <TextBlock FontSize="12" Foreground="#15803D">
+                <Run Text="Helpful: "/>
+                <Run Text="{Binding WasHelpfulVotes}"/>
+                                                            </TextBlock>
+
+                                                            <TextBlock FontSize="12" Foreground="#B42318">
+                <Run Text="Not helpful: "/>
+                <Run Text="{Binding WasNotHelpfulVotes}"/>
+                                                            </TextBlock>
+                                                        </StackPanel>
+                                                    </StackPanel>
+
+                                                    <!-- USER ONLY -->
+                                                    <StackPanel Spacing="12"
+            Visibility="{Binding DataContext.IsAdmin, ElementName=RootPage, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+
+                                                        <TextBlock Text="Was this answer helpful?"
                FontSize="12"
                Foreground="#4B5563"/>
 
@@ -559,6 +761,15 @@
                 Background="#F8F9FB"
                 Foreground="#6B7280"
                 BorderBrush="#D1D5DB"
+                                                        
+
+                                                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+
+                                                            <Button Click="HelpfulButton_Click"
+                Tag="{Binding}"
+                Background="{Binding IsHelpfulSelected, Converter={StaticResource HelpfulBackgroundConverter}}"
+                Foreground="{Binding IsHelpfulSelected, Converter={StaticResource HelpfulForegroundConverter}}"
+                BorderBrush="{Binding IsHelpfulSelected, Converter={StaticResource HelpfulBorderConverter}}"
                 BorderThickness="1"
                 CornerRadius="8"
                 Padding="12,8">
@@ -579,12 +790,22 @@
                                                         <TextBlock Text="Yes" FontSize="12"/>
                                                     </StackPanel>
                                                 </Button>
+                                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                                    <FontIcon Glyph="&#xE00B;" FontSize="12"/>
+                                                                    <TextBlock Text="Yes" FontSize="12"/>
+                                                                </StackPanel>
+                                                            </Button>
 
                                                 <Button x:Name="NotHelpfulButton"
                 Click="NotHelpfulButton_Click"
                 Background="#F8F9FB"
                 Foreground="#6B7280"
                 BorderBrush="#D1D5DB"
+                                                            <Button Click="NotHelpfulButton_Click"
+                Tag="{Binding}"
+                Background="{Binding IsNotHelpfulSelected, Converter={StaticResource NotHelpfulBackgroundConverter}}"
+                Foreground="{Binding IsNotHelpfulSelected, Converter={StaticResource NotHelpfulForegroundConverter}}"
+                BorderBrush="{Binding IsNotHelpfulSelected, Converter={StaticResource NotHelpfulBorderConverter}}"
                 BorderThickness="1"
                 CornerRadius="8"
                 Padding="12,8">
@@ -606,6 +827,11 @@
                                                     </StackPanel>
                                                 </Button>
                                             </StackPanel>
+                                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                                    <FontIcon Glyph="&#xE00C;" FontSize="12"/>
+                                                                    <TextBlock Text="No" FontSize="12"/>
+                                                                </StackPanel>
+                                                            </Button>
 
                                             <TextBlock x:Name="FeedbackThankYouText"
                Text="Thanks for your feedback."
@@ -616,17 +842,14 @@
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
+                                                            <TextBlock Text="Thank you for your feedback!"
+                   FontSize="12"
+                   Foreground="#6B7280"
+                   VerticalAlignment="Center"
+                   Visibility="{Binding HasFeedback, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
 
-                            <!-- Closed FAQ rows -->
-                            <Border Background="White"
-                            BorderBrush="#E5E7EB"
-                            BorderThickness="0,0,0,1"
-                            Padding="14">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
 
                                     <StackPanel Spacing="6">
                                         <TextBlock Text="Is there free WiFi at the airport?"
@@ -689,8 +912,17 @@
                                       VerticalAlignment="Center"/>
                                 </Grid>
                             </Border>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
 
 
+                   
 
                         </StackPanel>
                     </Border>
@@ -700,3 +932,8 @@
     </Grid>
 
 </Page>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+ </Page>
