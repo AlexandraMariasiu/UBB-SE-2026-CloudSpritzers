@@ -9,6 +9,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,6 +24,24 @@ namespace CloudSpritzers1.src.view.general
         public ChoosingPage()
         {
             InitializeComponent();
+        }
+
+        private async void showError(string message, string title)
+        {
+            var dialog1 = new MaiBoule(message, title);
+            dialog1.XamlRoot = this.Content.XamlRoot;
+            await dialog1.ShowAsync();
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+
+            bool isEmployee = button?.Tag?.ToString() == "Employee";
+            var app = (App)App.Current;
+            app.isEmployee = isEmployee;
+
+            Frame.Navigate(typeof(EnterYourId));
         }
     }
 }
