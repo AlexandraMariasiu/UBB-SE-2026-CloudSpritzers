@@ -18,6 +18,7 @@ using CloudSpritzers1.src.service;
 using CloudSpritzers1.src.viewModel;
 using Microsoft.UI;
 using Microsoft.Extensions.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -103,6 +104,7 @@ namespace CloudSpritzers1.src.view.ticket
         }
 
         // Optional: if you still have a filter combobox
+        
         private void FilterChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ViewModel == null)

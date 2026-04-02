@@ -81,6 +81,7 @@
                             <TextBlock Width="600" TextWrapping="Wrap" Foreground="#6b7280"
                                Text="Resolve the requests of our customers."/>
                         </StackPanel>
+                    </StackPanel>
 
                     <Border Background="White" CornerRadius="8" Padding="32" BorderBrush="#e5e7eb" BorderThickness="1">
                         <Grid>
@@ -99,22 +100,67 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Spacing="4">
-                                    <TextBlock Text="Recent Tickets" FontSize="20" FontWeight="SemiBold" Foreground="Black"/>
-                                    <TextBlock Text="Track the status of your submitted tickets" FontSize="14" Foreground="#6b7280"/>
-                                </StackPanel>
+
                                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                                     <SymbolIcon Symbol="Filter" Foreground="#6b7280" Margin="0,0,8,0"/>
-                                    <ComboBox Width="180" Background="#f3f4f6" PlaceholderText="Filter tickets" SelectedIndex="0">
-                                        <ComboBoxItem Content="All Tickets"/>
-                                        <ComboBoxItem Content="Open"/>
-                                        <ComboBoxItem Content="In Progress"/>
-                                        <ComboBoxItem Content="Resolved"/>
+                                    <ComboBox Width="180" Background="#f3f4f6" SelectedIndex="0" SelectionChanged="FilterChanged">
+                                        <ComboBoxItem Content="All Tickets" Tag="All"/>
+                                        <ComboBoxItem Content="Open" Tag="Open"/>
+                                        <ComboBoxItem Content="In Progress" Tag="InProgress"/>
+                                        <ComboBoxItem Content="Resolved" Tag="Resolved"/>
                                     </ComboBox>
                                 </StackPanel>
                             </Grid>
 
                             <ItemsControl Grid.Row="1" x:Name="TicketList" ItemsSource="{x:Bind ViewModel.TicketsRead, Mode=OneWay}" Margin="0,24,0,0">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="dto:TicketDTO">
+                                        <Border Background="White" 
+                    BorderBrush="#e5e7eb" 
+                    BorderThickness="1" 
+                    CornerRadius="8" 
+                    Padding="20" 
+                    Margin="0,0,0,16">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Spacing="8">
+                                                    <TextBlock Text="{x:Bind TicketId}" FontSize="12" Foreground="#6b7280"/>
+                                                    <TextBlock Text="Lost Gold Suitcase" FontSize="18" FontWeight="Bold" Foreground="Black"/>
+                                                    <TextBlock Text="My suitcase didn't arrive on flight RO123." Foreground="#4b5563" Margin="0,4,0,8"/>
+
+                                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                                        <TextBlock Text="{Binding CategoryName, ConverterParameter='Category: {0}', Mode=OneWay}" FontSize="12" Foreground="#6b7280"/>
+                                                        <TextBlock Text="|" Foreground="#e5e7eb"/>
+                                                        <TextBlock Text="{x:Bind SubcategoryName}" FontSize="12" Foreground="#6b7280"/>
+                                                        <TextBlock Text="|" Foreground="#e5e7eb"/>
+                                                        <TextBlock Text="Created: 03.04.2026" FontSize="12" Foreground="#6b7280"/>
+                                                        <TextBlock Text="|" Foreground="#e5e7eb"/>
+                                                        <TextBlock Text="{x:Bind UserEmail}" FontSize="12" Foreground="#6b7280"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Spacing="8">
+                                                    <Border Background="#eef2ff" Padding="8,4" CornerRadius="4">
+                                                        <TextBlock Text="{x:Bind Status}" Foreground="#4f46e5" FontSize="12" FontWeight="SemiBold"/>
+                                                    </Border>
+                                                    <Border Background="#fef2f2" Padding="8,4" CornerRadius="4">
+                                                        <TextBlock Text="{x:Bind UrgencyLevel}" Foreground="#ef4444" FontSize="12" FontWeight="SemiBold"/>
+                                                    </Border>
+                                                    <Button Content="Update Status" 
+                                Click="EditTicketStatus_Click" 
+                                Tag="{x:Bind TicketId}"
+                                Style="{StaticResource TicketButtonStyle}"
+                                Padding="12,4"
+                                Margin="10,0,0,0"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </Grid>
                     </Border>
