@@ -27,7 +27,6 @@
                                     <Image Source="/Assets/Airport2.jpg" Stretch="UniformToFill" Opacity="0.7"/>
                                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                                         <TextBlock Text="Premium Customer Support" FontSize="48" FontWeight="Bold" Foreground="White" TextAlignment="Center"/>
-                                        <TextBlock Text="Available 24/7 for all your travel needs" FontSize="20" Foreground="{ThemeResource PrimaryBrush}" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Grid>
                             </FlipViewItem>
