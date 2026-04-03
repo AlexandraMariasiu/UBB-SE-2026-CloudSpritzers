@@ -37,7 +37,7 @@ namespace CloudSpritzers1.src.view.general
         {
             if (int.TryParse(UserId, out int parsedId))
             {
-                var dialog = new YouSure($"Are you certain you are User {parsedId}?", "Boss");
+                var dialog = new YouSure($"Are you certain you are User {parsedId}?", "Dear Passenger");
                 dialog.XamlRoot = this.Content.XamlRoot;
 
                 if (await dialog.ShowAsync() == ContentDialogResult.Primary)
@@ -55,7 +55,7 @@ namespace CloudSpritzers1.src.view.general
             }
             else
             {
-                showError("NOT an int. Boule.", "ERROR");
+                showError("You need to insert an integer.", "ERROR");
             }
         }
     }
