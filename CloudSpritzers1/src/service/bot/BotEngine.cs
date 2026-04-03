@@ -41,5 +41,10 @@ namespace CloudSpritzers1.src.service.bot
         {
             return 0; // ChatBot is always identified as the first 
         }
+
+        public void ResetToRoot()
+        {
+            _responseStrategy.ResetToRoot();
+        }
     }
 }

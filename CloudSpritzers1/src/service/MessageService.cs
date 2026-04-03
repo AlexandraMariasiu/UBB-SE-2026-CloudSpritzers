@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CloudSpritzers1.src.model.chat;
 using CloudSpritzers1.src.model.faq.bot;
 using CloudSpritzers1.src.model.message;
 using CloudSpritzers1.src.repository;
 using CloudSpritzers1.src.service.bot;
 
+
+
+// FIXME: Bot Engine should not be linked to Message Service, it should be linked to a Chat...
 namespace CloudSpritzers1.src.service
 {
     public class MessageService
@@ -36,6 +40,11 @@ namespace CloudSpritzers1.src.service
             if (selectedOption == null)
                 throw new ArgumentNullException(nameof(selectedOption));
 
+            if(selectedOption.NextOptionId == 1)
+            {
+                _botEngine.ResetToRoot();
+            }
+
             Chat chat = GetActiveChat(chatId);
 
             // 1. Persist the user's option selection using its label as the message text.
@@ -45,6 +54,11 @@ namespace CloudSpritzers1.src.service
             // 2. Let the bot produce a response.
             //    The strategy matches selectedOption.Label against the current node's options.
             BotMessage botReply = _botEngine.Respond(userMessage);
+
+            //if(botReply.GetNextOptions().ToArray().Length == 0)
+            //{
+            //    _botEngine.ResetToRoot();
+            //}
 
             // 3. Persist the bot reply.
             //    BotEngine implements ISender with id = BOT_CANNONIZED_ID (0).

@@ -10,16 +10,16 @@ namespace CloudSpritzers1.src.model.message
 {
     public interface IMessage
     {
-        string GetMessage();
-        IEnumerable<FAQOption> GetNextOptions();
+        public string GetMessage();
+        public IEnumerable<FAQOption> GetNextOptions();
 
-        ISender GetSender();
+        public ISender GetSender();
 
-        int GetId();
+        public int GetId();
 
-        Chat GetChat();
-        
-        DateTimeOffset GetTimeStamp();
+        public Chat GetChat();
+
+        public DateTimeOffset GetTimeStamp();
 
     }
 }

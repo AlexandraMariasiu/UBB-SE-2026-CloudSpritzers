@@ -10,5 +10,7 @@ namespace CloudSpritzers1.src.service.bot.strategy
     public interface IBotStrategy
     {
         BotMessage Process(BotEngine botEngine, IMessage message);
+
+        public void ResetToRoot();
     }
 }

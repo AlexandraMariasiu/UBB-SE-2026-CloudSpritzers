@@ -56,20 +56,16 @@ namespace CloudSpritzers1.src.model.message
             return this._messageId;
         }
 
-        IEnumerable<FAQOption> IMessage.GetNextOptions()
+        public IEnumerable<FAQOption> GetNextOptions()
         {
             return this._faqOptions;
         }
 
-        DateTimeOffset IMessage.GetTimeStamp()
+        public DateTimeOffset GetTimeStamp()
         {
             return _timestamp;
         }
 
-        Chat IMessage.GetChat()
-        {
-            return this._chat;
-        }
 
         public class BotMessageBuilder
         {

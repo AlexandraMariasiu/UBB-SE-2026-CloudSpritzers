@@ -102,7 +102,7 @@ namespace CloudSpritzers1.src.viewModel.chat
             }
             else
             {
-                CurrentOptions.Add(new FAQOption("Restart Chat", 1));
+                CurrentOptions.Add(new FAQOption("Restart Chat", _FIRST_OPTION));
             }
         }
 
