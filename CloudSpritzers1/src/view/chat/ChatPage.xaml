@@ -159,6 +159,9 @@
                     Margin="4"
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Center"
+                    HorizontalContentAlignment="Center" 
+                    VerticalContentAlignment="Center"
+                    Width="200"
                     Command="{Binding ElementName=RootPage, Path=ViewModel.HandleOptionClickCommand}"
                     CommandParameter="{x:Bind}">
                             </Button>
