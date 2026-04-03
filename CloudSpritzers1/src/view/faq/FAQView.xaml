@@ -10,6 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dto="using:CloudSpritzers1.src.dto"
     mc:Ignorable="d"
+    RequestedTheme="Light"
     Background="{ThemeResource CardBackgroundBrush}">
 
     <Page.Resources>
@@ -83,8 +84,8 @@
                             <Border Margin="8,0,8,0" CornerRadius="6" Padding="14">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                        <GradientStop Color="{ThemeResource PrimaryLightBrush}" Offset="0"/>
-                                        <GradientStop Color="{ThemeResource PrimaryColor}" Offset="1"/>
+                                        <GradientStop Color="{ThemeResource PrimaryColor}" Offset="0"/>
+                                        <GradientStop Color="{ThemeResource PrimaryTextColor}" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <StackPanel Spacing="12">
