@@ -8,16 +8,31 @@
     <!-- COLORS -->
     <!-- ========================= -->
     <Color x:Key="PrimaryColor">#2CB1A6</Color>
+    <Color x:Key="PrimaryLightColor">#2CC7CF</Color>
+    <Color x:Key="PrimaryMutedColor">#A8DDE3</Color>
     <Color x:Key="CardBackgroundColor">#FFFFFFFF</Color>
-    <Color x:Key="PrimaryTextColor">#202020</Color>
+    <Color x:Key="PageBackgroundColor">#F8FAFC</Color>
+    <Color x:Key="InputBackgroundColor">#F9FEFF</Color>
+    <Color x:Key="PrimaryTextColor">#1F2937</Color>
     <Color x:Key="SecondaryTextColor">#6B7280</Color>
+    <Color x:Key="BorderColor">#E5E7EB</Color>
 
     <!-- ========================= -->
     <!-- BRUSHES -->
     <!-- ========================= -->
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="PrimaryLightBrush" Color="{StaticResource PrimaryLightColor}"/>
+    <SolidColorBrush x:Key="PrimaryMutedBrush" Color="{StaticResource PrimaryMutedColor}"/>
     <SolidColorBrush x:Key="CardBackgroundBrush" Color="{StaticResource CardBackgroundColor}"/>
+    <SolidColorBrush x:Key="PageBackgroundBrush" Color="{StaticResource PageBackgroundColor}"/>
+    <SolidColorBrush x:Key="InputBackgroundBrush" Color="{StaticResource InputBackgroundColor}"/>
+    <SolidColorBrush x:Key="PrimaryTextBrush" Color="{StaticResource PrimaryTextColor}"/>
     <SolidColorBrush x:Key="SecondaryTextBrush" Color="{StaticResource SecondaryTextColor}"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
+    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#C7C7C7" />
+    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Black" />
+    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#E5E5E5" />
+    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="Black" />
 
     <!-- ========================= -->
     <!-- STYLES -->

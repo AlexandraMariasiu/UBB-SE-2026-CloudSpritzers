@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="#23A6B1">
+    Background="{ThemeResource PrimaryBrush}">
 
     <Grid>
         <StackPanel VerticalAlignment="Center" Spacing="30">
@@ -18,21 +18,33 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="40">
 
-                <Button Tag="Customer" Click="Button_Click" Width="350" Height="400" CornerRadius="12" Background="White" Padding="30">
+                <Button Tag="Customer" Click="Button_Click" Width="350" Height="400" CornerRadius="12" Background="{ThemeResource CardBackgroundBrush}" Padding="30">
+                    <Button.Resources>
+                        <SolidColorBrush x:Key="ButtonBackground" Color="{StaticResource CardBackgroundColor}"/>
+                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="{StaticResource PrimaryMutedColor}"/>
+                        <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="{StaticResource PrimaryMutedColor}"/>
+                        <SolidColorBrush x:Key="ButtonBackgroundFocused" Color="{StaticResource CardBackgroundColor}"/>
+                    </Button.Resources>
                     <StackPanel Spacing="15" VerticalAlignment="Center">
-                        <FontIcon Glyph="&#xE77B;" FontSize="60" Foreground="Black"/>
-                        <TextBlock Text="I'm a Customer" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="Black"/>
+                        <FontIcon Glyph="&#xE77B;" FontSize="60" Foreground="{ThemeResource PrimaryBrush}"/>
+                        <TextBlock Text="I'm a Customer" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="{ThemeResource PrimaryTextBrush}"/>
                         <TextBlock Text="Access customer support, submit tickets, and chat with our team." 
-                                   TextWrapping="Wrap" TextAlignment="Center" Foreground="#555555"/>
+                                   TextWrapping="Wrap" TextAlignment="Center" Foreground="{ThemeResource SecondaryTextBrush}"/>
                     </StackPanel>
                 </Button>
 
-                <Button Tag="Employee" Click="Button_Click" Width="350" Height="400" CornerRadius="12" Background="White" Padding="30">
+                <Button Tag="Employee" Click="Button_Click" Width="350" Height="400" CornerRadius="12" Background="{ThemeResource CardBackgroundBrush}" Padding="30">
+                    <Button.Resources>
+                        <SolidColorBrush x:Key="ButtonBackground" Color="{StaticResource CardBackgroundColor}"/>
+                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="{StaticResource PrimaryMutedColor}"/>
+                        <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="{StaticResource PrimaryMutedColor}"/>
+                        <SolidColorBrush x:Key="ButtonBackgroundFocused" Color="{StaticResource CardBackgroundColor}"/>
+                    </Button.Resources>
                     <StackPanel Spacing="15" VerticalAlignment="Center">
-                        <FontIcon Glyph="&#xE7EE;" FontSize="60" Foreground="Black"/>
-                        <TextBlock Text="I'm an Employee" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="Black"/>
+                        <FontIcon Glyph="&#xE7EE;" FontSize="60" Foreground="{ThemeResource PrimaryBrush}"/>
+                        <TextBlock Text="I'm an Employee" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="{ThemeResource PrimaryTextBrush}"/>
                         <TextBlock Text="Access employee portal, manage tickets, and internal resources." 
-                                   TextWrapping="Wrap" TextAlignment="Center" Foreground="#555555"/>
+                                   TextWrapping="Wrap" TextAlignment="Center" Foreground="{ThemeResource SecondaryTextBrush}"/>
                     </StackPanel>
                 </Button>
 
