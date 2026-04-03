@@ -7,11 +7,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource CardBackgroundBrush}">
+    Background="{ThemeResource PageBackgroundBrush}">
 
     <Page.Resources>
         <Style x:Key="ReviewCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="Background" Value="{ThemeResource CardBackgroundBrush}"/>
             <Setter Property="CornerRadius" Value="12"/>
             <Setter Property="Padding" Value="24"/>
             <Setter Property="BorderBrush" Value="{ThemeResource BorderBrush}"/>

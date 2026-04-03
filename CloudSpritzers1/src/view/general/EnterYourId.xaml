@@ -8,89 +8,81 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     >
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-       <Grid.RowDefinitions>
-          <!-- Navbar placeholder -->
-          <RowDefinition Height="Auto"/>
-
-          <!-- Main content -->
-          <RowDefinition Height="*"/>
-       </Grid.RowDefinitions>
-
-            <!-- ========================= -->
-            <!-- NAVBAR (Currently empty)  -->
-            <!-- ========================= -->
+    <Grid Background="{ThemeResource PrimaryBrush}">
+        <Grid.RowDefinitions>
+            <!-- Navbar placeholder -->
+            <RowDefinition Height="Auto"/>
+            <!-- Main content -->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!-- ========================= -->
+        <!-- NAVBAR (Currently empty)  -->
+        <!-- ========================= -->
         <Grid x:Name="TopNavBar"
               Grid.Row="0"
               Height="60"
               Background="Transparent"
               Visibility="Collapsed">
         </Grid>
-
         <Grid Grid.Row="1">
             <Grid HorizontalAlignment="Center"
                   VerticalAlignment="Center"
                   Width="350">
-
-                    <!-- Card -->
-                    <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                <!-- Card -->
+                <Border Background="{ThemeResource CardBackgroundBrush}"
                         CornerRadius="12"
                         Padding="24">
-
-                        <StackPanel Spacing="16">
-
-                            <!-- Icon -->
-                            <Grid HorizontalAlignment="Center"
+                    <StackPanel Spacing="16">
+                        <!-- Icon -->
+                        <Grid HorizontalAlignment="Center"
                               Width="48"
                               Height="48"
                               CornerRadius="24"
                               Background="{ThemeResource PrimaryBrush}">
-                                <FontIcon Glyph="&#xE715;"
+                            <FontIcon Glyph="&#xE715;"
                                       Foreground="White"
                                       FontSize="20"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"/>
-                            </Grid>
-
-                            <!-- Title -->
-                            <TextBlock Text="Welcome to Assistance Chat"
+                        </Grid>
+                        <!-- Title -->
+                        <TextBlock Text="Welcome to Assistance Chat"
                                    FontSize="20"
                                    FontWeight="SemiBold"
+                                   Foreground="{ThemeResource SecondaryTextBrush}"
                                    HorizontalAlignment="Center"/>
 
-                            <!-- Subtitle -->
-                            <TextBlock Text="Please enter your User ID to continue"
+                                   
+                        <!-- Subtitle -->
+                        <TextBlock Text="Please enter your User ID to continue"
                                    FontSize="12"
-                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Foreground="{ThemeResource SecondaryTextBrush}"
                                    HorizontalAlignment="Center"
                                    TextWrapping="Wrap"
                                    TextAlignment="Center"/>
-
-                            <!-- Input -->
-                            <StackPanel Spacing="6">
-                                <TextBlock Text="User ID"
+                        <!-- Input -->
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="User ID"
                                        FontSize="12"
-                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-
-                                <TextBox PlaceholderText="Enter your ID"
-                                       Text="{x:Bind UserId, Mode=TwoWay}"
+                                       Foreground="{ThemeResource SecondaryTextBrush}"/>
+                            <TextBox PlaceholderText="Enter your ID"
+                                     Background="White"
+                                     
+                                     Text="{x:Bind UserId, Mode=TwoWay}"
                                      Height="36"/>
-                            </StackPanel>
 
-                            <!-- Button -->
-                            <Button Content="Continue"
+                        </StackPanel>
+                        <!-- Button -->
+                        <Button Content="Continue"
                                 Height="40"
                                 Click="Button_Click" 
                                 Background="{ThemeResource PrimaryBrush}"
                                 Foreground="White"
                                 HorizontalAlignment="Stretch"
                                 CornerRadius="6"/>
-
-                        </StackPanel>
-                    </Border>
-
-                </Grid>
+                    </StackPanel>
+                </Border>
             </Grid>
-
         </Grid>
+    </Grid>
 </Page>

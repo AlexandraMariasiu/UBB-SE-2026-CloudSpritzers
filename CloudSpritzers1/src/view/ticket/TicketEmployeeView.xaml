@@ -10,12 +10,11 @@
    RequestedTheme="Light"
    Background="{ThemeResource PageBackgroundBrush}">
 
-    <!-- ================= BUTTON STYLE ================= -->
     <Page.Resources>
         <Style x:Key="TicketButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{ThemeResource PrimaryLightBrush}"/>
+            <Setter Property="Background" Value="{ThemeResource PrimaryBrush}"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="{ThemeResource PrimaryLightBrush}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource PrimaryBrush}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -32,7 +31,7 @@
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetName="Root"
                                                         Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                        To="{ThemeResource PrimaryColor}"
+                                                        To="{ThemeResource PrimaryLightColor}"
                                                         Duration="0:0:0"/>
                                     </Storyboard>
                                 </VisualState>
@@ -40,7 +39,7 @@
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetName="Root"
                                                         Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                        To="{ThemeResource PrimaryColor}"
+                                                        To="{ThemeResource PrimaryMutedColor}"
                                                         Duration="0:0:0"/>
                                     </Storyboard>
                                 </VisualState>
@@ -59,7 +58,6 @@
         </Grid.RowDefinitions>
         <general:UpperBar Grid.Row="0" />
 
-        <!-- ================= PAGE LAYOUT ================= -->
         <Grid Grid.Row="1" Padding="40">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -69,10 +67,9 @@
             <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="0,0,0,24">
                 <StackPanel Spacing="24">
 
-
                     <!-- HEADER -->
                     <StackPanel Orientation="Horizontal" Spacing="16">
-                        <Border Width="60" Height="60" CornerRadius="8" Background="{ThemeResource PrimaryLightBrush}">
+                        <Border Width="60" Height="60" CornerRadius="8" Background="{ThemeResource PrimaryBrush}">
                             <Grid>
                                 <Path Fill="White" Stretch="Uniform" Width="34" Height="34"
                                   Data="M4,10 A2,2 0 0 1 6,8 H26 A2,2 0 0 1 28,10 V14 A2,2 0 0 0 28,18 V22 A2,2 0 0 1 26,24 H6 A2,2 0 0 1 4,22 V18 A2,2 0 0 0 4,14 Z"/>
@@ -82,15 +79,14 @@
                         </Border>
 
                         <StackPanel>
-                            <TextBlock Text="Support Tickets" FontSize="28" FontWeight="SemiBold" Foreground="Black"/>
+                            <TextBlock Text="Support Tickets" FontSize="28" FontWeight="SemiBold" Foreground="{ThemeResource PrimaryTextBrush}"/>
                             <TextBlock Width="600" TextWrapping="Wrap" Foreground="{ThemeResource SecondaryTextBrush}"
                                    Text="Resolve the requests of our customers."/>
                         </StackPanel>
                     </StackPanel>
 
-                    <!-- WHITE BOX FOR TICKETS -->
-
-                    <Border Background="White" CornerRadius="8" Padding="32" BorderBrush="{ThemeResource BorderBrush}" BorderThickness="1">
+                    <!-- TICKETS BOX -->
+                    <Border Background="{ThemeResource CardBackgroundBrush}" CornerRadius="8" Padding="32" BorderBrush="{ThemeResource BorderBrush}" BorderThickness="1">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -98,7 +94,7 @@
                             </Grid.RowDefinitions>
 
                             <StackPanel Orientation="Vertical" Spacing="4">
-                                <TextBlock Text="Tickets" FontSize="28" FontWeight="SemiBold" Foreground="Black"/>
+                                <TextBlock Text="Tickets" FontSize="28" FontWeight="SemiBold" Foreground="{ThemeResource PrimaryTextBrush}"/>
                                 <TextBlock Text="Change the status of submitted tickets." FontSize="14" Foreground="{ThemeResource SecondaryTextBrush}"/>
                             </StackPanel>
 
@@ -114,7 +110,7 @@
                                         <ColumnDefinition Width="180"/>
                                     </Grid.ColumnDefinitions>
                                     <SymbolIcon Symbol="Filter" Foreground="{ThemeResource SecondaryTextBrush}" VerticalAlignment="Center" Width="24" Height="24" Margin="0,0,8,0"/>
-                                    <ComboBox Grid.Column="1" Width="180" Background="{ThemeResource BorderBrush}" Foreground="Black" PlaceholderText="Filter tickets" SelectedIndex="0" SelectionChanged="FilterChanged">
+                                    <ComboBox Grid.Column="1" Width="180" Background="{ThemeResource BorderBrush}" Foreground="{ThemeResource PrimaryTextBrush}" PlaceholderText="Filter tickets" SelectedIndex="0" SelectionChanged="FilterChanged">
                                         <ComboBoxItem Content="All Tickets" Tag="ALL"/>
                                         <ComboBoxItem Content="Open" Tag="OPEN"/>
                                         <ComboBoxItem Content="In Progress" Tag="IN_PROGRESS"/>
@@ -126,7 +122,7 @@
                             <ItemsControl Grid.Row="1" x:Name="TicketList" ItemsSource="{x:Bind ViewModel.TicketsRead, Mode=OneWay}" Margin="0,24,0,0">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate x:DataType="dto:TicketDTO">
-                                        <Border Background="White" 
+                                        <Border Background="{ThemeResource CardBackgroundBrush}" 
                     BorderBrush="{ThemeResource BorderBrush}" 
                     BorderThickness="1" 
                     CornerRadius="8" 
@@ -140,7 +136,7 @@
 
                                                 <StackPanel Spacing="8">
                                                     <TextBlock Text="{x:Bind TicketId}" FontSize="12" Foreground="{ThemeResource SecondaryTextBrush}"/>
-                                                    <TextBlock Text="Lost Gold Suitcase" FontSize="18" FontWeight="Bold" Foreground="Black"/>
+                                                    <TextBlock Text="Lost Gold Suitcase" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource PrimaryTextBrush}"/>
                                                     <TextBlock Text="My suitcase didn't arrive on flight RO123." Foreground="{ThemeResource SecondaryTextBrush}" Margin="0,4,0,8"/>
 
                                                     <StackPanel Orientation="Horizontal" Spacing="10">
@@ -189,7 +185,7 @@
                     <StackPanel Orientation="Horizontal" Spacing="12">
                         <SymbolIcon Symbol="Clock" Foreground="#ffb347" VerticalAlignment="Top" Margin="0,2,0,0"/>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="Open" FontWeight="SemiBold" FontSize="14" Foreground="Black"/>
+                            <TextBlock Text="Open" FontWeight="SemiBold" FontSize="14" Foreground="{ThemeResource PrimaryTextBrush}"/>
                             <TextBlock Text="Awaiting review" FontSize="11" Foreground="{ThemeResource SecondaryTextBrush}" TextWrapping="Wrap"/>
                         </StackPanel>
                     </StackPanel>
@@ -199,7 +195,7 @@
                     <StackPanel Orientation="Horizontal" Spacing="12">
                         <SymbolIcon Symbol="Sync" Foreground="#5ca0ff" VerticalAlignment="Top" Margin="0,2,0,0"/>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="In Progress" FontWeight="SemiBold" FontSize="14" Foreground="Black"/>
+                            <TextBlock Text="In Progress" FontWeight="SemiBold" FontSize="14" Foreground="{ThemeResource PrimaryTextBrush}"/>
                             <TextBlock Text="Under investigation" FontSize="11" Foreground="{ThemeResource SecondaryTextBrush}" TextWrapping="Wrap"/>
                         </StackPanel>
                     </StackPanel>
@@ -209,7 +205,7 @@
                     <StackPanel Orientation="Horizontal" Spacing="12">
                         <SymbolIcon Symbol="Accept" Foreground="#22c55e" VerticalAlignment="Top" Margin="0,2,0,0"/>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="Resolved" FontWeight="SemiBold" FontSize="14" Foreground="Black"/>
+                            <TextBlock Text="Resolved" FontWeight="SemiBold" FontSize="14" Foreground="{ThemeResource PrimaryTextBrush}"/>
                             <TextBlock Text="Issue closed" FontSize="11" Foreground="{ThemeResource SecondaryTextBrush}" TextWrapping="Wrap"/>
                         </StackPanel>
                     </StackPanel>
@@ -218,5 +214,3 @@
         </Grid>
     </Grid>
 </Page>
-
-
