@@ -29,6 +29,10 @@
     <SolidColorBrush x:Key="PrimaryTextBrush" Color="{StaticResource PrimaryTextColor}"/>
     <SolidColorBrush x:Key="SecondaryTextBrush" Color="{StaticResource SecondaryTextColor}"/>
     <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
+    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#C7C7C7" />
+    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Black" />
+    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#E5E5E5" />
+    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="Black" />
 
     <!-- ========================= -->
     <!-- STYLES -->
