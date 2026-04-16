@@ -2,7 +2,7 @@ namespace CloudSpritzers1.src.model.faq
 {
     public class FAQEntry
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
         public string Question { get; set; }
         public string Answer { get; set; }
         public FAQCategoryEnum Category { get; set; }
