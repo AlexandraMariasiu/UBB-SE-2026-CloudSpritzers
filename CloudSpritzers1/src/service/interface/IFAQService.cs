@@ -18,5 +18,6 @@ namespace CloudSpritzers1.src.service.interfaces
         void IncrementWasHelpfulVotes(FAQEntry entry);
         void IncrementWasNotHelpfulVotes(FAQEntry entry);
 
+        List<FAQEntry> FilterFAQEntry(FAQCategoryEnum category, string searchQury);
     }
 }

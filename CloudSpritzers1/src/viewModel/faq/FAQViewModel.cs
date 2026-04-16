@@ -116,19 +116,7 @@ namespace CloudSpritzers1.src.viewModel.faq
 
         public void ApplyFilters()
         {
-            var result = FAQs.AsEnumerable();
-
-            if (SelectedCategory != FAQCategoryEnum.All)
-            {
-                result = result.Where(f => f.Category == SelectedCategory);
-            }
-
-            if (!string.IsNullOrWhiteSpace(SearchQuery))
-            {
-                result = result.Where(f =>
-                    (f.Question?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                    (f.Answer?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false));
-            }
+            var result = _faqService.FilterFAQEntry(SelectedCategory, SearchQuery).AsEnumerable().Select(entry => _mapper.Map<FAQEntryDTO>(entry));
 
             FilteredFAQs.Clear();
             foreach (var faq in result)
