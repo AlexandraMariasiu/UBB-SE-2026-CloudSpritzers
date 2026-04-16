@@ -4,10 +4,11 @@ using System.Linq;
 using CloudSpritzers1.src.model.faq;
 using Microsoft.Data.SqlClient;
 using CloudSpritzers1.src.repository.database;
+using CloudSpritzers1.src.repository.interfaces;
 
-namespace CloudSpritzers1.src.repository
+namespace CloudSpritzers1.src.repository.implementations
 {
-  public class FAQRepository : DBRepository<int, FAQEntry>, IRepository<int, FAQEntry>
+  public class FAQRepository : DBRepository<int, FAQEntry>, IFAQRepository
     {
     public FAQRepository() { }
 
@@ -16,7 +17,7 @@ namespace CloudSpritzers1.src.repository
             SqlCommand command = new SqlCommand("SELECT * FROM FAQEntry WHERE FAQentry_id = @id");
             command.Parameters.AddWithValue("@id", faqId);
 
-            FAQEntry faq = base.GetById(faqId, command);
+            FAQEntry faq = GetById(faqId, command);
 
             if (faq == null)
                 throw new KeyNotFoundException($"FAQ with id {faqId} was not found.");
@@ -39,7 +40,7 @@ namespace CloudSpritzers1.src.repository
             command.Parameters.AddWithValue("@answer", elem.Answer);
             command.Parameters.AddWithValue("@category", elem.Category.ToString());
 
-            int addedEntityId = base.Add(command, elem);
+            int addedEntityId = Add(command, elem);
             InvalidateCacheEntry(addedEntityId);
             return addedEntityId;
         }
@@ -68,7 +69,7 @@ namespace CloudSpritzers1.src.repository
         command.Parameters.AddWithValue("@wasHelpfulVotes", elem.HelpfulVotesCount);
         command.Parameters.AddWithValue("@wasNotHelpfulVotes", elem.NotHelpfulVotesCount);
 
-        base.UpdateById(id, command, elem);
+        UpdateById(id, command, elem);
         InvalidateCacheEntry(id);
     }
 
@@ -77,13 +78,13 @@ namespace CloudSpritzers1.src.repository
             SqlCommand command = new SqlCommand("DELETE FROM FAQEntry WHERE FAQentry_id = @id");
             command.Parameters.AddWithValue("@id", id);
 
-            base.DeleteById(id, command);
+            DeleteById(id, command);
     }
 
     public IEnumerable<FAQEntry> GetAll()
     {
         SqlCommand command = new SqlCommand("SELECT * FROM FAQEntry");
-        return base.GetAll(command);
+        return GetAll(command);
     }
 
     public List<FAQEntry> GetByCategory(FAQCategoryEnum category)
@@ -100,7 +101,7 @@ namespace CloudSpritzers1.src.repository
                 command.Parameters.AddWithValue("@category", category.ToString());
             }
 
-            return base.GetAll(command).ToList();
+            return GetAll(command).ToList();
     }
 
     public void IncrementViewCount(int id)
