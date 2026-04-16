@@ -199,7 +199,7 @@ namespace CloudSpritzers1.src.viewModel.faq
             var entity = _mapper.Map<FAQEntry>(SelectedFAQEntry);
             _faqService.IncrementWasHelpfulVotes(entity);
 
-            SelectedFAQEntry.WasHelpfulVotes++;
+            SelectedFAQEntry.HelpfulVotesCount++;
             OnPropertyChanged(nameof(SelectedFAQEntry));
         }
 
@@ -211,7 +211,7 @@ namespace CloudSpritzers1.src.viewModel.faq
             var entity = _mapper.Map<FAQEntry>(SelectedFAQEntry);
             _faqService.IncrementWasNotHelpfulVotes(entity);
 
-            SelectedFAQEntry.WasNotHelpfulVotes++;
+            SelectedFAQEntry.NotHelpfulVotesCount++;
             OnPropertyChanged(nameof(SelectedFAQEntry));
         }
 

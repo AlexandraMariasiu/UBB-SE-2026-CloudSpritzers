@@ -238,8 +238,8 @@ namespace CloudSpritzers1.src.view.faq
                         answer,
                         category,
                         _editingFaq.ViewCount,
-                        _editingFaq.WasHelpfulVotes,
-                        _editingFaq.WasNotHelpfulVotes
+                        _editingFaq.HelpfulVotesCount,
+                        _editingFaq.NotHelpfulVotesCount
                     );
 
                     _viewModel.EditFAQEntry(updatedFaq);

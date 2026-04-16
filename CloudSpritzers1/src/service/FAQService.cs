@@ -41,17 +41,17 @@ namespace CloudSpritzers1.src.service
 
 		public void IncrementViewCount(FAQEntry entry)
 		{
-			_faqRepository.IncrementViewCount(entry.GetId());
+			_faqRepository.IncrementViewCount(entry.Id);
 		}
 
 		public void IncrementWasHelpfulVotes(FAQEntry entry)
 		{
-			_faqRepository.IncrementWasHelpfulVotes(entry.GetId());
+			_faqRepository.IncrementWasHelpfulVotes(entry.Id);
 		}
 
         public void IncrementWasNotHelpfulVotes(FAQEntry entry)
         {
-			_faqRepository.IncrementWasNotHelpfulVotes(entry.GetId());
+			_faqRepository.IncrementWasNotHelpfulVotes(entry.Id);
             
         }
 
