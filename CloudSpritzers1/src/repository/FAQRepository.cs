@@ -35,9 +35,9 @@ namespace CloudSpritzers1.src.repository
                 "VALUES (@question, @answer, @category)"
             );
 
-            command.Parameters.AddWithValue("@question", elem.GetQuestion());
-            command.Parameters.AddWithValue("@answer", elem.GetAnswer());
-            command.Parameters.AddWithValue("@category", elem.GetCategory().ToString());
+            command.Parameters.AddWithValue("@question", elem.Question);
+            command.Parameters.AddWithValue("@answer", elem.Answer);
+            command.Parameters.AddWithValue("@category", elem.Category.ToString());
 
             int id = base.Add(command, elem);
             InvalidateCacheEntry(id);
@@ -61,12 +61,12 @@ namespace CloudSpritzers1.src.repository
     );
 
     command.Parameters.AddWithValue("@id", id);
-    command.Parameters.AddWithValue("@question", elem.GetQuestion());
-    command.Parameters.AddWithValue("@answer", elem.GetAnswer());
-    command.Parameters.AddWithValue("@category", elem.GetCategory().ToString());
-    command.Parameters.AddWithValue("@viewCount", elem.GetViewCount());
-    command.Parameters.AddWithValue("@wasHelpfulVotes", elem.GetWasHelpfulVotes());
-    command.Parameters.AddWithValue("@wasNotHelpfulVotes", elem.GetWasNotHelpfulVotes());
+    command.Parameters.AddWithValue("@question", elem.Question);
+    command.Parameters.AddWithValue("@answer", elem.Answer);
+    command.Parameters.AddWithValue("@category", elem.Category.ToString());
+    command.Parameters.AddWithValue("@viewCount", elem.ViewCount);
+    command.Parameters.AddWithValue("@wasHelpfulVotes", elem.HelpfulVotesCount);
+    command.Parameters.AddWithValue("@wasNotHelpfulVotes", elem.NotHelpfulVotesCount);
 
     base.UpdateById(id, command, elem);
     InvalidateCacheEntry(id);
@@ -153,7 +153,7 @@ namespace CloudSpritzers1.src.repository
 
     protected override int GetEntityId(FAQEntry entity)
     {
-        return entity.GetId();
+            return entity.Id;
     }
 }
 }
