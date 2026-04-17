@@ -22,8 +22,8 @@ namespace CloudSpritzers1.src.repository
 
             SqlCommand command = new SqlCommand(query);
 
-            command.Parameters.AddWithValue("@name", elem.GetName());
-            command.Parameters.AddWithValue("@email", elem.GetEmail());
+            command.Parameters.AddWithValue("@name", elem.GetFullName());
+            command.Parameters.AddWithValue("@email", elem.GetEmailAddress());
 
             int id = base.Add(command, elem);
             return id;
@@ -72,8 +72,8 @@ namespace CloudSpritzers1.src.repository
             SqlCommand command = new SqlCommand(query);
 
             command.Parameters.AddWithValue("@id", id);
-            command.Parameters.AddWithValue("@name", elem.GetName());
-            command.Parameters.AddWithValue("@email", elem.GetEmail());
+            command.Parameters.AddWithValue("@name", elem.GetFullName());
+            command.Parameters.AddWithValue("@email", elem.GetEmailAddress());
             
 
             base.UpdateById(id, command, elem);
