@@ -1,8 +1,6 @@
-using System;
-using System.Linq;
 using AutoMapper;
-using CloudSpritzers1.src.dto.mappingProfiles;
 using CloudSpritzers1.src.dto;
+using CloudSpritzers1.src.dto.mappingProfiles;
 using CloudSpritzers1.src.model.faq;
 using CloudSpritzers1.src.repository;
 using CloudSpritzers1.src.service;
@@ -10,6 +8,9 @@ using CloudSpritzers1.src.viewModel.faq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using System;
+using System.Linq;
+using System.Runtime.Intrinsics.X86;
 
 
 namespace CloudSpritzers1.src.view.faq
@@ -102,6 +103,7 @@ namespace CloudSpritzers1.src.view.faq
             if (sender is Button button && button.DataContext is FAQEntryDTO faq)
             {
                 ViewModel.ToggleFAQ(faq);
+                ScrollToMiddleIfExpanded(faq);
             }
         }
 
@@ -110,6 +112,7 @@ namespace CloudSpritzers1.src.view.faq
             if (sender is Button button && button.DataContext is FAQEntryDTO faq)
             {
                 ViewModel.ToggleFAQ(faq);
+                ScrollToMiddleIfExpanded(faq);
             }
         }
 
@@ -289,6 +292,26 @@ namespace CloudSpritzers1.src.view.faq
             EmployeeActionsPanel.Visibility = ViewModel.IsAdmin
                 ? Visibility.Visible
                 : Visibility.Collapsed;
+        }
+
+        private void ScrollToMiddleIfExpanded(FAQEntryDTO faq)
+        {
+            if (faq.IsExpanded)
+            {
+                DispatcherQueue.TryEnqueue(() =>
+                {
+                    var container = AllQuestionsList.ContainerFromItem(faq) as FrameworkElement;
+                    if (container != null)
+                    {
+                        container.StartBringIntoView(new BringIntoViewOptions
+                        {
+                            VerticalAlignmentRatio = 0.5,
+                            AnimationDesired = true
+                        });
+                    }
+                });
+            }
+            
         }
     }
 }
