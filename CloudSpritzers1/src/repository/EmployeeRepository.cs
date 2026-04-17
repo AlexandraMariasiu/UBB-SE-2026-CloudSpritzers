@@ -22,9 +22,9 @@ namespace CloudSpritzers1.src.repository
 
             SqlCommand command = new SqlCommand(query);
 
-            command.Parameters.AddWithValue("@name", elem.GetName());
-            command.Parameters.AddWithValue("@email", elem.GetEmail());
-            command.Parameters.AddWithValue("@group", elem.GetGroup());
+            command.Parameters.AddWithValue("@name", elem.GetFullName());
+            command.Parameters.AddWithValue("@email", elem.GetEmailAddress());
+            command.Parameters.AddWithValue("@group", elem.GetDepartmentName());
 
             int id = base.Add(command, elem);
             return id;
@@ -74,9 +74,9 @@ namespace CloudSpritzers1.src.repository
             SqlCommand command = new SqlCommand(query);
 
             command.Parameters.AddWithValue("@id", id);
-            command.Parameters.AddWithValue("@name", elem.GetName());
-            command.Parameters.AddWithValue("@email", elem.GetEmail());
-            command.Parameters.AddWithValue("@group", elem.GetGroup());
+            command.Parameters.AddWithValue("@name", elem.GetFullName());
+            command.Parameters.AddWithValue("@email", elem.GetEmailAddress());
+            command.Parameters.AddWithValue("@group", elem.GetDepartmentName());
 
 
             base.UpdateById(id, command, elem);
@@ -94,7 +94,7 @@ namespace CloudSpritzers1.src.repository
             string email = reader.GetString(reader.GetOrdinal("email"));
             string groupString = reader.GetString(reader.GetOrdinal("group"));
 
-            GroupEnum groupEnum = (GroupEnum)Enum.Parse(typeof(GroupEnum), groupString);
+            EmployeeDepartment groupEnum = (EmployeeDepartment)Enum.Parse(typeof(EmployeeDepartment), groupString);
 
             return new Employee(employeeId, name, email, groupEnum);
         }

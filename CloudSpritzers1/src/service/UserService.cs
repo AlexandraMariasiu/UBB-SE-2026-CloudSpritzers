@@ -54,9 +54,9 @@ namespace CloudSpritzers1.src.service
             ArgumentNullException.ThrowIfNull(user);
             if (this.GetAll().Contains(user))
                 throw new ArgumentException("User already exists");
-            if (string.IsNullOrEmpty(user.GetName()))
+            if (string.IsNullOrEmpty(user.GetFullName()))
                 throw new ArgumentException("Name cannot be null or empty");
-            if (string.IsNullOrEmpty(user.GetEmail()))
+            if (string.IsNullOrEmpty(user.GetEmailAddress()))
                 throw new ArgumentException("Email cannot be null or empty");
         }
     }

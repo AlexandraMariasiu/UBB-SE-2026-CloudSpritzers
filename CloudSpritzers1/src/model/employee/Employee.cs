@@ -6,23 +6,23 @@ namespace CloudSpritzers1.src.model.employee
     public class Employee : ISender
     {
         private int _employeeId;
-        private string _name;
-        private string _email;
-        private GroupEnum _group;
+        private string _fullName;
+        private string _emailAddress;
+        private EmployeeDepartment _assignedDepartment;
 
-        public Employee(int employeeId, string name, string email, GroupEnum groupEnum)
+        public Employee(int employeeIdentificationNumber, string fullName, string emailAddress, EmployeeDepartment assignedDepartment)
         {
-            _employeeId = employeeId;
-            _name = name;
-            _email = email;
-            _group = groupEnum;
+            _employeeId = employeeIdentificationNumber;
+            _fullName = fullName;
+            _emailAddress = emailAddress;
+            _assignedDepartment = assignedDepartment;
         }
 
         public int EmployeeId => _employeeId;
-        public string GetGroup() => _group.ToString();
+        public string GetDepartmentName() => _assignedDepartment.ToString();
 
-        public string GetName() => _name;
-        public string GetEmail() => _email;
+        public string GetFullName() => _fullName;
+        public string GetEmailAddress() => _emailAddress;
 
         public int GetId() => _employeeId;
     }

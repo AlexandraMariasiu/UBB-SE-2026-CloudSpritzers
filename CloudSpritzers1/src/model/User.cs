@@ -17,8 +17,8 @@ namespace CloudSpritzers1.src.model
 
         public int UserId => _userId;
 
-        public string GetName() => _name;
-        public string GetEmail() => _email;
+        public string GetFullName() => _name;
+        public string GetEmailAddress() => _email;
 
         public int GetId() => _userId;
     }

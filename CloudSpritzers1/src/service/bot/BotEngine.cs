@@ -27,12 +27,12 @@ namespace CloudSpritzers1.src.service.bot
             return _responseStrategy.Process(this, message);
         }
         
-        public string GetEmail()
+        public string GetEmailAddress()
         {
             return "customer-support@cloudspritzers.com";
         }
 
-        public string GetName()
+        public string GetFullName()
         {
             return "Carlos";
         }

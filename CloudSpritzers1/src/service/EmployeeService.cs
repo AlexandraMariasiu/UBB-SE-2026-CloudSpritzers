@@ -44,7 +44,7 @@ namespace CloudSpritzers1.src.service
 
         public void CreateEmployee(int id, string name, string email, string group)
         {
-            GroupEnum groupEnum = (GroupEnum)Enum.Parse(typeof(GroupEnum), group);
+            EmployeeDepartment groupEnum = (EmployeeDepartment)Enum.Parse(typeof(EmployeeDepartment), group);
             Employee employee = new Employee(id, name, email, groupEnum);
             ValidateEmployee(employee);
             Add(employee);
@@ -55,13 +55,13 @@ namespace CloudSpritzers1.src.service
             ArgumentNullException.ThrowIfNull(employee);
             if (this.GetAll().Contains(employee))
                 throw new ArgumentException("Employee already exists");
-            if (string.IsNullOrEmpty(employee.GetName()))
+            if (string.IsNullOrEmpty(employee.GetFullName()))
                 throw new ArgumentException("Name cannot be null or empty");
-            if (string.IsNullOrEmpty(employee.GetEmail()))
+            if (string.IsNullOrEmpty(employee.GetEmailAddress()))
                 throw new ArgumentException("Email cannot be null or empty");
-            if(string.IsNullOrEmpty(employee.GetGroup()))
+            if(string.IsNullOrEmpty(employee.GetDepartmentName()))
                 throw new ArgumentException("Group cannot be null or empty");
-            if (!Enum.IsDefined(typeof(GroupEnum), employee.GetGroup()))
+            if (!Enum.IsDefined(typeof(EmployeeDepartment), employee.GetDepartmentName()))
                 throw new ArgumentException("Invalid group");
         }
     }
