@@ -119,8 +119,8 @@ namespace CloudSpritzers1.src.repository
             private readonly int _id;
             public SenderStub(int id) => _id = id;
             public int GetId() => _id;
-            public string GetName() => string.Empty;
-            public string GetEmail() => string.Empty;
+            public string GetFullName() => string.Empty;
+            public string GetEmailAddress() => string.Empty;
         }
 
 

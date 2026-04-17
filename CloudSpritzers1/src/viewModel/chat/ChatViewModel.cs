@@ -67,7 +67,7 @@ namespace CloudSpritzers1.src.viewModel.chat
             foreach (var msg in messages)
             {
                 var dto = _mapper.Map<MessageDTO>(msg);
-                dto.SenderName = _userService.GetById(dto.SenderId)?.GetName();
+                dto.SenderName = _userService.GetById(dto.SenderId)?.GetFullName();
                 dto.IsOutgoing = (dto.SenderId == currentUserId);
                 ChatHistory.Add(dto);
             }

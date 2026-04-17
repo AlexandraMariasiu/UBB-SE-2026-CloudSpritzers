@@ -18,7 +18,7 @@ namespace CloudSpritzers1.src.dto.mappingProfiles
                 .ConstructUsing(ticket => new TicketDTO(
                     ticket.TicketId,
                     ticket.User.UserId,
-                    ticket.User.GetEmail(),
+                    ticket.User.GetEmailAddress(),
                     ticket.UrgencyLevel,
                     ticket.Status,
                     ticket.Category.CategoryId,

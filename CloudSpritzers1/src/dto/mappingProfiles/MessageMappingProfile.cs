@@ -15,7 +15,7 @@ public class MessageMappingProfile : Profile
                 new DateTimeOffset(((IMessage)src).GetTimeStamp().Ticks, TimeSpan.Zero)))
             .ForMember(dest => dest.FaqOptions, opt => opt.MapFrom(src => src.GetNextOptions()))
             .ForMember(dest => dest.ChatId, opt => opt.MapFrom(src => src.GetChat().ChatId))
-            .ForMember(dest => dest.SenderName, opt => opt.MapFrom(src => src.GetSender().GetName()))
+            .ForMember(dest => dest.SenderName, opt => opt.MapFrom(src => src.GetSender().GetFullName()))
             .ForMember(dest => dest.SenderId, opt => opt.MapFrom(src => src.GetSender().GetId()));
 
         CreateMap<BotMessage, MessageDTO>()
