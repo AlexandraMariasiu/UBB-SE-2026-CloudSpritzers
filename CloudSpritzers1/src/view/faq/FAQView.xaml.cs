@@ -3,7 +3,8 @@ using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.dto.mappingProfiles;
 using CloudSpritzers1.src.model.faq;
 using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.service;
+using CloudSpritzers1.src.repository.implementations;
+using CloudSpritzers1.src.service.implementation;
 using CloudSpritzers1.src.viewModel.faq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -119,31 +120,67 @@ namespace CloudSpritzers1.src.view.faq
         private void AllQuestionsButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.FilterByCategory(FAQCategoryEnum.All);
+            this.AllQuestionsButton.Style = (Style) this.Resources["SelectedCategoryButtonStyle"];
+            this.CheckInButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.ParkingButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.BaggageButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.TicketsButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.FacilitiesButton.Style = (Style)this.Resources["CategoryButtonStyle"];
         }
 
         private void CheckInButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.FilterByCategory(FAQCategoryEnum.CheckIn);
+            this.CheckInButton.Style = (Style)this.Resources["SelectedCategoryButtonStyle"];
+            this.AllQuestionsButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.ParkingButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.BaggageButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.TicketsButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.FacilitiesButton.Style = (Style)this.Resources["CategoryButtonStyle"];
         }
 
         private void ParkingButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.FilterByCategory(FAQCategoryEnum.Parking);
+            this.ParkingButton.Style = (Style)this.Resources["SelectedCategoryButtonStyle"];
+            this.AllQuestionsButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.CheckInButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.BaggageButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.TicketsButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.FacilitiesButton.Style = (Style)this.Resources["CategoryButtonStyle"];
         }
 
         private void BaggageButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.FilterByCategory(FAQCategoryEnum.Baggage);
+            this.BaggageButton.Style = (Style)this.Resources["SelectedCategoryButtonStyle"];
+            this.AllQuestionsButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.ParkingButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.CheckInButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.TicketsButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.FacilitiesButton.Style = (Style)this.Resources["CategoryButtonStyle"];
         }
 
         private void TicketButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.FilterByCategory(FAQCategoryEnum.Tickets);
+            this.TicketsButton.Style = (Style)this.Resources["SelectedCategoryButtonStyle"];
+            this.AllQuestionsButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.ParkingButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.BaggageButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.CheckInButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.FacilitiesButton.Style = (Style)this.Resources["CategoryButtonStyle"];
         }
 
         private void FacilitiesButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.FilterByCategory(FAQCategoryEnum.Facilities);
+            this.FacilitiesButton.Style = (Style)this.Resources["SelectedCategoryButtonStyle"];
+            this.AllQuestionsButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.ParkingButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.BaggageButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.TicketsButton.Style = (Style)this.Resources["CategoryButtonStyle"];
+            this.CheckInButton.Style = (Style)this.Resources["CategoryButtonStyle"];
         }
 
         private async void AddFaqButton_Click(object sender, RoutedEventArgs e)

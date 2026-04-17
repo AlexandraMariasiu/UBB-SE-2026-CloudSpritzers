@@ -6,13 +6,14 @@ using System.Runtime.CompilerServices;
 using AutoMapper;
 using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model.faq;
-using CloudSpritzers1.src.service;
+using CloudSpritzers1.src.service.implementation;
+using CloudSpritzers1.src.service.interfaces;
 
 namespace CloudSpritzers1.src.viewModel.faq
 {
     public class FAQViewModel : INotifyPropertyChanged
     {
-        private readonly FAQService _faqService;
+        private readonly IFAQService _faqService;
         private readonly IMapper _mapper;
 
         private ObservableCollection<FAQEntryDTO> _faqs;
@@ -115,19 +116,7 @@ namespace CloudSpritzers1.src.viewModel.faq
 
         public void ApplyFilters()
         {
-            var result = FAQs.AsEnumerable();
-
-            if (SelectedCategory != FAQCategoryEnum.All)
-            {
-                result = result.Where(f => f.Category == SelectedCategory);
-            }
-
-            if (!string.IsNullOrWhiteSpace(SearchQuery))
-            {
-                result = result.Where(f =>
-                    (f.Question?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                    (f.Answer?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false));
-            }
+            var result = _faqService.FilterFAQEntry(SelectedCategory, SearchQuery).AsEnumerable().Select(entry => _mapper.Map<FAQEntryDTO>(entry));
 
             FilteredFAQs.Clear();
             foreach (var faq in result)
@@ -199,7 +188,7 @@ namespace CloudSpritzers1.src.viewModel.faq
             var entity = _mapper.Map<FAQEntry>(SelectedFAQEntry);
             _faqService.IncrementWasHelpfulVotes(entity);
 
-            SelectedFAQEntry.WasHelpfulVotes++;
+            SelectedFAQEntry.HelpfulVotesCount++;
             OnPropertyChanged(nameof(SelectedFAQEntry));
         }
 
@@ -211,7 +200,7 @@ namespace CloudSpritzers1.src.viewModel.faq
             var entity = _mapper.Map<FAQEntry>(SelectedFAQEntry);
             _faqService.IncrementWasNotHelpfulVotes(entity);
 
-            SelectedFAQEntry.WasNotHelpfulVotes++;
+            SelectedFAQEntry.NotHelpfulVotesCount++;
             OnPropertyChanged(nameof(SelectedFAQEntry));
         }
 

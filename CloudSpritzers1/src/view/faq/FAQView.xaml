@@ -123,10 +123,13 @@
                                 <StackPanel Spacing="10">
                                     <ScrollViewer HorizontalScrollBarVisibility="Auto" HorizontalScrollMode="Enabled" VerticalScrollBarVisibility="Disabled">
                                         <StackPanel Orientation="Horizontal">
-                                            <Button x:Name="AllQuestionsButton" Content="All Questions" Style="{StaticResource SelectedCategoryButtonStyle}" Click="AllQuestionsButton_Click"/>
-                                            <Button Content="Check-in Procedures" Style="{StaticResource CategoryButtonStyle}" Click="CheckInButton_Click"/>
-                                            <Button Content="Parking" Style="{StaticResource CategoryButtonStyle}" Click="ParkingButton_Click"/>
-                                            <Button Content="Baggage" Style="{StaticResource CategoryButtonStyle}" Click="BaggageButton_Click"/>
+                                            <Button x:Name="AllQuestionsButton" Content="All Questions" 
+                                                    Style="{StaticResource SelectedCategoryButtonStyle}" Click="AllQuestionsButton_Click"/>
+                                            <Button x:Name="CheckInButton" Content="Check-in Procedures" Style="{StaticResource CategoryButtonStyle}" Click="CheckInButton_Click"/>
+                                            <Button x:Name="ParkingButton" Content="Parking" Style="{StaticResource CategoryButtonStyle}" Click="ParkingButton_Click"/>
+                                            <Button x:Name="BaggageButton" Content="Baggage" Style="{StaticResource CategoryButtonStyle}" Click="BaggageButton_Click"/>
+                                            <Button x:Name="TicketsButton" Content="Tickets" Style="{StaticResource CategoryButtonStyle}" Click="TicketButton_Click"/>
+                                            <Button x:Name="FacilitiesButton" Content="Facilities" Style="{StaticResource CategoryButtonStyle}" Click="FacilitiesButton_Click"/>
                                         </StackPanel>
                                     </ScrollViewer>
 
