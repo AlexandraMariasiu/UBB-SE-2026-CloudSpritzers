@@ -2,73 +2,38 @@ namespace CloudSpritzers1.src.model.faq
 {
     public class FAQEntry
     {
-        private int _id;
-        private string _question;
-        private string _answer;
-        private FAQCategoryEnum _category;
-        private int _viewCount;
-        private int _wasHelpfulVotes;
-        private int _wasNotHelpfulVotes;
+        public int Id { get; init; }
+        public string Question { get; set; }
+        public string Answer { get; set; }
+        public FAQCategoryEnum Category { get; set; }
+        public int ViewCount { get; set; }
+        public int HelpfulVotesCount { get; set; }
+        public int NotHelpfulVotesCount { get; set; }
 
         public FAQEntry(int id, string question, string answer, FAQCategoryEnum category, int viewCount, int wasHelpfulVotes, int wasNotHelpfulVotes)
         {
-            _id = id;
-            _question = question;
-            _answer = answer;
-            _category = category;
-            _viewCount = viewCount;
-            _wasHelpfulVotes = wasHelpfulVotes;
-            _wasNotHelpfulVotes = wasNotHelpfulVotes;
-        }
-
-        public int GetId()
-        {
-            return _id;
-        }
-
-        public string GetQuestion()
-        {
-            return _question;
-        }
-
-        public string GetAnswer()
-        {
-            return _answer;
-        }
-
-        public FAQCategoryEnum GetCategory()
-        {
-            return _category;
-        }
-
-        public int GetViewCount()
-        {
-            return _viewCount;
-        }
-
-        public int GetWasHelpfulVotes()
-        {
-            return _wasHelpfulVotes;
-        }
-
-        public int GetWasNotHelpfulVotes()
-        {
-            return _wasNotHelpfulVotes;
+            Id = id;
+            Question = question;
+            Answer = answer;
+            Category = category;
+            ViewCount = viewCount;
+            HelpfulVotesCount = wasHelpfulVotes;
+            NotHelpfulVotesCount = wasNotHelpfulVotes;
         }
 
         public void IncrementViewCount()
         {
-            _viewCount++;
+            ViewCount++;
         }
 
         public void IncrementWasHelpfulVotes()
         {
-            _wasHelpfulVotes++;
+            HelpfulVotesCount++;
         }
 
         public void IncrementWasNotHelpfulVotes()
         {
-          _wasNotHelpfulVotes++;
+          NotHelpfulVotesCount++;
         }
 
      

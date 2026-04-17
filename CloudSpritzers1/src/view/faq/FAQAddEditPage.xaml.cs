@@ -16,8 +16,9 @@ using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.viewModel.faq;
 using CloudSpritzers1.src.dto.mappingProfiles;
 using AutoMapper;
+using CloudSpritzers1.src.repository.implementations;
 using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.service;
+using CloudSpritzers1.src.service.implementation;
 using CloudSpritzers1.src.model.faq;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -238,8 +239,8 @@ namespace CloudSpritzers1.src.view.faq
                         answer,
                         category,
                         _editingFaq.ViewCount,
-                        _editingFaq.WasHelpfulVotes,
-                        _editingFaq.WasNotHelpfulVotes
+                        _editingFaq.HelpfulVotesCount,
+                        _editingFaq.NotHelpfulVotesCount
                     );
 
                     _viewModel.EditFAQEntry(updatedFaq);
@@ -268,8 +269,6 @@ namespace CloudSpritzers1.src.view.faq
             {
                 await ShowMessage("Save failed", ex.Message);
             }
-
-
         }
 
         private async System.Threading.Tasks.Task ShowMessage(string title, string message)
@@ -285,8 +284,5 @@ namespace CloudSpritzers1.src.view.faq
             await dialog.ShowAsync();
 
         }
-
-
-    
-}
+    }
 }

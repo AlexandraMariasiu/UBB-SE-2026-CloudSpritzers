@@ -24,6 +24,7 @@ namespace CloudSpritzers1.src.model.employee
         public string GetFullName() => _fullName;
         public string GetEmailAddress() => _emailAddress;
 
+
         public int GetId() => _employeeId;
     }
 }
