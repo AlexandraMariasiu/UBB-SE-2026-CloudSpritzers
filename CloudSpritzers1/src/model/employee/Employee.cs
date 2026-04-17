@@ -21,8 +21,8 @@ namespace CloudSpritzers1.src.model.employee
         public int EmployeeId => _employeeId;
         public string GetGroup() => _group.ToString();
 
-        public string GetName() => _name;
-        public string GetEmail() => _email;
+        public string GetFullName() => _name;
+        public string GetEmailAddress() => _email;
 
         public int GetId() => _employeeId;
     }
