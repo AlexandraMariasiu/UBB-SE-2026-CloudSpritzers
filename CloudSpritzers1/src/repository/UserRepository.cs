@@ -22,8 +22,10 @@ namespace CloudSpritzers1.src.repository
 
             SqlCommand sqlCommand = new SqlCommand(insertQuery);
 
+
             sqlCommand.Parameters.AddWithValue("@name", userEntity.GetFullName());
             sqlCommand.Parameters.AddWithValue("@email", userEntity.GetEmailAddress());
+
 
             int generatedIdentificationNumber = base.Add(sqlCommand, userEntity);
             return generatedIdentificationNumber;
@@ -71,9 +73,11 @@ namespace CloudSpritzers1.src.repository
 
             SqlCommand sqlCommand = new SqlCommand(updateQuery);
 
+
             sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
             sqlCommand.Parameters.AddWithValue("@name", userEntity.GetFullName());
             sqlCommand.Parameters.AddWithValue("@email", userEntity.GetEmailAddress());
+
             
 
             base.UpdateById(identificationNumber, sqlCommand, userEntity);

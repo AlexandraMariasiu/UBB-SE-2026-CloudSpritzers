@@ -56,7 +56,7 @@ namespace CloudSpritzers1
                 return;
             if (isEmployee)
             {
-                Employee = Services.GetService<EmployeeService>().GetById(userId);
+                Employee = Services.GetService<EmployeeService>().GetEmployeeById(userId);
                 return;
             }
             else

@@ -55,6 +55,7 @@ namespace CloudSpritzers1.src.service
             if (this.GetAllUsers().Contains(userEntity))
             {
                 throw new ArgumentException("User already exists");
+
             }
             if (string.IsNullOrEmpty(userEntity.GetFullName()))
             {
@@ -62,6 +63,7 @@ namespace CloudSpritzers1.src.service
             }
             if (string.IsNullOrEmpty(userEntity.GetEmailAddress()))
             {
+
                 throw new ArgumentException("Email cannot be null or empty");
             }
         }
