@@ -269,8 +269,6 @@ namespace CloudSpritzers1.src.view.faq
             {
                 await ShowMessage("Save failed", ex.Message);
             }
-
-
         }
 
         private async System.Threading.Tasks.Task ShowMessage(string title, string message)
@@ -286,8 +284,5 @@ namespace CloudSpritzers1.src.view.faq
             await dialog.ShowAsync();
 
         }
-
-
-    
-}
+    }
 }

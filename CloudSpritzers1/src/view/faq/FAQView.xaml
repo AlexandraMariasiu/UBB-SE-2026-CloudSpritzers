@@ -143,7 +143,7 @@
 
                             <Border Margin="8,0,8,8" Background="{ThemeResource CardBackgroundBrush}" BorderBrush="{ThemeResource BorderBrush}" BorderThickness="1" CornerRadius="8" Padding="14">
                                 <StackPanel Spacing="12">
-                                    <TextBlock Text="All Questions" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource PrimaryTextBrush}"/>
+                                    <!--<TextBlock Text="All Questions" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource PrimaryTextBrush}"/> -->
                                     <ItemsControl ItemsSource="{Binding FilteredFAQs}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate x:DataType="dto:FAQEntryDTO">
