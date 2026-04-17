@@ -7,7 +7,7 @@ using CloudSpritzers1.src.model.faq;
 
 namespace CloudSpritzers1.src.service.interfaces
 {
-    interface IFAQService
+    public interface IFAQService
     {
         List<FAQEntry> GetAll();
         List<FAQEntry> GetByCategory(FAQCategoryEnum category);

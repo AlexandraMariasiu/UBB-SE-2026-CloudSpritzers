@@ -13,7 +13,7 @@ namespace CloudSpritzers1.src.service.implementation
 	{
 		private readonly IFAQRepository _faqRepository;
 
-		public FAQService(FAQRepository faqRepository)
+		public FAQService(IFAQRepository faqRepository)
 		{
 			_faqRepository = faqRepository;
 		}

@@ -21,21 +21,33 @@ namespace CloudSpritzers1.src.model.faq
             NotHelpfulVotesCount = wasNotHelpfulVotes;
         }
 
-        public void IncrementViewCount()
-        {
-            ViewCount++;
-        }
+        // These methods had 0 references. Incrementing is done directly in the database
 
-        public void IncrementWasHelpfulVotes()
-        {
-            HelpfulVotesCount++;
-        }
+        //public void IncrementViewCount()
+        //{
+        //    ViewCount++;
+        //}
 
-        public void IncrementWasNotHelpfulVotes()
-        {
-          NotHelpfulVotesCount++;
-        }
+        //public void IncrementWasHelpfulVotes()
+        //{
+        //    HelpfulVotesCount++;
+        //}
 
-     
+        //public void IncrementWasNotHelpfulVotes()
+        //{
+        //  NotHelpfulVotesCount++;
+        //}
+
+        public override bool Equals(object? obj)
+        {
+            return obj is FAQEntry entry &&
+                   Id == entry.Id &&
+                   Question == entry.Question &&
+                   Answer == entry.Answer &&
+                   Category == entry.Category &&
+                   ViewCount == entry.ViewCount &&
+                   HelpfulVotesCount == entry.HelpfulVotesCount &&
+                   NotHelpfulVotesCount == entry.NotHelpfulVotesCount;
+        }
     }
 }
