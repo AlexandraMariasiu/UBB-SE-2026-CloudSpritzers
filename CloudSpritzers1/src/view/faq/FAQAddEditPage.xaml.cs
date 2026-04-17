@@ -16,8 +16,9 @@ using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.viewModel.faq;
 using CloudSpritzers1.src.dto.mappingProfiles;
 using AutoMapper;
+using CloudSpritzers1.src.repository.implementations;
 using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.service;
+using CloudSpritzers1.src.service.implementation;
 using CloudSpritzers1.src.model.faq;
 
 // To learn more about WinUI, the WinUI project structure,

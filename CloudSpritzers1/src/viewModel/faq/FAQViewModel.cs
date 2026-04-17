@@ -6,13 +6,14 @@ using System.Runtime.CompilerServices;
 using AutoMapper;
 using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model.faq;
-using CloudSpritzers1.src.service;
+using CloudSpritzers1.src.service.implementation;
+using CloudSpritzers1.src.service.interfaces;
 
 namespace CloudSpritzers1.src.viewModel.faq
 {
     public class FAQViewModel : INotifyPropertyChanged
     {
-        private readonly FAQService _faqService;
+        private readonly IFAQService _faqService;
         private readonly IMapper _mapper;
 
         private ObservableCollection<FAQEntryDTO> _faqs;

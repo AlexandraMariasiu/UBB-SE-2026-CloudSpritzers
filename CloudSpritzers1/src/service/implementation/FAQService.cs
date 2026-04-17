@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using CloudSpritzers1.src.model.faq;
-using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.repository.implementations;
+using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.src.service.interfaces;
 
-namespace CloudSpritzers1.src.service
+namespace CloudSpritzers1.src.service.implementation
 {
-	public class FAQService
+	public class FAQService: IFAQService
 	{
-		private readonly FAQRepository _faqRepository;
+		private readonly IFAQRepository _faqRepository;
 
 		public FAQService(FAQRepository faqRepository)
 		{
@@ -54,10 +56,5 @@ namespace CloudSpritzers1.src.service
 			_faqRepository.IncrementWasNotHelpfulVotes(entry.Id);
             
         }
-
-
-
-
     }
-
 }
