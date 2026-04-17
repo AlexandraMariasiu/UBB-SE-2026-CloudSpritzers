@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CloudSpritzers1.src.model.faq;
 using CloudSpritzers1.src.repository.implementations;
 using CloudSpritzers1.src.repository.interfaces;
 using CloudSpritzers1.src.service.interfaces;
+using Sprache;
 
 namespace CloudSpritzers1.src.service.implementation
 {
@@ -55,6 +57,23 @@ namespace CloudSpritzers1.src.service.implementation
         {
 			_faqRepository.IncrementWasNotHelpfulVotes(entry.Id);
             
+        }
+
+		public List<FAQEntry> FilterFAQEntry(FAQCategoryEnum category, string searchQuery)
+		{
+			var faqs = this.GetAll().AsEnumerable();
+			if(category != FAQCategoryEnum.All)
+			{
+				faqs = this.GetByCategory(category);
+			}
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                faqs = faqs.Where(f =>
+                    (f.Question?.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    (f.Answer?.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ?? false));
+            }
+			return faqs.ToList();
         }
     }
 }
