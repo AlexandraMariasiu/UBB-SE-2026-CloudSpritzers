@@ -1,4 +1,5 @@
 ﻿using CloudSpritzers1.src.model;
+using CloudSpritzers1.src.repository.interfaces;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CloudSpritzers1.src.repository
 {
-    public class UserRepository : DBRepository<int, User>, IRepository<int, User>
+    public class UserRepository : DBRepository<int, User>, IRepository<int, User>, IUserRepository
     {
         public int Add(User userEntity)
         {
