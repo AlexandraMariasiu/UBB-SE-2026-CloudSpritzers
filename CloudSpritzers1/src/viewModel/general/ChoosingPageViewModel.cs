@@ -10,3 +10,4 @@ namespace CloudSpritzers1.src.viewModel.general
 	{
 	}
 }
+

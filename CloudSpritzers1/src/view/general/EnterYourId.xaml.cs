@@ -33,29 +33,32 @@ namespace CloudSpritzers1.src.view.general
             await dialog1.ShowAsync();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs eventArguments)
         {
             if (int.TryParse(UserId, out int parsedId))
             {
-                var dialog = new YouSure($"Are you certain you are User {parsedId}?", "Dear Passenger");
-                dialog.XamlRoot = this.Content.XamlRoot;
+                var confirmationDialog = new YouSure($"Are you certain you are ID {parsedId}?", "Confirmation");
+                confirmationDialog.XamlRoot = this.Content.XamlRoot;
 
-                if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+                if (await confirmationDialog.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    try
+                    // Now we use the boolean result from the fixed App method
+                    bool authenticationSuccessful = ((App)App.Current).SetUser(parsedId);
+
+                    if (authenticationSuccessful)
                     {
-                        (App.Current as App).SetUser(parsedId);
-                        this.Frame.Navigate(typeof(CloudSpritzers1.src.view.general.LandingPage));
+                        this.Frame.Navigate(typeof(LandingPage));
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        showError("Invalid Id - does not exist", "ERROR");
+                        showError("The ID entered does not exist.", "ERROR");
                     }
                 }
             }
             else
             {
-                showError("You need to insert an integer.", "ERROR");
+                // This block executes if int.TryParse returns false (input is not a valid integer)
+                showError("Please enter a valid numeric ID.", "FORMAT ERROR");
             }
         }
 
