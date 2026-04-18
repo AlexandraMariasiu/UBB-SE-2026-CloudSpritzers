@@ -90,5 +90,29 @@ namespace CloudSpritzers1Tests.src.service
 
             _employeeRepository.Received(1).DeleteById(1); 
         }
+
+        [TestMethod()]
+        public void ValidateEmployeeIntegrity_DuplicateEmployee_ThrowsArgumentException()
+        {
+            var existingEmployee = new Employee(1, "Andrei Muresan", "andrei@test.com", EmployeeDepartment.ADMIN);
+            _employeeRepository.GetAll().Returns(new List<Employee> { existingEmployee }); 
+
+            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+                _employeeService.ValidateEmployeeIntegrity(existingEmployee));
+
+            StringAssert.Contains("already exists", ex.Message); 
+        }
+
+        [TestMethod()]
+        public void CreateNewEmployee_InvalidDepartmentString_ThrowsArgumentException()
+        {
+            int id = 10;
+            string name = "Cristi Dan";
+            string email = "cristi@test.com";
+            string invalidDept = "NON_EXISTENT_DEPT"; 
+
+            Assert.ThrowsExactly<ArgumentException>(() =>
+                _employeeService.CreateNewEmployee(id, name, email, invalidDept));
+        }
     }
 }

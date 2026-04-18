@@ -43,7 +43,6 @@ namespace CloudSpritzers1Tests.src.repository
         [TestMethod()]
         public void GetById_NonExistingId_ThrowsKeyNotFoundException()
         {
-            // Act & Assert
             Assert.ThrowsExactly<KeyNotFoundException>(() =>
                 _employeeRepository!.GetById(999));
         }
