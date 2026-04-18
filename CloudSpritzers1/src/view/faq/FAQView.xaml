@@ -121,6 +121,10 @@
 
                             <Border Background="{ThemeResource PageBackgroundBrush}" BorderBrush="{ThemeResource BorderBrush}" BorderThickness="0,1,0,1" Padding="10">
                                 <StackPanel Spacing="10">
+                                    <TextBox
+                                        PlaceholderText="Search FAQs by question/ answer..."
+                                        Text="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        />
                                     <ScrollViewer HorizontalScrollBarVisibility="Auto" HorizontalScrollMode="Enabled" VerticalScrollBarVisibility="Disabled">
                                         <StackPanel Orientation="Horizontal">
                                             <Button x:Name="AllQuestionsButton" Content="All Questions" 
@@ -143,7 +147,7 @@
 
                             <Border Margin="8,0,8,8" Background="{ThemeResource CardBackgroundBrush}" BorderBrush="{ThemeResource BorderBrush}" BorderThickness="1" CornerRadius="8" Padding="14">
                                 <StackPanel Spacing="12">
-                                    <TextBlock Text="All Questions" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource PrimaryTextBrush}"/>
+                                    <TextBlock Text="{Binding SelectedCategory , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource PrimaryTextBrush}"/>
                                     <ItemsControl x:Name="AllQuestionsList" ItemsSource="{Binding FilteredFAQs}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate x:DataType="dto:FAQEntryDTO">

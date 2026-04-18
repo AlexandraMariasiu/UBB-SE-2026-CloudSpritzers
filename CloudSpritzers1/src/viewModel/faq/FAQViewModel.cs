@@ -129,10 +129,10 @@ namespace CloudSpritzers1.src.viewModel.faq
             SelectedCategory = category;
         }
 
-        public void Search()
-        {
-            ApplyFilters();
-        }
+        //public void Search()
+        //{
+        //    ApplyFilters();
+        //}
 
         public void AddFAQEntry(FAQEntryDTO faqDto)
         {
