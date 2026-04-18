@@ -1,5 +1,6 @@
 using CloudSpritzers1.src.view.chat;
 using CloudSpritzers1.src.view.general;
+using CloudSpritzers1.src.viewModel.general;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -15,69 +16,84 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-
 namespace CloudSpritzers1.src.view.general
 {
     public sealed partial class EnterYourId : Page
     {
-        public string UserId { get; set; }
+        /// <summary>
+        /// The ViewModel containing user input and authentication logic.
+        /// </summary>
+        public EnterYourIdViewModel ViewModel { get; } = new();
+
+        /// <summary>
+        /// Initializes a new instance of the EnterYourId page and sets the DataContext.
+        /// </summary>
         public EnterYourId()
-        {        
+        {
             this.InitializeComponent();
+            this.DataContext = ViewModel;
         }
 
-        private async void showError(string message, string title)
+        /// <summary>
+        /// Displays an error dialog with the specified message and title.
+        /// </summary>
+        /// <param name="messageContent">The error message to display.</param>
+        /// <param name="titleText">The title of the error dialog.</param>
+        private async void DisplayErrorMessage(string messageContent, string titleText)
         {
-            var dialog1 = new MaiBoule(message, title);
-            dialog1.XamlRoot = this.Content.XamlRoot;
-            await dialog1.ShowAsync();
+            var errorDialog = new MaiBoule(messageContent, titleText);
+            errorDialog.XamlRoot = this.Content.XamlRoot;
+            await errorDialog.ShowAsync();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs eventArguments)
+        /// <summary>
+        /// Handles the login button click event.
+        /// Validates the user input, shows a confirmation dialog, and attempts authentication.
+        /// Navigates to the LandingPage on success or displays an error on failure.
+        /// </summary>
+        /// <param name="sender">The button that was clicked.</param>
+        /// <param name="eventArguments">Event data for the click event. </param>
+        private async void LoginButton_Click(object sender, RoutedEventArgs eventArguments)
         {
-            if (int.TryParse(UserId, out int parsedId))
+            // The View handles UI Flow, the ViewModel handles the Data
+            if (int.TryParse(ViewModel.UserIdentification, out int parsedId))
             {
                 var confirmationDialog = new YouSure($"Are you certain you are ID {parsedId}?", "Confirmation");
                 confirmationDialog.XamlRoot = this.Content.XamlRoot;
 
                 if (await confirmationDialog.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    // Now we use the boolean result from the fixed App method
-                    bool authenticationSuccessful = ((App)App.Current).SetUser(parsedId);
-
-                    if (authenticationSuccessful)
+                    if (ViewModel.TryAuthenticate(out _))
                     {
                         this.Frame.Navigate(typeof(LandingPage));
                     }
                     else
                     {
-                        showError("The ID entered does not exist.", "ERROR");
+                        DisplayErrorMessage("The ID entered does not exist.", "ERROR");
                     }
                 }
             }
             else
             {
-                // This block executes if int.TryParse returns false (input is not a valid integer)
-                showError("Please enter a valid numeric ID.", "FORMAT ERROR");
+                DisplayErrorMessage("Please enter a valid numeric ID.", "FORMAT ERROR");
             }
         }
 
         /// <summary>
-        /// Navigates the user back to the initial choosing page.
+        /// Handles the back button click event.
+        /// Navigates back if possible, or to the ChoosingPage if not.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">Event data.</param>
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        /// <param name="sender">The button that was clicked.</param>
+        /// <param name="eventArguments">Event data for the click event.</param>
+        private void BackButton_Click(object sender, RoutedEventArgs eventArguments)
         {
-            // Check if the frame can navigate back, otherwise navigate explicitly
             if (this.Frame.CanGoBack)
             {
                 this.Frame.GoBack();
             }
             else
             {
-                // Explicitly naming the target class (ChoosingPage)
-                this.Frame.Navigate(typeof(CloudSpritzers1.src.view.general.ChoosingPage));
+                this.Frame.Navigate(typeof(ChoosingPage));
             }
         }
     }
