@@ -110,5 +110,16 @@ namespace CloudSpritzers1Tests.src.service
 
             _userRepository.Received(1).DeleteById(100);
         }
+
+        [TestMethod()]
+        public void UpdateUserById_CallsRepositoryWithCorrectData()
+        {
+            int id = 1;
+            var updatedUser = new User(id, "Nume Actualizat", "updated@test.com");
+
+            _userService.UpdateUserById(id, updatedUser);
+
+            _userRepository.Received(1).UpdateById(id, updatedUser);
+        }
     }
 }

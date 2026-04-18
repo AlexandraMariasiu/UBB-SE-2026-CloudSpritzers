@@ -80,5 +80,32 @@ namespace CloudSpritzers1Tests.src.repository
 
             Assert.AreEqual(EmployeeDepartment.ADMIN.ToString(), result.GetDepartmentName());
         }
+
+        [TestMethod()]
+        public void UpdateById_NullEmployee_ThrowsArgumentNullException()
+        {
+            Assert.ThrowsExactly<ArgumentNullException>(() =>
+                _employeeRepository!.UpdateById(1, null!));
+        }
+
+        [TestMethod()]
+        public void UpdateById_NonExistingId_ThrowsKeyNotFoundException()
+        {
+            var updatedEmployee = new Employee(999, "No Body", "none@test.com", EmployeeDepartment.ADMIN);
+
+            Assert.ThrowsExactly<KeyNotFoundException>(() =>
+                _employeeRepository!.UpdateById(999, updatedEmployee));
+        }
+
+        [TestMethod()]
+        public void DeleteById_NonExistingId_ThrowsKeyNotFoundException()
+        {
+            int nonExistingId = 999;
+
+            var exception = Assert.ThrowsExactly<KeyNotFoundException>(() =>
+                _employeeRepository!.DeleteById(nonExistingId));
+
+            Assert.AreEqual($"Employee with id {nonExistingId} not found.", exception.Message);
+        }
     }
 }

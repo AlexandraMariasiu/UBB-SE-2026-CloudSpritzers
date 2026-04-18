@@ -114,5 +114,52 @@ namespace CloudSpritzers1Tests.src.service
             Assert.ThrowsExactly<ArgumentException>(() =>
                 _employeeService.CreateNewEmployee(id, name, email, invalidDept));
         }
+
+        [TestMethod()]
+        public void GetEmployeeById_ExistingId_ReturnsEmployeeFromRepository()
+        {
+            var expectedEmployee = new Employee(1, "Test Name", "test@test.com", EmployeeDepartment.ADMIN);
+            _employeeRepository.GetById(1).Returns(expectedEmployee);
+
+            var result = _employeeService.GetEmployeeById(1);
+
+            Assert.AreEqual(expectedEmployee, result);
+            _employeeRepository.Received(1).GetById(1);
+        }
+
+        [TestMethod()]
+        public void UpdateEmployeeById_CallsRepositoryWithCorrectData()
+        {
+            var employeeToUpdate = new Employee(1, "Updated Name", "email@test.com", EmployeeDepartment.HR);
+
+            _employeeService.UpdateEmployeeById(1, employeeToUpdate);
+
+            _employeeRepository.Received(1).UpdateById(1, employeeToUpdate);
+        }
+
+        [TestMethod()]
+        public void ValidateEmployeeIntegrity_EmptyEmail_ThrowsArgumentException()
+        {
+            // Arrange
+            var employeeWithEmptyEmail = new Employee(1, "Name", "", EmployeeDepartment.ADMIN);
+
+            // Act & Assert
+            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+                _employeeService.ValidateEmployeeIntegrity(employeeWithEmptyEmail));
+
+            StringAssert.Contains("Email cannot be null or empty", ex.Message);
+        }
+
+        [TestMethod()]
+        public void ValidateEmployeeIntegrity_EmptyDepartmentName_ThrowsArgumentException()
+        {
+            var employeeWithEmptyDept = new Employee(1, "Name", "test@test.com", (EmployeeDepartment)999);
+
+            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+                _employeeService.ValidateEmployeeIntegrity(employeeWithEmptyDept));
+
+            StringAssert.Contains("Invalid group", ex.Message);
+        }
+
     }
 }
