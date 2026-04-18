@@ -58,5 +58,24 @@ namespace CloudSpritzers1.src.view.general
                 showError("You need to insert an integer.", "ERROR");
             }
         }
+
+        /// <summary>
+        /// Navigates the user back to the initial choosing page.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">Event data.</param>
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Check if the frame can navigate back, otherwise navigate explicitly
+            if (this.Frame.CanGoBack)
+            {
+                this.Frame.GoBack();
+            }
+            else
+            {
+                // Explicitly naming the target class (ChoosingPage)
+                this.Frame.Navigate(typeof(CloudSpritzers1.src.view.general.ChoosingPage));
+            }
+        }
     }
 }

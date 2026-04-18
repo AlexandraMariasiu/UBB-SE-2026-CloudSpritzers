@@ -83,5 +83,21 @@ namespace CloudSpritzers1.src.view.general
                     frame.Navigate(typeof(CloudSpritzers1.src.view.review.EmployeeSeeReviews));
             }
         }
+
+        /// <summary>
+        /// Navigates the user back to the initial Welcome/Choosing screen.
+        /// This fulfills the 'Fix what is not working' requirement by allowing navigation out of the app core.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">Event data.</param>
+        private void NavigateToWelcomePage(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            // A UserControl doesn't have a Frame directly, so we find the Frame of the current Window content
+            if (this.XamlRoot.Content is Microsoft.UI.Xaml.Controls.Frame rootFrame)
+            {
+                // Use the full semantic name for the target page
+                rootFrame.Navigate(typeof(CloudSpritzers1.src.view.general.ChoosingPage));
+            }
+        }
     }
 }
