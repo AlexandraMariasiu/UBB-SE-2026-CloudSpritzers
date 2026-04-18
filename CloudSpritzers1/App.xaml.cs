@@ -4,14 +4,21 @@ using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.dto.mappingProfiles;
 using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.chat;
+using CloudSpritzers1.src.model.employee;
 using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.repository.implementations;
+using CloudSpritzers1.src.repository.interfaces;
 using CloudSpritzers1.src.service;
 using CloudSpritzers1.src.service.bot;
 using CloudSpritzers1.src.service.bot.strategy;
+using CloudSpritzers1.src.service.implementation;
+using CloudSpritzers1.src.service.interfaces;
 using CloudSpritzers1.src.viewmodel;
+using CloudSpritzers1.src.viewModel;
 using CloudSpritzers1.src.viewModel.chat;
+using CloudSpritzers1.src.viewModel.faq;
+using CloudSpritzers1.src.viewModel.general;
 using CloudSpritzers1.src.viewModel.review;
-using CloudSpritzers1.src.model.employee;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -31,8 +38,6 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using CloudSpritzers1.src.viewModel.general;
-using CloudSpritzers1.src.viewModel;
 
 namespace CloudSpritzers1
 {
@@ -115,6 +120,11 @@ namespace CloudSpritzers1
             services.AddSingleton<TicketSubcategoryService>();
 
             services.AddTransient<TicketsViewModel>();
+
+            services.AddSingleton<IFAQRepository, FAQRepository>();
+            services.AddSingleton<IFAQService, FAQService>();
+
+            services.AddTransient<FAQViewModel>();
 
             return services.BuildServiceProvider();
         }
