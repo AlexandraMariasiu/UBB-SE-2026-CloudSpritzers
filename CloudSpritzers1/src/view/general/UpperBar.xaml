@@ -73,6 +73,15 @@
                     <TextBlock Text="Reviews" VerticalAlignment="Center" Foreground="{ThemeResource PrimaryTextBrush}"/>
                 </StackPanel>
             </Button>
+
+            <Button Style="{StaticResource TextBlockButtonStyle}" 
+        Foreground="{ThemeResource PrimaryTextBrush}" 
+        Click="NavigateToWelcomePage">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <FontIcon Glyph="&#xE80F;" FontSize="16" Foreground="{ThemeResource PrimaryBrush}"/>
+                    <TextBlock Text="Home" VerticalAlignment="Center" Foreground="{ThemeResource PrimaryTextBrush}"/>
+                </StackPanel>
+            </Button>
         </StackPanel>
 
         <Button Grid.Column="4" 

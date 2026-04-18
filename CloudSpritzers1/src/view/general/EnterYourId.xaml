@@ -85,5 +85,17 @@
                 </Border>
             </Grid>
         </Grid>
+        <Button x:Name="BackButton"
+        Click="BackButton_Click"
+        Margin="24"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Bottom"
+        Background="Transparent"
+        BorderThickness="0">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <FontIcon Glyph="&#xE72B;" FontSize="16" Foreground="White"/>
+                <TextBlock Text="Back to Welcome" Foreground="White" FontWeight="SemiBold"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Page>
