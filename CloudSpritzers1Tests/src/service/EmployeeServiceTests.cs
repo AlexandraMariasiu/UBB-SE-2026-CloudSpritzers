@@ -68,7 +68,7 @@ namespace CloudSpritzers1Tests.src.service
 
             var ex = Assert.ThrowsExactly<ArgumentException>(() =>
                 _employeeService.ValidateEmployeeIntegrity(invalidEmployee));
-            StringAssert.Contains("Name", ex.Message); 
+            StringAssert.Contains("Name cannot be null or empty", ex.Message); 
         }
 
         [TestMethod()]
@@ -100,7 +100,7 @@ namespace CloudSpritzers1Tests.src.service
             var ex = Assert.ThrowsExactly<ArgumentException>(() =>
                 _employeeService.ValidateEmployeeIntegrity(existingEmployee));
 
-            StringAssert.Contains("already exists", ex.Message); 
+            StringAssert.Contains("Employee already exists", ex.Message); 
         }
 
         [TestMethod()]

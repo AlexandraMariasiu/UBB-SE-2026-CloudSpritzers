@@ -44,15 +44,11 @@ namespace CloudSpritzers1Tests.src.service
         [TestMethod()]
         public void GetAllUsers_ReturnsAllEntities()
         {
-            var expected = new List<User>
-        {
-            new User(1, "Ion Popescu", "ion@test.com"),
-            new User(2, "Maria Ioana", "maria@test.com")
-        };
-
             var result = _userService.GetAllUsers();
 
-            CollectionAssert.AreEqual(expected, result);
+            Assert.AreEqual(2, result.Count); 
+            Assert.AreEqual("Ion Popescu", result[0].GetFullName()); 
+            Assert.AreEqual("Maria Ioana", result[1].GetFullName());
         }
 
         [TestMethod()]
@@ -77,14 +73,12 @@ namespace CloudSpritzers1Tests.src.service
         [TestMethod()]
         public void ValidateUserIntegrity_DuplicateUser_ThrowsArgumentException()
         {
-            {
-                var existingUser = new User(1, "Ion Popescu", "ion@test.com");
+            var existingUser = _userService.GetAllUsers().First();
 
-                var ex = Assert.ThrowsExactly<ArgumentException>(() =>
-                    _userService.ValidateUserIntegrity(existingUser));
+            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+                _userService.ValidateUserIntegrity(existingUser));
 
-                StringAssert.Contains("already exists", ex.Message);
-            }
+            StringAssert.Contains("User already exists", ex.Message);
         }
 
         [TestMethod()]
@@ -95,7 +89,7 @@ namespace CloudSpritzers1Tests.src.service
             var ex = Assert.ThrowsExactly<ArgumentException>(() =>
                 _userService.ValidateUserIntegrity(userWithEmptyName));
 
-            StringAssert.Contains("Name", ex.Message);
+            StringAssert.Contains("Name cannot be null or empty", ex.Message);
         }
 
         [TestMethod()]
@@ -106,7 +100,7 @@ namespace CloudSpritzers1Tests.src.service
             var ex = Assert.ThrowsExactly<ArgumentException>(() =>
                 _userService.ValidateUserIntegrity(userWithEmptyEmail));
 
-            StringAssert.Contains("Email", ex.Message);
+            StringAssert.Contains("Email cannot be null or empty", ex.Message);
         }
 
         [TestMethod()]

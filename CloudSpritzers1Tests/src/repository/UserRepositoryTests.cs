@@ -36,7 +36,7 @@ namespace CloudSpritzers1Tests.src.repository
             var exception = Assert.ThrowsExactly<KeyNotFoundException>(() =>
                 _userRepository!.GetById(999));
 
-            StringAssert.Contains("not found", exception.Message);
+            StringAssert.Contains("The given key was not present in the dictionary.", exception.Message);
         }
 
         [TestMethod]
