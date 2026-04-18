@@ -55,6 +55,11 @@ namespace CloudSpritzers1.src.view.general
                     }
                 }
             }
+            else
+            {
+                // This block executes if int.TryParse returns false (input is not a valid integer)
+                showError("Please enter a valid numeric ID.", "FORMAT ERROR");
+            }
         }
 
         /// <summary>
