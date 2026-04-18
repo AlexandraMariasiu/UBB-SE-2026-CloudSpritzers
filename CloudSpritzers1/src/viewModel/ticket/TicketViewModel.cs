@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using CloudSpritzers1.src.service.interfaces;
 using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model.ticket;
 using CloudSpritzers1.src.service;
@@ -35,12 +35,12 @@ namespace CloudSpritzers1.src.viewModel
 
         private readonly TicketCategoryService _categoryService;
         private readonly TicketSubcategoryService _subcategoryService;
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
         public ObservableCollection<TicketCategory> Categories { get; } = new();
         public ObservableCollection<TicketSubcategory> Subcategories { get; } = new();
 
        
-        public TicketsViewModel(TicketService ticketService, TicketCategoryService categoryService, TicketSubcategoryService subcategoryService, UserService userService, IMapper mapper)
+        public TicketsViewModel(TicketService ticketService, TicketCategoryService categoryService, TicketSubcategoryService subcategoryService, IUserService userService, IMapper mapper)
         {
             _ticketService = ticketService;
             _categoryService = categoryService;

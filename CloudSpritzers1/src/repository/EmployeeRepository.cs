@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CloudSpritzers1.src.repository
 {
-    public class EmployeeRepository : DBRepository<int, Employee>, IRepository<int, Employee>
+    public class EmployeeRepository : DBRepository<int, Employee>, IRepository<int, Employee>, IEmployeeRepository
     {
         public int Add(Employee employeeEntity)
         {
@@ -32,13 +32,13 @@ namespace CloudSpritzers1.src.repository
             return identificationNumber;
         }
 
-        public void DeleteById(int id)
+        public void DeleteById(int identificationNumber)
         {
             string deleteQuery = "DELETE FROM Employee WHERE employee_id = @id";
             SqlCommand sqlCommand = new SqlCommand(deleteQuery);
-            sqlCommand.Parameters.AddWithValue("@id", id);
+            sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
 
-            base.DeleteById(id, sqlCommand);
+            base.DeleteById(identificationNumber, sqlCommand);
         }
 
         public IEnumerable<Employee> GetAll()

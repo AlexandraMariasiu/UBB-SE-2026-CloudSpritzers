@@ -38,6 +38,11 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using CloudSpritzers1.src.viewModel.general;
+using CloudSpritzers1.src.viewModel;
+using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.src.service.interfaces;
+
 
 namespace CloudSpritzers1
 {
@@ -61,12 +66,12 @@ namespace CloudSpritzers1
                 return;
             if (isEmployee)
             {
-                Employee = Services.GetService<EmployeeService>().GetEmployeeById(userId);
+                Employee = Services.GetService<IEmployeeService>().GetEmployeeById(userId);
                 return;
             }
             else
             {
-                User = Services.GetService<UserService>().GetById(userId);
+                User = Services.GetService<IUserService>().GetById(userId);
             }
         }
 
@@ -98,11 +103,11 @@ namespace CloudSpritzers1
             services.AddSingleton<ReviewRepository>();
             services.AddSingleton<ReviewService>();
 
-            services.AddSingleton<EmployeeRepository>();
-            services.AddSingleton<EmployeeService>();
+            services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
+            services.AddSingleton<IEmployeeService, EmployeeService>();
 
-            services.AddSingleton<UserRepository>();
-            services.AddSingleton<UserService>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IUserService, UserService>();
 
             services.AddTransient<LandingViewModel>();
             services.AddTransient<AllReviewsViewModel>();

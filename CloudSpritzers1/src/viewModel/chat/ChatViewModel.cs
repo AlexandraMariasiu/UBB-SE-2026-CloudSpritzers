@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudSpritzers1.src.service.interfaces;
 
 namespace CloudSpritzers1.src.viewModel.chat
 {
@@ -24,14 +25,14 @@ namespace CloudSpritzers1.src.viewModel.chat
 
         private MessageService _messageService;
         private ChatService _chatService;
-        private UserService _userService;
+        private IUserService _userService;
         private IMapper _mapper;
         private Chat _chat;
         private User _user;
         private const int _FIRST_OPTION = 1;
 
 
-        public ChatViewModel(MessageService msgService,ChatService chatService, IMapper mapper, UserService userService) {
+        public ChatViewModel(MessageService msgService,ChatService chatService, IMapper mapper, IUserService userService) {
             _messageService = msgService;
             _chatService = chatService;
             _mapper = mapper;

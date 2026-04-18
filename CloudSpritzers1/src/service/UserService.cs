@@ -1,18 +1,20 @@
 ﻿using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.service.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudSpritzers1.src.repository.interfaces;
 
 namespace CloudSpritzers1.src.service
 {
-    public class UserService
+    public class UserService: IUserService
     {
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(UserRepository userRepository)
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
