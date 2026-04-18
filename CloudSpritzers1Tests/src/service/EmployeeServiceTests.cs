@@ -140,10 +140,8 @@ namespace CloudSpritzers1Tests.src.service
         [TestMethod()]
         public void ValidateEmployeeIntegrity_EmptyEmail_ThrowsArgumentException()
         {
-            // Arrange
             var employeeWithEmptyEmail = new Employee(1, "Name", "", EmployeeDepartment.ADMIN);
 
-            // Act & Assert
             var ex = Assert.ThrowsExactly<ArgumentException>(() =>
                 _employeeService.ValidateEmployeeIntegrity(employeeWithEmptyEmail));
 
