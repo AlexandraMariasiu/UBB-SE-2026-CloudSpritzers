@@ -87,7 +87,7 @@ namespace CloudSpritzers1.src.viewModel.faq
             }
         }
 
-        public FAQViewModel(FAQService faqService, IMapper mapper, bool isAdmin = false)
+        public FAQViewModel(IFAQService faqService, IMapper mapper, bool isAdmin = false)
         {
             _faqService = faqService;
             _mapper = mapper;
@@ -116,7 +116,8 @@ namespace CloudSpritzers1.src.viewModel.faq
 
         public void ApplyFilters()
         {
-            var result = _faqService.FilterFAQEntry(SelectedCategory, SearchQuery).AsEnumerable().Select(entry => _mapper.Map<FAQEntryDTO>(entry));
+            var entries=_faqService.FilterFAQEntry(SelectedCategory, SearchQuery);
+            var result =entries.AsEnumerable().Select(entry => _mapper.Map<FAQEntryDTO>(entry));
 
             FilteredFAQs.Clear();
             foreach (var faq in result)
@@ -130,10 +131,10 @@ namespace CloudSpritzers1.src.viewModel.faq
             SelectedCategory = category;
         }
 
-        public void Search()
-        {
-            ApplyFilters();
-        }
+        //public void Search()
+        //{
+        //    ApplyFilters();
+        //}
 
         public void AddFAQEntry(FAQEntryDTO faqDto)
         {

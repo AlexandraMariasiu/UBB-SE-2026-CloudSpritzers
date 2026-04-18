@@ -39,7 +39,5 @@ public class BooleanToGlyphConverterTests
     {
         
          Assert.ThrowsExactly<NotImplementedException>(() => _converter.ConvertBack("\uE70D", typeof(bool), null, null));
-        
-
     }
 }

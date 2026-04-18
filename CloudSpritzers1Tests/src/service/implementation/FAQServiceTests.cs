@@ -9,6 +9,7 @@ using NSubstitute;
 using CloudSpritzers1.src.repository.interfaces;
 using CloudSpritzers1.src.model.faq;
 using CloudSpritzers1.src.service.interfaces;
+using CloudSpritzers1.src.dto;
 namespace CloudSpritzers1.src.service.implementation.Tests
 {
     [TestClass()]
@@ -31,13 +32,6 @@ namespace CloudSpritzers1.src.service.implementation.Tests
             _faqRepo.GetAll().Returns(faqList);
         }
 
-        //[TestMethod()]
-        //public void FAQServiceTest()
-        //{
-
-            
-        //}
-
         [TestMethod()]
         public void GetAllTest()
         {
@@ -48,8 +42,11 @@ namespace CloudSpritzers1.src.service.implementation.Tests
                 new FAQEntry(3, "Can I bring my dog on the plane?", "Only if you buy a plane ticket for him also", FAQCategoryEnum.Baggage, 123, 34, 2),
             };
 
+            var wrongResult = new FAQEntry(2, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
+
             var result = _faqService.GetAll();
             CollectionAssert.AreEqual(expected,result);
+            Assert.AreNotEqual(expected[0], wrongResult);
         }
 
         [TestMethod()]
@@ -142,6 +139,21 @@ namespace CloudSpritzers1.src.service.implementation.Tests
             _faqRepo.GetByCategory(FAQCategoryEnum.Parking).Returns(expected);
             
             var result = _faqService.FilterFAQEntry(FAQCatgoryToFilterBy, SearchQueryToFilterBy);
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [TestMethod()]
+        public void NoSearchMatchFAQEntryTest()
+        {
+            var FAQCatgoryToFilterBy = FAQCategoryEnum.All;
+            var SearchQueryToFilterBy = "water";
+
+            var expected = new List<FAQEntry>();
+
+            _faqRepo.GetByCategory(FAQCatgoryToFilterBy).Returns(expected);
+
+            var result = _faqService.FilterFAQEntry(FAQCatgoryToFilterBy, SearchQueryToFilterBy);
+            Assert.AreEqual(0, result.Count());
             CollectionAssert.AreEqual(expected, result);
         }
     }
