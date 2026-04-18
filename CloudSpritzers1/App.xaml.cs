@@ -52,18 +52,32 @@ namespace CloudSpritzers1
             InitializeComponent();
         }
 
-        public void SetUser(int userId)
+        /// <summary>
+        /// Attempts to find and set the active user or employee.
+        /// Returns true if the ID was found; otherwise, false.
+        /// </summary>
+        // Updated SetUser in App.xaml.cs
+        public bool SetUser(int userId)
         {
-            if (User != null || Employee != null)
-                return;
-            if (isEmployee)
+            User = null;
+            Employee = null;
+
+            try
             {
-                Employee = Services.GetService<IEmployeeService>().GetEmployeeById(userId);
-                return;
+                if (isEmployee)
+                {
+                    Employee = Services.GetService<IEmployeeService>().GetEmployeeById(userId);
+                    return Employee != null;
+                }
+                else
+                {
+                    User = Services.GetService<IUserService>().GetById(userId);
+                    return User != null;
+                }
             }
-            else
+            catch (KeyNotFoundException)
             {
-                User = Services.GetService<IUserService>().GetById(userId);
+                return false; // Safely return false so the UI shows the error
             }
         }
 
