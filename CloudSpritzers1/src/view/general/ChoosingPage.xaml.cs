@@ -26,14 +26,25 @@ namespace CloudSpritzers1.src.view.general
             InitializeComponent();
         }
 
-        private async void showError(string message, string title)
+        /// <summary>
+        /// Displays an error dialog with the specified message and title.
+        /// </summary>
+        /// <param name="message">The error message to display.</param>
+        /// <param name="title">The title of the error dialog.</param>
+        private async void DisplayErrorMessage(string message, string title)
         {
             var dialog1 = new MaiBoule(message, title);
             dialog1.XamlRoot = this.Content.XamlRoot;
             await dialog1.ShowAsync();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Handles the click event for user role selection buttons.
+        /// Sets the application's user role based on the button's Tag and navigates to the EnterYourId page.
+        /// </summary>
+        /// <param name="sender">The button that was clicked.</param>
+        /// <param name="e">Event data for the click event.</param>
+        private async void SelectUserRole_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
 
@@ -45,3 +56,5 @@ namespace CloudSpritzers1.src.view.general
         }
     }
 }
+
+

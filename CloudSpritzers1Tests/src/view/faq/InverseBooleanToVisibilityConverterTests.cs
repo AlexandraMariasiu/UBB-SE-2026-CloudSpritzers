@@ -14,21 +14,21 @@ public class InverseBooleanToVisibilityConverterTests
     }
 
     [TestMethod]
-    public void ConvertFalseToVisible()
+    public void Convert_FalseToVisible_Succeeds()
     {
         var result = _converter.Convert(false, typeof(Visibility), null, null);
         Assert.AreEqual(Visibility.Visible, result);
     }
 
     [TestMethod]
-    public void ConvertTrueToCollapsed()
+    public void Convert_TrueToCollapsede_Succeeds()
     {
         var result = _converter.Convert(true, typeof(Visibility), null, null);
         Assert.AreEqual(Visibility.Collapsed, result);
     }
 
     [TestMethod()]
-    public void ConvertBackTest()
+    public void ConvertBack_ThrowsNotImplementedException()
     {
         Assert.ThrowsExactly<NotImplementedException>(() => _converter.ConvertBack(Visibility.Collapsed, typeof(bool), null, null));
     }

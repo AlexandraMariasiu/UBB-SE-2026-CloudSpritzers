@@ -18,7 +18,7 @@ public class FAQEntryMappingProfileTests
     }
     
     [TestMethod]
-    public void MapFromEntryToDTO()
+    public void MapFromEntryToDTO_MapsCorrectly()
     {
         var FAQEntry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
         var expectedFAQDto = new FAQEntryDTO(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
@@ -33,7 +33,7 @@ public class FAQEntryMappingProfileTests
     }
 
     [TestMethod]
-    public void MapFromDtoToEntry()
+    public void MapFromDtoToEntry_MapsCorrectly()
     {
         var FAQDto = new FAQEntryDTO(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
         var expectedFAQEntry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);

@@ -15,28 +15,28 @@ public class BooleanToVisibilityConverterTests
     }
 
     [TestMethod]
-    public void ConvertTrueToVisible()
+    public void Convert_TrueToVisible_Succeeds()
     {
         var result = _converter.Convert(true, typeof(Visibility), null, null);
         Assert.AreEqual(Visibility.Visible, result);
     }
 
     [TestMethod]
-    public void ConvertFalseToCollapsed()
+    public void Convert_FalseToCollapsed_Succeeds()
     {
         var result = _converter.Convert(false, typeof(Visibility), null, null);
         Assert.AreEqual(Visibility.Collapsed, result);
     }
 
     [TestMethod]
-    public void ConvertBackVisibleToTrue()
+    public void ConvertBack_VisibleToTrue_Succeeds()
     {
         var result = _converter.ConvertBack(Visibility.Visible, typeof(bool), null, null);
         Assert.AreEqual(true, result);
     }
 
     [TestMethod]
-    public void ConvertBackCollapsedToFalse()
+    public void ConvertBack_CollapsedToFalse_Succeeds()
     {
         var result = _converter.ConvertBack(Visibility.Collapsed, typeof(bool), null, null);
         Assert.AreEqual(false, result);

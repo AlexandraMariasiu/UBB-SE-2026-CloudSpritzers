@@ -33,7 +33,7 @@ namespace CloudSpritzers1.src.service.implementation.Tests
         }
 
         [TestMethod()]
-        public void GetAllTest()
+        public void GetAll_ReturnsAllEntities()
         {
             var expected= new List<FAQEntry>
             {
@@ -50,7 +50,7 @@ namespace CloudSpritzers1.src.service.implementation.Tests
         }
 
         [TestMethod()]
-        public void GetByCategoryTest()
+        public void GetByCategory_WithCategoryBaggage_ReturnsAllEntitiesWithCategoryBaggage()
         {
             var categoryToTest = FAQCategoryEnum.Baggage;
             var expected= new List<FAQEntry>
@@ -64,7 +64,7 @@ namespace CloudSpritzers1.src.service.implementation.Tests
         }
 
         [TestMethod()]
-        public void AddFAQEntryTest()
+        public void AddFAQEntry_WithValidEntity_ReturnsAddedId()
         {
             var newFAQEntryToAdd = new FAQEntry(4, "How much can the baggage on the plane be?", "10kg", FAQCategoryEnum.Baggage, 231, 48, 23);
             _faqRepo.Add(newFAQEntryToAdd).Returns(4);
@@ -75,16 +75,27 @@ namespace CloudSpritzers1.src.service.implementation.Tests
         }
 
         [TestMethod()]
-        public void EditFAQEntryTest()
+        public void EditFAQEntry_CallsRepository()
         {
             var FAQEntryToEdit = new FAQEntry(1, "What cars can I park here?", "Only BMWs", FAQCategoryEnum.Parking, 432, 43, 10);
+
+            var updatedFaqList = new List<FAQEntry>
+            {
+                FAQEntryToEdit,
+                new FAQEntry(2, "How much does parking cost per day?", "100 euros", FAQCategoryEnum.Parking, 200, 3, 1),
+                new FAQEntry(3, "Can I bring my dog on the plane?", "Only if you buy a plane ticket for him also", FAQCategoryEnum.Baggage, 123, 34, 2),
+            };
+            _faqRepo.GetAll().Returns(updatedFaqList);
+
             _faqService.EditFAQEntry(FAQEntryToEdit, 1);
+            var updatedEntity = _faqService.GetAll()[0];
 
             _faqRepo.Received(1).UpdateById(1, FAQEntryToEdit);
+            Assert.AreEqual(updatedEntity, FAQEntryToEdit);
         }
 
         [TestMethod()]
-        public void DeleteFAQEntryTest()
+        public void DeleteFAQEntry_CallsRepository()
         {
             var FAQIdToDelete = 4;
             var newFAQEntryToAdd = new FAQEntry(FAQIdToDelete, "How much can the baggage on the plane be?", "10kg", FAQCategoryEnum.Baggage, 231, 48, 23);
@@ -96,7 +107,7 @@ namespace CloudSpritzers1.src.service.implementation.Tests
         }
 
         [TestMethod()]
-        public void IncrementViewCountTest()
+        public void IncrementViewCount_CallsRepository()
         {
             var FAQEntryToIncrementViewCount = _faqRepo.GetAll().First();
 
@@ -106,7 +117,7 @@ namespace CloudSpritzers1.src.service.implementation.Tests
         }
 
         [TestMethod()]
-        public void IncrementWasHelpfulVotesTest()
+        public void IncrementWasHelpfulVotes_CallsRepository()
         {
             var FAQEntryToIncrementHelpfulVotesCount = _faqRepo.GetAll().First();
 
@@ -116,7 +127,7 @@ namespace CloudSpritzers1.src.service.implementation.Tests
         }
 
         [TestMethod()]
-        public void IncrementWasNotHelpfulVotesTest()
+        public void IncrementWasNotHelpfulVotes_CallsRepository()
         {
             var FAQEntryToIncrementNotHelpfulVotesCount = _faqRepo.GetAll().First();
 
@@ -126,7 +137,7 @@ namespace CloudSpritzers1.src.service.implementation.Tests
         }
 
         [TestMethod()]
-        public void FilterFAQEntryTest()
+        public void FilterFAQEntry_WithCategoryAndSearch_ReturnsFilteredEntities()
         {
             var FAQCatgoryToFilterBy = FAQCategoryEnum.Parking;
             var SearchQueryToFilterBy = "cars";
@@ -143,7 +154,7 @@ namespace CloudSpritzers1.src.service.implementation.Tests
         }
 
         [TestMethod()]
-        public void NoSearchMatchFAQEntryTest()
+        public void SearchMatchEntry_WithNoMatchingString_ReturnsEmptyList()
         {
             var FAQCatgoryToFilterBy = FAQCategoryEnum.All;
             var SearchQueryToFilterBy = "water";

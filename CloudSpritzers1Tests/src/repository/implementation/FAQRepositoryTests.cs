@@ -40,7 +40,7 @@ namespace CloudSpritzers1.src.repository.implementations.Tests
         }
 
         [TestMethod()]
-        public void GetByIdSucceeds()
+        public void GetById_WithExistingId_Succeeds()
         {
             var entry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
             _faqRepository.Add(entry);
@@ -52,13 +52,13 @@ namespace CloudSpritzers1.src.repository.implementations.Tests
         }
 
         [TestMethod()]
-        public void GetByIdThrowsKeyNotFoundException()
+        public void GetById_WithoutExistingId_ThrowsKeyNotFoundException()
         {
             Assert.ThrowsExactly<KeyNotFoundException>(() => _faqRepository.GetById(1));
         }
 
         [TestMethod()]
-        public void AddFaqSucceeds()
+        public void AddFaq_WithValidEntity_Succeeds()
         {
             var entry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
 
@@ -67,7 +67,7 @@ namespace CloudSpritzers1.src.repository.implementations.Tests
         }
 
         [TestMethod()]
-        public void AddFaqThrowsArgumentException()
+        public void AddFaq_WithDuplicateEntity_ThrowsArgumentException()
         {
             var firstEntry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
             var secondEntry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
@@ -78,7 +78,7 @@ namespace CloudSpritzers1.src.repository.implementations.Tests
         }
 
         [TestMethod()]
-        public void UpdateByIdSucceeds()
+        public void UpdateById_WithExistingId_Succeeds()
         {
             var entry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
             _faqRepository.Add(entry);
@@ -91,7 +91,7 @@ namespace CloudSpritzers1.src.repository.implementations.Tests
         }
 
         [TestMethod()]
-        public void UpdateFaqThrowsKeyNotFoundException()
+        public void UpdateFaq_WithoutExistingId_ThrowsKeyNotFoundException()
         {
             var firstEntry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
             var updatedEntry = new FAQEntry(2, "What cars can I park here?", "Only BMWS", FAQCategoryEnum.Parking, 1, 1, 0);
@@ -102,7 +102,7 @@ namespace CloudSpritzers1.src.repository.implementations.Tests
         }
 
         [TestMethod()]
-        public void DeleteByIdSucceeds()
+        public void DeleteById_WithExistingId_Succeeds()
         {
             var entry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
             _faqRepository.Add(entry);
@@ -115,7 +115,7 @@ namespace CloudSpritzers1.src.repository.implementations.Tests
         }
 
         [TestMethod()]
-        public void DeleteFaqThrowsKeyNotFoundException()
+        public void DeleteFaq_WithoutExistingId_ThrowsKeyNotFoundException()
         {
             var firstEntry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
             _faqRepository.Add(firstEntry);
@@ -125,7 +125,7 @@ namespace CloudSpritzers1.src.repository.implementations.Tests
         }
 
         [TestMethod()]
-        public void GetAllTest()
+        public void GetAll_ReturnsAllEntities()
         {
             var expected = new List<FAQEntry>();
             var result = _faqRepository.GetAll().ToList();
@@ -133,24 +133,23 @@ namespace CloudSpritzers1.src.repository.implementations.Tests
         }
 
         [TestMethod()]
-        public void GetByCategoryTest()
+        public void GetByCategory_WithCategoryParking_ReturnsCorrectEntities()
         {
             var expected= new List<FAQEntry>
             {
                 new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0),
                 new FAQEntry(2, "How much does parking cost per day?", "100 euros", FAQCategoryEnum.Parking, 200, 3, 1),
-                new FAQEntry(3, "Can I bring my dog on the plane?", "Only if you buy a plane ticket for him also", FAQCategoryEnum.Baggage, 123, 34, 2),
             };
             foreach (var e in expected)
                 _faqRepository.Add(e);
 
-            var result = _faqRepository.GetByCategory(FAQCategoryEnum.All);
+            var result = _faqRepository.GetByCategory(FAQCategoryEnum.Parking);
 
             CollectionAssert.AreEqual(expected, result);
         }
 
         [TestMethod()]
-        public void IncrementViewCountTest()
+        public void IncrementViewCount_WithExistingId_Succeeds()
         {
             var entry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
             _faqRepository.Add(entry);
@@ -163,7 +162,7 @@ namespace CloudSpritzers1.src.repository.implementations.Tests
         }
 
         [TestMethod()]
-        public void IncrementWasHelpfulVotesTest()
+        public void IncrementWasHelpfulVotes_WithExistingId_Succeeds()
         {
             var entry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
             _faqRepository.Add(entry);
@@ -176,7 +175,7 @@ namespace CloudSpritzers1.src.repository.implementations.Tests
         }
 
         [TestMethod()]
-        public void IncrementWasNotHelpfulVotesTest()
+        public void IncrementWasNotHelpfulVotes_WithExistingId_Succeeds()
         {
             var entry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
             _faqRepository.Add(entry);
@@ -186,6 +185,27 @@ namespace CloudSpritzers1.src.repository.implementations.Tests
             
             var result = _faqRepository.GetById(expected.Id);
             Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod()]
+        public void IncrementWasNotHelpfulVotes_WithoutExistingId_ThrowsKeyNotFoundException()
+        {
+            var entry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
+            Assert.ThrowsExactly<KeyNotFoundException>(() => _faqRepository.IncrementWasNotHelpfulVotes(entry.Id));
+        }
+
+        [TestMethod()]
+        public void IncrementWasHelpfulVotes_WithoutExistingId_ThrowsKeyNotFoundException()
+        {
+            var entry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
+            Assert.ThrowsExactly<KeyNotFoundException>(() => _faqRepository.IncrementWasHelpfulVotes(entry.Id));
+        }
+
+        [TestMethod()]
+        public void IncrementViewCount_WithoutExistingId_ThrowsKeyNotFoundException()
+        {
+            var entry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
+            Assert.ThrowsExactly<KeyNotFoundException>(() => _faqRepository.IncrementViewCount(entry.Id));
         }
     }
 }

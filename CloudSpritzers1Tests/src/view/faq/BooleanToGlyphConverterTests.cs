@@ -21,21 +21,21 @@ public class BooleanToGlyphConverterTests
     }
 
     [TestMethod()]
-    public void ConvertIsExpandedTest()
+    public void ConvertIsExpanded_ReturnsCorrespondingString()
     {
         var result = _converter.Convert(true, typeof(string), null, null);
         Assert.AreEqual("\uE70D", result);
     }
 
     [TestMethod()]
-    public void ConvertIsNotExpandedTest()
+    public void ConvertIsNotExpanded_ReturnsCorrespondingString()
     {
         var result = _converter.Convert(false, typeof(string), null, null);
         Assert.AreEqual("\uE76C", result);
     }
 
     [TestMethod()]
-    public void ConvertBackTest()
+    public void ConvertBackT_ThrowsNotImplementedException()
     {
         
          Assert.ThrowsExactly<NotImplementedException>(() => _converter.ConvertBack("\uE70D", typeof(bool), null, null));

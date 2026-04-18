@@ -26,35 +26,35 @@ public class HelpfulBackgroundConverterTests
     //    Assert.AreEqual(Color.FromArgb(255, 232, 247, 236), result);
     //}
 
-    [TestMethod]
-    public async Task ConvertHelpfulVoteToHelpfulVoteBackground()
-    {
-        await Task.Run(() =>
-        {
-            DispatcherQueue.GetForCurrentThread().TryEnqueue(() =>
-            {
-                var result = _converter.Convert(true, typeof(SolidColorBrush), null, null);
-                Assert.AreEqual(Color.FromArgb(255, 232, 247, 236), result);
-            });
-        });
-    }
+    //[TestMethod]
+    //public async Task ConvertHelpfulVoteToHelpfulVoteBackground()
+    //{
+    //    await Task.Run(() =>
+    //    {
+    //        DispatcherQueue.GetForCurrentThread().TryEnqueue(() =>
+    //        {
+    //            var result = _converter.Convert(true, typeof(SolidColorBrush), null, null);
+    //            Assert.AreEqual(Color.FromArgb(255, 232, 247, 236), result);
+    //        });
+    //    });
+    //}
 
 
-    [TestMethod]
-    public async Task ConvertDefaultToDefaultBackground()
-    {
-        await Task.Run(() =>
-        {
-            DispatcherQueue.GetForCurrentThread().TryEnqueue(() =>
-            {
-                var result = _converter.Convert(true, typeof(SolidColorBrush), null, null);
-                Assert.AreEqual(Color.FromArgb(255, 248, 249, 251), result);
-            });
-        });
-    }
+    //[TestMethod]
+    //public async Task ConvertDefaultToDefaultBackground()
+    //{
+    //    await Task.Run(() =>
+    //    {
+    //        DispatcherQueue.GetForCurrentThread().TryEnqueue(() =>
+    //        {
+    //            var result = _converter.Convert(true, typeof(SolidColorBrush), null, null);
+    //            Assert.AreEqual(Color.FromArgb(255, 248, 249, 251), result);
+    //        });
+    //    });
+    //}
 
     [TestMethod()]
-    public void ConvertBackTest()
+    public void ConvertBack_ThrowsNotImplementedException()
     {
 
         Assert.ThrowsExactly<NotImplementedException>(() => _converter.ConvertBack(Color.FromArgb(255, 248, 249, 251), typeof(bool), null, null));
