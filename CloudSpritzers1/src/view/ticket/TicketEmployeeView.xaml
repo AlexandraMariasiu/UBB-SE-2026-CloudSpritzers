@@ -143,7 +143,7 @@
                                                         <TextBlock Text="{Binding CategoryName, ConverterParameter='Category: {0}', Mode=OneWay}" FontSize="12" Foreground="{ThemeResource SecondaryTextBrush}"/>
                                                         <TextBlock Text="|" Foreground="{ThemeResource SecondaryTextBrush}"/>
                                                         <TextBlock Text= "{x:Bind SubcategoryName}" FontSize="12" Foreground="{ThemeResource SecondaryTextBrush}"/>
-                                                        <TextBlock Text="|" Foreground="{ThemeResource SecondaryTextBrush}"/>
+                                                         <TextBlock Text="|" Foreground="{ThemeResource SecondaryTextBrush}"/>
                                                         <TextBlock Text= "{x:Bind CreatedAt}" FontSize="12" Foreground="{ThemeResource SecondaryTextBrush}"/>
                                                         <TextBlock Text="|" Foreground="{ThemeResource SecondaryTextBrush}"/>
                                                         <TextBlock Text="{x:Bind UserEmail}" FontSize="12" Foreground="{ThemeResource SecondaryTextBrush}"/>
