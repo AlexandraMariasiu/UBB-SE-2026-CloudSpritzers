@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.src.repository;
 
 public class TicketCategoryRepository : DBRepository<int, TicketCategory>, ITicketCategoryRepository
 {
