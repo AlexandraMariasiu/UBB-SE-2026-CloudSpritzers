@@ -31,7 +31,7 @@ namespace CloudSpritzers1.src.model.ticket
             this.CurrentStatus = newStatus;
         }
 
-        public void ChangeUrgencyLevel(TicketUrgencyLevelEnum newUrgencyLevel)
+        public void UpdateUrgencyLevel(TicketUrgencyLevelEnum newUrgencyLevel)
         {
             this.UrgencyLevel = newUrgencyLevel;
         }

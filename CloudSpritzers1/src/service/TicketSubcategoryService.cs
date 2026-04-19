@@ -8,25 +8,24 @@ using System.Threading.Tasks;
 
 public class TicketSubcategoryService
 {
-    private readonly TicketSubcategoryRepository _subcategoryRepo;
+    private readonly TicketSubcategoryRepository _subcategoryRepository;
 
-    public TicketSubcategoryService(TicketSubcategoryRepository subcategoryRepo)
+    public TicketSubcategoryService(TicketSubcategoryRepository subcategoryRepository)
     {
-        _subcategoryRepo = subcategoryRepo;
+        _subcategoryRepository = subcategoryRepository;
     }
 
-    // Fetch all subcategories for a category
+
     public IEnumerable<TicketSubcategory> GetSubcategoriesByCategoryId(int categoryId)
     {
-        return _subcategoryRepo.GetByCategoryId(categoryId);
+        return _subcategoryRepository.GetByCategoryId(categoryId);
     }
-    // Optional: fetch a single subcategory by its own ID
     public TicketSubcategory GetSubcategoryById(int subcategoryId)
     {
-        return _subcategoryRepo.GetById(subcategoryId);
+        return _subcategoryRepository.GetById(subcategoryId);
     }
     //public IEnumerable<TicketCategory> GetAllSubcategories()
     //{
-    //    return _subcategoryRepo.GetAll();
+    //    return _subcategoryRepository.GetAll();
     //}
 }

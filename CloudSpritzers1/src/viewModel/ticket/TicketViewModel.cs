@@ -174,14 +174,14 @@ namespace CloudSpritzers1.src.viewModel
                 ticketDTO.UrgencyLevel
             );
 
-            _ticketService.AddTicket(ticket);
+            _ticketService.AddTicketToRepository(ticket);
             LoadTickets();
         }
         //public void CreateTicket(TicketDTO ticketDTO)
         //{
         //    var ticket = _mapper.Map<Ticket>(ticketDTO);
 
-        //    _ticketService.AddTicket(ticket);
+        //    _ticketService.AddTicketToRepository(ticket);
 
         //    LoadTickets();
         //}

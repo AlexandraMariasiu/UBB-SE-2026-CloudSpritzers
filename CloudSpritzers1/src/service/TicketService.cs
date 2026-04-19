@@ -16,27 +16,28 @@ namespace CloudSpritzers1.src.service
     {
         private readonly TicketRepository _ticketRepository;
 
-        public TicketService(TicketRepository repository)
+        public TicketService(TicketRepository ticketRepository)
         {
-            _ticketRepository = repository;
+            _ticketRepository = ticketRepository;
         }
 
-        public void CreateTicket(int ticketId, User user, TicketStatusEnum status, TicketCategory category, TicketSubcategory subcategory, string subject, string description, DateTime createdAt, TicketUrgencyLevelEnum? urgencyLevel = null)
+        public void CreateTicket(int ticketId, User ticketCreator, TicketStatusEnum initialStatus, TicketCategory category, TicketSubcategory subcategory, string subject, string description, DateTime creationTimestamp, TicketUrgencyLevelEnum? initialUrgencyLevel = null)
         {  
-            Ticket ticket = new Ticket(ticketId, user, status, category, subcategory, subject, description, createdAt, urgencyLevel);
-            ValidateTicket(ticket);
-            AddTicket(ticket);
+            Ticket newTicket = new Ticket(ticketId, ticketCreator, initialStatus, category, subcategory, subject, description, creationTimestamp, initialUrgencyLevel);
+
+            ValidateTicket(newTicket);
+            AddTicketToRepository(newTicket);
         }
 
-        public void AddTicket(Ticket ticket)
+        public void AddTicketToRepository(Ticket ticketEntity)
         {
-            _ticketRepository.Add(ticket);
+            _ticketRepository.Add(ticketEntity);
         }
-        public void DeleteTicket(int ticketId)
+        public void DeleteTicketById(int ticketId)
         {
             _ticketRepository.DeleteById(ticketId);
         }
-        public Ticket GetTicket(int ticketId)
+        public Ticket GetTicketById(int ticketId)
         {
             return _ticketRepository.GetById(ticketId);
         }
@@ -45,7 +46,7 @@ namespace CloudSpritzers1.src.service
         {
             return _ticketRepository.GetAll();
         }
-        public void UpdateById(int id, Ticket ticket)
+        public void UpdateTicketById(int id, Ticket ticket)
         {
             _ticketRepository.UpdateById(id, ticket);
         }
@@ -53,9 +54,9 @@ namespace CloudSpritzers1.src.service
         public void ValidateTicket(Ticket ticket)
         {
             if (ticket == null)
-                throw new ArgumentNullException("The ticket does not have any data.");
+                throw new ArgumentNullException("The newTicket does not have any data.");
             if (ticket.Creator == null)
-                throw new ArgumentNullException("The user does not have any data.");
+                throw new ArgumentNullException("The ticketCreator does not have any data.");
             if (ticket.Category == null)
                 throw new ArgumentNullException("Null Category.");
             if (ticket.Subcategory == null)
@@ -68,18 +69,18 @@ namespace CloudSpritzers1.src.service
                 throw new ArgumentNullException("The Description is empty.");
         }
 
-        public void UpdateUrgencyLevel(int ticketId, TicketUrgencyLevelEnum urgencyLevel)
+        public void UpdateUrgencyLevel(int ticketId, TicketUrgencyLevelEnum newUrgencyLevel)
         {
-            Ticket elem = _ticketRepository.GetById(ticketId);
-            elem.ChangeUrgencyLevel(urgencyLevel);
-            _ticketRepository.UpdateById(ticketId, elem);
+            Ticket targetTicket = _ticketRepository.GetById(ticketId);
+            targetTicket.UpdateUrgencyLevel(newUrgencyLevel);
+            _ticketRepository.UpdateById(ticketId, targetTicket);
         }
 
-        public void UpdateStatus(int ticketId, TicketStatusEnum status)
+        public void UpdateStatus(int ticketId, TicketStatusEnum newStatus)
         {
-            Ticket elem = _ticketRepository.GetById(ticketId);
-            elem.UpdateStatus(status);
-            _ticketRepository.UpdateById(ticketId, elem);
+            Ticket targetTicket = _ticketRepository.GetById(ticketId);
+            targetTicket.UpdateStatus(newStatus);
+            _ticketRepository.UpdateById(ticketId, targetTicket);
         }
 
     }

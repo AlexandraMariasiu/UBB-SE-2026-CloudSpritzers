@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 public class TicketCategoryService
 {
-    private readonly TicketCategoryRepository _categoryRepo;
+    private readonly TicketCategoryRepository _categoryRepository;
 
-    public TicketCategoryService(TicketCategoryRepository categoryRepo)
+    public TicketCategoryService(TicketCategoryRepository categoryRepository)
     {
-        _categoryRepo = categoryRepo;
+        _categoryRepository = categoryRepository;
     }
 
     public TicketCategory GetCategoryById(int categoryId)
     {
-        return _categoryRepo.GetById(categoryId); 
+        return _categoryRepository.GetById(categoryId); 
     }
     public IEnumerable<TicketCategory> GetAllCategories()
     {
-        return _categoryRepo.GetAll();
+        return _categoryRepository.GetAll();
     }
 }
