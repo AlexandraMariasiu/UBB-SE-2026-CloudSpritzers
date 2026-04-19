@@ -38,7 +38,7 @@ namespace CloudSpritzers1.src.repository
 
         }
 
-        public int CreateReview(Ticket elem)
+        public int CreateReview(Ticket ticketEntity)
         {
             if (ticketEntity == null)
                 throw new ArgumentNullException(nameof(ticketEntity), "Ticket can't be null.");
