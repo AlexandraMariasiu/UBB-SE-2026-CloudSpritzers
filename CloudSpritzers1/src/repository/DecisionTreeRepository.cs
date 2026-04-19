@@ -74,7 +74,7 @@ namespace CloudSpritzers1.src.repository
             return node with { Options = options };
         }
 
-        public int CreateReview(FAQNode elem)
+        public int CreateNewEntity(FAQNode elem)
         {
             using var addSqlCommand = new SqlCommand(@"
                 INSERT INTO FAQNode (question_text, is_final_answer)

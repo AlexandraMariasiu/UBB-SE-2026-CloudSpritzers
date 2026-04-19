@@ -26,7 +26,7 @@ namespace CloudSpritzers1.src.service
 
         public int AddEmployee(Employee employeeEntity)
         {
-            return _employeeRepository.CreateReview(employeeEntity);
+            return _employeeRepository.CreateNewEntity(employeeEntity);
         }
 
         public void UpdateEmployeeById(int identificationNumber, Employee employeeEntity)

@@ -136,13 +136,13 @@ namespace CloudSpritzers1
             
             services.AddTransient<UpperBarViewModel>();
             
-            services.AddSingleton<TicketRepository>();
-            services.AddSingleton<TicketCategoryRepository>();
-            services.AddSingleton<TicketSubcategoryRepository>();
+            services.AddSingleton<ITicketRepository,TicketRepository>();
+            services.AddSingleton<ITicketCategoryRepository, TicketCategoryRepository>();
+            services.AddSingleton<ITicketSubcategoryRepository, TicketSubcategoryRepository>();
 
-            services.AddSingleton<TicketService>();
-            services.AddSingleton<TicketCategoryService>();
-            services.AddSingleton<TicketSubcategoryService>();
+            services.AddSingleton<ITicketService, TicketService>();
+            services.AddSingleton<ITicketCategoryService,TicketCategoryService>();
+            services.AddSingleton<ITicketSubcategoryService, TicketSubcategoryService>();
 
             services.AddTransient<TicketsViewModel>();
 

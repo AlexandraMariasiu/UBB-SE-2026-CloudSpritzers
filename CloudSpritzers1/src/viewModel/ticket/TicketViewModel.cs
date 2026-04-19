@@ -23,10 +23,10 @@ namespace CloudSpritzers1.src.viewModel
 {
     public class TicketsViewModel
     {
-        private readonly TicketService _ticketService;
+        private readonly ITicketService _ticketService;
         private readonly IMapper _mapper;
-        private readonly TicketCategoryService _categoryService;
-        private readonly TicketSubcategoryService _subcategoryService;
+        private readonly ITicketCategoryService _categoryService;
+        private readonly ITicketSubcategoryService _subcategoryService;
         private readonly IUserService _userService;
 
         public ObservableCollection<TicketDTO> AllTickets { get; } = new();
@@ -40,7 +40,7 @@ namespace CloudSpritzers1.src.viewModel
         public ObservableCollection<TicketSubcategory> Subcategories { get; } = new();
 
        
-        public TicketsViewModel(TicketService ticketService, TicketCategoryService categoryService, TicketSubcategoryService subcategoryService, IUserService userService, IMapper mapper)
+        public TicketsViewModel(ITicketService ticketService, ITicketCategoryService categoryService, ITicketSubcategoryService subcategoryService, IUserService userService, IMapper mapper)
         {
             _ticketService = ticketService;
             _categoryService = categoryService;

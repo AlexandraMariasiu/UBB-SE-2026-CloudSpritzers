@@ -1,16 +1,18 @@
 ﻿using CloudSpritzers1.src.model.ticket;
 using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.src.service.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class TicketSubcategoryService
+public class TicketSubcategoryService : ITicketSubcategoryService
 {
-    private readonly TicketSubcategoryRepository _subcategoryRepository;
+    private readonly ITicketSubcategoryRepository _subcategoryRepository;
 
-    public TicketSubcategoryService(TicketSubcategoryRepository subcategoryRepository)
+    public TicketSubcategoryService(ITicketSubcategoryRepository subcategoryRepository)
     {
         _subcategoryRepository = subcategoryRepository;
     }

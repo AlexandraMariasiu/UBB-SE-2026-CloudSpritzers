@@ -24,7 +24,7 @@ namespace CloudSpritzers1.src.service
 
         public int Add(Review review)
         {
-            return _reviewRepository.CreateReview(review);
+            return _reviewRepository.CreateNewEntity(review);
         }
 
         public void UpdateById(int id, Review review)
