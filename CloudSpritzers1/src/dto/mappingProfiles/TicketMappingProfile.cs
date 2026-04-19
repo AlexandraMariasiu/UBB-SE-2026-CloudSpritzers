@@ -17,17 +17,17 @@ namespace CloudSpritzers1.src.dto.mappingProfiles
             CreateMap<Ticket, TicketDTO>()
                 .ConstructUsing(ticket => new TicketDTO(
                     ticket.TicketId,
-                    ticket.User.UserId,
-                    ticket.User.GetEmailAddress(),
+                    ticket.Creator.UserId,
+                    ticket.Creator.GetEmailAddress(),
                     ticket.UrgencyLevel,
-                    ticket.Status,
+                    ticket.CurrentStatus,
                     ticket.Category.CategoryId,
-                    ticket.Category.Name,
+                    ticket.Category.CategoryName,
                     ticket.Subcategory.SubcategoryId,
                     ticket.Subcategory.SubcategoryName,
                     ticket.Subject,
                     ticket.Description,
-                    ticket.CreatedAt
+                    ticket.CreationTimestamp
                     ));
         }
     }
