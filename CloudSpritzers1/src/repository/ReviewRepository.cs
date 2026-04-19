@@ -45,7 +45,7 @@ namespace CloudSpritzers1.src.repository
             return base.GetAll(command);
         }
 
-        public int CreateReview(Review reviewElement)
+        public int CreateNewEntity(Review reviewElement)
         {
             if (reviewElement == null)
                 throw new ArgumentNullException(nameof(reviewElement), "Review cannot be null.");

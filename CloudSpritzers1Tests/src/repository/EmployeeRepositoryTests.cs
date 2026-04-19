@@ -24,7 +24,7 @@ namespace CloudSpritzers1Tests.src.repository
         {
             var employee = new Employee(1, "John Doe", "john@test.com", EmployeeDepartment.ADMIN);
 
-            int id = _employeeRepository!.CreateReview(employee);
+            int id = _employeeRepository!.CreateNewEntity(employee);
 
             Assert.AreEqual(1, id);
         }
@@ -33,7 +33,7 @@ namespace CloudSpritzers1Tests.src.repository
         public void GetById_ExistingEmployee_ReturnsCorrectEmployee()
         {
             var employee = new Employee(1, "John Doe", "john@test.com", EmployeeDepartment.ADMIN);
-            _employeeRepository!.CreateReview(employee);
+            _employeeRepository!.CreateNewEntity(employee);
 
             var result = _employeeRepository.GetById(1);
 
@@ -51,14 +51,14 @@ namespace CloudSpritzers1Tests.src.repository
         public void Add_NullEmployee_ThrowsArgumentNullException()
         {
             Assert.ThrowsExactly<ArgumentNullException>(() =>
-                _employeeRepository!.CreateReview(null!));
+                _employeeRepository!.CreateNewEntity(null!));
         }
 
         [TestMethod()]
         public void DeleteById_ExistingId_Succeeds()
         {
             var employee = new Employee(1, "John Doe", "john@test.com", EmployeeDepartment.ADMIN);
-            _employeeRepository!.CreateReview(employee);
+            _employeeRepository!.CreateNewEntity(employee);
 
             _employeeRepository.DeleteById(1);
 
@@ -69,7 +69,7 @@ namespace CloudSpritzers1Tests.src.repository
         public void UpdateById_ExistingId_UpdatesDataCorrectly()
         {
             var employee = new Employee(1, "Old Name", "old@test.com", EmployeeDepartment.HR);
-            _employeeRepository!.CreateReview(employee);
+            _employeeRepository!.CreateNewEntity(employee);
 
             var updatedEmployee = new Employee(1, "New Name", "new@test.com", EmployeeDepartment.ADMIN);
 

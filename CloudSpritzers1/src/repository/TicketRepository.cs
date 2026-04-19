@@ -4,16 +4,17 @@ using System;
 using Microsoft.Data.SqlClient;
 using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.faq;
+using CloudSpritzers1.src.repository.interfaces;
 
 namespace CloudSpritzers1.src.repository
 {
-    public class TicketRepository : DBRepository<int, Ticket>, IRepository<int, Ticket>
+    public class TicketRepository : DBRepository<int, Ticket>, ITicketRepository
     {
 
-        private UserRepository _userRepository = new UserRepository();
+        private IUserRepository _userRepository = new UserRepository();
 
-        private TicketCategoryRepository _categoryRepository = new TicketCategoryRepository();
-        private TicketSubcategoryRepository _subcategoryRepository = new TicketSubcategoryRepository();
+        private ITicketCategoryRepository _categoryRepository = new TicketCategoryRepository();
+        private ITicketSubcategoryRepository _subcategoryRepository = new TicketSubcategoryRepository();
         public TicketRepository() { }
 
         public Ticket GetById(int id)
@@ -38,7 +39,7 @@ namespace CloudSpritzers1.src.repository
 
         }
 
-        public int CreateReview(Ticket ticketEntity)
+        public int CreateNewEntity(Ticket ticketEntity)
         {
             if (ticketEntity == null)
                 throw new ArgumentNullException(nameof(ticketEntity), "Ticket can't be null.");

@@ -10,7 +10,7 @@ namespace CloudSpritzers1Tests.src.mockClasses
     {
         private List<User> _users = new List<User>();
 
-        public int CreateReview(User userEntity)
+        public int CreateNewEntity(User userEntity)
         {
             if (userEntity == null) throw new ArgumentNullException();
             _users.Add(userEntity);

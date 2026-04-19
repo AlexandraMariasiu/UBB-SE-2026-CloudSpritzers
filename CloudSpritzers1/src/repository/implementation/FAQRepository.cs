@@ -25,7 +25,7 @@ namespace CloudSpritzers1.src.repository.implementations
             return faq;
         }
 
-    public int CreateReview(FAQEntry elem)
+    public int CreateNewEntity(FAQEntry elem)
     {
             if (elem == null)
                 throw new ArgumentNullException(nameof(elem), "FAQ entry cannot be null.");

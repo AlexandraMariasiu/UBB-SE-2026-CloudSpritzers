@@ -22,7 +22,7 @@ namespace CloudSpritzers1.src.service
             try
             {
                 Chat newChat = new Chat(0, userId, ChatStatus.Active);
-                int newId = Convert.ToInt32(_repository.CreateReview(newChat));
+                int newId = Convert.ToInt32(_repository.CreateNewEntity(newChat));
                 newChat.ChatId = newId;
                 return newChat;
 

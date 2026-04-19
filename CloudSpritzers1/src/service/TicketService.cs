@@ -2,6 +2,8 @@
 using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.ticket;
 using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.src.service.interfaces;
 using CloudSpritzers1.src.viewModel;
 using System;
 using System.Collections.Generic;
@@ -13,11 +15,11 @@ using User = CloudSpritzers1.src.model.User;
 
 namespace CloudSpritzers1.src.service
 {
-    public class TicketService
+    public class TicketService : ITicketService
     {
-        private readonly TicketRepository _ticketRepository;
+        private readonly ITicketRepository _ticketRepository;
 
-        public TicketService(TicketRepository ticketRepository)
+        public TicketService(ITicketRepository ticketRepository)
         {
             _ticketRepository = ticketRepository;
         }
@@ -32,7 +34,7 @@ namespace CloudSpritzers1.src.service
 
         public void AddTicket(Ticket ticketEntity)
         {
-            _ticketRepository.CreateReview(ticketEntity);
+            _ticketRepository.CreateNewEntity(ticketEntity);
         }
         public void DeleteTicketById(int ticketId)
         {
