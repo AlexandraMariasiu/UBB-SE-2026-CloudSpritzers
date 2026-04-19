@@ -2,6 +2,7 @@
 using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.ticket;
 using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.viewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +27,10 @@ namespace CloudSpritzers1.src.service
             Ticket newTicket = new Ticket(ticketId, ticketCreator, initialStatus, category, subcategory, subject, description, creationTimestamp, initialUrgencyLevel);
 
             ValidateTicket(newTicket);
-            AddTicketToRepository(newTicket);
+            AddTicket(newTicket);
         }
 
-        public void AddTicketToRepository(Ticket ticketEntity)
+        public void AddTicket(Ticket ticketEntity)
         {
             _ticketRepository.Add(ticketEntity);
         }
@@ -82,6 +83,24 @@ namespace CloudSpritzers1.src.service
             targetTicket.UpdateStatus(newStatus);
             _ticketRepository.UpdateById(ticketId, targetTicket);
         }
+
+        public IEnumerable<TicketDTO> FilterTicketsByStatus(IEnumerable<TicketDTO> tickets, TicketFilterStatusEnum filter)
+        {
+            switch (filter)
+            {
+                case TicketFilterStatusEnum.OPEN:
+                    return tickets.Where(IsStatusOpen);
+                case TicketFilterStatusEnum.IN_PROGRESS:
+                    return tickets.Where(IsStatusInProgress);
+                case TicketFilterStatusEnum.RESOLVED:
+                    return tickets.Where(IsStatusResolved);
+                default:
+                    return tickets;
+            }
+        }
+        private bool IsStatusOpen(TicketDTO ticket) => ticket.CurrentStatus == TicketStatusEnum.OPEN;
+        private bool IsStatusInProgress(TicketDTO ticket) => ticket.CurrentStatus == TicketStatusEnum.IN_PROGRESS;
+        private bool IsStatusResolved(TicketDTO ticket) => ticket.CurrentStatus == TicketStatusEnum.RESOLVED;
 
     }
 }

@@ -160,7 +160,7 @@ namespace CloudSpritzers1.src.view.ticket
 
                     // Create DTO
                     var newTicket = new TicketDTO(
-                        TicketId: ViewModel.NrTickets() + 1,
+                        TicketId: ViewModel.GetTotalTicketCount() + 1,
                         CreatorAccountId: 1,
                         CreatorEmailAddress: "email@email.com",
                         UrgencyLevel: TicketUrgencyLevelEnum.LOW,

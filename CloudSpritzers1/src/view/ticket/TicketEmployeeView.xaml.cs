@@ -42,7 +42,7 @@ namespace CloudSpritzers1.src.view.ticket
         {
             if (sender is Button btn && btn.Tag is int ticketId)
             {
-                var ticket = ViewModel.TicketsRead.FirstOrDefault(t => t.TicketId == ticketId);
+                var ticket = ViewModel.FilteredTicketsForDisplay.FirstOrDefault(t => t.TicketId == ticketId);
                 if (ticket == null) return;
 
                 var primaryButtonStyle = new Style(typeof(Button));

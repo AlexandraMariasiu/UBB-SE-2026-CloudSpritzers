@@ -120,7 +120,7 @@
                                 </Grid>
                             </Grid>
 
-                            <ItemsControl Grid.Row="1" x:Name="TicketList" ItemsSource="{x:Bind ViewModel.TicketsRead, Mode=OneWay}" Margin="0,24,0,0">
+                            <ItemsControl Grid.Row="1" x:Name="TicketList" ItemsSource="{x:Bind ViewModel.FilteredTicketsForDisplay, Mode=OneWay}" Margin="0,24,0,0">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate x:DataType="dto:TicketDTO">
                                         <Border Background="{ThemeResource CardBackgroundBrush}" 
