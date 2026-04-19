@@ -181,6 +181,7 @@ namespace CloudSpritzers1.src.viewModel
             Subcategories.Clear();
             foreach (var subcategoryEntity in _subcategoryService.GetSubcategoriesByCategoryId(categoryId))
                 Subcategories.Add(subcategoryEntity);
+
         }
     }
 
