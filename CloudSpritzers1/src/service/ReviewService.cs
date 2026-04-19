@@ -4,16 +4,15 @@ using CloudSpritzers1.src.repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CloudSpritzers1.src.service
 {
     public class ReviewService
     {
-        private readonly ReviewRepository _reviewRepository;
+        private readonly IRepository<int, Review> _reviewRepository;
 
-        public ReviewService(ReviewRepository reviewRepository)
+        public ReviewService(IRepository<int, Review> reviewRepository)
         {
             _reviewRepository = reviewRepository;
         }
@@ -25,7 +24,7 @@ namespace CloudSpritzers1.src.service
 
         public int Add(Review review)
         {
-            return _reviewRepository.Add(review);
+            return _reviewRepository.CreateReview(review);
         }
 
         public void UpdateById(int id, Review review)
@@ -67,7 +66,7 @@ namespace CloudSpritzers1.src.service
                 throw new ArgumentException("Staff Friendliness Rating must be between 1 and 5");
             if (review.GetCleanlinessRating() < 1 || review.GetCleanlinessRating() > 5)
                 throw new ArgumentException("Cleanliness Rating must be between 1 and 5");
-            // maybe more validation on the user
+           
 
         }
     }

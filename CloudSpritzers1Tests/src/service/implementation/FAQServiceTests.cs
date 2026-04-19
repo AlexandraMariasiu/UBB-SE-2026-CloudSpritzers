@@ -67,11 +67,11 @@ namespace CloudSpritzers1.src.service.implementation.Tests
         public void AddFAQEntry_WithValidEntity_ReturnsAddedId()
         {
             var newFAQEntryToAdd = new FAQEntry(4, "How much can the baggage on the plane be?", "10kg", FAQCategoryEnum.Baggage, 231, 48, 23);
-            _faqRepo.Add(newFAQEntryToAdd).Returns(4);
+            _faqRepo.CreateReview(newFAQEntryToAdd).Returns(4);
 
             _faqService.AddFAQEntry(newFAQEntryToAdd);
 
-            _faqRepo.Received(1).Add(newFAQEntryToAdd);
+            _faqRepo.Received(1).CreateReview(newFAQEntryToAdd);
         }
 
         [TestMethod()]
@@ -99,7 +99,7 @@ namespace CloudSpritzers1.src.service.implementation.Tests
         {
             var FAQIdToDelete = 4;
             var newFAQEntryToAdd = new FAQEntry(FAQIdToDelete, "How much can the baggage on the plane be?", "10kg", FAQCategoryEnum.Baggage, 231, 48, 23);
-            _faqRepo.Add(newFAQEntryToAdd).Returns(FAQIdToDelete);
+            _faqRepo.CreateReview(newFAQEntryToAdd).Returns(FAQIdToDelete);
 
             _faqService.DeleteFAQEntry(FAQIdToDelete);
 

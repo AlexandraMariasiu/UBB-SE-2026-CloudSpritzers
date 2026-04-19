@@ -30,7 +30,7 @@ namespace CloudSpritzers1.src.service.implementation
 
 		public void AddFAQEntry(FAQEntry newElem)
 		{
-			_faqRepository.Add(newElem);
+			_faqRepository.CreateReview(newElem);
 		}
 
 		public void EditFAQEntry(FAQEntry tempEntry, int faqEntryId)

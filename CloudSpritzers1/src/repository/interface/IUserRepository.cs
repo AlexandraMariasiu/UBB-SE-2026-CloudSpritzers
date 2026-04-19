@@ -5,7 +5,7 @@ namespace CloudSpritzers1.src.repository.interfaces
 {
     public interface IUserRepository
     {
-        int Add(User userEntity);
+        int CreateReview(User userEntity);
         void DeleteById(int identificationNumber);
         IEnumerable<User> GetAll();
         User GetById(int identificationNumber);

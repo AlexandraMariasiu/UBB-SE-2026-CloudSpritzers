@@ -445,5 +445,124 @@ namespace CloudSpritzers1.src.viewModel.faq
             Assert.AreEqual(expected.HelpfulVotesCount, actual.HelpfulVotesCount);
             Assert.AreEqual(expected.NotHelpfulVotesCount, actual.NotHelpfulVotesCount);
         }
+
+        [TestMethod]
+        public void IncrementViewCountFor_FaqNotFound_ReturnsWithoutCallingService()
+        {
+            var nonExistingId = 999;
+
+            _faqViewModel.IncrementViewCountFor(nonExistingId);
+
+            _faqService.DidNotReceive().IncrementViewCount(Arg.Any<FAQEntry>());
+        }
+
+        [TestMethod]
+        public void IncrementViewCountFor_FilteredFaqSameInstance_DoesNotDuplicateUpdate()
+        {
+            var faq = _faqViewModel.FAQs[0];
+
+            _faqViewModel.FilteredFAQs.Clear();
+            _faqViewModel.FilteredFAQs.Add(faq);
+
+            _faqViewModel.IncrementViewCountFor(faq.Id);
+
+            _faqService.Received(1).IncrementViewCount(Arg.Any<FAQEntry>());
+            Assert.AreEqual(2, faq.ViewCount);
+        }
+
+        [TestMethod]
+        public void ToggleFAQ_WhenCollapsing_SetsSelectedToNull()
+        {
+            var faq = _faqViewModel.FilteredFAQs[0];
+
+            _faqViewModel.ToggleFAQ(faq);
+            Assert.IsTrue(faq.IsExpanded);
+
+            _faqViewModel.ToggleFAQ(faq);
+
+            Assert.IsFalse(faq.IsExpanded);
+            Assert.IsNull(_faqViewModel.SelectedFAQEntry);
+        }
+
+        [TestMethod]
+        public void OnPropertyChanged_RaisesEvent()
+        {
+            bool eventRaised = false;
+
+            _faqViewModel.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(_faqViewModel.FAQs))
+                    eventRaised = true;
+            };
+
+            _faqViewModel.FAQs = new System.Collections.ObjectModel.ObservableCollection<FAQEntryDTO>();
+
+            Assert.IsTrue(eventRaised);
+        }
+
+        [TestMethod]
+        public void IncrementViewCountFor_RaisesPropertyChanged()
+        {
+            var faq = _faqViewModel.FAQs[0];
+            bool faqsChanged = false;
+            bool filteredChanged = false;
+
+            _faqViewModel.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(_faqViewModel.FAQs))
+                    faqsChanged = true;
+                if (e.PropertyName == nameof(_faqViewModel.FilteredFAQs))
+                    filteredChanged = true;
+            };
+
+            _faqViewModel.IncrementViewCountFor(faq.Id);
+
+            Assert.IsTrue(faqsChanged);
+            Assert.IsTrue(filteredChanged);
+        }
+
+        [TestMethod]
+        public void IncrementViewCountFor_FilteredFaqDifferentInstance_UpdatesBoth()
+        {
+            var faq = _faqViewModel.FAQs[0];
+
+            var separateInstance = new FAQEntryDTO(
+                faq.Id,
+                faq.Question,
+                faq.Answer,
+                faq.Category,
+                faq.ViewCount,
+                faq.HelpfulVotesCount,
+                faq.NotHelpfulVotesCount
+            );
+
+            _faqViewModel.FilteredFAQs.Clear();
+            _faqViewModel.FilteredFAQs.Add(separateInstance);
+
+            _faqViewModel.IncrementViewCountFor(faq.Id);
+
+            _faqService.Received(1).IncrementViewCount(Arg.Any<FAQEntry>());
+
+            Assert.AreEqual(faq.ViewCount, separateInstance.ViewCount);
+        }
+
+        [TestMethod]
+        public void FilteredFAQs_Setter_UpdatesValue_AndRaisesPropertyChanged()
+        {
+            bool eventRaised = false;
+
+            _faqViewModel.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(_faqViewModel.FilteredFAQs))
+                    eventRaised = true;
+            };
+
+            var newCollection = new System.Collections.ObjectModel.ObservableCollection<FAQEntryDTO>();
+
+            _faqViewModel.FilteredFAQs = newCollection;
+
+            Assert.AreEqual(newCollection, _faqViewModel.FilteredFAQs);
+            Assert.IsTrue(eventRaised);
+        }
     }
 }

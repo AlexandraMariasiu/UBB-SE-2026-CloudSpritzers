@@ -5,7 +5,7 @@ namespace CloudSpritzers1.src.repository
 {
     public interface IEmployeeRepository
     {
-        int Add(Employee employeeEntity);
+        int CreateReview(Employee employeeEntity);
         void DeleteById(int identificationNumber);
         IEnumerable<Employee> GetAll();
         Employee GetById(int identificationNumber);

@@ -42,6 +42,7 @@ using CloudSpritzers1.src.viewModel.general;
 using CloudSpritzers1.src.viewModel;
 using CloudSpritzers1.src.repository.interfaces;
 using CloudSpritzers1.src.service.interfaces;
+using CloudSpritzers1.src.model.review;
 
 
 namespace CloudSpritzers1
@@ -115,12 +116,17 @@ namespace CloudSpritzers1
             services.AddSingleton<ChatService>();
 
             services.AddSingleton<ReviewRepository>();
+            services.AddSingleton<IRepository<int, Review>>(provider => provider.GetRequiredService<ReviewRepository>());
             services.AddSingleton<ReviewService>();
 
             services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
             services.AddSingleton<IEmployeeService, EmployeeService>();
 
-            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<UserRepository>();
+            services.AddSingleton<IUserRepository>(provider => provider.GetRequiredService<UserRepository>());
+            services.AddSingleton<IRepository<int, User>>(provider => provider.GetRequiredService<UserRepository>());
+
+
             services.AddSingleton<IUserService, UserService>();
 
             services.AddTransient<LandingViewModel>();

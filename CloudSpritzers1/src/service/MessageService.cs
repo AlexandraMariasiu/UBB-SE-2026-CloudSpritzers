@@ -49,7 +49,7 @@ namespace CloudSpritzers1.src.service
 
             // 1. Persist the user's option selection using its label as the message text.
             var userMessage = new Message(sender, chat, selectedOption.Label);
-            _messageRepository.Add(userMessage);
+            _messageRepository.CreateReview(userMessage);
 
             // 2. Let the bot produce a response.
             //    The strategy matches selectedOption.Label against the current node's options.
@@ -63,7 +63,7 @@ namespace CloudSpritzers1.src.service
             // 3. Persist the bot reply.
             //    BotEngine implements ISender with id = BOT_CANNONIZED_ID (0).
             var botRow = new Message(_botEngine, chat, botReply.GetMessage());
-            _messageRepository.Add(botRow);
+            _messageRepository.CreateReview(botRow);
 
             return botReply;
         }
