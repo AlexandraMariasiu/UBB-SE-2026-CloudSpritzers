@@ -26,7 +26,7 @@ namespace CloudSpritzers1.src.service
 
         public int AddUser(User user)
         {
-            return _userRepository.Add(user);
+            return _userRepository.CreateNewEntity(user);
         }
 
         public void UpdateUserById(int identificationNumber, User userEntity)

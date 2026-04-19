@@ -10,7 +10,7 @@ namespace CloudSpritzers1.src.repository
 {
     public class EmployeeRepository : DBRepository<int, Employee>, IRepository<int, Employee>, IEmployeeRepository
     {
-        public int Add(Employee employeeEntity)
+        public int CreateNewEntity(Employee employeeEntity)
         {
             if (employeeEntity == null)
                 throw new ArgumentNullException(nameof(employeeEntity), "Employee cannot be null.");

@@ -7,7 +7,7 @@ namespace CloudSpritzers1.src.dto.mappingProfiles
 {
     public class ReviewMappingProfile : Profile
     {
-        const int OVERALL_RATING = 0;
+        
         public ReviewMappingProfile()
         {
             System.Diagnostics.Debug.WriteLine("ReviewMappingProfile Loaded!");
@@ -22,8 +22,18 @@ namespace CloudSpritzers1.src.dto.mappingProfiles
                 src.GetFlightExperienceRating(),
                 src.GetStaffFriendlinessRating(),
                 src.GetCleanlinessRating(),
-                OVERALL_RATING
+                CalculateOverallAverage(src) // Replaces manual math in loop
             ));
+        }
+
+        private static float CalculateOverallAverage(Review review)
+        {
+            float sumOfRatings = review.GetDutyFreeRating() +
+                                 review.GetFlightExperienceRating() +
+                                 review.GetStaffFriendlinessRating() +
+                                 review.GetCleanlinessRating();
+
+            return sumOfRatings / 4.0f;
         }
     }
 }
