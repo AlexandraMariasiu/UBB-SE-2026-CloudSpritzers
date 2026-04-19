@@ -18,6 +18,7 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Template">
                 <Setter.Value>
+                    
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Root"
                                 Background="{TemplateBinding Background}"
