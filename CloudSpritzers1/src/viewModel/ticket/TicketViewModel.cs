@@ -118,15 +118,15 @@ namespace CloudSpritzers1.src.viewModel
             switch (SelectedFilter)
             {
                 case TicketFilter.OPEN:
-                    filtered = AllTickets.Where(t => t.Status == StatusEnum.OPEN);
+                    filtered = AllTickets.Where(t => t.CurrentStatus == TicketStatusEnum.OPEN);
                     break;
 
                 case TicketFilter.IN_PROGRESS:
-                    filtered = AllTickets.Where(t => t.Status == StatusEnum.IN_PROGRESS);
+                    filtered = AllTickets.Where(t => t.CurrentStatus == TicketStatusEnum.IN_PROGRESS);
                     break;
 
                 case TicketFilter.RESOLVED:
-                    filtered = AllTickets.Where(t => t.Status == StatusEnum.RESOLVED);
+                    filtered = AllTickets.Where(t => t.CurrentStatus == TicketStatusEnum.RESOLVED);
                     break;
             }
 
@@ -137,7 +137,7 @@ namespace CloudSpritzers1.src.viewModel
         // =================================
         // UPDATE STATUS
         // =================================
-        public void UpdateStatus(int ticketId, StatusEnum status)
+        public void UpdateStatus(int ticketId, TicketStatusEnum status)
         {
             _ticketService.UpdateStatus(ticketId, status);
             LoadTickets();
@@ -146,7 +146,7 @@ namespace CloudSpritzers1.src.viewModel
         // =================================
         // UPDATE URGENCY
         // =================================
-        public void UpdateUrgency(int ticketId, UrgencyLevelEnum urgency)
+        public void UpdateUrgency(int ticketId, TicketUrgencyLevelEnum urgency)
         {
             _ticketService.UpdateUrgencyLevel(ticketId, urgency);
             LoadTickets();
@@ -158,19 +158,19 @@ namespace CloudSpritzers1.src.viewModel
         public void CreateTicket(TicketDTO ticketDTO)
         {
             // Fetch related entities from DB
-            var user = _userService.GetById(ticketDTO.UserId);
+            var user = _userService.GetById(ticketDTO.CreatorAccountId);
             var category = _categoryService.GetCategoryById(ticketDTO.CategoryId);
             var subcategory = _subcategoryService.GetSubcategoryById(ticketDTO.SubcategoryId);
 
             var ticket = new Ticket(
                 ticketDTO.TicketId,
                 user,
-                ticketDTO.Status,
+                ticketDTO.CurrentStatus,
                 category,
                 subcategory,
                 ticketDTO.Subject,
                 ticketDTO.Description,
-                ticketDTO.CreatedAt,
+                ticketDTO.CreationTimestamp,
                 ticketDTO.UrgencyLevel
             );
 

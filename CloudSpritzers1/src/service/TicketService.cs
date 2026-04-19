@@ -21,7 +21,7 @@ namespace CloudSpritzers1.src.service
             _ticketRepository = repository;
         }
 
-        public void CreateTicket(int ticketId, User user, StatusEnum status, TicketCategory category, TicketSubcategory subcategory, string subject, string description, DateTime createdAt, UrgencyLevelEnum? urgencyLevel = null)
+        public void CreateTicket(int ticketId, User user, TicketStatusEnum status, TicketCategory category, TicketSubcategory subcategory, string subject, string description, DateTime createdAt, TicketUrgencyLevelEnum? urgencyLevel = null)
         {  
             Ticket ticket = new Ticket(ticketId, user, status, category, subcategory, subject, description, createdAt, urgencyLevel);
             ValidateTicket(ticket);
@@ -54,28 +54,28 @@ namespace CloudSpritzers1.src.service
         {
             if (ticket == null)
                 throw new ArgumentNullException("The ticket does not have any data.");
-            if (ticket.User == null)
+            if (ticket.Creator == null)
                 throw new ArgumentNullException("The user does not have any data.");
             if (ticket.Category == null)
                 throw new ArgumentNullException("Null Category.");
             if (ticket.Subcategory == null)
                 throw new ArgumentNullException("Null Subcategory.");
-            if (ticket.Subcategory.Category.CategoryId != ticket.Category.CategoryId)
-                throw new ArgumentException($"The subcategory '{ticket.Subcategory.SubcategoryName}' does not belong to the category '{ticket.Category.Name}'");
+            if (ticket.Subcategory.ParentCategory.CategoryId != ticket.Category.CategoryId)
+                throw new ArgumentException($"The subcategory '{ticket.Subcategory.SubcategoryName}' does not belong to the category '{ticket.Category.CategoryName}'");
             if (string.IsNullOrWhiteSpace(ticket.Subject))
                 throw new ArgumentNullException("The Subject is empty.");
             if (string.IsNullOrWhiteSpace(ticket.Description))
                 throw new ArgumentNullException("The Description is empty.");
         }
 
-        public void UpdateUrgencyLevel(int ticketId, UrgencyLevelEnum urgencyLevel)
+        public void UpdateUrgencyLevel(int ticketId, TicketUrgencyLevelEnum urgencyLevel)
         {
             Ticket elem = _ticketRepository.GetById(ticketId);
             elem.ChangeUrgencyLevel(urgencyLevel);
             _ticketRepository.UpdateById(ticketId, elem);
         }
 
-        public void UpdateStatus(int ticketId, StatusEnum status)
+        public void UpdateStatus(int ticketId, TicketStatusEnum status)
         {
             Ticket elem = _ticketRepository.GetById(ticketId);
             elem.UpdateStatus(status);

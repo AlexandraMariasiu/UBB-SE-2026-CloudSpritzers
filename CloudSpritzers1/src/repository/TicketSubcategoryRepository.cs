@@ -36,16 +36,15 @@ public class TicketSubcategoryRepository : DBRepository<int, TicketSubcategory>
     protected override TicketSubcategory MapRowToEntity(SqlDataReader reader)
     {
         int subcategoryId = reader.GetInt32(reader.GetOrdinal("subcategory_id"));
-        string name = reader.GetString(reader.GetOrdinal("name"));
-        int externId = reader.GetInt32(reader.GetOrdinal("external_id"));
-        //int externId = 1;
-        int categoryId = reader.GetInt32(reader.GetOrdinal("category_id"));
-        var categoryRepository = new TicketCategoryRepository();
-        TicketCategory category = categoryRepository.GetById(categoryId);
+        string subcategoryName = reader.GetString(reader.GetOrdinal("name"));
+        int externalReferenceId = reader.GetInt32(reader.GetOrdinal("external_id"));
 
-        //TicketCategory category = new TicketCategory(categoryId, string.Empty, UrgencyLevelEnum.LOW); // You can load full category if needed
-        return new TicketSubcategory(subcategoryId, name, externId, category);
+        int parentCategoryId = reader.GetInt32(reader.GetOrdinal("category_id"));
+        var categoryRepository = new TicketCategoryRepository();
+        TicketCategory parentCategory = categoryRepository.GetById(parentCategoryId);
+
+        return new TicketSubcategory(subcategoryId, subcategoryName, externalReferenceId, parentCategory);
     }
 
-    protected override int GetEntityId(TicketSubcategory entity) => entity.SubcategoryId;
+    protected override int GetEntityId(TicketSubcategory subcategoryEntity) => subcategoryEntity.SubcategoryId;
 }

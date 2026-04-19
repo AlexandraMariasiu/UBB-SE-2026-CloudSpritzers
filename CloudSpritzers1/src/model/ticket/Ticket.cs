@@ -6,29 +6,29 @@ namespace CloudSpritzers1.src.model.ticket
     public class Ticket
     {
         public int TicketId { get; }
-        public User TicketCreator { get; }
+        public User Creator { get; }
         public TicketUrgencyLevelEnum UrgencyLevel { get; private set; }
-        public TicketStatusEnum TicketStatus { get; private set; }
+        public TicketStatusEnum CurrentStatus { get; private set; }
         public TicketCategory Category { get; }
         public TicketSubcategory Subcategory { get; }
-        public string TicketSubject { get; }
-        public string TicketDescription { get; }
-        public DateTime CreatedTimestamp { get; }
-        public Ticket(int ticketId, User ticketCreator, TicketStatusEnum initialStatus, TicketCategory category, TicketSubcategory subcategory, string ticketSubject, string ticketDescription, DateTime creationTimestamp, TicketUrgencyLevelEnum? initialUrgencyLevel = null)
+        public string Subject { get; }
+        public string Description { get; }
+        public DateTime CreationTimestamp { get; }
+        public Ticket(int ticketId, User ticketCreator, TicketStatusEnum initialStatus, TicketCategory category, TicketSubcategory subcategory, string ticketSubject, string description, DateTime creationTimestamp, TicketUrgencyLevelEnum? initialUrgencyLevel = null)
         { 
             TicketId = ticketId;
-            TicketCreator = ticketCreator;
+            Creator = ticketCreator;
             UrgencyLevel = initialUrgencyLevel ?? category.CategoryUrgencyLevel;
-            TicketStatus = initialStatus;
+            CurrentStatus = initialStatus;
             Category = category;
             Subcategory = subcategory;
-            TicketSubject = ticketSubject;
-            TicketDescription = ticketDescription;
-            CreatedTimestamp = creationTimestamp;
+            Subject = ticketSubject;
+            Description = description;
+            CreationTimestamp = creationTimestamp;
         }
-        public void ChangeTicketStatus(TicketStatusEnum newStatus)
+        public void UpdateStatus(TicketStatusEnum newStatus)
         {
-            this.TicketStatus = newStatus;
+            this.CurrentStatus = newStatus;
         }
 
         public void ChangeUrgencyLevel(TicketUrgencyLevelEnum newUrgencyLevel)

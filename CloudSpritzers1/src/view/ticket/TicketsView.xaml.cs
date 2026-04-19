@@ -94,7 +94,7 @@ namespace CloudSpritzers1.src.view.ticket
                 PlaceholderForeground = new SolidColorBrush(Colors.DarkGray)
             };
             foreach (var cat in ViewModel.Categories)
-                categoryCombo.Items.Add(cat.Name);
+                categoryCombo.Items.Add(cat.CategoryName);
             stackPanel.Children.Add(categoryCombo);
 
             // Subcategory
@@ -115,7 +115,7 @@ namespace CloudSpritzers1.src.view.ticket
             {
                 subcategoryCombo.Items.Clear();
                 if (categoryCombo.SelectedItem == null) return;
-                var selectedCategory = ViewModel.Categories.FirstOrDefault(c => c.Name == categoryCombo.SelectedItem.ToString());
+                var selectedCategory = ViewModel.Categories.FirstOrDefault(c => c.CategoryName == categoryCombo.SelectedItem.ToString());
                 if (selectedCategory == null) return;
                 ViewModel.LoadSubcategories(selectedCategory.CategoryId);
                 foreach (var sub in ViewModel.Subcategories)
@@ -152,7 +152,7 @@ namespace CloudSpritzers1.src.view.ticket
                         throw new Exception("Please fill all required fields.");
 
                     // Map Category and Subcategory IDs
-                    var selectedCategory = ViewModel.Categories.FirstOrDefault(c => c.Name == categoryCombo.SelectedItem?.ToString());
+                    var selectedCategory = ViewModel.Categories.FirstOrDefault(c => c.CategoryName == categoryCombo.SelectedItem?.ToString());
                     var selectedSubcategory = ViewModel.Subcategories.FirstOrDefault(s => s.SubcategoryName == subcategoryCombo.SelectedItem?.ToString());
 
                     int categoryId = selectedCategory?.CategoryId ?? 1;
@@ -161,17 +161,17 @@ namespace CloudSpritzers1.src.view.ticket
                     // Create DTO
                     var newTicket = new TicketDTO(
                         TicketId: ViewModel.NrTickets() + 1,
-                        UserId: 1,
-                        UserEmail: "email@email.com",
-                        UrgencyLevel: UrgencyLevelEnum.LOW,
-                        Status: StatusEnum.OPEN,
+                        CreatorAccountId: 1,
+                        CreatorEmailAddress: "email@email.com",
+                        UrgencyLevel: TicketUrgencyLevelEnum.LOW,
+                        CurrentStatus: TicketStatusEnum.OPEN,
                         CategoryId: categoryId,
-                        CategoryName: selectedCategory?.Name ?? "General",
+                        CategoryName: selectedCategory?.CategoryName ?? "General",
                         SubcategoryId: subcategoryId,
                         SubcategoryName: selectedSubcategory?.SubcategoryName ?? "General",
                         Subject: titleBox.Text,
                         Description: descriptionBox.Text,
-                        CreatedAt: DateTime.Now
+                        CreationTimestamp: DateTime.Now
                     );
 
                     ViewModel.CreateTicket(newTicket);
