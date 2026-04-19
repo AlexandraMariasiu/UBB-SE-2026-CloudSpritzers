@@ -27,7 +27,7 @@ namespace CloudSpritzers1.src.repository
 
         protected override int GetEntityId(Message entity) => entity.GetId();
 
-        public int Add(Message elem)
+        public int CreateReview(Message elem)
         {
             const string query =
                 "INSERT INTO Message (sender_id, chat_id, timestamp, text, is_read) " +

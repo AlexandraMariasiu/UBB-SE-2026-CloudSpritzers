@@ -34,7 +34,7 @@ namespace CloudSpritzers1.src.repository
             return entity.ChatId;
         }
 
-        public int Add(Chat elem)
+        public int CreateReview(Chat elem)
         {
             string query = "INSERT INTO Chat (user_id, status) " +
                                "VALUES (@userId, @status); SELECT CAST( SCOPE_IDENTITY() AS INT);";
