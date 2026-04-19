@@ -18,7 +18,7 @@ namespace CloudSpritzers1Tests.src.mockClasses
         {
             _faqEntries = new List<FAQEntry>();
         }
-        public int Add(FAQEntry elem)
+        public int CreateReview(FAQEntry elem)
         {
             foreach (var e in _faqEntries)
             {

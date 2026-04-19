@@ -11,7 +11,7 @@ namespace CloudSpritzers1Tests.src.mockClasses
     {
         private readonly List<Employee> _employees = new List<Employee>();
 
-        public int Add(Employee employeeEntity)
+        public int CreateReview(Employee employeeEntity)
         {
             if (employeeEntity == null)
                  throw new ArgumentNullException(nameof(employeeEntity), "Employee cannot be null."); 

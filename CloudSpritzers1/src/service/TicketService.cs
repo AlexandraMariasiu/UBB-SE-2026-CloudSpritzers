@@ -30,7 +30,7 @@ namespace CloudSpritzers1.src.service
 
         public void AddTicket(Ticket ticket)
         {
-            _ticketRepository.Add(ticket);
+            _ticketRepository.CreateReview(ticket);
         }
         public void DeleteTicket(int ticketId)
         {

@@ -11,7 +11,7 @@ namespace CloudSpritzers1.src.repository
 {
     public class UserRepository : DBRepository<int, User>, IRepository<int, User>, IUserRepository
     {
-        public int Add(User userEntity)
+        public int CreateReview(User userEntity)
         {
             if (userEntity == null)
                 throw new ArgumentNullException(nameof(userEntity), "User cannot be null.");
