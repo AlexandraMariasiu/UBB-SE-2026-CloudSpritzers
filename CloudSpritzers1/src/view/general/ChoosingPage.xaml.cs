@@ -1,4 +1,3 @@
-using CloudSpritzers1.src.viewmodel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -15,15 +14,23 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using CloudSpritzers1.src.viewModel.general;
 
 namespace CloudSpritzers1.src.view.general
 {
     public sealed partial class ChoosingPage : Page
     {
+        public ChoosingPageViewModel ViewModel { get; } = new ChoosingPageViewModel();
+
 
         public ChoosingPage()
         {
             InitializeComponent();
+            this.DataContext = ViewModel;
+
+            // Optional: Set DataContext if you want to use {Binding} in XAML
+            // instead of {x:Bind ViewModel.PropertyName}
+
         }
 
         /// <summary>
@@ -44,17 +51,19 @@ namespace CloudSpritzers1.src.view.general
         /// </summary>
         /// <param name="sender">The button that was clicked.</param>
         /// <param name="e">Event data for the click event.</param>
-        private async void SelectUserRole_Click(object sender, RoutedEventArgs e)
+        private void SelectUserRole_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
+            if (sender is Button button && button.Tag != null)
+            {
+                ViewModel.SetUserRole(button.Tag.ToString());
 
-            bool isEmployee = button?.Tag?.ToString() == "Employee";
-            var app = (App)App.Current;
-            app.isEmployee = isEmployee;
-
-            Frame.Navigate(typeof(EnterYourId));
+                Frame.Navigate(typeof(EnterYourId));
+            }
         }
     }
 }
+
+
+
 
 
