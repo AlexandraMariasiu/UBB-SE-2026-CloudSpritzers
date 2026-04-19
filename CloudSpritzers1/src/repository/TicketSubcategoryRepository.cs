@@ -1,5 +1,5 @@
 ﻿using CloudSpritzers1.src.model.ticket;
-using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.src.repository;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;

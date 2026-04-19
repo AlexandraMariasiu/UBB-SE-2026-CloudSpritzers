@@ -38,6 +38,7 @@ namespace CloudSpritzers1.src.view.ticket
             this.DataContext = ViewModel;
         }
 
+
         private async void EditTicketStatus_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button btn && btn.Tag is int ticketId)
