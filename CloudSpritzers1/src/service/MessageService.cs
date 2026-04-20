@@ -42,7 +42,7 @@ namespace CloudSpritzers1.src.service
 
             if(selectedOption.NextOptionId == 1)
             {
-                _botEngine.ResetToRoot();
+                _botEngine.ResetBotConversationStateToInitialRootNode();
             }
 
             Chat chat = GetActiveChat(chatId);
@@ -53,7 +53,7 @@ namespace CloudSpritzers1.src.service
 
             // 2. Let the bot produce a response.
             //    The strategy matches selectedOption.Label against the current node's options.
-            BotMessage botReply = _botEngine.Respond(userMessage);
+            BotMessage botReply = _botEngine.GenerateAppropriateResponseBasedOnCurrentStrategy(userMessage);
 
             //if(botReply.GetNextOptions().ToArray().Length == 0)
             //{

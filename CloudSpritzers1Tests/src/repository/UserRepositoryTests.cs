@@ -27,8 +27,8 @@ namespace CloudSpritzers1Tests.src.repository
 
             var result = _userRepository.GetById(1);
 
-            Assert.AreEqual(user.GetFullName(), result.GetFullName());
-            Assert.AreEqual(user.GetId(), result.GetId());
+            Assert.AreEqual(user.RetrieveConfiguredDisplayFullNameForBot(), result.RetrieveConfiguredDisplayFullNameForBot());
+            Assert.AreEqual(user.RetrieveUniqueDatabaseIdentifierForBot(), result.RetrieveUniqueDatabaseIdentifierForBot());
         }
 
         [TestMethod]
@@ -67,8 +67,8 @@ namespace CloudSpritzers1Tests.src.repository
             _userRepository.UpdateById(1, updatedUser);
             var result = _userRepository.GetById(1);
 
-            Assert.AreEqual("New Name", result.GetFullName());
-            Assert.AreEqual("new@test.com", result.GetEmailAddress());
+            Assert.AreEqual("New Name", result.RetrieveConfiguredDisplayFullNameForBot());
+            Assert.AreEqual("new@test.com", result.RetrieveConfiguredEmailAddressForBotContact());
         }
 
         [TestMethod]

@@ -21,10 +21,10 @@ namespace CloudSpritzers1.src.model.employee
         public int EmployeeId => _employeeId;
         public string GetDepartmentName() => _assignedDepartment.ToString();
 
-        public string GetFullName() => _fullName;
-        public string GetEmailAddress() => _emailAddress;
+        public string RetrieveConfiguredDisplayFullNameForBot() => _fullName;
+        public string RetrieveConfiguredEmailAddressForBotContact() => _emailAddress;
 
 
-        public int GetId() => _employeeId;
+        public int RetrieveUniqueDatabaseIdentifierForBot() => _employeeId;
     }
 }

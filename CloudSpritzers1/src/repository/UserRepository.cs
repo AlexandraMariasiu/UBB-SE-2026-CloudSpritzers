@@ -24,8 +24,8 @@ namespace CloudSpritzers1.src.repository
             SqlCommand sqlCommand = new SqlCommand(insertQuery);
 
 
-            sqlCommand.Parameters.AddWithValue("@name", userEntity.GetFullName());
-            sqlCommand.Parameters.AddWithValue("@email", userEntity.GetEmailAddress());
+            sqlCommand.Parameters.AddWithValue("@name", userEntity.RetrieveConfiguredDisplayFullNameForBot());
+            sqlCommand.Parameters.AddWithValue("@email", userEntity.RetrieveConfiguredEmailAddressForBotContact());
 
 
             int generatedIdentificationNumber = base.Add(sqlCommand, userEntity);
@@ -76,8 +76,8 @@ namespace CloudSpritzers1.src.repository
 
 
             sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
-            sqlCommand.Parameters.AddWithValue("@name", userEntity.GetFullName());
-            sqlCommand.Parameters.AddWithValue("@email", userEntity.GetEmailAddress());
+            sqlCommand.Parameters.AddWithValue("@name", userEntity.RetrieveConfiguredDisplayFullNameForBot());
+            sqlCommand.Parameters.AddWithValue("@email", userEntity.RetrieveConfiguredEmailAddressForBotContact());
 
             
 

@@ -35,7 +35,7 @@ namespace CloudSpritzers1.src.repository
                 "SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             var cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("@senderId", elem.GetSender().GetId());
+            cmd.Parameters.AddWithValue("@senderId", elem.GetSender().RetrieveUniqueDatabaseIdentifierForBot());
             cmd.Parameters.AddWithValue("@chatId", ((IMessage)elem).GetChat().ChatId);
             cmd.Parameters.AddWithValue("@timestamp", DateTimeOffset.UtcNow);
             cmd.Parameters.AddWithValue("@text", elem.GetMessage());
@@ -118,9 +118,9 @@ namespace CloudSpritzers1.src.repository
         {
             private readonly int _id;
             public SenderStub(int id) => _id = id;
-            public int GetId() => _id;
-            public string GetFullName() => string.Empty;
-            public string GetEmailAddress() => string.Empty;
+            public int RetrieveUniqueDatabaseIdentifierForBot() => _id;
+            public string RetrieveConfiguredDisplayFullNameForBot() => string.Empty;
+            public string RetrieveConfiguredEmailAddressForBotContact() => string.Empty;
         }
 
 

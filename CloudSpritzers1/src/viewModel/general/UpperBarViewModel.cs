@@ -30,9 +30,9 @@ namespace CloudSpritzers1.src.viewModel.general
         {
             get {
                 if(IsEmployee) {
-                    return $"ID: {_user.GetId()}";
+                    return $"ID: {_user.RetrieveUniqueDatabaseIdentifierForBot()}";
                 }
-                return !IsEmployee ? $"ID: {_employee.GetId()}" : "Not signed in";
+                return !IsEmployee ? $"ID: {_employee.RetrieveUniqueDatabaseIdentifierForBot()}" : "Not signed in";
             }
          }
     }

@@ -91,9 +91,9 @@ namespace CloudSpritzers1.src.view.faq
             ViewModel.IsAdmin = app.isEmployee;
 
             if (app.isEmployee && app.Employee != null)
-                _currentPersonId = app.Employee.GetId();
+                _currentPersonId = app.Employee.RetrieveUniqueDatabaseIdentifierForBot();
             else if (app.User != null)
-                _currentPersonId = app.User.GetId();
+                _currentPersonId = app.User.RetrieveUniqueDatabaseIdentifierForBot();
 
             ViewModel.LoadFAQ();
             UpdateAdminVisibility();
