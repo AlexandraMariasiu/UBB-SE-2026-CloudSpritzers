@@ -27,7 +27,7 @@ namespace CloudSpritzers1.src.viewmodel
     
             foreach (var review in allReviews)
             {
-                string realName = review.GetUser().GetFullName();
+                string realName = review.GetUser().RetrieveConfiguredDisplayFullNameForBot();
 
                 float averageRating = _reviewService.CalculateAverageRating(review);
 
