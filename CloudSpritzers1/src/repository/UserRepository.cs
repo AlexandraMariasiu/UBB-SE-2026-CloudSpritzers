@@ -1,6 +1,7 @@
 ﻿using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.repository.interfaces;
 using Microsoft.Data.SqlClient;
+using CloudSpritzers1.src.repository.database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CloudSpritzers1.src.repository
 {
-    public class UserRepository : DBRepository<int, User>, IRepository<int, User>, IUserRepository
+    public class UserRepository : DatabaseRepository<int, User>, IRepository<int, User>, IUserRepository
     {
         public int CreateNewEntity(User userEntity)
         {

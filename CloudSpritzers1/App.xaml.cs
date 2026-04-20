@@ -19,6 +19,7 @@ using CloudSpritzers1.src.viewModel.chat;
 using CloudSpritzers1.src.viewModel.faq;
 using CloudSpritzers1.src.viewModel.general;
 using CloudSpritzers1.src.viewModel.review;
+using CloudSpritzers1.src.repository.database;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -43,7 +44,6 @@ using CloudSpritzers1.src.viewModel;
 using CloudSpritzers1.src.repository.interfaces;
 using CloudSpritzers1.src.service.interfaces;
 using CloudSpritzers1.src.model.review;
-
 
 namespace CloudSpritzers1
 {
@@ -109,10 +109,10 @@ namespace CloudSpritzers1
             services.AddTransient<IBotStrategy, DecisionTreeStrategy>(); // I am not sure this is the way to do it :(
             services.AddTransient<BotEngine>();
 
-            services.AddSingleton<MessageDBRepository>();
+            services.AddSingleton<MessageDatabaseRepository>();
             services.AddSingleton<MessageService>();
 
-            services.AddSingleton<ChatDBRepository>();
+            services.AddSingleton<ChatDatabaseRepository>();
             services.AddSingleton<ChatService>();
 
             services.AddSingleton<ReviewRepository>();
