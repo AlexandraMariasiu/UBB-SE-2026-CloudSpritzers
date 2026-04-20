@@ -137,7 +137,7 @@ namespace CloudSpritzers1.src.service.implementation.Tests
         }
 
         [TestMethod()]
-        public void FilterFAQEntry_WithCategoryAndSearch_ReturnsFilteredEntities()
+        public void FilterFAQEntry_WithCategoryAndQuestionSearchMatch_ReturnsFilteredEntities()
         {
             var FAQCatgoryToFilterBy = FAQCategoryEnum.Parking;
             var SearchQueryToFilterBy = "cars";
@@ -159,12 +159,31 @@ namespace CloudSpritzers1.src.service.implementation.Tests
             var FAQCatgoryToFilterBy = FAQCategoryEnum.All;
             var SearchQueryToFilterBy = "water";
 
-            var expected = new List<FAQEntry>();
+            var expected = new List<FAQEntry>
+            {
+            };
 
             _faqRepo.GetByCategory(FAQCatgoryToFilterBy).Returns(expected);
 
             var result = _faqService.FilterFAQEntry(FAQCatgoryToFilterBy, SearchQueryToFilterBy);
             Assert.AreEqual(0, result.Count());
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [TestMethod()]
+        public void FilterFAQEntry_WithCategoryAndAnswerSearchMatch_ReturnsFilteredEntities()
+        {
+            var FAQCatgoryToFilterBy = FAQCategoryEnum.Parking;
+            var SearchQueryToFilterBy = "audi";
+
+            var expected = new List<FAQEntry>
+            {
+                new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0),
+            };
+
+            _faqRepo.GetByCategory(FAQCategoryEnum.Parking).Returns(expected);
+
+            var result = _faqService.FilterFAQEntry(FAQCatgoryToFilterBy, SearchQueryToFilterBy);
             CollectionAssert.AreEqual(expected, result);
         }
     }
