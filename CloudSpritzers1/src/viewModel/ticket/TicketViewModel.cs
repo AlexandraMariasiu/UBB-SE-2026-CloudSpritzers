@@ -18,10 +18,11 @@ using CloudSpritzers1.src.service;
 using AutoMapper;
 using System.Collections.ObjectModel;
 using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace CloudSpritzers1.src.viewModel
 {
-    public class TicketsViewModel
+    public partial class TicketsViewModel : ObservableObject
     {
         private readonly ITicketService _ticketService;
         private readonly IMapper _mapper;
@@ -39,7 +40,18 @@ namespace CloudSpritzers1.src.viewModel
         public ObservableCollection<TicketCategory> Categories { get; } = new();
         public ObservableCollection<TicketSubcategory> Subcategories { get; } = new();
 
-       
+        [ObservableProperty]
+        private string _newTicketTitle  = string.Empty;
+
+        [ObservableProperty]
+        private string _newTicketDescription = string.Empty;
+
+        [ObservableProperty]
+        private TicketCategory? _selectedCategory;
+
+        [ObservableProperty]
+        private TicketSubcategory? _selectedSubcategory;
+
         public TicketsViewModel(ITicketService ticketService, ITicketCategoryService categoryService, ITicketSubcategoryService subcategoryService, IUserService userService, IMapper mapper)
         {
             _ticketService = ticketService;
@@ -87,6 +99,8 @@ namespace CloudSpritzers1.src.viewModel
                     SelectedFilterStatus = filter;
             }
         }
+
+
 
         // =================================
         // LOAD FROM DATABASE
@@ -183,6 +197,49 @@ namespace CloudSpritzers1.src.viewModel
                 Subcategories.Add(subcategoryEntity);
 
         }
+
+        public async Task SubmitNewTicketAsync()
+        {
+            // 3. Use the public generated properties (Capitalized)
+            if (string.IsNullOrWhiteSpace(NewTicketTitle) || string.IsNullOrWhiteSpace(NewTicketDescription))
+                throw new Exception("Please fill all required fields.");
+
+            var newTicket = new TicketDTO(
+                TicketId: GetTotalTicketCount() + 1,
+                CreatorAccountId: 1,
+                CreatorEmailAddress: "email@email.com",
+                UrgencyLevel: TicketUrgencyLevelEnum.LOW,
+                CurrentStatus: TicketStatusEnum.OPEN,
+                CategoryId: SelectedCategory?.CategoryId ?? 1,
+                CategoryName: SelectedCategory?.CategoryName ?? "General",
+                SubcategoryId: SelectedSubcategory?.SubcategoryId ?? 1,
+                SubcategoryName: SelectedSubcategory?.SubcategoryName ?? "General",
+                Subject: NewTicketTitle,
+                Description: NewTicketDescription,
+                CreationTimestamp: DateTime.Now
+            );
+
+            CreateTicket(newTicket);
+
+            // Reset fields
+            NewTicketTitle = string.Empty;
+            NewTicketDescription = string.Empty;
+            SelectedCategory = null;
+            SelectedSubcategory = null;
+        }
+
+        partial void OnSelectedCategoryChanged(TicketCategory? value)
+        {
+            if (value != null)
+            {
+                LoadSubcategories(value.CategoryId);
+            }
+            else
+            {
+                Subcategories.Clear();
+            }
+        }
+
     }
 
     public enum TicketFilterStatusEnum
@@ -192,4 +249,7 @@ namespace CloudSpritzers1.src.viewModel
         IN_PROGRESS,
         RESOLVED
     }
+
+
+
 }

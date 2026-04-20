@@ -39,7 +39,8 @@ namespace CloudSpritzers1.src.repository.database
             if (pass == null)
                 throw new SqlConnectionException("DB_PASS environment variable is not set.");
 
-            string connectionString = $"Server={server};Database={database};User Id={user};Password={pass};TrustServerCertificate=True;";
+            //string connectionString = $"Server={server};Database={database};User Id={user};Password={pass};TrustServerCertificate=True;";
+            string connectionString =  $"Server={server};Database={database};Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;";
             return connectionString;
         }
     }
