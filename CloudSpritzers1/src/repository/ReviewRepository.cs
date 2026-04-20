@@ -5,10 +5,11 @@ using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.review;
 using Microsoft.Data.SqlClient;
 using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.src.repository.database;
 
 namespace CloudSpritzers1.src.repository
 {
-    public class ReviewRepository : DBRepository<int, Review>, IRepository<int, Review>
+    public class ReviewRepository : DatabaseRepository<int, Review>, IRepository<int, Review>
     {
         //private UserRepository _userRepository = new UserRepository();
 

@@ -12,6 +12,10 @@ namespace CloudSpritzers1.src.service
     {
         private readonly IRepository<int, Review> _reviewRepository;
 
+        private const int MinRating = 1;
+        private const int MaxRating = 5;
+        private const int NumberOfRatings = 4;
+
         public ReviewService(IRepository<int, Review> reviewRepository)
         {
             _reviewRepository = reviewRepository;
@@ -52,22 +56,35 @@ namespace CloudSpritzers1.src.service
         public void ValidateReview(Review review)
         {
             ArgumentNullException.ThrowIfNull(review);
+        
             if (this.GetAll().Contains(review))
                 throw new ArgumentException("Review already exists");
+        
             if (review.GetUser() == null)
                 throw new ArgumentException("User cannot be null");
+        
             if (string.IsNullOrEmpty(review.GetMessage()))
                 throw new ArgumentException("Message cannot be null or empty");
-            if (review.GetDutyFreeRating() < 1 || review.GetDutyFreeRating() > 5)
-                throw new ArgumentException("Duty Free Rating must be between 1 and 5");
-            if (review.GetFlightExperienceRating() < 1 || review.GetFlightExperienceRating() > 5)
-                throw new ArgumentException("Flight Experience Rating must be between 1 and 5");
-            if (review.GetStaffFriendlinessRating() < 1 || review.GetStaffFriendlinessRating() > 5)
-                throw new ArgumentException("Staff Friendliness Rating must be between 1 and 5");
-            if (review.GetCleanlinessRating() < 1 || review.GetCleanlinessRating() > 5)
-                throw new ArgumentException("Cleanliness Rating must be between 1 and 5");
-           
-
+        
+            if (review.GetDutyFreeRating() < MinRating || review.GetDutyFreeRating() > MaxRating)
+                throw new ArgumentException($"Duty Free Rating must be between {MinRating} and {MaxRating}");
+        
+            if (review.GetFlightExperienceRating() < MinRating || review.GetFlightExperienceRating() > MaxRating)
+                throw new ArgumentException($"Flight Experience Rating must be between {MinRating} and {MaxRating}");
+        
+            if (review.GetStaffFriendlinessRating() < MinRating || review.GetStaffFriendlinessRating() > MaxRating)
+                throw new ArgumentException($"Staff Friendliness Rating must be between {MinRating} and {MaxRating}");
+        
+            if (review.GetCleanlinessRating() < MinRating || review.GetCleanlinessRating() > MaxRating)
+                throw new ArgumentException($"Cleanliness Rating must be between {MinRating} and {MaxRating}");
+        }
+        
+        public float CalculateAverageRating(Review review)
+        {
+            return (review.GetDutyFreeRating() +
+                    review.GetFlightExperienceRating() +
+                    review.GetStaffFriendlinessRating() +
+                    review.GetCleanlinessRating()) / (float)NumberOfRatings;
         }
     }
 }

@@ -8,7 +8,7 @@ using CloudSpritzers1.src.repository.interfaces;
 
 namespace CloudSpritzers1.src.repository.implementations
 {
-  public class FAQRepository : DBRepository<int, FAQEntry>, IFAQRepository
+  public class FAQRepository : DatabaseRepository<int, FAQEntry>, IFAQRepository
     {
     public FAQRepository() { }
 

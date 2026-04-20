@@ -1,4 +1,5 @@
 ﻿using CloudSpritzers1.src.model.employee;
+using CloudSpritzers1.src.repository.database;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CloudSpritzers1.src.repository
 {
-    public class EmployeeRepository : DBRepository<int, Employee>, IRepository<int, Employee>, IEmployeeRepository
+    public class EmployeeRepository : DatabaseRepository<int, Employee>, IRepository<int, Employee>, IEmployeeRepository
     {
         public int CreateNewEntity(Employee employeeEntity)
         {
