@@ -133,9 +133,10 @@ namespace CloudSpritzers1
             services.AddTransient<AllReviewsViewModel>();
             services.AddTransient<AddReviewViewModel>();
             services.AddTransient<ChatViewModel>();
-            
+
+            // Register the ViewModel
             services.AddTransient<UpperBarViewModel>();
-            
+
             services.AddSingleton<ITicketRepository,TicketRepository>();
             services.AddSingleton<ITicketCategoryRepository, TicketCategoryRepository>();
             services.AddSingleton<ITicketSubcategoryRepository, TicketSubcategoryRepository>();
