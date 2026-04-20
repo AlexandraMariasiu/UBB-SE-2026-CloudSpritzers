@@ -66,8 +66,13 @@ namespace CloudSpritzers1.src.service
                 throw new ArgumentException("Staff Friendliness Rating must be between 1 and 5");
             if (review.GetCleanlinessRating() < 1 || review.GetCleanlinessRating() > 5)
                 throw new ArgumentException("Cleanliness Rating must be between 1 and 5");
-           
-
+        }
+        public float CalculateAverageRating(Review review)
+        {
+            return (review.GetDutyFreeRating() +
+                    review.GetFlightExperienceRating() +
+                    review.GetStaffFriendlinessRating() +
+                    review.GetCleanlinessRating()) / 4.0f;
         }
     }
 }
