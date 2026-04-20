@@ -1,5 +1,6 @@
 ﻿using CloudSpritzers1.src.model.ticket;
 using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.repository.database;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class TicketSubcategoryRepository : DBRepository<int, TicketSubcategory> , ITicketSubcategoryRepository
+public class TicketSubcategoryRepository : DatabaseRepository<int, TicketSubcategory> , ITicketSubcategoryRepository
 {
     public IEnumerable<TicketSubcategory> GetAll()
     {

@@ -5,6 +5,7 @@ using CloudSpritzers1.src.model.chat;
 using CloudSpritzers1.src.model.faq.bot;
 using CloudSpritzers1.src.model.message;
 using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.repository.database;
 using CloudSpritzers1.src.service.bot;
 
 
@@ -14,13 +15,13 @@ namespace CloudSpritzers1.src.service
 {
     public class MessageService
     {
-        private readonly ChatDBRepository _chatRepository;
-        private readonly MessageDBRepository _messageRepository;
+        private readonly ChatDatabaseRepository _chatRepository;
+        private readonly MessageDatabaseRepository _messageRepository;
         private readonly BotEngine _botEngine;
 
         public MessageService(
-            ChatDBRepository chatRepository,
-            MessageDBRepository messageRepository,
+            ChatDatabaseRepository chatRepository,
+            MessageDatabaseRepository messageRepository,
             BotEngine botEngine)
         {
             _chatRepository = chatRepository ?? throw new ArgumentNullException(nameof(chatRepository));

@@ -4,9 +4,9 @@ using System.Linq;
 using CloudSpritzers1.src.model.faq.bot;
 using Microsoft.Data.SqlClient;
 
-namespace CloudSpritzers1.src.repository
+namespace CloudSpritzers1.src.repository.database
 {
-    public class DecisionTreeRepository : DBRepository<int, FAQNode>, IRepository<int, FAQNode>
+    public class DecisionTreeRepository : DatabaseRepository<int, FAQNode>, IRepository<int, FAQNode>
     {
         private ImmutableArray<FAQOption> RetrieveAllAvailableFAQOptionsAssociatedWithSpecificDecisionNodeFromDatabase(int uniqueDatabaseIdentifierForTargetDecisionNode)
         {

@@ -5,10 +5,11 @@ using Microsoft.Data.SqlClient;
 using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.faq;
 using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.src.repository.database;
 
 namespace CloudSpritzers1.src.repository
 {
-    public class TicketRepository : DBRepository<int, Ticket>, ITicketRepository
+    public class TicketRepository : DatabaseRepository<int, Ticket>, ITicketRepository
     {
 
         private IUserRepository _userRepository = new UserRepository();

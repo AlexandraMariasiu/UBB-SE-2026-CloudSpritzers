@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using System.Configuration;
 using CloudSpritzers1.src.model.chat;
 
-namespace CloudSpritzers1.src.repository
+namespace CloudSpritzers1.src.repository.database
 {
-	public class ChatDBRepository : DBRepository<int, Chat>, IRepository<int, Chat>
+	public class ChatDatabaseRepository : DatabaseRepository<int, Chat>, IRepository<int, Chat>
 	{
 
         /// <summary>

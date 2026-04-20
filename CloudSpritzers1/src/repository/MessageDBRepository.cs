@@ -4,9 +4,9 @@ using Microsoft.Data.SqlClient;
 using CloudSpritzers1.src.model.message;
 using CloudSpritzers1.src.model.chat;
 
-namespace CloudSpritzers1.src.repository
+namespace CloudSpritzers1.src.repository.database
 {
-    public class MessageDBRepository : DBRepository<int, Message>, IRepository<int, Message>
+    public class MessageDatabaseRepository : DatabaseRepository<int, Message>, IRepository<int, Message>
     {
         protected override Message MapRowToEntity(SqlDataReader reader)
         {

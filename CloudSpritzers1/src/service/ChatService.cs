@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.repository.database;
 using CloudSpritzers1.src.model.chat;
 
 namespace CloudSpritzers1.src.service
@@ -12,7 +13,7 @@ namespace CloudSpritzers1.src.service
     {
         private IRepository<int, Chat> _repository;
 
-        public ChatService(ChatDBRepository repository)
+        public ChatService(ChatDatabaseRepository repository)
         {
             _repository = repository;
         }
