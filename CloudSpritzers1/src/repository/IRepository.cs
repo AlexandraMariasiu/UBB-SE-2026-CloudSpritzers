@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CloudSpritzers1.src.repository
 {
-    public interface IRepository<TKey, TValue> where TValue : class
+    public interface IRepository<TKey, TValue>
+        where TValue : class
     {
         TValue GetById(TKey id);
         TKey CreateNewEntity(TValue elem);

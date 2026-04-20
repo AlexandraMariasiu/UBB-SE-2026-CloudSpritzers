@@ -25,7 +25,9 @@ namespace CloudSpritzers1.src.model.chat
         public void AddMessage(IMessage message)
         {
             if (message == null)
+            {
                 throw new ArgumentNullException(nameof(message), "message is empty");
+            }
             Messages.Add(message);
         }
 
@@ -38,6 +40,5 @@ namespace CloudSpritzers1.src.model.chat
         {
             Status = ChatStatus.Closed;
         }
-
     }
 }

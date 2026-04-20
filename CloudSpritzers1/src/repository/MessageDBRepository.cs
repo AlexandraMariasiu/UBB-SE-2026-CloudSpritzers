@@ -14,7 +14,7 @@ namespace CloudSpritzers1.src.repository.database
             int chatId = reader.GetInt32(reader.GetOrdinal("chat_id"));
             int senderId = reader.GetInt32(reader.GetOrdinal("sender_id"));
             string text = reader.GetString(reader.GetOrdinal("text"));
-            ///DateTimeOffset timestamp = reader.GetDateTimeOffset(reader.GetOrdinal("timestamp"));
+            /// DateTimeOffset timestamp = reader.GetDateTimeOffset(reader.GetOrdinal("timestamp"));
             // Read as DateTime, then convert to DateTimeOffset
             DateTime dbDt = reader.GetDateTime(reader.GetOrdinal("timestamp"));
             DateTimeOffset timestamp = new DateTimeOffset(dbDt);
@@ -112,7 +112,6 @@ namespace CloudSpritzers1.src.repository.database
             InvalidateCacheEntry(messageId);
         }
 
-
         // TODO: I swear I wanted to remove stubs, not end more. I hope God and Mihai will forgive me, at least Mihai.
         private sealed class SenderStub : ISender
         {
@@ -122,11 +121,11 @@ namespace CloudSpritzers1.src.repository.database
             public string RetrieveConfiguredDisplayFullNameForBot() => string.Empty;
             public string RetrieveConfiguredEmailAddressForBotContact() => string.Empty;
         }
-
-
-        private sealed class ChatStub : Chat
+       private sealed class ChatStub : Chat
         {
-            public ChatStub(int chatId) : base(chatId, userId: 0, ChatStatus.Active) { }
+            public ChatStub(int chatId) : base(chatId, userId: 0, ChatStatus.Active)
+            {
+            }
         }
     }
 }

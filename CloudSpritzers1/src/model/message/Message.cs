@@ -40,7 +40,6 @@ namespace CloudSpritzers1.src.model.message
         }
 
         // Interface functionality
-
         public string GetMessage()
         {
             return this._messageText;
@@ -70,6 +69,5 @@ namespace CloudSpritzers1.src.model.message
         {
             return this._chat;
         }
-
     }
 }

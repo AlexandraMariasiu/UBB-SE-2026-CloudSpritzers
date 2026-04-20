@@ -1,5 +1,5 @@
-﻿using CloudSpritzers1.src.model;
-using System;
+﻿using System;
+using CloudSpritzers1.src.model;
 
 namespace CloudSpritzers1.src.model.ticket
 {
@@ -15,7 +15,7 @@ namespace CloudSpritzers1.src.model.ticket
         public string Description { get; }
         public DateTime CreationTimestamp { get; }
         public Ticket(int ticketId, User ticketCreator, TicketStatusEnum initialStatus, TicketCategory category, TicketSubcategory subcategory, string ticketSubject, string description, DateTime creationTimestamp, TicketUrgencyLevelEnum? initialUrgencyLevel = null)
-        { 
+        {
             TicketId = ticketId;
             Creator = ticketCreator;
             UrgencyLevel = initialUrgencyLevel ?? category.CategoryUrgencyLevel;

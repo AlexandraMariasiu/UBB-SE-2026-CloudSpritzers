@@ -1,16 +1,16 @@
-﻿using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.service.interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudSpritzers1.src.model;
+using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.service.interfaces;
 using CloudSpritzers1.src.repository.interfaces;
 
 namespace CloudSpritzers1.src.service
 {
-    public class UserService: IUserService
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
 
@@ -46,7 +46,7 @@ namespace CloudSpritzers1.src.service
 
         public void CreateNewUser(int identificationNumber, string fullName, string emailAddress)
         {
-            User user = new User(identificationNumber, fullName, emailAddress);  
+            User user = new User(identificationNumber, fullName, emailAddress);
             ValidateUserIntegrity(user);
             AddUser(user);
         }
@@ -57,7 +57,6 @@ namespace CloudSpritzers1.src.service
             if (this.GetAllUsers().Contains(userEntity))
             {
                 throw new ArgumentException("User already exists");
-
             }
             if (string.IsNullOrEmpty(userEntity.RetrieveConfiguredDisplayFullNameForBot()))
             {
@@ -65,7 +64,6 @@ namespace CloudSpritzers1.src.service
             }
             if (string.IsNullOrEmpty(userEntity.RetrieveConfiguredEmailAddressForBotContact()))
             {
-
                 throw new ArgumentException("Email cannot be null or empty");
             }
         }

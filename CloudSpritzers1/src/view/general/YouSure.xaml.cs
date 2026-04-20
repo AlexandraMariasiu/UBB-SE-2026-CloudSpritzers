@@ -2,7 +2,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-
 namespace CloudSpritzers1.src.view.general
 {
     public sealed partial class YouSure : ContentDialog
@@ -23,7 +22,6 @@ namespace CloudSpritzers1.src.view.general
         /// <param name="titleText">The heading of the dialog.</param>
         public YouSure(string messageContent, string titleText = "Confirm") : this()
         {
-            
             ViewModel.Message = messageContent;
             ViewModel.Title = titleText;
         }

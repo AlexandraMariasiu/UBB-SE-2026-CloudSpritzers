@@ -20,6 +20,5 @@ namespace CloudSpritzers1.src.model.message
         public Chat GetChat();
 
         public DateTimeOffset GetTimeStamp();
-
     }
 }

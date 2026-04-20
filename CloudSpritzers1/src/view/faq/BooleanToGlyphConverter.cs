@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml.Data;
-using System;
 
 namespace CloudSpritzers1.src.view.faq
 {
-   
-
         public class BooleanToGlyphConverter : IValueConverter
         {
         private const string IconWhenExpanded = "\uE70D";
@@ -26,5 +23,4 @@ namespace CloudSpritzers1.src.view.faq
                 throw new NotImplementedException();
             }
         }
-    
 }

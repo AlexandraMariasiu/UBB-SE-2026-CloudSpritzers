@@ -1,23 +1,23 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Linq;
+using AutoMapper;
 using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.ticket;
 using CloudSpritzers1.src.repository.database;
 using CloudSpritzers1.src.service;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CloudSpritzers1.src.service.interfaces;
 using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model.ticket;
 using CloudSpritzers1.src.service;
 using AutoMapper;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace CloudSpritzers1.src.viewModel
 {
@@ -39,7 +39,6 @@ namespace CloudSpritzers1.src.viewModel
         public ObservableCollection<TicketCategory> Categories { get; } = new();
         public ObservableCollection<TicketSubcategory> Subcategories { get; } = new();
 
-       
         public TicketsViewModel(ITicketService ticketService, ITicketCategoryService categoryService, ITicketSubcategoryService subcategoryService, IUserService userService, IMapper mapper)
         {
             _ticketService = ticketService;
@@ -84,7 +83,9 @@ namespace CloudSpritzers1.src.viewModel
             set
             {
                 if (Enum.TryParse<TicketFilterStatusEnum>(value, out var filter))
+                {
                     SelectedFilterStatus = filter;
+                }
             }
         }
 
@@ -114,9 +115,8 @@ namespace CloudSpritzers1.src.viewModel
             _filteredTicketsForDisplay.Clear();
 
             IEnumerable<TicketDTO> filteredResults = _ticketService.FilterTicketsByStatus(
-                AllTickets ,
-                SelectedFilterStatus
-            );
+                AllTickets,
+                SelectedFilterStatus);
 
             foreach (var ticket in filteredResults)
             {
@@ -145,7 +145,6 @@ namespace CloudSpritzers1.src.viewModel
         // =================================
         // CREATE TICKET
         // =================================
-
         public void CreateTicket(TicketDTO ticketDTO)
         {
             // Fetch related entities from DB
@@ -162,8 +161,7 @@ namespace CloudSpritzers1.src.viewModel
                 ticketDTO.Subject,
                 ticketDTO.Description,
                 ticketDTO.CreationTimestamp,
-                ticketDTO.UrgencyLevel
-            );
+                ticketDTO.UrgencyLevel);
 
             _ticketService.AddTicket(ticket);
             LoadTickets();
@@ -173,15 +171,18 @@ namespace CloudSpritzers1.src.viewModel
         {
             Categories.Clear();
             foreach (var categoryEntity in _categoryService.GetAllCategories())
+            {
                 Categories.Add(categoryEntity);
+            }
         }
 
         public void LoadSubcategories(int categoryId)
         {
             Subcategories.Clear();
             foreach (var subcategoryEntity in _subcategoryService.GetSubcategoriesByCategoryId(categoryId))
+            {
                 Subcategories.Add(subcategoryEntity);
-
+            }
         }
     }
 

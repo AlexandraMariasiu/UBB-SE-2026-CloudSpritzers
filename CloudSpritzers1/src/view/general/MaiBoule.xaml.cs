@@ -1,5 +1,4 @@
-﻿
-using CloudSpritzers1.src.viewModel.general;
+﻿using CloudSpritzers1.src.viewModel.general;
 using Microsoft.UI.Xaml.Controls;
 
 namespace CloudSpritzers1.src.view.general
@@ -8,10 +7,9 @@ namespace CloudSpritzers1.src.view.general
     /// A ContentDialog for displaying a message and title to the user.
     /// Uses MaiBouleViewModel for data binding.
     /// </summary>
-    /// 
+    ///
     public sealed partial class MaiBoule : ContentDialog
     {
-
         /// <summary>
         /// The ViewModel containing the dialog's title and message.
         /// </summary>

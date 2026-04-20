@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.ObjectModel;
+using AutoMapper;
 using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model.faq.bot;
 using CloudSpritzers1.src.model.message;
@@ -6,8 +8,6 @@ using CloudSpritzers1.src.service;
 using CloudSpritzers1.src.service.bot;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.ObjectModel;
 using CloudSpritzers1.src.service.interfaces;
 
 namespace CloudSpritzers1.src.viewmodel
@@ -45,14 +45,18 @@ namespace CloudSpritzers1.src.viewmodel
             Messages.Clear();
 
             foreach (var message in messagesFromDb)
+            {
                 Messages.Add(_mapper.Map<MessageDTO>(message));
+            }
         }
 
         [RelayCommand]
         public void SendMessage(FAQOption selectedOption)
         {
             if (selectedOption == null)
+            {
                 throw new ArgumentNullException(nameof(selectedOption));
+            }
 
             // Lazily resolve the current user only when needed.
             var sender = _userService.GetById(_currentUserId);
@@ -62,5 +66,5 @@ namespace CloudSpritzers1.src.viewmodel
             Messages.Add(_mapper.Map<MessageDTO>(new Message(sender, botReply.GetChat(), selectedOption.Label)));
             Messages.Add(_mapper.Map<MessageDTO>(botReply));
         }
-    }   
+    }
 }

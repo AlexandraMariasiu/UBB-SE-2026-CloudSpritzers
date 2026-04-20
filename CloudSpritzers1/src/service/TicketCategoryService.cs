@@ -1,12 +1,12 @@
-﻿using CloudSpritzers1.src.model.ticket;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.repository.interfaces;
-using CloudSpritzers1.src.service.interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudSpritzers1.src.model.ticket;
+using CloudSpritzers1.src.repository;
+using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.src.service.interfaces;
 
 public class TicketCategoryService : ITicketCategoryService
 {
@@ -19,7 +19,7 @@ public class TicketCategoryService : ITicketCategoryService
 
     public TicketCategory GetCategoryById(int categoryId)
     {
-        return _categoryRepository.GetById(categoryId); 
+        return _categoryRepository.GetById(categoryId);
     }
     public IEnumerable<TicketCategory> GetAllCategories()
     {

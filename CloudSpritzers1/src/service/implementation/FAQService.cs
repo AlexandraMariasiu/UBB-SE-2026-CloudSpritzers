@@ -9,7 +9,7 @@ using Sprache;
 
 namespace CloudSpritzers1.src.service.implementation
 {
-	public class FAQService: IFAQService
+	public class FAQService : IFAQService
 	{
 		private readonly IFAQRepository _faqRepository;
 
@@ -56,13 +56,12 @@ namespace CloudSpritzers1.src.service.implementation
         public void IncrementWasNotHelpfulVotes(FAQEntry entry)
         {
 			_faqRepository.IncrementWasNotHelpfulVotes(entry.Id);
-            
         }
 
 		public List<FAQEntry> FilterFAQEntry(FAQCategoryEnum category, string searchQuery)
 		{
 			var faqs = this._faqRepository.GetAll().AsEnumerable();
-			if(category != FAQCategoryEnum.All)
+			if (category != FAQCategoryEnum.All)
 			{
 				faqs = this.GetByCategory(category);
 			}

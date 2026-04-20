@@ -1,6 +1,6 @@
-﻿using CloudSpritzers1.src.model.ticket;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
+using CloudSpritzers1.src.model.ticket;
 using Microsoft.Data.SqlClient;
 using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.faq;
@@ -11,12 +11,13 @@ namespace CloudSpritzers1.src.repository
 {
     public class TicketRepository : DatabaseRepository<int, Ticket>, ITicketRepository
     {
-
         private IUserRepository _userRepository = new UserRepository();
 
         private ITicketCategoryRepository _categoryRepository = new TicketCategoryRepository();
         private ITicketSubcategoryRepository _subcategoryRepository = new TicketSubcategoryRepository();
-        public TicketRepository() { }
+        public TicketRepository()
+        {
+        }
 
         public Ticket GetById(int id)
         {
@@ -27,7 +28,9 @@ namespace CloudSpritzers1.src.repository
             Ticket ticket = base.GetById(id, command);
 
             if (ticket == null)
+            {
                 throw new KeyNotFoundException($"Ticket with ticketId {id} was not found.");
+            }
 
             return ticket;
         }
@@ -37,13 +40,14 @@ namespace CloudSpritzers1.src.repository
             string query = "SELECT * FROM Ticket";
             SqlCommand command = new SqlCommand(query);
             return base.GetAll(command);
-
         }
 
         public int CreateNewEntity(Ticket ticketEntity)
         {
             if (ticketEntity == null)
+            {
                 throw new ArgumentNullException(nameof(ticketEntity), "Ticket can't be null.");
+            }
 
             string query = @"INSERT INTO Ticket 
                 (user_id, status, category_id, subcategory_id, subject, description, created_at, urgency_level) " +
@@ -68,7 +72,9 @@ namespace CloudSpritzers1.src.repository
         public void UpdateById(int ticketId, Ticket ticketEntity)
         {
             if (ticketEntity == null)
+            {
                 throw new ArgumentNullException(nameof(ticketEntity), "Ticket can't be null.");
+            }
 
             string query = @"UPDATE Ticket SET 
                 user_id = @userId, 
@@ -108,13 +114,13 @@ namespace CloudSpritzers1.src.repository
         {
             int ticketId = reader.GetInt32(reader.GetOrdinal("ticket_id"));
             int userId = reader.GetInt32(reader.GetOrdinal("user_id"));
-            TicketStatusEnum status = Enum.Parse<TicketStatusEnum>(reader.GetString(reader.GetOrdinal("status")),ignoreCase: true);
+            TicketStatusEnum status = Enum.Parse<TicketStatusEnum>(reader.GetString(reader.GetOrdinal("status")), ignoreCase: true);
             int categoryId = reader.GetInt32(reader.GetOrdinal("category_id"));
             int subcategoryId = reader.GetInt32(reader.GetOrdinal("subcategory_id"));
             string subject = reader.GetString(reader.GetOrdinal("subject"));
             string description = reader.GetString(reader.GetOrdinal("description"));
             DateTime creationTimestamp = reader.GetDateTime(reader.GetOrdinal("created_at"));
-            TicketUrgencyLevelEnum urgency = Enum.Parse<TicketUrgencyLevelEnum>(reader.GetString(reader.GetOrdinal("urgency_level")),ignoreCase:true);
+            TicketUrgencyLevelEnum urgency = Enum.Parse<TicketUrgencyLevelEnum>(reader.GetString(reader.GetOrdinal("urgency_level")), ignoreCase: true);
 
             TicketCategory category = _categoryRepository.GetById(categoryId);
             TicketSubcategory subcategory = _subcategoryRepository.GetById(subcategoryId);
@@ -127,6 +133,5 @@ namespace CloudSpritzers1.src.repository
         {
             return ticketEntity.TicketId;
         }
-
     }
 }

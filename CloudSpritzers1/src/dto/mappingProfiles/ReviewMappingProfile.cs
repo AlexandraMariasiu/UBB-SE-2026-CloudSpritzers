@@ -7,7 +7,6 @@ namespace CloudSpritzers1.src.dto.mappingProfiles
 {
     public class ReviewMappingProfile : Profile
     {
-        
         public ReviewMappingProfile()
         {
             System.Diagnostics.Debug.WriteLine("ReviewMappingProfile Loaded!");
@@ -22,8 +21,7 @@ namespace CloudSpritzers1.src.dto.mappingProfiles
                 src.GetFlightExperienceRating(),
                 src.GetStaffFriendlinessRating(),
                 src.GetCleanlinessRating(),
-                CalculateOverallAverage(src) // Replaces manual math in loop
-            ));
+                CalculateOverallAverage(src))); // Replaces manual math in loop
         }
 
         private static float CalculateOverallAverage(Review review)

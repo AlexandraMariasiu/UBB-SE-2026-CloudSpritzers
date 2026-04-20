@@ -1,12 +1,12 @@
-﻿using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.repository.interfaces;
-using Microsoft.Data.SqlClient;
-using CloudSpritzers1.src.repository.database;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudSpritzers1.src.model;
+using CloudSpritzers1.src.repository.interfaces;
+using Microsoft.Data.SqlClient;
+using CloudSpritzers1.src.repository.database;
 
 namespace CloudSpritzers1.src.repository
 {
@@ -15,7 +15,9 @@ namespace CloudSpritzers1.src.repository
         public int CreateNewEntity(User userEntity)
         {
             if (userEntity == null)
+            {
                 throw new ArgumentNullException(nameof(userEntity), "User cannot be null.");
+            }
 
             string insertQuery = "INSERT INTO [User] " +
                 "(name, email) " +
@@ -24,10 +26,8 @@ namespace CloudSpritzers1.src.repository
 
             SqlCommand sqlCommand = new SqlCommand(insertQuery);
 
-
             sqlCommand.Parameters.AddWithValue("@name", userEntity.RetrieveConfiguredDisplayFullNameForBot());
             sqlCommand.Parameters.AddWithValue("@email", userEntity.RetrieveConfiguredEmailAddressForBotContact());
-
 
             int generatedIdentificationNumber = base.Add(sqlCommand, userEntity);
             return generatedIdentificationNumber;
@@ -58,7 +58,9 @@ namespace CloudSpritzers1.src.repository
             User foundUser = base.GetById(identificationNumber, sqlCommand);
 
             if (foundUser == null)
+            {
                 throw new KeyNotFoundException($"User with id {identificationNumber} was not found.");
+            }
 
             return foundUser;
         }
@@ -66,7 +68,9 @@ namespace CloudSpritzers1.src.repository
         public void UpdateById(int identificationNumber, User userEntity)
         {
             if (userEntity == null)
+            {
                 throw new ArgumentNullException(nameof(userEntity), "User cannot be null.");
+            }
 
             string updateQuery = "UPDATE [User] SET " +
                 "name = @name, " +
@@ -75,12 +79,9 @@ namespace CloudSpritzers1.src.repository
 
             SqlCommand sqlCommand = new SqlCommand(updateQuery);
 
-
             sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
             sqlCommand.Parameters.AddWithValue("@name", userEntity.RetrieveConfiguredDisplayFullNameForBot());
             sqlCommand.Parameters.AddWithValue("@email", userEntity.RetrieveConfiguredEmailAddressForBotContact());
-
-            
 
             base.UpdateById(identificationNumber, sqlCommand, userEntity);
         }

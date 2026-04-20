@@ -1,4 +1,10 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using AutoMapper;
 using CloudSpritzers1.src;
 using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.dto.mappingProfiles;
@@ -29,12 +35,6 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -101,9 +101,7 @@ namespace CloudSpritzers1
                 typeof(MessageMappingProfile).Assembly,
                 typeof(FAQEntryMappingProfile).Assembly,
                 typeof(ReviewMappingProfile).Assembly,
-                typeof(TicketMappingProfile).Assembly
-            );
-
+                typeof(TicketMappingProfile).Assembly);
 
             services.AddSingleton<DecisionTreeRepository>();
             services.AddTransient<IBotStrategy, DecisionTreeStrategy>(); // I am not sure this is the way to do it :(
@@ -126,7 +124,6 @@ namespace CloudSpritzers1
             services.AddSingleton<IUserRepository>(provider => provider.GetRequiredService<UserRepository>());
             services.AddSingleton<IRepository<int, User>>(provider => provider.GetRequiredService<UserRepository>());
 
-
             services.AddSingleton<IUserService, UserService>();
 
             services.AddTransient<LandingViewModel>();
@@ -137,12 +134,12 @@ namespace CloudSpritzers1
             // Register the ViewModel
             services.AddTransient<UpperBarViewModel>();
 
-            services.AddSingleton<ITicketRepository,TicketRepository>();
+            services.AddSingleton<ITicketRepository, TicketRepository>();
             services.AddSingleton<ITicketCategoryRepository, TicketCategoryRepository>();
             services.AddSingleton<ITicketSubcategoryRepository, TicketSubcategoryRepository>();
 
             services.AddSingleton<ITicketService, TicketService>();
-            services.AddSingleton<ITicketCategoryService,TicketCategoryService>();
+            services.AddSingleton<ITicketCategoryService, TicketCategoryService>();
             services.AddSingleton<ITicketSubcategoryService, TicketSubcategoryService>();
 
             services.AddTransient<TicketsViewModel>();

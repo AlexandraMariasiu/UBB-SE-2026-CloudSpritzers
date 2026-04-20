@@ -14,10 +14,11 @@ namespace CloudSpritzers1.src.dto
             public IEnumerable<FAQOption> FaqOptions { get; set; }
 
             public bool IsOutgoing { get; set; }
-            
             public string SenderName { get; set; }
 
-            public MessageDTO() { }
+            public MessageDTO()
+            {
+            }
 
             public MessageDTO(int messageId, int chatId, int senderId, string senderName, string messageText, DateTimeOffset timestamp, IEnumerable<CloudSpritzers1.src.model.faq.bot.FAQOption> faqOptions)
             {

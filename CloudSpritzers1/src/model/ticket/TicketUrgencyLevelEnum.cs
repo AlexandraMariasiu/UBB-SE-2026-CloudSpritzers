@@ -11,7 +11,5 @@ namespace CloudSpritzers1.src.model.ticket
         LOW,
         MEDIUM,
         HIGH
-
-
     }
 }

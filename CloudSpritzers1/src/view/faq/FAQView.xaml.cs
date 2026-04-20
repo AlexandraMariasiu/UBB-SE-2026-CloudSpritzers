@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using AutoMapper;
 using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.dto.mappingProfiles;
@@ -9,10 +12,6 @@ using CloudSpritzers1.src.viewModel.faq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Linq;
-using System.Runtime.Intrinsics.X86;
-
 
 namespace CloudSpritzers1.src.view.faq
 {
@@ -21,7 +20,6 @@ namespace CloudSpritzers1.src.view.faq
         public FAQViewModel ViewModel { get; }
 
         private int _currentPersonId;
-
 
         private bool IsEmployee(int id)
         {
@@ -37,8 +35,6 @@ namespace CloudSpritzers1.src.view.faq
             }
         }
 
-       
-
         public FAQView()
         {
             this.InitializeComponent();
@@ -52,8 +48,8 @@ namespace CloudSpritzers1.src.view.faq
             var repository = new FAQRepository();
             var service = new FAQService(repository);
 
-            //bool isAdmin =true; // set true for testing admin mode
-            //ViewModel = new FAQViewModel(service, mapper, isAdmin);
+            // bool isAdmin =true; // set true for testing admin mode
+            // ViewModel = new FAQViewModel(service, mapper, isAdmin);
             ViewModel = new FAQViewModel(service, mapper);
 
             DataContext = ViewModel;
@@ -61,12 +57,9 @@ namespace CloudSpritzers1.src.view.faq
             UpdateAdminVisibility();
         }
 
-        //protected override void OnNavigatedTo(NavigationEventArgs e)
-        //{
-
-
+        // protected override void OnNavigatedTo(NavigationEventArgs e)
+        // {
         //    base.OnNavigatedTo(e);
-
         //    if (e.Parameter is FAQNavigationData navData)
         //    {
         //        _currentPersonId = navData.CurrentPersonId;
@@ -76,12 +69,9 @@ namespace CloudSpritzers1.src.view.faq
         //    {
         //        ViewModel.IsAdmin = false;
         //    }
-
         //    ViewModel.LoadFAQ();
         //    UpdateAdminVisibility();
-        //}
-
-
+        // }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -91,9 +81,13 @@ namespace CloudSpritzers1.src.view.faq
             ViewModel.IsAdmin = app.isEmployee;
 
             if (app.isEmployee && app.Employee != null)
+            {
                 _currentPersonId = app.Employee.RetrieveUniqueDatabaseIdentifierForBot();
+            }
             else if (app.User != null)
+            {
                 _currentPersonId = app.User.RetrieveUniqueDatabaseIdentifierForBot();
+            }
 
             ViewModel.LoadFAQ();
             UpdateAdminVisibility();
@@ -165,11 +159,12 @@ namespace CloudSpritzers1.src.view.faq
             Frame.Navigate(typeof(FAQAddEditPage), data);
         }
 
-
         private void EditFaqButton_Click(object sender, RoutedEventArgs e)
         {
             if (ViewModel.SelectedFAQEntry == null)
+            {
                 return;
+            }
 
             var data = ViewModel.BuildNavigationData(_currentPersonId);
 
@@ -179,7 +174,9 @@ namespace CloudSpritzers1.src.view.faq
         private async void DeleteFaqButton_Click(object sender, RoutedEventArgs e)
         {
             if (ViewModel.SelectedFAQEntry == null)
+            {
                 return;
+            }
 
             var faq = ViewModel.SelectedFAQEntry;
 
@@ -241,7 +238,6 @@ namespace CloudSpritzers1.src.view.faq
                     }
                 });
             }
-            
         }
 
         private void SetCategoryUI(Button selected)
