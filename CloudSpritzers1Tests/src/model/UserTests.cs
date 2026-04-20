@@ -15,9 +15,9 @@ namespace CloudSpritzers1Tests.src.model
 
             var user = new User(expectedId, expectedName, expectedEmail);
 
-            Assert.AreEqual(expectedId, user.GetId());
-            Assert.AreEqual(expectedName, user.GetFullName());
-            Assert.AreEqual(expectedEmail, user.GetEmailAddress());
+            Assert.AreEqual(expectedId, user.RetrieveUniqueDatabaseIdentifierForBot());
+            Assert.AreEqual(expectedName, user.RetrieveConfiguredDisplayFullNameForBot());
+            Assert.AreEqual(expectedEmail, user.RetrieveConfiguredEmailAddressForBotContact());
         }
 
         [TestMethod]

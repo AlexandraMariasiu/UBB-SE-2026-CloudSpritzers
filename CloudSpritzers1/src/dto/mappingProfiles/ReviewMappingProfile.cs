@@ -16,7 +16,7 @@ namespace CloudSpritzers1.src.dto.mappingProfiles
             .ConstructUsing(src => new ReviewDTO(
                 src.GetId(),
                 src.GetUser().UserId,
-                src.GetUser().GetFullName(),
+                src.GetUser().RetrieveConfiguredDisplayFullNameForBot(),
                 src.GetMessage(),
                 src.GetDutyFreeRating(),
                 src.GetFlightExperienceRating(),

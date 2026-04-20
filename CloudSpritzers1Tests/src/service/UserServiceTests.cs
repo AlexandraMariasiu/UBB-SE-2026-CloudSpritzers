@@ -47,8 +47,8 @@ namespace CloudSpritzers1Tests.src.service
             var result = _userService.GetAllUsers();
 
             Assert.AreEqual(2, result.Count); 
-            Assert.AreEqual("Ion Popescu", result[0].GetFullName()); 
-            Assert.AreEqual("Maria Ioana", result[1].GetFullName());
+            Assert.AreEqual("Ion Popescu", result[0].RetrieveConfiguredDisplayFullNameForBot()); 
+            Assert.AreEqual("Maria Ioana", result[1].RetrieveConfiguredDisplayFullNameForBot());
         }
 
         [TestMethod()]
@@ -60,7 +60,7 @@ namespace CloudSpritzers1Tests.src.service
 
             _userService.CreateNewUser(id, name, email);
 
-            _userRepository.Received(1).CreateNewEntity(Arg.Is<User>(u => u.GetId() == id));
+            _userRepository.Received(1).CreateNewEntity(Arg.Is<User>(u => u.RetrieveUniqueDatabaseIdentifierForBot() == id));
         }
 
         [TestMethod()]

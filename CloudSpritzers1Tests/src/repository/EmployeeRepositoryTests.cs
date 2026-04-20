@@ -37,7 +37,7 @@ namespace CloudSpritzers1Tests.src.repository
 
             var result = _employeeRepository.GetById(1);
 
-            Assert.AreEqual(employee.GetFullName(), result.GetFullName());
+            Assert.AreEqual(employee.RetrieveConfiguredDisplayFullNameForBot(), result.RetrieveConfiguredDisplayFullNameForBot());
         }
 
         [TestMethod()]
@@ -76,7 +76,7 @@ namespace CloudSpritzers1Tests.src.repository
             _employeeRepository.UpdateById(1, updatedEmployee);
             var result = _employeeRepository.GetById(1);
 
-            Assert.AreEqual("New Name", result.GetFullName());
+            Assert.AreEqual("New Name", result.RetrieveConfiguredDisplayFullNameForBot());
 
             Assert.AreEqual(EmployeeDepartment.ADMIN.ToString(), result.GetDepartmentName());
         }

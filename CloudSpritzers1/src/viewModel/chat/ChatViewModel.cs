@@ -41,7 +41,7 @@ namespace CloudSpritzers1.src.viewModel.chat
             // TODO: add null guard
             _user = (App.Current as App).User; 
 
-            _chat = _chatService.OpenChat(_user.GetId());
+            _chat = _chatService.OpenChat(_user.RetrieveUniqueDatabaseIdentifierForBot());
 
             LoadChatHistory();
 
@@ -52,7 +52,7 @@ namespace CloudSpritzers1.src.viewModel.chat
 
         }
 
-        public string FormatUserId => "User Id: " + _user.GetId().ToString();
+        public string FormatUserId => "User Id: " + _user.RetrieveUniqueDatabaseIdentifierForBot().ToString();
         
         public void CloseChat()
         {
@@ -64,11 +64,11 @@ namespace CloudSpritzers1.src.viewModel.chat
         {
             ChatHistory.Clear();
             var messages = _messageService.GetAllMessages(_chat.ChatId);
-            var currentUserId = _user.GetId();
+            var currentUserId = _user.RetrieveUniqueDatabaseIdentifierForBot();
             foreach (var msg in messages)
             {
                 var dto = _mapper.Map<MessageDTO>(msg);
-                dto.SenderName = _userService.GetById(dto.SenderId)?.GetFullName();
+                dto.SenderName = _userService.GetById(dto.SenderId)?.RetrieveConfiguredDisplayFullNameForBot();
                 dto.IsOutgoing = (dto.SenderId == currentUserId);
                 ChatHistory.Add(dto);
             }

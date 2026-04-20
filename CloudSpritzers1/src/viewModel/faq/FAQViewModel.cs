@@ -104,7 +104,7 @@ namespace CloudSpritzers1.src.viewModel.faq
         {
             FAQs.Clear();
 
-            var entries = _faqService.GetAll();
+            var entries = _faqService.GetAll().OrderByDescending(entry => entry.ViewCount);
             foreach (var entry in entries)
             {
                 FAQs.Add(_mapper.Map<FAQEntryDTO>(entry));
@@ -115,7 +115,9 @@ namespace CloudSpritzers1.src.viewModel.faq
 
         public void ApplyFilters()
         {
-            var result = _faqService.FilterFAQEntry(SelectedCategory, SearchQuery).AsEnumerable().Select(entry => _mapper.Map<FAQEntryDTO>(entry));
+            var result = _faqService.FilterFAQEntry(SelectedCategory, SearchQuery)
+                                    .OrderByDescending(entry => entry.ViewCount)
+                                    .AsEnumerable().Select(entry => _mapper.Map<FAQEntryDTO>(entry));
 
             FilteredFAQs.Clear();
             foreach (var faq in result)

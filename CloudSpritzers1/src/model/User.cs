@@ -17,9 +17,9 @@ namespace CloudSpritzers1.src.model
 
         public int UserId => _userId;
 
-        public string GetFullName() => _fullName;
-        public string GetEmailAddress() => _emailAddress;
+        public string RetrieveConfiguredDisplayFullNameForBot() => _fullName;
+        public string RetrieveConfiguredEmailAddressForBotContact() => _emailAddress;
 
-        public int GetId() => _userId;
+        public int RetrieveUniqueDatabaseIdentifierForBot() => _userId;
     }
 }

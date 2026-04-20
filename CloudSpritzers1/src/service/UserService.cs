@@ -59,11 +59,11 @@ namespace CloudSpritzers1.src.service
                 throw new ArgumentException("User already exists");
 
             }
-            if (string.IsNullOrEmpty(userEntity.GetFullName()))
+            if (string.IsNullOrEmpty(userEntity.RetrieveConfiguredDisplayFullNameForBot()))
             {
                 throw new ArgumentException("Name cannot be null or empty");
             }
-            if (string.IsNullOrEmpty(userEntity.GetEmailAddress()))
+            if (string.IsNullOrEmpty(userEntity.RetrieveConfiguredEmailAddressForBotContact()))
             {
 
                 throw new ArgumentException("Email cannot be null or empty");
