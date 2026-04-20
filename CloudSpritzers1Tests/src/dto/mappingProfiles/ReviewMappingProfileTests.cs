@@ -22,7 +22,7 @@ namespace CloudSpritzers1.src.tests.dto.mappingProfiles
         }
 
         [TestMethod]
-        public void MapFromReviewToReviewDTO_ShouldMapAllFieldsCorrectly()
+        public void MapFromReviewToReviewDTO_ValidReview_AllFieldsMappedCorrectly()
         {
             var user = new User(101, "John Doe", "john@example.com");
             var sourceReview = new Review(1, user, "Great flight!", 5, 4, 3, 2);
@@ -43,7 +43,7 @@ namespace CloudSpritzers1.src.tests.dto.mappingProfiles
         }
 
         [TestMethod]
-        public void MapFromReviewToReviewDTO_ShouldCalculateOverallAverageCorrectly()
+        public void MapFromReviewToReviewDTO_AllRatingsEqual_OverallRatingCalculatedCorrectly()
         {
             
             var user = new User(102, "Jane Doe", "jane@example.com");
@@ -57,7 +57,7 @@ namespace CloudSpritzers1.src.tests.dto.mappingProfiles
         }
 
         [TestMethod]
-        public void MapFromReviewToReviewDTO_ShouldHandleZeroRatings()
+        public void MapFromReviewToReviewDTO_ZeroRatings_OverallRatingIsZero()
         {
             
             var user = new User(103, "Bob", "bob@example.com");
