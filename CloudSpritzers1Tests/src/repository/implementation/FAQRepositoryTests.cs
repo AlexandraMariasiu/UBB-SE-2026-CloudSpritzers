@@ -149,6 +149,24 @@ namespace CloudSpritzers1.src.repository.implementations.Tests
         }
 
         [TestMethod()]
+        public void GetByCategory_WithCategoryAll_ReturnsAllEntities()
+        {
+            var expected = new List<FAQEntry>
+            {
+                new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0),
+                new FAQEntry(2, "How much does parking cost per day?", "100 euros", FAQCategoryEnum.Parking, 200, 3, 1),
+                new FAQEntry(3, "Can I bring my dog on the plane?", "Only if you buy a plane ticket for him also", FAQCategoryEnum.Baggage, 123, 34, 2),
+
+            };
+            foreach (var e in expected)
+                _faqRepository.CreateNewEntity(e);
+
+            var result = _faqRepository.GetByCategory(FAQCategoryEnum.All);
+
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [TestMethod()]
         public void IncrementViewCount_WithExistingId_Succeeds()
         {
             var entry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
