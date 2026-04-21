@@ -50,7 +50,7 @@ namespace CloudSpritzers1.src.viewModel.chat
             }
         }
 
-        public string FormatUserId => "User TicketId: " + _user.RetrieveUniqueDatabaseIdentifierForBot().ToString();
+        public string FormatUserId => "User Id: " + _user.RetrieveUniqueDatabaseIdentifierForBot().ToString();
         public void CloseChat()
         {
             _chatService.CloseChat(_chat.ChatId);

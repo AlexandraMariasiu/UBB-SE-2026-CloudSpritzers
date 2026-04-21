@@ -61,8 +61,8 @@ namespace CloudSpritzers1.src.repository.database
         public FAQNode GetById(int id)
         {
             using var sqlCommandObjectForRetrievingSpecificFAQNode = new SqlCommand(
-                "SELECT node_id, question_text, is_final_answer FROM FAQNode WHERE node_id = @TicketId");
-            sqlCommandObjectForRetrievingSpecificFAQNode.Parameters.AddWithValue("@TicketId", id);
+                "SELECT node_id, question_text, is_final_answer FROM FAQNode WHERE node_id = @Id");
+            sqlCommandObjectForRetrievingSpecificFAQNode.Parameters.AddWithValue("@Id", id);
 
             var retrievedFAQNodeEntityFromBaseRepository = base.GetById(id, sqlCommandObjectForRetrievingSpecificFAQNode);
             if (retrievedFAQNodeEntityFromBaseRepository == null)
@@ -105,13 +105,13 @@ namespace CloudSpritzers1.src.repository.database
         public void DeleteById(int identifierForFAQNodeToBeDeleted)
         {
             using var sqlCommandForRemovingAllFAQOptionsAssociatedWithNode = new SqlCommand(
-                "DELETE FROM FAQOption WHERE node_id = @TicketId");
-            sqlCommandForRemovingAllFAQOptionsAssociatedWithNode.Parameters.AddWithValue("@TicketId", identifierForFAQNodeToBeDeleted);
+                "DELETE FROM FAQOption WHERE node_id = @Id");
+            sqlCommandForRemovingAllFAQOptionsAssociatedWithNode.Parameters.AddWithValue("@Id", identifierForFAQNodeToBeDeleted);
             base.ExecuteNonQuery(sqlCommandForRemovingAllFAQOptionsAssociatedWithNode);
 
             using var sqlCommandForRemovingSpecificFAQNodeFromDatabase = new SqlCommand(
-                "DELETE FROM FAQNode WHERE node_id = @TicketId");
-            sqlCommandForRemovingSpecificFAQNodeFromDatabase.Parameters.AddWithValue("@TicketId", identifierForFAQNodeToBeDeleted);
+                "DELETE FROM FAQNode WHERE node_id = @Id");
+            sqlCommandForRemovingSpecificFAQNodeFromDatabase.Parameters.AddWithValue("@Id", identifierForFAQNodeToBeDeleted);
             base.DeleteById(identifierForFAQNodeToBeDeleted, sqlCommandForRemovingSpecificFAQNodeFromDatabase);
         }
 
@@ -121,17 +121,17 @@ namespace CloudSpritzers1.src.repository.database
                 UPDATE FAQNode
                 SET question_text = @QuestionText,
                     is_final_answer = @IsFinalAnswer
-                WHERE node_id = @TicketId");
+                WHERE node_id = @Id");
 
-            sqlCommandForUpdatingSpecificFAQNodeInDatabase.Parameters.AddWithValue("@TicketId", identifierForFAQNodeToBeUpdated);
+            sqlCommandForUpdatingSpecificFAQNodeInDatabase.Parameters.AddWithValue("@Id", identifierForFAQNodeToBeUpdated);
             sqlCommandForUpdatingSpecificFAQNodeInDatabase.Parameters.AddWithValue("@QuestionText", updatedFAQNodeEntityData.QuestionText);
             sqlCommandForUpdatingSpecificFAQNodeInDatabase.Parameters.AddWithValue("@IsFinalAnswer", updatedFAQNodeEntityData.IsFinalAnswer);
 
             base.UpdateById(identifierForFAQNodeToBeUpdated, sqlCommandForUpdatingSpecificFAQNodeInDatabase, updatedFAQNodeEntityData);
 
             using var sqlCommandForRemovingAllOldFAQOptionsAssociatedWithNode = new SqlCommand(
-                "DELETE FROM FAQOption WHERE node_id = @TicketId");
-            sqlCommandForRemovingAllOldFAQOptionsAssociatedWithNode.Parameters.AddWithValue("@TicketId", identifierForFAQNodeToBeUpdated);
+                "DELETE FROM FAQOption WHERE node_id = @Id");
+            sqlCommandForRemovingAllOldFAQOptionsAssociatedWithNode.Parameters.AddWithValue("@Id", identifierForFAQNodeToBeUpdated);
             base.ExecuteNonQuery(sqlCommandForRemovingAllOldFAQOptionsAssociatedWithNode);
 
             foreach (var currentlyIteratedFAQOptionToInsertAsReplacement in updatedFAQNodeEntityData.Options)
