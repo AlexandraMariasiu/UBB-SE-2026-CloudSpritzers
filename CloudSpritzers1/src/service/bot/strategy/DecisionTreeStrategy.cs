@@ -9,7 +9,7 @@ using CloudSpritzers1.Src.Model.Message;
 using CloudSpritzers1.Src.Repository;
 using CloudSpritzers1.Src.Repository.Database;
 
-namespace CloudSpritzers1.Src.Service.Bot.strategy
+namespace CloudSpritzers1.Src.Service.Bot.Strategy
 {
     public class DecisionTreeStrategy : IBotStrategy
     {

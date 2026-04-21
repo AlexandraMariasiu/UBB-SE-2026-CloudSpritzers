@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using CloudSpritzers1.Src.Model.Faq;
 using CloudSpritzers1.Src.Repository.Implementation;
-using CloudSpritzers1.Src.Repository.interfaces;
-using CloudSpritzers1.Src.Service.interfaces;
+using CloudSpritzers1.Src.Repository.Interfaces;
+using CloudSpritzers1.Src.Service.Interfaces;
 using Sprache;
 
 namespace CloudSpritzers1.Src.Service.Implementation

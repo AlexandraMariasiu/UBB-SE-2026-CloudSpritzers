@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CloudSpritzers1.Src.Model.Ticket;
-using CloudSpritzers1.Src.Repository.interfaces;
+using CloudSpritzers1.Src.Repository.Interfaces;
 using CloudSpritzers1.Src.Repository.Database;
 using CloudSpritzers1.Src.Repository.Database;
 using Microsoft.Data.SqlClient;

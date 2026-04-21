@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
-using ChatModel = CloudSpritzers1.Src.Model.Chat.Chat;
+using CloudSpritzers1.Src.Model.Chats;
 using CloudSpritzers1.Src.Model.Faq.Bot;
 
 // TODO : Maybe merge this with the regular message or pull general data in IMessage and make it abstract class instead of interface
@@ -14,12 +14,12 @@ namespace CloudSpritzers1.Src.Model.Message
     {
         private int _messageId;
         private ISender _sender;
-        private ChatModel _chat;
+        private Chat _chat;
         private DateTimeOffset _timestamp;
         private string _messageText;
         private IEnumerable<FAQOption> _faqOptions;
 
-        private BotMessage(int messageId, ISender sender, ChatModel chat, string messageText, IEnumerable<FAQOption> options)
+        private BotMessage(int messageId, ISender sender, Chat chat, string messageText, IEnumerable<FAQOption> options)
         {
             this._messageId = messageId;
             this._sender = sender;
@@ -29,12 +29,12 @@ namespace CloudSpritzers1.Src.Model.Message
             this._faqOptions = options;
         }
 
-        private BotMessage(int messageId, ISender sender, ChatModel chat, string messageText, IEnumerable<FAQOption> options, DateTimeOffset timestamp) : this(messageId, sender, chat, messageText, options)
+        private BotMessage(int messageId, ISender sender, Chat chat, string messageText, IEnumerable<FAQOption> options, DateTimeOffset timestamp) : this(messageId, sender, chat, messageText, options)
         {
             this._timestamp = timestamp;
         }
 
-        public ChatModel GetChat()
+        public Chat GetChat()
         {
             return this._chat;
         }
@@ -67,19 +67,19 @@ namespace CloudSpritzers1.Src.Model.Message
         {
             private int _messageId;
             private ISender _sender;
-            private ChatModel _chat;
+            private Chat _chat;
             private string _messageText;
             private List<FAQOption> _faqOptions;
             private DateTimeOffset _timestamp;
 
-            public BotMessageBuilder(ISender sender, ChatModel chat, int messageId, FAQNode nodeToMessage)
+            public BotMessageBuilder(ISender sender, Chat chat, int messageId, FAQNode nodeToMessage)
                 : this(sender, chat, messageId)
             {
                 this._messageText = nodeToMessage.QuestionText;
                 this._faqOptions = nodeToMessage.Options.ToList();
             }
 
-            public BotMessageBuilder(ISender sender, ChatModel chat, int messageId)
+            public BotMessageBuilder(ISender sender, Chat chat, int messageId)
             {
                 this._messageText = string.Empty;
                 this._messageId = messageId;

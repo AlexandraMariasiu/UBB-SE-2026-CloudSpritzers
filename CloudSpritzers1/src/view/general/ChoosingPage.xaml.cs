@@ -14,9 +14,9 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using CloudSpritzers1.Src.ViewModel.general;
+using CloudSpritzers1.Src.ViewModel.General;
 
-namespace CloudSpritzers1.Src.View.general
+namespace CloudSpritzers1.Src.View.General
 {
     public sealed partial class ChoosingPage : Page
     {

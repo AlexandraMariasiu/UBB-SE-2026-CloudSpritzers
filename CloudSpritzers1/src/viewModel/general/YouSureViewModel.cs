@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace CloudSpritzers1.Src.ViewModel.general
+namespace CloudSpritzers1.Src.ViewModel.General
 {
     /// <summary>
     /// ViewModel for confirmation dialogs.

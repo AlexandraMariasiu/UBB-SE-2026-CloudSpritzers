@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CloudSpritzers1.Src.Model.Message;
 
-namespace CloudSpritzers1.Src.Service.Bot.strategy
+namespace CloudSpritzers1.Src.Service.Bot.Strategy
 {
     public interface IBotStrategy
     {

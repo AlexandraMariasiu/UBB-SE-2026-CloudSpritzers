@@ -4,7 +4,7 @@ using System.Linq;
 using CloudSpritzers1.Src.Model.Faq;
 using Microsoft.Data.SqlClient;
 using CloudSpritzers1.Src.Repository.Database;
-using CloudSpritzers1.Src.Repository.interfaces;
+using CloudSpritzers1.Src.Repository.Interfaces;
 
 namespace CloudSpritzers1.Src.Repository.Implementation
 {

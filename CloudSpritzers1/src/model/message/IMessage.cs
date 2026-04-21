@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.Src.Model.Chat;
+using CloudSpritzers1.Src.Model.Chats;
 using CloudSpritzers1.Src.Model.Faq.Bot;
 
 namespace CloudSpritzers1.Src.Model.Message

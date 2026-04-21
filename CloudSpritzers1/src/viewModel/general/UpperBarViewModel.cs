@@ -3,7 +3,7 @@ using CloudSpritzers1.Src.Model;
 using CloudSpritzers1.Src.Model.Employee;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace CloudSpritzers1.Src.ViewModel.general
+namespace CloudSpritzers1.Src.ViewModel.General
 {
     public sealed partial class UpperBarViewModel : ObservableObject
     {
@@ -53,7 +53,7 @@ namespace CloudSpritzers1.Src.ViewModel.general
         }
 
         // Navigation targets are resolved here so the view does not contain branching logic
-        public Type LandingPageType => typeof(CloudSpritzers1.Src.View.general.LandingPage);
+        public Type LandingPageType => typeof(CloudSpritzers1.Src.View.General.LandingPage);
         public Type FAQPageType => typeof(CloudSpritzers1.Src.View.Faq.FAQView);
         public Type ChatPageType => typeof(CloudSpritzers1.Src.View.Chat.ChatPage);
         public Type TicketsPageType => IsClientView
@@ -62,6 +62,6 @@ namespace CloudSpritzers1.Src.ViewModel.general
         public Type ReviewsPageType => IsClientView
             ? typeof(CloudSpritzers1.Src.View.Review.ReviewPage)
             : typeof(CloudSpritzers1.Src.View.Review.EmployeeSeeReviews);
-        public Type ChoosingPageType => typeof(CloudSpritzers1.Src.View.general.ChoosingPage);
+        public Type ChoosingPageType => typeof(CloudSpritzers1.Src.View.General.ChoosingPage);
     }
 }

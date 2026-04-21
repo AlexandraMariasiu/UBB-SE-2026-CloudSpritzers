@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CloudSpritzers1.Src.Model.Faq;
 
-namespace CloudSpritzers1.Src.Repository.interfaces
+namespace CloudSpritzers1.Src.Repository.Interfaces
 {
     public interface IFAQRepository : IRepository<int, FAQEntry>
     {

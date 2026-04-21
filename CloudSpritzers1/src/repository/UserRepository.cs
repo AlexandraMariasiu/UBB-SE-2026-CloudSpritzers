@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CloudSpritzers1.Src.Model;
-using CloudSpritzers1.Src.Repository.interfaces;
+using CloudSpritzers1.Src.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
 using CloudSpritzers1.Src.Repository.Database;
 

@@ -8,7 +8,7 @@ using CloudSpritzers1.Src.Service;
 using CloudSpritzers1.Src.Service.Bot;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CloudSpritzers1.Src.Service.interfaces;
+using CloudSpritzers1.Src.Service.Interfaces;
 
 namespace CloudSpritzers1.Src.ViewModel
 {

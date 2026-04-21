@@ -12,7 +12,7 @@ using CloudSpritzers1;
 using CloudSpritzers1.Src.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace CloudSpritzers1.Src.ViewModel.general
+namespace CloudSpritzers1.Src.ViewModel.General
 {
 	public class ChoosingPageViewModel
 	{

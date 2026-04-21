@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:dto="using:CloudSpritzers1.Src.Dto"
-    xmlns:general="using:CloudSpritzers1.Src.View.general"
+    xmlns:general="using:CloudSpritzers1.Src.View.General"
     RequestedTheme="Light"
     Background="{ThemeResource PageBackgroundBrush}">
 

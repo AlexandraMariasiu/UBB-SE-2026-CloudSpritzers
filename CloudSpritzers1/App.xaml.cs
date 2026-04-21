@@ -9,21 +9,21 @@ using CloudSpritzers1.Src;
 using CloudSpritzers1.Src.Dto;
 using CloudSpritzers1.Src.Dto.MappingProfiles;
 using CloudSpritzers1.Src.Model;
-using CloudSpritzers1.Src.Model.Chat;
+using CloudSpritzers1.Src.Model.Chats;
 using CloudSpritzers1.Src.Model.Employee;
 using CloudSpritzers1.Src.Repository;
 using CloudSpritzers1.Src.Repository.Implementation;
-using CloudSpritzers1.Src.Repository.interfaces;
+using CloudSpritzers1.Src.Repository.Interfaces;
 using CloudSpritzers1.Src.Service;
 using CloudSpritzers1.Src.Service.Bot;
-using CloudSpritzers1.Src.Service.Bot.strategy;
+using CloudSpritzers1.Src.Service.Bot.Strategy;
 using CloudSpritzers1.Src.Service.Implementation;
-using CloudSpritzers1.Src.Service.interfaces;
+using CloudSpritzers1.Src.Service.Interfaces;
 using CloudSpritzers1.Src.ViewModel;
 using CloudSpritzers1.Src.ViewModel;
-using CloudSpritzers1.Src.ViewModel.Chat;
+using CloudSpritzers1.Src.ViewModel.Chats;
 using CloudSpritzers1.Src.ViewModel.Faq;
-using CloudSpritzers1.Src.ViewModel.general;
+using CloudSpritzers1.Src.ViewModel.General;
 using CloudSpritzers1.Src.ViewModel.Review;
 using CloudSpritzers1.Src.Repository.Database;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,10 +39,10 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using CloudSpritzers1.Src.ViewModel.general;
+using CloudSpritzers1.Src.ViewModel.General;
 using CloudSpritzers1.Src.ViewModel;
-using CloudSpritzers1.Src.Repository.interfaces;
-using CloudSpritzers1.Src.Service.interfaces;
+using CloudSpritzers1.Src.Repository.Interfaces;
+using CloudSpritzers1.Src.Service.Interfaces;
 using CloudSpritzers1.Src.Model.Review;
 
 namespace CloudSpritzers1
@@ -157,7 +157,7 @@ namespace CloudSpritzers1
             _window = new MainWindow();
 
             var frame = new Frame();
-            frame.Navigate(typeof(CloudSpritzers1.Src.View.general.ChoosingPage));
+            frame.Navigate(typeof(CloudSpritzers1.Src.View.General.ChoosingPage));
             _window.Content = frame;
 
             _window.Activate();

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CloudSpritzers1.Src.Model.Chat;
+using CloudSpritzers1.Src.Model.Chats;
 using CloudSpritzers1.Src.Model.Faq.Bot;
 using CloudSpritzers1.Src.Model.Message;
 using CloudSpritzers1.Src.Repository;

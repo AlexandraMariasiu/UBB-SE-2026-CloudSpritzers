@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using CloudSpritzers1.Src.Model.Faq.Bot;
 using CloudSpritzers1.Src.Model.Message;
 using CloudSpritzers1.Src.Repository;
-using CloudSpritzers1.Src.Service.Bot.strategy;
+using CloudSpritzers1.Src.Service.Bot.Strategy;
 
 namespace CloudSpritzers1.Src.Service.Bot
 {

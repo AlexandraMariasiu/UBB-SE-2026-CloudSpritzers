@@ -1,7 +1,7 @@
 ﻿using System;
 using CloudSpritzers1.Src.ViewModel;
-using CloudSpritzers1.Src.ViewModel.Chat;
-using CloudSpritzers1.Src.ViewModel.general;
+using CloudSpritzers1.Src.ViewModel.Chats;
+using CloudSpritzers1.Src.ViewModel.General;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
@@ -21,7 +21,7 @@ namespace CloudSpritzers1.Src.View.Chat
         public void EndChat(object sender, RoutedEventArgs e)
         {
             ViewModel.CloseChat();
-            this.Frame.Navigate(typeof(CloudSpritzers1.Src.View.general.LandingPage));
+            this.Frame.Navigate(typeof(CloudSpritzers1.Src.View.General.LandingPage));
         }
     }
 }

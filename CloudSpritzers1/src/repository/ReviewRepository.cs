@@ -4,17 +4,15 @@ using System.Linq;
 using CloudSpritzers1.Src.Model;
 using CloudSpritzers1.Src.Model.Review;
 using Microsoft.Data.SqlClient;
-using CloudSpritzers1.Src.Repository.interfaces;
+using CloudSpritzers1.Src.Repository.Interfaces;
 using CloudSpritzers1.Src.Repository.Database;
 
 namespace CloudSpritzers1.Src.Repository
 {
     public class ReviewRepository : DatabaseRepository<int, Review>, IRepository<int, Review>
     {
-        //private UserRepository _userRepository = new UserRepository();
-
-        //public ReviewRepository() { }
-
+        // private UserRepository _userRepository = new UserRepository();
+        // public ReviewRepository() { }
         private readonly IRepository<int, User> _userRepository;
 
         // Dependency Injection: Pass the repository in rather than creating it here
@@ -22,9 +20,6 @@ namespace CloudSpritzers1.Src.Repository
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
-
-
-
         public Review GetById(int reviewId)
         {
             string query = "SELECT * FROM Review WHERE review_id = @id";
@@ -34,7 +29,9 @@ namespace CloudSpritzers1.Src.Repository
             Review review = base.GetById(reviewId, command);
 
             if (review == null)
+            {
                 throw new KeyNotFoundException($"Review with id {reviewId} was not found.");
+            }
 
             return review;
         }

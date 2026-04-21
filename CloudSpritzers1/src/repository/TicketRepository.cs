@@ -4,7 +4,7 @@ using CloudSpritzers1.Src.Model.Ticket;
 using Microsoft.Data.SqlClient;
 using CloudSpritzers1.Src.Model;
 using CloudSpritzers1.Src.Model.Faq;
-using CloudSpritzers1.Src.Repository.interfaces;
+using CloudSpritzers1.Src.Repository.Interfaces;
 using CloudSpritzers1.Src.Repository.Database;
 
 namespace CloudSpritzers1.Src.Repository

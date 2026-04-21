@@ -8,7 +8,7 @@ using System.ComponentModel;
 using Microsoft.Data;
 using Microsoft.Data.SqlClient;
 
-using CloudSpritzers1.Src.Model.Chat;
+using CloudSpritzers1.Src.Model.Chats;
 
 namespace CloudSpritzers1.Src.Repository.Database
 {

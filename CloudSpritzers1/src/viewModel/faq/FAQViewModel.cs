@@ -8,7 +8,7 @@ using AutoMapper;
 using CloudSpritzers1.Src.Dto;
 using CloudSpritzers1.Src.Model.Faq;
 using CloudSpritzers1.Src.Service.Implementation;
-using CloudSpritzers1.Src.Service.interfaces;
+using CloudSpritzers1.Src.Service.Interfaces;
 using CloudSpritzers1.Src.View.Faq;
 
 namespace CloudSpritzers1.Src.ViewModel.Faq

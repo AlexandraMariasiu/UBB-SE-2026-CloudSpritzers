@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CloudSpritzers1.Src.Model.Faq;
 
-namespace CloudSpritzers1.Src.Service.interfaces
+namespace CloudSpritzers1.Src.Service.Interfaces
 {
     public interface IFAQService
     {

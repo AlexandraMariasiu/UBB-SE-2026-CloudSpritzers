@@ -5,7 +5,7 @@ using CloudSpritzers1.Src.Model;
 using CloudSpritzers1.Src.Model.Ticket;
 using CloudSpritzers1.Src.ViewModel;
 
-namespace CloudSpritzers1.Src.Service.interfaces
+namespace CloudSpritzers1.Src.Service.Interfaces
 {
     public interface ITicketService
     {

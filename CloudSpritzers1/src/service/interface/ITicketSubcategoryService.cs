@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CloudSpritzers1.Src.Model.Ticket;
 
-namespace CloudSpritzers1.Src.Service.interfaces
+namespace CloudSpritzers1.Src.Service.Interfaces
 {
     public interface ITicketSubcategoryService
     {

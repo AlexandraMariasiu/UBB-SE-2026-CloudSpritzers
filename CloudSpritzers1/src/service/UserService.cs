@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CloudSpritzers1.Src.Model;
 using CloudSpritzers1.Src.Repository;
-using CloudSpritzers1.Src.Service.interfaces;
-using CloudSpritzers1.Src.Repository.interfaces;
+using CloudSpritzers1.Src.Service.Interfaces;
+using CloudSpritzers1.Src.Repository.Interfaces;
 
 namespace CloudSpritzers1.Src.Service
 {

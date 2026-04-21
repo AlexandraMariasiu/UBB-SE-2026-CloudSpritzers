@@ -1,6 +1,6 @@
 ﻿using System;
 using CloudSpritzers1.Src.View.Faq;
-using CloudSpritzers1.Src.View.general;
+using CloudSpritzers1.Src.View.General;
 using CloudSpritzers1.Src.View.Ticket;
 using CloudSpritzers1.Src.ViewModel.Review;
 using Microsoft.Extensions.DependencyInjection;

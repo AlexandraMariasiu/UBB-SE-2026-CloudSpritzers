@@ -13,7 +13,7 @@ using CloudSpritzers1.Src.Model.Ticket;
 using CloudSpritzers1.Src.Repository.Database;
 using CloudSpritzers1.Src.Service;
 using Microsoft.Data.SqlClient;
-using CloudSpritzers1.Src.Service.interfaces;
+using CloudSpritzers1.Src.Service.Interfaces;
 using CloudSpritzers1.Src.Dto;
 using CloudSpritzers1.Src.Model.Ticket;
 using CloudSpritzers1.Src.Service;
