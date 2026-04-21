@@ -1,13 +1,13 @@
 ﻿using System;
 using AutoMapper;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.dto.mappingProfiles;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.model.ticket;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Dto.MappingProfiles;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Model.Ticket;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
-namespace CloudSpritzers1.tests.dto.mappingProfiles;
+namespace CloudSpritzers1Tests.Dto.MappingProfiles;
 
 [TestClass]
 public class TicketMappingProfileTests

@@ -1,14 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.repository.interfaces;
-using CloudSpritzers1.src.model.ticket;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1Tests.src.mockClasses;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Repository.Interfaces;
+using CloudSpritzers1.Src.Model.Ticket;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1Tests.Src.MockClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CloudSpritzers1.src.repository.Tests
+namespace CloudSpritzers1Tests.Src.Repository
 {
     [TestClass]
     public class TicketRepositoryTests

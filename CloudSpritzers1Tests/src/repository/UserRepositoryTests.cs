@@ -1,12 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.repository.interfaces;
-using CloudSpritzers1Tests.src.mockClasses;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Repository.Interfaces;
+using CloudSpritzers1Tests.Src.MockClasses;
 using System.Collections.Generic;
 using System.Linq;
 
 
-namespace CloudSpritzers1Tests.src.repository
+namespace CloudSpritzers1Tests.Src.Repository
 {
     [TestClass]
     public class UserRepositoryTests

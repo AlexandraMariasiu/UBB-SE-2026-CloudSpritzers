@@ -1,7 +1,7 @@
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model.faq;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Model.Faq;
 
-namespace CloudSpritzers1Tests;
+namespace CloudSpritzers1Tests.Dto;
 
 [TestClass]
 public class FAQEntryDtoTests

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Repository.Interfaces;
 
-namespace CloudSpritzers1Tests.src.mockClasses
+namespace CloudSpritzers1Tests.Src.MockClasses
 {
     public class InMemoryUserRepository : IUserRepository
     {

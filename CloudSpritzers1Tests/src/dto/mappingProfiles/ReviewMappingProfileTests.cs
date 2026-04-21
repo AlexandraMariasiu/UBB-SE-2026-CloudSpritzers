@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.model.review;
-using CloudSpritzers1.src.dto.mappingProfiles;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Model.Review;
+using CloudSpritzers1.Src.Dto.MappingProfiles;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
-namespace CloudSpritzers1.src.tests.dto.mappingProfiles
+namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
 {
     [TestClass]
     public class ReviewMappingProfileTests

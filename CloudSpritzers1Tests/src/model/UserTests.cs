@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CloudSpritzers1.src.model;
+using CloudSpritzers1.Src.Model;
 
-namespace CloudSpritzers1Tests.src.model
+namespace CloudSpritzers1Tests.Src.Model
 {
     [TestClass]
     public class UserTests

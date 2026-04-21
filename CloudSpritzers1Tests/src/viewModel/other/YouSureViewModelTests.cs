@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CloudSpritzers1.src.viewModel.general;
+using CloudSpritzers1.Src.ViewModel.General;
 using System.ComponentModel;
 
-namespace CloudSpritzers1Tests.src.viewModel
+namespace CloudSpritzers1Tests.Src.ViewModel
 {
     [TestClass]
     public class YouSureViewModelTests

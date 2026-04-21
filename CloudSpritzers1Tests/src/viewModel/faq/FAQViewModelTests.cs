@@ -2,18 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.dto.mappingProfiles;
-using CloudSpritzers1.src.model.faq;
-using CloudSpritzers1.src.repository.interfaces;
-using CloudSpritzers1.src.service.implementation;
-using CloudSpritzers1.src.service.interfaces;
-using CloudSpritzers1.src.viewModel.faq;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Dto.MappingProfiles;
+using CloudSpritzers1.Src.Model.Faq;
+using CloudSpritzers1.Src.Repository.Interfaces;
+using CloudSpritzers1.Src.Service.Implementation;
+using CloudSpritzers1.Src.Service.Interfaces;
+using CloudSpritzers1.Src.ViewModel.Faq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using NSubstitute.Core;
 
-namespace CloudSpritzers1.src.viewModel.faq
+namespace CloudSpritzers1Tests.Src.ViewModel.Faq
 {
     [TestClass]
     public class FAQViewModelTests

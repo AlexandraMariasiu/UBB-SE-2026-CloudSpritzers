@@ -1,12 +1,12 @@
-﻿using CloudSpritzers1.src.model.ticket;
-using CloudSpritzers1.src.repository.interfaces;
+﻿using CloudSpritzers1.Src.Model.Ticket;
+using CloudSpritzers1.Src.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudSpritzers1Tests.src.mockClasses
+namespace CloudSpritzers1Tests.Src.MockClasses
 {
     public class InMemoryTicketCategoryRepository : ITicketCategoryRepository
     {

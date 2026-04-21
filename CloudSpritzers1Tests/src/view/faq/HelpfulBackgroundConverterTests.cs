@@ -1,4 +1,4 @@
-using CloudSpritzers1.src.view.faq;
+using CloudSpritzers1.Src.View.Faq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 using Windows.UI;
@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.UI.Dispatching;
 using System;
 using System.Threading.Tasks;
-namespace CloudSpritzers1.src.view.faq;
+namespace CloudSpritzers1.Src.Converter;
 
 [TestClass]
 public class HelpfulBackgroundConverterTests

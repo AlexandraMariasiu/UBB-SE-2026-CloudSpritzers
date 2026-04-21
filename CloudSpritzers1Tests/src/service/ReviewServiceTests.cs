@@ -1,15 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CloudSpritzers1.src.service;
-using CloudSpritzers1.src.repository.interfaces;
-using CloudSpritzers1.src.model.review;
-using CloudSpritzers1.src.model;
+using CloudSpritzers1.Src.Service;
+using CloudSpritzers1.Src.Repository.Interfaces;
+using CloudSpritzers1.Src.Model.Review;
+using CloudSpritzers1.Src.Model;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CloudSpritzers1.src.repository;
+using CloudSpritzers1.Src.Repository;
 
-namespace CloudSpritzers1Tests.src.service
+namespace CloudSpritzers1Tests.Src.Service
 {
     [TestClass]
     public class ReviewServiceTests
