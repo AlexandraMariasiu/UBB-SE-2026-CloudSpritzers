@@ -67,9 +67,9 @@ namespace CloudSpritzers1Tests.src.mockClasses
                 throw new KeyNotFoundException($"FAQ with ID {id} not found.");
 
             entry.ViewCount = entry.ViewCount + 1;
-            //var index = _faqEntries.FindIndex(e => e.Id == id);
+            //var index = _faqEntries.FindIndex(e => e.TicketId == id);
 
-            //var updatedEntry = new FAQEntry(entry.Id, entry.Question, entry.Answer, entry.Category, entry.ViewCount++, entry.HelpfulVotesCount, entry.NotHelpfulVotesCount);
+            //var updatedEntry = new FAQEntry(entry.TicketId, entry.Question, entry.Answer, entry.Category, entry.ViewCount++, entry.HelpfulVotesCount, entry.NotHelpfulVotesCount);
             //_faqEntries[index] = updatedEntry;
         }
 
