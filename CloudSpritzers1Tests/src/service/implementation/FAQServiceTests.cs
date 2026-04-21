@@ -10,6 +10,7 @@ using CloudSpritzers1.src.repository.interfaces;
 using CloudSpritzers1.src.model.faq;
 using CloudSpritzers1.src.service.interfaces;
 using CloudSpritzers1.src.dto;
+using CloudSpritzers1Tests.src.mockClasses;
 namespace CloudSpritzers1.src.service.implementation.Tests
 {
     [TestClass()]

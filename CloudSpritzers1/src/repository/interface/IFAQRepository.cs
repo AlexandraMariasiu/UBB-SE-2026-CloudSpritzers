@@ -5,13 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using CloudSpritzers1.src.model.faq;
 
-namespace CloudSpritzers1.src.repository.interfaces
+namespace CloudSpritzers1.src.repository.interfaces;
+
+public interface IFAQRepository : IRepository<int, FAQEntry>
 {
-    public interface IFAQRepository : IRepository<int, FAQEntry>
-    {
-        List<FAQEntry> GetByCategory(FAQCategoryEnum category);
-        void IncrementViewCount(int id);
-        void IncrementWasHelpfulVotes(int id);
-        void IncrementWasNotHelpfulVotes(int id);
-    }
+    List<FAQEntry> GetByCategory(FAQCategoryEnum category);
+    void IncrementViewCount(int id);
+    void IncrementWasHelpfulVotes(int id);
+    void IncrementWasNotHelpfulVotes(int id);
 }
