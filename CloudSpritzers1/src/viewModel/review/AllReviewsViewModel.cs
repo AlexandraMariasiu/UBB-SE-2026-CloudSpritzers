@@ -59,22 +59,6 @@ namespace CloudSpritzers1.src.viewModel.review
 
             CalculateCategoryAverages(reviewsFromDb);
 
-            // foreach (var review in reviewsFromDb)
-            // {
-            //    int idToSearch = review.GetUser().UserId;
-            //    string realName = GetUserNameFromDatabase(idToSearch);
-            //    float average = (review.GetDutyFreeRating() +
-            //                     review.GetFlightExperienceRating() +
-            //                     review.GetStaffFriendlinessRating() +
-            //                     review.GetCleanlinessRating()) / 4.0f;
-            //    var dto = _mapper.Map<ReviewDTO>(review);
-            //    var finalDto = dto with
-            //    {
-            //        userName = realName,
-            //        overallRating = average
-            //    };
-            //    Reviews.Add(finalDto);
-            // }
             var mappedReviews = _mapper.Map<List<ReviewDTO>>(reviewsFromDb);
 
             foreach (var reviewDataTransferObject in mappedReviews)
@@ -90,16 +74,5 @@ namespace CloudSpritzers1.src.viewModel.review
             AverageStaffFriendliness = reviews.Average(review => review.GetStaffFriendlinessRating());
             AverageCleanliness = reviews.Average(review => review.GetCleanlinessRating());
         }
-
-        // private string GetUserNameFromDatabase(int userId)
-        // {
-        //    using var conn = DBConnectionHandler.Instance.Connection;
-        //    string query = "SELECT name FROM [User] WHERE user_id = @id";
-        //    SqlCommand cmd = new SqlCommand(query, conn);
-        //    cmd.Parameters.AddWithValue("@id", userId);
-        //    conn.Open();
-        //    var result = cmd.ExecuteScalar();
-        //    return result?.ToString() ?? "Unknown User";
-        // }
     }
 }
