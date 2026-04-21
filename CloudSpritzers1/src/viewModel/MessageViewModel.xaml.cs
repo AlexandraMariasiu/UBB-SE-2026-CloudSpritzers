@@ -14,14 +14,14 @@ namespace CloudSpritzers1.Src.ViewModel
 {
     public partial class MessageViewModel : ObservableObject
     {
-        private readonly MessageService _messageService;
-        private readonly IUserService _userService;
-        private readonly IMapper _mapper;
+        private readonly MessageService messageService;
+        private readonly IUserService userService;
+        private readonly IMapper mapper;
 
-        private readonly int _chatId;
-        private readonly int _currentUserId;
+        private readonly int chatId;
+        private readonly int currentUserId;
 
-        public ObservableCollection<MessageDTO> Messages { get; } = new();
+        public ObservableCollection<MessageDTO> Messages { get; } = new ();
 
         public MessageViewModel(
             MessageService messageService,
@@ -30,23 +30,23 @@ namespace CloudSpritzers1.Src.ViewModel
             int chatId,
             int currentUserId)
         {
-            _messageService = messageService;
-            _userService = userService;
-            _mapper = mapper;
-            _chatId = chatId;
-            _currentUserId = currentUserId;
+            this.messageService = messageService;
+            this.userService = userService;
+            this.mapper = mapper;
+            this.chatId = chatId;
+            this.currentUserId = currentUserId;
 
             LoadMessages();
         }
 
         public void LoadMessages()
         {
-            var messagesFromDb = _messageService.GetAllMessages(_chatId);
+            var messagesFromDb = messageService.GetAllMessages(chatId);
             Messages.Clear();
 
             foreach (var message in messagesFromDb)
             {
-                Messages.Add(_mapper.Map<MessageDTO>(message));
+                Messages.Add(mapper.Map<MessageDTO>(message));
             }
         }
 
@@ -59,12 +59,12 @@ namespace CloudSpritzers1.Src.ViewModel
             }
 
             // Lazily resolve the current user only when needed.
-            var sender = _userService.GetById(_currentUserId);
+            var sender = userService.GetById(currentUserId);
 
-            BotMessage botReply = _messageService.SendMessage(_chatId, sender, selectedOption);
+            BotMessage botReply = messageService.SendMessage(chatId, sender, selectedOption);
 
-            Messages.Add(_mapper.Map<MessageDTO>(new Message(sender, botReply.GetChat(), selectedOption.Label)));
-            Messages.Add(_mapper.Map<MessageDTO>(botReply));
+            Messages.Add(mapper.Map<MessageDTO>(new Message(sender, botReply.GetChat(), selectedOption.label)));
+            Messages.Add(mapper.Map<MessageDTO>(botReply));
         }
     }
 }

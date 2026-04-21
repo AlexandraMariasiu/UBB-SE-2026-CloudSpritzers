@@ -9,8 +9,8 @@ using CloudSpritzers1.Src.Service.Bot;
 namespace CloudSpritzers1.Src.Model.Faq.Bot
 {
     public record FAQNode(
-        int FaqNodeId,
-        string QuestionText,
-        ImmutableArray<FAQOption> Options,
-        bool IsFinalAnswer);
+        int faqNodeId,
+        string questionText,
+        ImmutableArray<FAQOption> options,
+        bool isFinalAnswer);
 }

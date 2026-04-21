@@ -29,7 +29,7 @@ namespace CloudSpritzers1.Src.Repository
             sqlCommand.Parameters.AddWithValue("@email", employeeEntity.RetrieveConfiguredEmailAddressForBotContact());
             sqlCommand.Parameters.AddWithValue("@group", employeeEntity.GetDepartmentName());
 
-            int identificationNumber = base.Add(sqlCommand, employeeEntity);
+            int identificationNumber = Add(sqlCommand, employeeEntity);
             return identificationNumber;
         }
 
@@ -39,14 +39,14 @@ namespace CloudSpritzers1.Src.Repository
             SqlCommand sqlCommand = new SqlCommand(deleteQuery);
             sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
 
-            base.DeleteById(identificationNumber, sqlCommand);
+            DeleteById(identificationNumber, sqlCommand);
         }
 
         public IEnumerable<Employee> GetAll()
         {
             string selectAllQuery = "SELECT * FROM Employee";
             SqlCommand sqlCommand = new SqlCommand(selectAllQuery);
-            return base.GetAll(sqlCommand);
+            return GetAll(sqlCommand);
         }
 
         public Employee GetById(int identificationNumber)
@@ -55,7 +55,7 @@ namespace CloudSpritzers1.Src.Repository
             SqlCommand sqlCommand = new SqlCommand(selectByIdQuery);
             sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
 
-            Employee foundEmployee = base.GetById(identificationNumber, sqlCommand);
+            Employee foundEmployee = GetById(identificationNumber, sqlCommand);
 
             if (foundEmployee == null)
             {
@@ -85,7 +85,7 @@ namespace CloudSpritzers1.Src.Repository
             sqlCommand.Parameters.AddWithValue("@email", employeeEntity.RetrieveConfiguredEmailAddressForBotContact());
             sqlCommand.Parameters.AddWithValue("@group", employeeEntity.GetDepartmentName());
 
-            base.UpdateById(identificationNumber, sqlCommand, employeeEntity);
+            UpdateById(identificationNumber, sqlCommand, employeeEntity);
         }
 
         protected override int GetEntityId(Employee employeeEntity)

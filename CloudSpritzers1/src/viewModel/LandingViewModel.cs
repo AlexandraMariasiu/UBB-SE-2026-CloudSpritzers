@@ -8,30 +8,30 @@ namespace CloudSpritzers1.Src.ViewModel
 {
     public partial class LandingViewModel : ObservableObject
     {
-        private readonly ReviewService _reviewService;
-        private readonly IMapper _mapper;
+        private readonly ReviewService reviewService;
+        private readonly IMapper mapper;
 
-        public ObservableCollection<ReviewDTO> Reviews { get; } = new();
+        public ObservableCollection<ReviewDTO> Reviews { get; } = new ();
 
         public LandingViewModel(ReviewService reviewService, IMapper mapper)
         {
-            _reviewService = reviewService;
-            _mapper = mapper;
+            this.reviewService = reviewService;
+            this.mapper = mapper;
             LoadReviews();
         }
 
         public void LoadReviews()
         {
-            var allReviews = _reviewService.GetAll();
+            var allReviews = reviewService.GetAll();
             Reviews.Clear();
 
             foreach (var review in allReviews)
             {
                 string realName = review.GetUser().RetrieveConfiguredDisplayFullNameForBot();
 
-                float averageRating = _reviewService.CalculateAverageRating(review);
+                float averageRating = reviewService.CalculateAverageRating(review);
 
-                var reviewDto = _mapper.Map<ReviewDTO>(review);
+                var reviewDto = mapper.Map<ReviewDTO>(review);
 
                 var finalDto = reviewDto with
                 {

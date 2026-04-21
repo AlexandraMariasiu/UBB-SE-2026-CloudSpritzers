@@ -20,27 +20,27 @@ namespace CloudSpritzers1.Src.ViewModel.Chats
 {
     public sealed partial class ChatViewModel : ObservableObject
     {
-        public ObservableCollection<FAQOption> CurrentOptions { get; } = new();
-        public ObservableCollection<MessageDTO> ChatHistory { get; } = new();
+        public ObservableCollection<FAQOption> CurrentOptions { get; } = new ();
+        public ObservableCollection<MessageDTO> ChatHistory { get; } = new ();
 
-        private MessageService _messageService;
-        private ChatService _chatService;
-        private IUserService _userService;
-        private IMapper _mapper;
-        private Chat _chat;
-        private User _user;
-        private const int _FIRST_OPTION = 1;
+        private MessageService messageService;
+        private ChatService chatService;
+        private IUserService userService;
+        private IMapper mapper;
+        private Chat chat;
+        private User user;
+        private const int FIRST_OPTION = 1;
         public ChatViewModel(MessageService msgService, ChatService chatService, IMapper mapper, IUserService userService)
         {
-            _messageService = msgService;
-            _chatService = chatService;
-            _mapper = mapper;
-            _userService = userService;
+            messageService = msgService;
+            this.chatService = chatService;
+            this.mapper = mapper;
+            this.userService = userService;
 
             // TODO: add null guard
-            _user = (App.Current as App).User;
+            user = (App.Current as App).User;
 
-            _chat = _chatService.OpenChat(_user.RetrieveUniqueDatabaseIdentifierForBot());
+            chat = this.chatService.OpenChat(user.RetrieveUniqueDatabaseIdentifierForBot());
 
             LoadChatHistory();
 
@@ -50,20 +50,20 @@ namespace CloudSpritzers1.Src.ViewModel.Chats
             }
         }
 
-        public string FormatUserId => "User Id: " + _user.RetrieveUniqueDatabaseIdentifierForBot().ToString();
+        public string FormatUserId => "User Id: " + user.RetrieveUniqueDatabaseIdentifierForBot().ToString();
         public void CloseChat()
         {
-            _chatService.CloseChat(_chat.ChatId);
+            chatService.CloseChat(chat.ChatId);
         }
         private void LoadChatHistory()
         {
             ChatHistory.Clear();
-            var messages = _messageService.GetAllMessages(_chat.ChatId);
-            var currentUserId = _user.RetrieveUniqueDatabaseIdentifierForBot();
+            var messages = messageService.GetAllMessages(chat.ChatId);
+            var currentUserId = user.RetrieveUniqueDatabaseIdentifierForBot();
             foreach (var msg in messages)
             {
-                var dto = _mapper.Map<MessageDTO>(msg);
-                dto.SenderName = _userService.GetById(dto.SenderId)?.RetrieveConfiguredDisplayFullNameForBot();
+                var dto = mapper.Map<MessageDTO>(msg);
+                dto.SenderName = userService.GetById(dto.SenderId)?.RetrieveConfiguredDisplayFullNameForBot();
                 dto.IsOutgoing = (dto.SenderId == currentUserId);
                 ChatHistory.Add(dto);
             }
@@ -77,8 +77,8 @@ namespace CloudSpritzers1.Src.ViewModel.Chats
                 return;
             }
 
-            BotMessage botReply = _messageService.SendMessage(_chat.ChatId, _user, option);
-            System.Diagnostics.Debug.WriteLine($"User selected: {option.Label}");
+            BotMessage botReply = messageService.SendMessage(chat.ChatId, user, option);
+            System.Diagnostics.Debug.WriteLine($"User selected: {option.label}");
 
             LoadChatHistory();
             UpdateAvailableOptions(botReply);
@@ -99,13 +99,13 @@ namespace CloudSpritzers1.Src.ViewModel.Chats
             }
             else
             {
-                CurrentOptions.Add(new FAQOption("Restart Chat", _FIRST_OPTION));
+                CurrentOptions.Add(new FAQOption("Restart Chat", FIRST_OPTION));
             }
         }
 
         private void LoadFirstMessage()
         {
-            HandleOptionClick(new FAQOption("Hello! I need help.", _FIRST_OPTION));
+            HandleOptionClick(new FAQOption("Hello! I need help.", FIRST_OPTION));
             // _messageService.SendMessage(_chat.ChatId, _user, new FAQOption("Hello! I need help.", _FIRST_OPTION));
         }
     }

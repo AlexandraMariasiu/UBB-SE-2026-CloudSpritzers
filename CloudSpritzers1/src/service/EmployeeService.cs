@@ -12,36 +12,36 @@ namespace CloudSpritzers1.Src.Service
 {
     public class EmployeeService : IEmployeeService
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeRepository employeeRepository;
 
         public EmployeeService(IEmployeeRepository employeeRepository)
         {
-            _employeeRepository = employeeRepository;
+            this.employeeRepository = employeeRepository;
         }
 
         public Employee GetEmployeeById(int identificationNumber)
         {
-            return _employeeRepository.GetById(identificationNumber);
+            return employeeRepository.GetById(identificationNumber);
         }
 
         public int AddEmployee(Employee employeeEntity)
         {
-            return _employeeRepository.CreateNewEntity(employeeEntity);
+            return employeeRepository.CreateNewEntity(employeeEntity);
         }
 
         public void UpdateEmployeeById(int identificationNumber, Employee employeeEntity)
         {
-            _employeeRepository.UpdateById(identificationNumber, employeeEntity);
+            employeeRepository.UpdateById(identificationNumber, employeeEntity);
         }
 
         public void DeleteEmployeeById(int identificationNumber)
         {
-            _employeeRepository.DeleteById(identificationNumber);
+            employeeRepository.DeleteById(identificationNumber);
         }
 
         public List<Employee> GetAllEmployees()
         {
-            return _employeeRepository.GetAll().ToList();
+            return employeeRepository.GetAll().ToList();
         }
 
         public void CreateNewEmployee(int identificationNumber, string fullName, string emailAddress, string departmentName)

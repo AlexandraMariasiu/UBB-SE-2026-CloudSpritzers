@@ -78,9 +78,9 @@ namespace CloudSpritzers1.Src.View.Faq
 
             var app = (App)App.Current;
 
-            ViewModel.IsAdmin = app.isEmployee;
+            ViewModel.IsAdmin = app.IsEmployee;
 
-            if (app.isEmployee && app.Employee != null)
+            if (app.IsEmployee && app.Employee != null)
             {
                 currentPersonId = app.Employee.RetrieveUniqueDatabaseIdentifierForBot();
             }

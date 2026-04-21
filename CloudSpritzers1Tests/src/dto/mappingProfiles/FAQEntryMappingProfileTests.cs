@@ -4,7 +4,6 @@ using CloudSpritzers1.Src.Repository.Interfaces;
 using NSubstitute;
 
 namespace CloudSpritzers1.Src.Dto.MappingProfiles;
-
 [TestClass]
 public class FAQEntryMappingProfileTests
 {

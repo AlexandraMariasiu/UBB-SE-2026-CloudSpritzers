@@ -11,7 +11,7 @@ namespace CloudSpritzers1.Src.Repository.Database
         where TEntity : class
         where TKey : notnull
     {
-        private readonly Dictionary<TKey, TEntity> _entityCache = new();
+        private readonly Dictionary<TKey, TEntity> entityCache = new ();
 
         protected SqlConnection CreateConnection() => DatabaseConnectionHandler.Instance.CreateConnection();
         protected abstract TEntity MapRowToEntity(SqlDataReader reader);
@@ -25,7 +25,7 @@ namespace CloudSpritzers1.Src.Repository.Database
         /// <returns></returns>
         protected TEntity GetById(TKey id, SqlCommand command)
         {
-            if (_entityCache.TryGetValue(id, out var cached))
+            if (entityCache.TryGetValue(id, out var cached))
             {
                 return cached;
             }
@@ -33,7 +33,7 @@ namespace CloudSpritzers1.Src.Repository.Database
             var entity = ExecuteQuerySingle(command);
             if (entity != null)
             {
-                _entityCache[id] = entity;
+                entityCache[id] = entity;
             }
 
             return entity;
@@ -44,7 +44,7 @@ namespace CloudSpritzers1.Src.Repository.Database
             var results = ExecuteQueryMany(command).ToList();
             foreach (var entity in results)
             {
-                _entityCache[GetEntityId(entity)] = entity;
+                entityCache[GetEntityId(entity)] = entity;
             }
             return results;
         }
@@ -52,20 +52,20 @@ namespace CloudSpritzers1.Src.Repository.Database
         protected TKey Add(SqlCommand command, TEntity entity)
         {
             var id = ExecuteScalar<TKey>(command);
-            _entityCache[id] = entity;
+            entityCache[id] = entity;
             return id;
         }
 
         protected void DeleteById(TKey id, SqlCommand command)
         {
             ExecuteNonQuery(command);
-            _entityCache.Remove(id);
+            entityCache.Remove(id);
         }
 
         protected void UpdateById(TKey id, SqlCommand command, TEntity entity)
         {
             ExecuteNonQuery(command);
-            _entityCache[id] = entity;
+            entityCache[id] = entity;
         }
 
         // NOTE : If testing becomes a requirement, override the following query methods to work over something in memory.
@@ -113,7 +113,7 @@ namespace CloudSpritzers1.Src.Repository.Database
             connection.Open();
             return (T)command.ExecuteScalar();
         }
-        protected void InvalidateCache() => _entityCache.Clear();
-        protected void InvalidateCacheEntry(TKey id) => _entityCache.Remove(id);
+        protected void InvalidateCache() => entityCache.Clear();
+        protected void InvalidateCacheEntry(TKey id) => entityCache.Remove(id);
     }
 }

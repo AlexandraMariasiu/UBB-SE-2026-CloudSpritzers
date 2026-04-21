@@ -14,15 +14,15 @@ namespace CloudSpritzers1.Src.ViewModel.General
     public sealed partial class YouSureViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string _title = "Confirm Action";
+        private string title = "Confirm Action";
 
         [ObservableProperty]
-        private string _message = "Are you sure you want to proceed?";
+        private string message = "Are you sure you want to proceed?";
 
         [ObservableProperty]
-        private string _confirmButtonText = "Yes";
+        private string confirmButtonText = "Yes";
 
         [ObservableProperty]
-        private string _cancelButtonText = "Cancel";
+        private string cancelButtonText = "Cancel";
     }
 }

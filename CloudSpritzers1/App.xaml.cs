@@ -51,10 +51,10 @@ namespace CloudSpritzers1
     public partial class App : Application
     {
         public IServiceProvider Services { get; }
-        private Window? _window;
+        private Window? window;
         public User User { get; private set; }
         public Employee Employee { get; private set; }
-        public bool isEmployee = false;
+        public bool IsEmployee = false;
 
         public App()
         {
@@ -74,7 +74,7 @@ namespace CloudSpritzers1
 
             try
             {
-                if (isEmployee)
+                if (IsEmployee)
                 {
                     Employee = Services.GetService<IEmployeeService>().GetEmployeeById(userId);
                     return Employee != null;
@@ -155,13 +155,13 @@ namespace CloudSpritzers1
 
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            _window = new MainWindow();
+            window = new MainWindow();
 
             var frame = new Frame();
             frame.Navigate(typeof(CloudSpritzers1.Src.View.General.ChoosingPage));
-            _window.Content = frame;
+            window.Content = frame;
 
-            _window.Activate();
+            window.Activate();
         }
     }
 }

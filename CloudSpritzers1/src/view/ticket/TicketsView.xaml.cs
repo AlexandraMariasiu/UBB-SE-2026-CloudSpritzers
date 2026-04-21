@@ -65,25 +65,24 @@ namespace CloudSpritzers1.Src.View.Ticket
                 var selectedSubcategory = ViewModel.Subcategories.FirstOrDefault(s => s.SubcategoryName == inputs.SubcategoryCombo.SelectedItem?.ToString());
 
                 var newTicket = new TicketDTO(
-                    TicketId: ViewModel.GetTotalTicketCount() + 1,
-                    CreatorAccountId: DEFAULT_GUEST_IDENTIFIER,
-                    CreatorEmailAddress: DEFAULT_SYSTEM_EMAIL,
-                    UrgencyLevel: TicketUrgencyLevelEnum.LOW,
-                    CurrentStatus: TicketStatusEnum.OPEN,
-                    CategoryId: selectedCategory?.CategoryId ?? 1,
-                    CategoryName: selectedCategory?.CategoryName ?? "General",
-                    SubcategoryId: selectedSubcategory?.SubcategoryId ?? 1,
-                    SubcategoryName: selectedSubcategory?.SubcategoryName ?? "General",
-                    Subject: inputs.TitleBox.Text,
-                    Description: inputs.DescriptionBox.Text,
-                    CreationTimestamp: DateTime.Now);
+                    ticketId: ViewModel.GetTotalTicketCount() + 1,
+                    creatorAccountId: DEFAULT_GUEST_IDENTIFIER,
+                    creatorEmailAddress: DEFAULT_SYSTEM_EMAIL,
+                    urgencyLevel: TicketUrgencyLevelEnum.LOW,
+                    currentStatus: TicketStatusEnum.OPEN,
+                    categoryId: selectedCategory?.CategoryId ?? 1,
+                    categoryName: selectedCategory?.CategoryName ?? "General",
+                    subcategoryId: selectedSubcategory?.SubcategoryId ?? 1,
+                    subcategoryName: selectedSubcategory?.SubcategoryName ?? "General",
+                    subject: inputs.TitleBox.Text,
+                    description: inputs.DescriptionBox.Text,
+                    creationTimestamp: DateTime.Now);
 
                 ViewModel.CreateTicket(newTicket);
                 dialog.Hide();
             }
             catch (Exception ex)
             {
-                //await ShowError(ex.Message);
                 inputs.ErrorBlock.Text = ex.Message;
                 inputs.ErrorBlock.Visibility = Visibility.Visible;
             }
@@ -99,18 +98,28 @@ namespace CloudSpritzers1.Src.View.Ticket
             panel.Children.Add(titleBox);
 
             var categoryCombo = new ComboBox { Header = "Category*", Width = 400, PlaceholderText = "Select Category" };
-            foreach (var cat in ViewModel.Categories) categoryCombo.Items.Add(cat.CategoryName);
+            foreach (var cat in ViewModel.Categories)
+            {
+                categoryCombo.Items.Add(cat.CategoryName);
+            }
             panel.Children.Add(categoryCombo);
 
             var subcategoryCombo = new ComboBox { Header = "Subcategory*", Width = 400, PlaceholderText = "Select Subcategory" };
             panel.Children.Add(subcategoryCombo);
 
-            categoryCombo.SelectionChanged += (s, e) => {
+            categoryCombo.SelectionChanged += (s, e) =>
+            {
                 subcategoryCombo.Items.Clear();
                 var cat = ViewModel.Categories.FirstOrDefault(c => c.CategoryName == categoryCombo.SelectedItem?.ToString());
-                if (cat == null) return;
+                if (cat == null)
+                {
+                    return;
+                }
                 ViewModel.LoadSubcategories(cat.CategoryId);
-                foreach (var sub in ViewModel.Subcategories) subcategoryCombo.Items.Add(sub.SubcategoryName);
+                foreach (var sub in ViewModel.Subcategories)
+                {
+                    subcategoryCombo.Items.Add(sub.SubcategoryName);
+                }
             };
 
             var descriptionBox = new TextBox { Header = "Description*", PlaceholderText = "Details...", Height = 120, TextWrapping = TextWrapping.Wrap, AcceptsReturn = true };

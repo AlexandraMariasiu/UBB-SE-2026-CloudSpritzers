@@ -7,7 +7,7 @@ namespace CloudSpritzers1.Src.View.General
     public sealed partial class YouSure : ContentDialog
     {
         // Change to a read-only getter to prevent accidental reassignment
-        public YouSureViewModel ViewModel { get; } = new();
+        public YouSureViewModel ViewModel { get; } = new ();
 
         public YouSure()
         {

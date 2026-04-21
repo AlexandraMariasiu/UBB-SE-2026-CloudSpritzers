@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace CloudSpritzers1.Src.Dto
 {
-    public record ChatDTO(string Name, string Email);
+    public record ChatDTO(string name, string email);
 }

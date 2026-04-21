@@ -9,17 +9,17 @@ using CloudSpritzers1.Src.Repository;
 namespace CloudSpritzers1.Src.Dto
 {
     public record TicketDTO(
-        int TicketId,
-        int CreatorAccountId,
-        string CreatorEmailAddress,
-        TicketUrgencyLevelEnum UrgencyLevel,
-        TicketStatusEnum CurrentStatus,
-        int CategoryId,
-        string CategoryName,
-        int SubcategoryId,
-        string SubcategoryName,
-        string Subject,
-        string Description,
-        DateTime CreationTimestamp)
+        int ticketId,
+        int creatorAccountId,
+        string creatorEmailAddress,
+        TicketUrgencyLevelEnum urgencyLevel,
+        TicketStatusEnum currentStatus,
+        int categoryId,
+        string categoryName,
+        int subcategoryId,
+        string subcategoryName,
+        string subject,
+        string description,
+        DateTime creationTimestamp)
     { }
 }

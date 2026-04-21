@@ -29,7 +29,7 @@ namespace CloudSpritzers1.Src.Repository
             sqlCommand.Parameters.AddWithValue("@name", userEntity.RetrieveConfiguredDisplayFullNameForBot());
             sqlCommand.Parameters.AddWithValue("@email", userEntity.RetrieveConfiguredEmailAddressForBotContact());
 
-            int generatedIdentificationNumber = base.Add(sqlCommand, userEntity);
+            int generatedIdentificationNumber = Add(sqlCommand, userEntity);
             return generatedIdentificationNumber;
         }
 
@@ -39,14 +39,14 @@ namespace CloudSpritzers1.Src.Repository
             SqlCommand sqlCommand = new SqlCommand(deleteQuery);
             sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
 
-            base.DeleteById(identificationNumber, sqlCommand);
+            DeleteById(identificationNumber, sqlCommand);
         }
 
         public IEnumerable<User> GetAll()
         {
             string selectAllQuery = "SELECT * FROM [User]";
             SqlCommand command = new SqlCommand(selectAllQuery);
-            return base.GetAll(command);
+            return GetAll(command);
         }
 
         public User GetById(int identificationNumber)
@@ -55,7 +55,7 @@ namespace CloudSpritzers1.Src.Repository
             SqlCommand sqlCommand = new SqlCommand(selectByIdQuery);
             sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
 
-            User foundUser = base.GetById(identificationNumber, sqlCommand);
+            User foundUser = GetById(identificationNumber, sqlCommand);
 
             if (foundUser == null)
             {
@@ -83,7 +83,7 @@ namespace CloudSpritzers1.Src.Repository
             sqlCommand.Parameters.AddWithValue("@name", userEntity.RetrieveConfiguredDisplayFullNameForBot());
             sqlCommand.Parameters.AddWithValue("@email", userEntity.RetrieveConfiguredEmailAddressForBotContact());
 
-            base.UpdateById(identificationNumber, sqlCommand, userEntity);
+            UpdateById(identificationNumber, sqlCommand, userEntity);
         }
 
         protected override int GetEntityId(User userEntity)
