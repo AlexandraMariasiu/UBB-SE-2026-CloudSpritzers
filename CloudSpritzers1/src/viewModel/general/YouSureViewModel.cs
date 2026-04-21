@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-
 namespace CloudSpritzers1.src.viewModel.general
 {
     /// <summary>
-    /// ViewModel for confirmation dialogs. 
+    /// ViewModel for confirmation dialogs.
     /// Uses Source Generators to maintain clean, readable code.
     /// </summary>
     public sealed partial class YouSureViewModel : ObservableObject

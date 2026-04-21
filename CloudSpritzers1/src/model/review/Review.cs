@@ -23,41 +23,35 @@ namespace CloudSpritzers1.src.model.review
             this._cleanlinessRating = cleanlinessRating;
         }
 
-        //GETTERS
-
-        public int GetId() 
-        { 
-            return this._id; 
+        // GETTERS
+        public int GetId()
+        {
+            return this._id;
         }
 
-        public User GetUser() { 
+        public User GetUser()
+        {
             return this._user;
         }
-        
-        public string GetMessage() 
-        { 
-            return this._message; 
+        public string GetMessage()
+        {
+            return this._message;
         }
-        
         public int GetDutyFreeRating()
         {
             return this._dutyFreeRating;
         }
-        
         public int GetFlightExperienceRating()
         {
             return this._flightExperienceRating;
         }
-        
         public int GetStaffFriendlinessRating()
         {
             return this._staffFriendlinessRating;
         }
-        
         public int GetCleanlinessRating()
         {
             return this._cleanlinessRating;
         }
-
     }
 }

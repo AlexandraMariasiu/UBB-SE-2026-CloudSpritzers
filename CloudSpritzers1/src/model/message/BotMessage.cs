@@ -6,7 +6,6 @@ using System.Text;
 using CloudSpritzers1.src.model.chat;
 using CloudSpritzers1.src.model.faq.bot;
 
-
 // TODO : Maybe merge this with the regular message or pull general data in IMessage and make it abstract class instead of interface
 // At this point it is not a contract of functionality but an identity
 namespace CloudSpritzers1.src.model.message
@@ -30,11 +29,10 @@ namespace CloudSpritzers1.src.model.message
             this._faqOptions = options;
         }
 
-        private BotMessage(int messageId, ISender sender, Chat chat, string messageText, IEnumerable<FAQOption> options, DateTimeOffset timestamp) : this(messageId,sender,chat,messageText,options)
+        private BotMessage(int messageId, ISender sender, Chat chat, string messageText, IEnumerable<FAQOption> options, DateTimeOffset timestamp) : this(messageId, sender, chat, messageText, options)
         {
             this._timestamp = timestamp;
         }
-
 
         public Chat GetChat()
         {
@@ -65,8 +63,6 @@ namespace CloudSpritzers1.src.model.message
         {
             return _timestamp;
         }
-
-
         public class BotMessageBuilder
         {
             private int _messageId;
@@ -76,8 +72,7 @@ namespace CloudSpritzers1.src.model.message
             private List<FAQOption> _faqOptions;
             private DateTimeOffset _timestamp;
 
-
-            public BotMessageBuilder(ISender sender, Chat chat, int messageId, FAQNode nodeToMessage) 
+            public BotMessageBuilder(ISender sender, Chat chat, int messageId, FAQNode nodeToMessage)
                 : this(sender, chat, messageId)
             {
                 this._messageText = nodeToMessage.QuestionText;
@@ -86,7 +81,7 @@ namespace CloudSpritzers1.src.model.message
 
             public BotMessageBuilder(ISender sender, Chat chat, int messageId)
             {
-                this._messageText = "";
+                this._messageText = string.Empty;
                 this._messageId = messageId;
                 this._sender = sender;
                 this._chat = chat;
@@ -129,7 +124,6 @@ namespace CloudSpritzers1.src.model.message
             {
                 return new BotMessage(this._messageId, this._sender, this._chat, this._messageText, this._faqOptions.ToImmutableArray(), this._timestamp);
             }
-
         }
     }
 }

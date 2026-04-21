@@ -1,11 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-
 /// <summary>
 /// ViewModel for the EnterYourId page.
 /// Handles user identification input and authentication logic.
 /// </summary>
-/// 
+///
 namespace CloudSpritzers1.src.viewModel.general
 {
     public sealed partial class EnterYourIdViewModel : ObservableObject

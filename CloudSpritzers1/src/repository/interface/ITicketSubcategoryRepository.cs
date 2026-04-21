@@ -7,7 +7,7 @@ using CloudSpritzers1.src.model.ticket;
 
 namespace CloudSpritzers1.src.repository
 {
-    public interface ITicketSubcategoryRepository 
+    public interface ITicketSubcategoryRepository
     {
         IEnumerable<TicketSubcategory> GetAll();
 

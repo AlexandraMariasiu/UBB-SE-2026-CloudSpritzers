@@ -7,7 +7,6 @@ using CloudSpritzers1.src.repository.database;
 using Microsoft.Data.SqlClient;
 namespace CloudSpritzers1.src.repository.database
 {
-
     public abstract class DatabaseRepository<TKey, TEntity>
         where TEntity : class
         where TKey : notnull
@@ -27,11 +26,15 @@ namespace CloudSpritzers1.src.repository.database
         protected TEntity GetById(TKey id, SqlCommand command)
         {
             if (_entityCache.TryGetValue(id, out var cached))
+            {
                 return cached;
+            }
 
             var entity = ExecuteQuerySingle(command);
             if (entity != null)
+            {
                 _entityCache[id] = entity;
+            }
 
             return entity;
         }
@@ -40,7 +43,9 @@ namespace CloudSpritzers1.src.repository.database
         {
             var results = ExecuteQueryMany(command).ToList();
             foreach (var entity in results)
+            {
                 _entityCache[GetEntityId(entity)] = entity;
+            }
             return results;
         }
 
@@ -63,8 +68,7 @@ namespace CloudSpritzers1.src.repository.database
             _entityCache[id] = entity;
         }
 
-
-        //NOTE : If testing becomes a requirement, override the following query methods to work over something in memory.
+        // NOTE : If testing becomes a requirement, override the following query methods to work over something in memory.
 
         /// <summary>
         /// Returns one entity matching the query. If no matching row in db is found => null!
@@ -88,7 +92,9 @@ namespace CloudSpritzers1.src.repository.database
             using var reader = command.ExecuteReader();
             var results = new List<TEntity>();
             while (reader.Read())
+            {
                 results.Add(MapRowToEntity(reader));
+            }
             return results;
         }
 
@@ -107,8 +113,6 @@ namespace CloudSpritzers1.src.repository.database
             connection.Open();
             return (T)command.ExecuteScalar();
         }
-
-
         protected void InvalidateCache() => _entityCache.Clear();
         protected void InvalidateCacheEntry(TKey id) => _entityCache.Remove(id);
     }

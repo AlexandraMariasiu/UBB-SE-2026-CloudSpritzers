@@ -1,9 +1,9 @@
-﻿using CloudSpritzers1.src.model;
+﻿using System;
+using System.Diagnostics;
+using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Diagnostics;
 
 namespace CloudSpritzers1.src.viewModel.review
 {
@@ -62,9 +62,8 @@ namespace CloudSpritzers1.src.viewModel.review
         {
             try
             {
-
                 var app = App.Current as App;
-                User? currentUser = app?.User; 
+                User? currentUser = app?.User;
 
                 if (currentUser == null)
                 {
@@ -73,8 +72,7 @@ namespace CloudSpritzers1.src.viewModel.review
                 }
 
                 _reviewService.CreateReview(1, currentUser, ReviewMessage, DutyRating, FlightRating, StaffRating, CleanRating);
-            
-             
+
                 DutyRating = 0;
                 FlightRating = 0;
                 StaffRating = 0;

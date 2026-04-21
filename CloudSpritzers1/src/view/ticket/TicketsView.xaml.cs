@@ -1,10 +1,9 @@
-﻿using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-
-using Microsoft.UI;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI;
 using Microsoft.Extensions.DependencyInjection;
 using CloudSpritzers1.src.viewModel;
 using CloudSpritzers1.src.dto;
@@ -57,7 +56,9 @@ namespace CloudSpritzers1.src.view.ticket
             try
             {
                 if (string.IsNullOrWhiteSpace(inputs.TitleBox.Text) || string.IsNullOrWhiteSpace(inputs.DescriptionBox.Text))
+                {
                     throw new Exception("Please fill all required fields.");
+                }
 
                 var selectedCategory = ViewModel.Categories.FirstOrDefault(c => c.CategoryName == inputs.CategoryCombo.SelectedItem?.ToString());
                 var selectedSubcategory = ViewModel.Subcategories.FirstOrDefault(s => s.SubcategoryName == inputs.SubcategoryCombo.SelectedItem?.ToString());
@@ -74,8 +75,7 @@ namespace CloudSpritzers1.src.view.ticket
                     SubcategoryName: selectedSubcategory?.SubcategoryName ?? "General",
                     Subject: inputs.TitleBox.Text,
                     Description: inputs.DescriptionBox.Text,
-                    CreationTimestamp: DateTime.Now
-                );
+                    CreationTimestamp: DateTime.Now);
 
                 ViewModel.CreateTicket(newTicket);
                 dialog.Hide();

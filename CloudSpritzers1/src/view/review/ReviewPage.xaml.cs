@@ -1,11 +1,11 @@
-﻿using CloudSpritzers1.src.view.faq;
+﻿using System;
+using CloudSpritzers1.src.view.faq;
 using CloudSpritzers1.src.view.general;
 using CloudSpritzers1.src.view.ticket;
 using CloudSpritzers1.src.viewModel.review;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System;
 
 namespace CloudSpritzers1.src.view.review
 {
@@ -40,7 +40,6 @@ namespace CloudSpritzers1.src.view.review
         private async void NavigateToTicketsView_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-
 
             Frame.Navigate(typeof(TicketsView));
         }

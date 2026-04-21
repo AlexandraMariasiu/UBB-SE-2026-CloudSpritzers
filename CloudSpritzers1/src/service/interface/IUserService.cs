@@ -1,5 +1,5 @@
-﻿using CloudSpritzers1.src.model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CloudSpritzers1.src.model;
 
 namespace CloudSpritzers1.src.service.interfaces
 {

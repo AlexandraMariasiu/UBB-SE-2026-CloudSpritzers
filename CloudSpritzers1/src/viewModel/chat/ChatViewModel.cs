@@ -1,4 +1,10 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
 using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.chat;
@@ -8,12 +14,6 @@ using CloudSpritzers1.src.service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CloudSpritzers1.src.service.interfaces;
 
 namespace CloudSpritzers1.src.viewModel.chat
@@ -30,16 +30,15 @@ namespace CloudSpritzers1.src.viewModel.chat
         private Chat _chat;
         private User _user;
         private const int _FIRST_OPTION = 1;
-
-
-        public ChatViewModel(MessageService msgService,ChatService chatService, IMapper mapper, IUserService userService) {
+        public ChatViewModel(MessageService msgService, ChatService chatService, IMapper mapper, IUserService userService)
+        {
             _messageService = msgService;
             _chatService = chatService;
             _mapper = mapper;
             _userService = userService;
 
             // TODO: add null guard
-            _user = (App.Current as App).User; 
+            _user = (App.Current as App).User;
 
             _chat = _chatService.OpenChat(_user.RetrieveUniqueDatabaseIdentifierForBot());
 
@@ -49,17 +48,13 @@ namespace CloudSpritzers1.src.viewModel.chat
             {
                 LoadFirstMessage();
             }
-
         }
 
         public string FormatUserId => "User Id: " + _user.RetrieveUniqueDatabaseIdentifierForBot().ToString();
-        
         public void CloseChat()
         {
             _chatService.CloseChat(_chat.ChatId);
         }
-
-
         private void LoadChatHistory()
         {
             ChatHistory.Clear();
@@ -77,28 +72,29 @@ namespace CloudSpritzers1.src.viewModel.chat
         [RelayCommand]
         private void HandleOptionClick(FAQOption option)
         {
-            if (option == null) return;
-
+            if (option == null)
+            {
+                return;
+            }
 
             BotMessage botReply = _messageService.SendMessage(_chat.ChatId, _user, option);
             System.Diagnostics.Debug.WriteLine($"User selected: {option.Label}");
 
-            LoadChatHistory() ;
+            LoadChatHistory();
             UpdateAvailableOptions(botReply);
-
         }
 
         private void UpdateAvailableOptions(BotMessage botReply)
         {
             CurrentOptions.Clear();
             var nextOptions = (botReply as IMessage).GetNextOptions();
-            //var dto = _mapper.Map<MessageDTO>();
 
+            // var dto = _mapper.Map<MessageDTO>();
             if (nextOptions != null)
             {
                 foreach (var opt in nextOptions)
                 {
-                    CurrentOptions.Add(opt); 
+                    CurrentOptions.Add(opt);
                 }
             }
             else
@@ -110,8 +106,7 @@ namespace CloudSpritzers1.src.viewModel.chat
         private void LoadFirstMessage()
         {
             HandleOptionClick(new FAQOption("Hello! I need help.", _FIRST_OPTION));
-            //_messageService.SendMessage(_chat.ChatId, _user, new FAQOption("Hello! I need help.", _FIRST_OPTION));
+            // _messageService.SendMessage(_chat.ChatId, _user, new FAQOption("Hello! I need help.", _FIRST_OPTION));
         }
-
     }
 }

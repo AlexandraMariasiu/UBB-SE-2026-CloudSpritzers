@@ -9,6 +9,7 @@ namespace CloudSpritzers1.src.repository.database
     public class DatabaseConnectionException : Exception
     {
         public DatabaseConnectionException(string message) : base(message)
-        { }
+        {
+        }
     }
 }

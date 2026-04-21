@@ -18,7 +18,6 @@ namespace CloudSpritzers1.src.view.message
                     this.Bindings.Update();
                 }
             };
-
         }
     }
 }

@@ -1,9 +1,7 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace CloudSpritzers1.src.viewModel.general
 {
-
     /// <summary>
     /// ViewModel for the MaiBoule dialog.
     /// Provides properties for the dialog's title and message, with change notification support.

@@ -9,7 +9,5 @@ namespace CloudSpritzers1.src.repository
 {
     public interface ITicketRepository : IRepository<int, Ticket>
     {
-        
-
     }
 }

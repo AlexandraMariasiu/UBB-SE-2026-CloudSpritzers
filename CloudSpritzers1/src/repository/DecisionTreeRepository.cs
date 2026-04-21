@@ -23,8 +23,7 @@ namespace CloudSpritzers1.src.repository.database
             {
                 listOfRetrievedFAQOptionsForCurrentNode.Add(new FAQOption(
                     sqlDataReaderForParsingReturnedDatabaseRows.GetString(sqlDataReaderForParsingReturnedDatabaseRows.GetOrdinal("label")),
-                    sqlDataReaderForParsingReturnedDatabaseRows.GetInt32(sqlDataReaderForParsingReturnedDatabaseRows.GetOrdinal("next_option_id"))
-                ));
+                    sqlDataReaderForParsingReturnedDatabaseRows.GetInt32(sqlDataReaderForParsingReturnedDatabaseRows.GetOrdinal("next_option_id"))));
             }
             return listOfRetrievedFAQOptionsForCurrentNode.ToImmutableArray();
         }
@@ -45,19 +44,18 @@ namespace CloudSpritzers1.src.repository.database
                 int uniqueDatabaseIdentifierForCurrentFAQNode = sqlDataReaderForParsingReturnedDatabaseRows.GetInt32(sqlDataReaderForParsingReturnedDatabaseRows.GetOrdinal("node_id"));
                 var currentlyIteratedFAQOptionFromDatabase = new FAQOption(
                     sqlDataReaderForParsingReturnedDatabaseRows.GetString(sqlDataReaderForParsingReturnedDatabaseRows.GetOrdinal("label")),
-                    sqlDataReaderForParsingReturnedDatabaseRows.GetInt32(sqlDataReaderForParsingReturnedDatabaseRows.GetOrdinal("next_option_id"))
-                );
+                    sqlDataReaderForParsingReturnedDatabaseRows.GetInt32(sqlDataReaderForParsingReturnedDatabaseRows.GetOrdinal("next_option_id")));
 
                 if (!dictionaryMappingNodeIdentifiersToTheirRespectiveFAQOptions.ContainsKey(uniqueDatabaseIdentifierForCurrentFAQNode))
+                {
                     dictionaryMappingNodeIdentifiersToTheirRespectiveFAQOptions[uniqueDatabaseIdentifierForCurrentFAQNode] = new List<FAQOption>();
-
+                }
                 dictionaryMappingNodeIdentifiersToTheirRespectiveFAQOptions[uniqueDatabaseIdentifierForCurrentFAQNode].Add(currentlyIteratedFAQOptionFromDatabase);
             }
 
             return dictionaryMappingNodeIdentifiersToTheirRespectiveFAQOptions.ToDictionary(
                 keyValuePairHoldingNodeIdAndOptionList => keyValuePairHoldingNodeIdAndOptionList.Key,
-                keyValuePairHoldingNodeIdAndOptionList => keyValuePairHoldingNodeIdAndOptionList.Value.ToImmutableArray()
-            );
+                keyValuePairHoldingNodeIdAndOptionList => keyValuePairHoldingNodeIdAndOptionList.Value.ToImmutableArray());
         }
 
         public FAQNode GetById(int id)
@@ -66,9 +64,11 @@ namespace CloudSpritzers1.src.repository.database
                 "SELECT node_id, question_text, is_final_answer FROM FAQNode WHERE node_id = @Id");
             sqlCommandObjectForRetrievingSpecificFAQNode.Parameters.AddWithValue("@Id", id);
 
-           
             var retrievedFAQNodeEntityFromBaseRepository = base.GetById(id, sqlCommandObjectForRetrievingSpecificFAQNode);
-            if (retrievedFAQNodeEntityFromBaseRepository == null) return null;
+            if (retrievedFAQNodeEntityFromBaseRepository == null)
+            {
+                return null;
+            }
 
             var immutableArrayOfOptionsForThisNode = RetrieveAllAvailableFAQOptionsAssociatedWithSpecificDecisionNodeFromDatabase(id);
             return retrievedFAQNodeEntityFromBaseRepository with { Options = immutableArrayOfOptionsForThisNode };
@@ -163,8 +163,7 @@ namespace CloudSpritzers1.src.repository.database
                     Options = comprehensiveDictionaryOfAllFAQOptionsMappedByNodeId.TryGetValue(currentlyIteratedFAQNode.FaqNodeId, out var correspondingOptionsForThisNode)
                         ? correspondingOptionsForThisNode
                         : ImmutableArray<FAQOption>.Empty
-                }
-            ).ToList();
+                }).ToList();
         }
 
         protected override FAQNode MapRowToEntity(SqlDataReader sqlDataReaderContainingDatabaseRowData)
@@ -173,8 +172,7 @@ namespace CloudSpritzers1.src.repository.database
                 sqlDataReaderContainingDatabaseRowData.GetInt32(sqlDataReaderContainingDatabaseRowData.GetOrdinal("node_id")),
                 sqlDataReaderContainingDatabaseRowData.GetString(sqlDataReaderContainingDatabaseRowData.GetOrdinal("question_text")),
                 new ImmutableArray<FAQOption>(),
-                sqlDataReaderContainingDatabaseRowData.GetBoolean(sqlDataReaderContainingDatabaseRowData.GetOrdinal("is_final_answer"))
-            );
+                sqlDataReaderContainingDatabaseRowData.GetBoolean(sqlDataReaderContainingDatabaseRowData.GetOrdinal("is_final_answer")));
         }
 
         protected override int GetEntityId(FAQNode specificFAQNodeEntity) => specificFAQNodeEntity.FaqNodeId;

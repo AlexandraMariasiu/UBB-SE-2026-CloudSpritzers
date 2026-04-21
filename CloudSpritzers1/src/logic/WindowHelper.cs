@@ -1,5 +1,4 @@
-﻿
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Windowing;
 using Windows.Graphics;
 
@@ -24,14 +23,12 @@ namespace CloudSpritzers1.src.logic
                 // Resize the window to fill the work area (excluding taskbar)
                 appWindow.Resize(new SizeInt32(
                     displayArea.WorkArea.Width,
-                    displayArea.WorkArea.Height
-                ));
+                    displayArea.WorkArea.Height));
 
                 // Move the window to the top-left of the work area
                 appWindow.Move(new PointInt32(
                     displayArea.WorkArea.X,
-                    displayArea.WorkArea.Y
-                ));
+                    displayArea.WorkArea.Y));
             }
         }
     }

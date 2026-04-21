@@ -1,3 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -6,12 +12,6 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using CloudSpritzers1.src.viewModel.general;
@@ -22,7 +22,6 @@ namespace CloudSpritzers1.src.view.general
     {
         public ChoosingPageViewModel ViewModel { get; } = new ChoosingPageViewModel();
 
-
         public ChoosingPage()
         {
             InitializeComponent();
@@ -30,7 +29,6 @@ namespace CloudSpritzers1.src.view.general
 
             // Optional: Set DataContext if you want to use {Binding} in XAML
             // instead of {x:Bind ViewModel.PropertyName}
-
         }
 
         /// <summary>

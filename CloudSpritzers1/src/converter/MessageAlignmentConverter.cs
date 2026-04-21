@@ -13,7 +13,9 @@ namespace CloudSpritzers1.src.converter
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is bool isCurrentUser && isCurrentUser)
+            {
                 return HorizontalAlignment.Right;
+            }
 
             return HorizontalAlignment.Left;
         }

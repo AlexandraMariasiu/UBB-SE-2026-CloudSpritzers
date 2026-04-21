@@ -1,15 +1,15 @@
-﻿using AutoMapper;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model.faq;
-using CloudSpritzers1.src.service.implementation;
-using CloudSpritzers1.src.service.interfaces;
-using CloudSpritzers1.src.view.faq;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using AutoMapper;
+using CloudSpritzers1.src.dto;
+using CloudSpritzers1.src.model.faq;
+using CloudSpritzers1.src.service.implementation;
+using CloudSpritzers1.src.service.interfaces;
+using CloudSpritzers1.src.view.faq;
 
 namespace CloudSpritzers1.src.viewModel.faq
 {
@@ -131,15 +131,16 @@ namespace CloudSpritzers1.src.viewModel.faq
             SelectedCategory = category;
         }
 
-        //public void Search()
-        //{
+        // public void Search()
+        // {
         //    ApplyFilters();
-        //}
-
+        // }
         public void AddFAQEntry(FAQEntryDTO faqDto)
         {
             if (!IsAdmin)
+            {
                 throw new UnauthorizedAccessException("Only admins can add FAQs.");
+            }
 
             var entity = _mapper.Map<FAQEntry>(faqDto);
             _faqService.AddFAQEntry(entity);
@@ -149,10 +150,14 @@ namespace CloudSpritzers1.src.viewModel.faq
         public void EditFAQEntry(FAQEntryDTO faqDto)
         {
             if (!IsAdmin)
+            {
                 throw new UnauthorizedAccessException("Only admins can edit FAQs.");
+            }
 
             if (faqDto == null)
+            {
                 throw new ArgumentNullException(nameof(faqDto));
+            }
 
             var entity = _mapper.Map<FAQEntry>(faqDto);
             _faqService.EditFAQEntry(entity, faqDto.Id);
@@ -162,10 +167,14 @@ namespace CloudSpritzers1.src.viewModel.faq
         public void DeleteFAQEntry(FAQEntryDTO faqDto)
         {
             if (!IsAdmin)
+            {
                 throw new UnauthorizedAccessException("Only admins can delete FAQs.");
+            }
 
             if (faqDto == null)
+            {
                 throw new ArgumentNullException(nameof(faqDto));
+            }
 
             _faqService.DeleteFAQEntry(faqDto.Id);
             LoadFAQ();
@@ -174,7 +183,9 @@ namespace CloudSpritzers1.src.viewModel.faq
         public void IncrementViewCount()
         {
             if (SelectedFAQEntry == null)
+            {
                 return;
+            }
 
             var entity = _mapper.Map<FAQEntry>(SelectedFAQEntry);
             _faqService.IncrementViewCount(entity);
@@ -184,7 +195,9 @@ namespace CloudSpritzers1.src.viewModel.faq
         public void IncrementWasHelpfulVotes()
         {
             if (SelectedFAQEntry == null)
+            {
                 return;
+            }
 
             var entity = _mapper.Map<FAQEntry>(SelectedFAQEntry);
             _faqService.IncrementWasHelpfulVotes(entity);
@@ -196,7 +209,9 @@ namespace CloudSpritzers1.src.viewModel.faq
         public void IncrementWasNotHelpfulVotes()
         {
             if (SelectedFAQEntry == null)
+            {
                 return;
+            }
 
             var entity = _mapper.Map<FAQEntry>(SelectedFAQEntry);
             _faqService.IncrementWasNotHelpfulVotes(entity);
@@ -213,7 +228,9 @@ namespace CloudSpritzers1.src.viewModel.faq
         public void ToggleFAQ(FAQEntryDTO faqDto)
         {
             if (faqDto == null)
+            {
                 return;
+            }
 
             bool willExpand = !faqDto.IsExpanded;
 
@@ -239,7 +256,9 @@ namespace CloudSpritzers1.src.viewModel.faq
         {
             var faq = FAQs.FirstOrDefault(x => x.Id == faqId);
             if (faq == null)
+            {
                 return;
+            }
 
             var entity = _mapper.Map<FAQEntry>(faq);
             _faqService.IncrementViewCount(entity);
@@ -256,17 +275,22 @@ namespace CloudSpritzers1.src.viewModel.faq
             OnPropertyChanged(nameof(FilteredFAQs));
         }
 
-
         public Task Save(string question, string answer, string? categoryString)
         {
             if (string.IsNullOrWhiteSpace(question))
+            {
                 throw new ArgumentException("Question cannot be empty.");
+            }
 
             if (string.IsNullOrWhiteSpace(answer))
+            {
                 throw new ArgumentException("Answer cannot be empty.");
+            }
 
             if (!Enum.TryParse<FAQCategoryEnum>(categoryString, out var category))
+            {
                 throw new ArgumentException("Invalid category.");
+            }
 
             var dto = new FAQEntryDTO(
                 SelectedFAQEntry?.Id ?? 0,
@@ -275,13 +299,16 @@ namespace CloudSpritzers1.src.viewModel.faq
                 category,
                 SelectedFAQEntry?.ViewCount ?? 0,
                 SelectedFAQEntry?.HelpfulVotesCount ?? 0,
-                SelectedFAQEntry?.NotHelpfulVotesCount ?? 0
-            );
+                SelectedFAQEntry?.NotHelpfulVotesCount ?? 0);
 
             if (dto.Id == 0)
+            {
                 AddFAQEntry(dto);
+            }
             else
+            {
                 EditFAQEntry(dto);
+            }
 
             return Task.CompletedTask;
         }
@@ -294,7 +321,10 @@ namespace CloudSpritzers1.src.viewModel.faq
 
         public void GiveFeedback(FAQEntryDTO faq, bool isHelpful)
         {
-            if (faq == null) return;
+            if (faq == null)
+            {
+                return;
+            }
 
             SelectedFAQEntry = faq;
 
@@ -327,6 +357,5 @@ namespace CloudSpritzers1.src.viewModel.faq
                 FAQEntry = SelectedFAQEntry
             };
         }
-
     }
 }

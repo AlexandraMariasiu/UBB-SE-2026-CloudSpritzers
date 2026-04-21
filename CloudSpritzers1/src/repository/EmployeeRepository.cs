@@ -1,11 +1,11 @@
-﻿using CloudSpritzers1.src.model.employee;
-using CloudSpritzers1.src.repository.database;
-using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudSpritzers1.src.model.employee;
+using CloudSpritzers1.src.repository.database;
+using Microsoft.Data.SqlClient;
 
 namespace CloudSpritzers1.src.repository
 {
@@ -14,7 +14,9 @@ namespace CloudSpritzers1.src.repository
         public int CreateNewEntity(Employee employeeEntity)
         {
             if (employeeEntity == null)
+            {
                 throw new ArgumentNullException(nameof(employeeEntity), "Employee cannot be null.");
+            }
 
             string insertQuery = "INSERT INTO Employee " +
                 "(name, email, group) " +
@@ -23,11 +25,9 @@ namespace CloudSpritzers1.src.repository
 
             SqlCommand sqlCommand = new SqlCommand(insertQuery);
 
-
             sqlCommand.Parameters.AddWithValue("@name", employeeEntity.RetrieveConfiguredDisplayFullNameForBot());
             sqlCommand.Parameters.AddWithValue("@email", employeeEntity.RetrieveConfiguredEmailAddressForBotContact());
             sqlCommand.Parameters.AddWithValue("@group", employeeEntity.GetDepartmentName());
-
 
             int identificationNumber = base.Add(sqlCommand, employeeEntity);
             return identificationNumber;
@@ -58,7 +58,9 @@ namespace CloudSpritzers1.src.repository
             Employee foundEmployee = base.GetById(identificationNumber, sqlCommand);
 
             if (foundEmployee == null)
+            {
                 throw new KeyNotFoundException($"Employee with id {identificationNumber} was not found.");
+            }
 
             return foundEmployee;
         }
@@ -66,7 +68,9 @@ namespace CloudSpritzers1.src.repository
         public void UpdateById(int identificationNumber, Employee employeeEntity)
         {
             if (employeeEntity == null)
+            {
                 throw new ArgumentNullException(nameof(employeeEntity), "Employee cannot be null.");
+            }
 
             string updateQuery = "UPDATE Employee SET " +
                 "name = @name, " +
@@ -76,13 +80,10 @@ namespace CloudSpritzers1.src.repository
 
             SqlCommand sqlCommand = new SqlCommand(updateQuery);
 
-
             sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
             sqlCommand.Parameters.AddWithValue("@name", employeeEntity.RetrieveConfiguredDisplayFullNameForBot());
             sqlCommand.Parameters.AddWithValue("@email", employeeEntity.RetrieveConfiguredEmailAddressForBotContact());
             sqlCommand.Parameters.AddWithValue("@group", employeeEntity.GetDepartmentName());
-
-
 
             base.UpdateById(identificationNumber, sqlCommand, employeeEntity);
         }

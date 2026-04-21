@@ -26,11 +26,10 @@ namespace CloudSpritzers1.src.service
                 int newId = Convert.ToInt32(_repository.CreateNewEntity(newChat));
                 newChat.ChatId = newId;
                 return newChat;
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                    throw(new Exception(message:  ex.Message));
+                    throw (new Exception(message: ex.Message));
             }
         }
 
@@ -47,7 +46,5 @@ namespace CloudSpritzers1.src.service
                 throw new Exception(ex.Message);
             }
         }
-
-
     }
 }

@@ -1,9 +1,9 @@
-﻿using CloudSpritzers1.src.dto;
+﻿using System;
+using System.Collections.Generic;
+using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.ticket;
 using CloudSpritzers1.src.viewModel;
-using System;
-using System.Collections.Generic;
 
 namespace CloudSpritzers1.src.service.interfaces
 {

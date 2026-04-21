@@ -23,21 +23,20 @@ namespace CloudSpritzers1.src.model.faq
 
         // These methods had 0 references. Incrementing is done directly in the database
 
-        //public void IncrementViewCount()
-        //{
+        // public void IncrementViewCount()
+        // {
         //    ViewCount++;
-        //}
+        // }
 
-        //public void IncrementWasHelpfulVotes()
-        //{
+        // public void IncrementWasHelpfulVotes()
+        // {
         //    HelpfulVotesCount++;
-        //}
+        // }
 
-        //public void IncrementWasNotHelpfulVotes()
-        //{
+        // public void IncrementWasNotHelpfulVotes()
+        // {
         //  NotHelpfulVotesCount++;
-        //}
-
+        // }
         public override bool Equals(object? obj)
         {
             return obj is FAQEntry entry &&

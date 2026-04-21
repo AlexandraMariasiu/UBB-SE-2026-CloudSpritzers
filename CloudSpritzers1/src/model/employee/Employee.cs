@@ -23,8 +23,6 @@ namespace CloudSpritzers1.src.model.employee
 
         public string RetrieveConfiguredDisplayFullNameForBot() => _fullName;
         public string RetrieveConfiguredEmailAddressForBotContact() => _emailAddress;
-
-
         public int RetrieveUniqueDatabaseIdentifierForBot() => _employeeId;
     }
 }

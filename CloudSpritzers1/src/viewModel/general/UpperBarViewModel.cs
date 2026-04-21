@@ -1,7 +1,7 @@
-﻿using CloudSpritzers1.src.model;
+﻿using System;
+using CloudSpritzers1.src.model;
 using CloudSpritzers1.src.model.employee;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System;
 
 namespace CloudSpritzers1.src.viewModel.general
 {
@@ -39,10 +39,14 @@ namespace CloudSpritzers1.src.viewModel.general
             get
             {
                 if (IsClientView && _user != null)
+                {
                     return $"ID: {_user.RetrieveUniqueDatabaseIdentifierForBot()}";
+                }
 
                 if (!IsClientView && _employee != null)
+                {
                     return $"ID: {_employee.RetrieveUniqueDatabaseIdentifierForBot()}";
+                }
 
                 return "Not signed in";
             }

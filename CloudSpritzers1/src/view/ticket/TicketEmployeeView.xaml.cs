@@ -22,7 +22,6 @@ using CommunityToolkit.Mvvm.Input;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace CloudSpritzers1.src.view.ticket
 {
     /// <summary>
@@ -32,19 +31,21 @@ namespace CloudSpritzers1.src.view.ticket
     {
         public TicketsViewModel ViewModel { get; }
         public TicketEmployeeView()
-        {   
+        {
             ViewModel = (App.Current as App).Services.GetService<TicketsViewModel>();
             this.InitializeComponent();
             this.DataContext = ViewModel;
         }
-
 
         private async void EditTicketStatus_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button btn && btn.Tag is int ticketId)
             {
                 var ticket = ViewModel.FilteredTicketsForDisplay.FirstOrDefault(t => t.TicketId == ticketId);
-                if (ticket == null) return;
+                if (ticket == null)
+                {
+                    return;
+                }
 
                 var primaryButtonStyle = new Style(typeof(Button));
                 primaryButtonStyle.Setters.Add(new Setter(Button.BackgroundProperty, new SolidColorBrush(Windows.UI.Color.FromArgb(0xFF, 0x2B, 0xB8, 0xC0))));
@@ -69,7 +70,6 @@ namespace CloudSpritzers1.src.view.ticket
                     PrimaryButtonStyle = primaryButtonStyle,
                     CloseButtonStyle = closeButtonStyle
                 };
-
 
                 var combo = new ComboBox
                 {
@@ -105,23 +105,26 @@ namespace CloudSpritzers1.src.view.ticket
         }
 
         // Optional: if you still have a filter combobox
-        
         private void FilterChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ViewModel == null)
+            {
                 return;
+            }
 
             var combo = sender as ComboBox;
 
             if (combo?.SelectedItem is not ComboBoxItem selected)
+            {
                 return;
+            }
 
             if (selected.Tag == null)
+            {
                 return;
+            }
 
             ViewModel.SelectedFilterString = selected.Tag.ToString();
-
         }
-
     }
 }

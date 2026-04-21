@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Collections.ObjectModel;
+using AutoMapper;
 using CloudSpritzers1.src.dto;
 using CloudSpritzers1.src.service;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
 
 namespace CloudSpritzers1.src.viewmodel
 {
@@ -24,7 +24,7 @@ namespace CloudSpritzers1.src.viewmodel
         {
             var allReviews = _reviewService.GetAll();
             Reviews.Clear();
-    
+
             foreach (var review in allReviews)
             {
                 string realName = review.GetUser().RetrieveConfiguredDisplayFullNameForBot();

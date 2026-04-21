@@ -9,6 +9,5 @@ namespace CloudSpritzers1.src.model.faq.bot
     public enum BotStandardMessages
     {
         RESTART_CONVERSATION = 1,
-
     }
 }

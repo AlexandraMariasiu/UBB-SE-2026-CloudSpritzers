@@ -1,21 +1,21 @@
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Configuration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Microsoft.Data;
 using Microsoft.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
+
 using CloudSpritzers1.src.model.chat;
 
 namespace CloudSpritzers1.src.repository.database
 {
 	public class ChatDatabaseRepository : DatabaseRepository<int, Chat>, IRepository<int, Chat>
 	{
-
         /// <summary>
-        /// Helper method to map a reader row to a Chat object to respect DRY 
+        /// Helper method to map a reader row to a Chat object to respect DRY
         /// </summary>
         /// <param name="sqlDataReaderContainingDatabaseRowData"> SqlDataReader </param>
         /// <returns> Chat object </returns>
@@ -52,7 +52,7 @@ namespace CloudSpritzers1.src.repository.database
             var sqlCommandObjectForExecutingDeleteQuery = new SqlCommand(sqlQueryStringForDeletingSpecificChatFromDatabase);
             sqlCommandObjectForExecutingDeleteQuery.Parameters.AddWithValue("@id", identifierForChatToBeDeleted);
 
-            DeleteById(identifierForChatToBeDeleted, sqlCommandObjectForExecutingDeleteQuery); 
+            DeleteById(identifierForChatToBeDeleted, sqlCommandObjectForExecutingDeleteQuery);
         }
 
         public void UpdateById(int identifierForChatToBeUpdated, Chat updatedChatEntityData)
@@ -63,7 +63,7 @@ namespace CloudSpritzers1.src.repository.database
             sqlCommandObjectForExecutingUpdateQuery.Parameters.AddWithValue("@status", updatedChatEntityData.Status.ToString());
             sqlCommandObjectForExecutingUpdateQuery.Parameters.AddWithValue("@id", identifierForChatToBeUpdated);
 
-            UpdateById(identifierForChatToBeUpdated, sqlCommandObjectForExecutingUpdateQuery, updatedChatEntityData); 
+            UpdateById(identifierForChatToBeUpdated, sqlCommandObjectForExecutingUpdateQuery, updatedChatEntityData);
         }
 
         public IEnumerable<Chat> GetAll()
@@ -82,7 +82,5 @@ namespace CloudSpritzers1.src.repository.database
 
             return GetById(identifierForRequestedChat, sqlCommandObjectForExecutingSelectByIdQuery) ?? throw new KeyNotFoundException($"Chat with id {identifierForRequestedChat} not found.");
         }
-
     }
-
 }
