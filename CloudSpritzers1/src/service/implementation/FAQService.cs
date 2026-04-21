@@ -11,56 +11,56 @@ namespace CloudSpritzers1.Src.Service.Implementation
 {
 	public class FAQService : IFAQService
 	{
-		private readonly IFAQRepository _faqRepository;
+		private readonly IFAQRepository faqRepository;
 
 		public FAQService(IFAQRepository faqRepository)
 		{
-			_faqRepository = faqRepository;
+			this.faqRepository = faqRepository;
 		}
 
 		public List<FAQEntry> GetAll()
 		{
-			return _faqRepository.GetAll().ToList();
+			return faqRepository.GetAll().ToList();
 		}
 
         public List<FAQEntry> GetByCategory(FAQCategoryEnum category)
         {
-			return _faqRepository.GetByCategory(category);
+			return faqRepository.GetByCategory(category);
         }
 
 		public void AddFAQEntry(FAQEntry newElem)
 		{
-			_faqRepository.CreateNewEntity(newElem);
+			faqRepository.CreateNewEntity(newElem);
 		}
 
 		public void EditFAQEntry(FAQEntry tempEntry, int faqEntryId)
 		{
-			_faqRepository.UpdateById(faqEntryId, tempEntry);
+			faqRepository.UpdateById(faqEntryId, tempEntry);
 		}
 
 		public void DeleteFAQEntry(int entryId)
 		{
-			_faqRepository.DeleteById(entryId);
+			faqRepository.DeleteById(entryId);
 		}
 
 		public void IncrementViewCount(FAQEntry entry)
 		{
-			_faqRepository.IncrementViewCount(entry.Id);
+			faqRepository.IncrementViewCount(entry.Id);
 		}
 
 		public void IncrementWasHelpfulVotes(FAQEntry entry)
 		{
-			_faqRepository.IncrementWasHelpfulVotes(entry.Id);
+			faqRepository.IncrementWasHelpfulVotes(entry.Id);
 		}
 
         public void IncrementWasNotHelpfulVotes(FAQEntry entry)
         {
-			_faqRepository.IncrementWasNotHelpfulVotes(entry.Id);
+			faqRepository.IncrementWasNotHelpfulVotes(entry.Id);
         }
 
 		public List<FAQEntry> FilterFAQEntry(FAQCategoryEnum category, string searchQuery)
 		{
-			var faqs = this._faqRepository.GetAll().AsEnumerable();
+			var faqs = this.faqRepository.GetAll().AsEnumerable();
 			if (category != FAQCategoryEnum.All)
 			{
 				faqs = this.GetByCategory(category);

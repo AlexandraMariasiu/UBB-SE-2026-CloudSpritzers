@@ -15,54 +15,54 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
 {
     public class FAQViewModel : INotifyPropertyChanged
     {
-        private readonly IFAQService _faqService;
-        private readonly IMapper _mapper;
+        private readonly IFAQService faqService;
+        private readonly IMapper mapper;
 
-        private ObservableCollection<FAQEntryDTO> _faqs;
-        private ObservableCollection<FAQEntryDTO> _filteredFAQs;
-        private FAQEntryDTO? _selectedFAQEntry;
-        private string _searchQuery;
-        private FAQCategoryEnum _selectedCategory;
-        private bool _isAdmin;
+        private ObservableCollection<FAQEntryDTO> faqs;
+        private ObservableCollection<FAQEntryDTO> filteredFAQs;
+        private FAQEntryDTO? selectedFAQEntry;
+        private string searchQuery;
+        private FAQCategoryEnum selectedCategory;
+        private bool isAdmin;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public ObservableCollection<FAQEntryDTO> FAQs
         {
-            get => _faqs;
+            get => faqs;
             set
             {
-                _faqs = value;
+                faqs = value;
                 OnPropertyChanged();
             }
         }
 
         public ObservableCollection<FAQEntryDTO> FilteredFAQs
         {
-            get => _filteredFAQs;
+            get => filteredFAQs;
             set
             {
-                _filteredFAQs = value;
+                filteredFAQs = value;
                 OnPropertyChanged();
             }
         }
 
         public FAQEntryDTO? SelectedFAQEntry
         {
-            get => _selectedFAQEntry;
+            get => selectedFAQEntry;
             set
             {
-                _selectedFAQEntry = value;
+                selectedFAQEntry = value;
                 OnPropertyChanged();
             }
         }
 
         public string SearchQuery
         {
-            get => _searchQuery;
+            get => searchQuery;
             set
             {
-                _searchQuery = value;
+                searchQuery = value;
                 OnPropertyChanged();
                 ApplyFilters();
             }
@@ -70,10 +70,10 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
 
         public FAQCategoryEnum SelectedCategory
         {
-            get => _selectedCategory;
+            get => selectedCategory;
             set
             {
-                _selectedCategory = value;
+                selectedCategory = value;
                 OnPropertyChanged();
                 ApplyFilters();
             }
@@ -81,33 +81,33 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
 
         public bool IsAdmin
         {
-            get => _isAdmin;
+            get => isAdmin;
             set
             {
-                _isAdmin = value;
+                isAdmin = value;
                 OnPropertyChanged();
             }
         }
 
         public FAQViewModel(IFAQService faqService, IMapper mapper)
         {
-            _faqService = faqService;
-            _mapper = mapper;
+            this.faqService = faqService;
+            this.mapper = mapper;
 
-            _faqs = new ObservableCollection<FAQEntryDTO>();
-            _filteredFAQs = new ObservableCollection<FAQEntryDTO>();
-            _searchQuery = string.Empty;
-            _selectedCategory = FAQCategoryEnum.All;
+            faqs = new ObservableCollection<FAQEntryDTO>();
+            filteredFAQs = new ObservableCollection<FAQEntryDTO>();
+            searchQuery = string.Empty;
+            selectedCategory = FAQCategoryEnum.All;
         }
 
         public void LoadFAQ()
         {
             FAQs.Clear();
 
-            var entries = _faqService.GetAll().OrderByDescending(entry => entry.ViewCount);
+            var entries = faqService.GetAll().OrderByDescending(entry => entry.ViewCount);
             foreach (var entry in entries)
             {
-                FAQs.Add(_mapper.Map<FAQEntryDTO>(entry));
+                FAQs.Add(mapper.Map<FAQEntryDTO>(entry));
             }
 
             ApplyFilters();
@@ -115,9 +115,9 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
 
         public void ApplyFilters()
         {
-            var result = _faqService.FilterFAQEntry(SelectedCategory, SearchQuery)
+            var result = faqService.FilterFAQEntry(SelectedCategory, SearchQuery)
                                     .OrderByDescending(entry => entry.ViewCount)
-                                    .AsEnumerable().Select(entry => _mapper.Map<FAQEntryDTO>(entry));
+                                    .AsEnumerable().Select(entry => mapper.Map<FAQEntryDTO>(entry));
 
             FilteredFAQs.Clear();
             foreach (var faq in result)
@@ -142,8 +142,8 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 throw new UnauthorizedAccessException("Only admins can add FAQs.");
             }
 
-            var entity = _mapper.Map<FAQEntry>(faqDto);
-            _faqService.AddFAQEntry(entity);
+            var entity = mapper.Map<FAQEntry>(faqDto);
+            faqService.AddFAQEntry(entity);
             LoadFAQ();
         }
 
@@ -159,8 +159,8 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 throw new ArgumentNullException(nameof(faqDto));
             }
 
-            var entity = _mapper.Map<FAQEntry>(faqDto);
-            _faqService.EditFAQEntry(entity, faqDto.Id);
+            var entity = mapper.Map<FAQEntry>(faqDto);
+            faqService.EditFAQEntry(entity, faqDto.Id);
             LoadFAQ();
         }
 
@@ -176,7 +176,7 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 throw new ArgumentNullException(nameof(faqDto));
             }
 
-            _faqService.DeleteFAQEntry(faqDto.Id);
+            faqService.DeleteFAQEntry(faqDto.Id);
             LoadFAQ();
         }
 
@@ -187,8 +187,8 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 return;
             }
 
-            var entity = _mapper.Map<FAQEntry>(SelectedFAQEntry);
-            _faqService.IncrementViewCount(entity);
+            var entity = mapper.Map<FAQEntry>(SelectedFAQEntry);
+            faqService.IncrementViewCount(entity);
             LoadFAQ();
         }
 
@@ -199,8 +199,8 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 return;
             }
 
-            var entity = _mapper.Map<FAQEntry>(SelectedFAQEntry);
-            _faqService.IncrementWasHelpfulVotes(entity);
+            var entity = mapper.Map<FAQEntry>(SelectedFAQEntry);
+            faqService.IncrementWasHelpfulVotes(entity);
 
             SelectedFAQEntry.HelpfulVotesCount++;
             OnPropertyChanged(nameof(SelectedFAQEntry));
@@ -213,8 +213,8 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 return;
             }
 
-            var entity = _mapper.Map<FAQEntry>(SelectedFAQEntry);
-            _faqService.IncrementWasNotHelpfulVotes(entity);
+            var entity = mapper.Map<FAQEntry>(SelectedFAQEntry);
+            faqService.IncrementWasNotHelpfulVotes(entity);
 
             SelectedFAQEntry.NotHelpfulVotesCount++;
             OnPropertyChanged(nameof(SelectedFAQEntry));
@@ -260,8 +260,8 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 return;
             }
 
-            var entity = _mapper.Map<FAQEntry>(faq);
-            _faqService.IncrementViewCount(entity);
+            var entity = mapper.Map<FAQEntry>(faq);
+            faqService.IncrementViewCount(entity);
 
             faq.ViewCount++;
 
@@ -328,16 +328,16 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
 
             SelectedFAQEntry = faq;
 
-            var entity = _mapper.Map<FAQEntry>(faq);
+            var entity = mapper.Map<FAQEntry>(faq);
 
             if (isHelpful)
             {
-                _faqService.IncrementWasHelpfulVotes(entity);
+                faqService.IncrementWasHelpfulVotes(entity);
                 faq.HelpfulVotesCount++;
             }
             else
             {
-                _faqService.IncrementWasNotHelpfulVotes(entity);
+                faqService.IncrementWasNotHelpfulVotes(entity);
                 faq.NotHelpfulVotesCount++;
             }
 

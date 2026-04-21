@@ -28,17 +28,17 @@ namespace CloudSpritzers1.Src.View.Faq
 {
     public sealed partial class FAQAddEditPage : Page
     {
-        private FAQViewModel _viewModel;
-        private FAQEntryDTO? _editingFaq;
-        private bool _isEditMode;
-        private int _currentPersonId;
+        private FAQViewModel viewModel;
+        private FAQEntryDTO? editingFaq;
+        private bool isEditMode;
+        private int currentPersonId;
 
         public FAQAddEditPage()
         {
             this.InitializeComponent();
 
             var app = (App)Application.Current;
-            _viewModel = app.Services.GetRequiredService<FAQViewModel>();
+            viewModel = app.Services.GetRequiredService<FAQViewModel>();
         }
 
         // protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -102,18 +102,18 @@ namespace CloudSpritzers1.Src.View.Faq
 
             if (e.Parameter is FAQNavigationData navData)
             {
-                _currentPersonId = navData.CurrentPersonId;
-                _viewModel.IsAdmin = navData.IsEmployee;
+                currentPersonId = navData.CurrentPersonId;
+                viewModel.IsAdmin = navData.IsEmployee;
 
                 if (navData.FAQEntry != null)
                 {
-                    _editingFaq = navData.FAQEntry;
-                    _isEditMode = true;
-                    _viewModel.SelectedFAQEntry = navData.FAQEntry;
+                    editingFaq = navData.FAQEntry;
+                    isEditMode = true;
+                    viewModel.SelectedFAQEntry = navData.FAQEntry;
 
-                    QuestionTextBox.Text = _editingFaq.Question;
-                    AnswerTextBox.Text = _editingFaq.Answer;
-                    CategoryComboBox.SelectedItem = FindCategoryComboBoxItem(_editingFaq.Category);
+                    QuestionTextBox.Text = editingFaq.Question;
+                    AnswerTextBox.Text = editingFaq.Answer;
+                    CategoryComboBox.SelectedItem = FindCategoryComboBoxItem(editingFaq.Category);
 
                     PageTitleText.Text = "Edit FAQ";
                     PageSubtitleText.Text = "Update the selected frequently asked question entry";
@@ -121,9 +121,9 @@ namespace CloudSpritzers1.Src.View.Faq
                 }
                 else
                 {
-                    _editingFaq = null;
-                    _isEditMode = false;
-                    _viewModel.SelectedFAQEntry = null;
+                    editingFaq = null;
+                    isEditMode = false;
+                    viewModel.SelectedFAQEntry = null;
 
                     QuestionTextBox.Text = string.Empty;
                     AnswerTextBox.Text = string.Empty;
@@ -167,7 +167,7 @@ namespace CloudSpritzers1.Src.View.Faq
         {
             try
             {
-                await _viewModel.Save(
+                await viewModel.Save(
                     QuestionTextBox.Text,
                     AnswerTextBox.Text,
                     (CategoryComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString());

@@ -19,7 +19,7 @@ namespace CloudSpritzers1.Src.View.Faq
     {
         public FAQViewModel ViewModel { get; }
 
-        private int _currentPersonId;
+        private int currentPersonId;
 
         private bool IsEmployee(int id)
         {
@@ -82,11 +82,11 @@ namespace CloudSpritzers1.Src.View.Faq
 
             if (app.isEmployee && app.Employee != null)
             {
-                _currentPersonId = app.Employee.RetrieveUniqueDatabaseIdentifierForBot();
+                currentPersonId = app.Employee.RetrieveUniqueDatabaseIdentifierForBot();
             }
             else if (app.User != null)
             {
-                _currentPersonId = app.User.RetrieveUniqueDatabaseIdentifierForBot();
+                currentPersonId = app.User.RetrieveUniqueDatabaseIdentifierForBot();
             }
 
             ViewModel.LoadFAQ();
@@ -151,7 +151,7 @@ namespace CloudSpritzers1.Src.View.Faq
         {
             var data = new FAQNavigationData
             {
-                CurrentPersonId = _currentPersonId,
+                CurrentPersonId = currentPersonId,
                 IsEmployee = ViewModel.IsAdmin,
                 FAQEntry = null
             };
@@ -166,7 +166,7 @@ namespace CloudSpritzers1.Src.View.Faq
                 return;
             }
 
-            var data = ViewModel.BuildNavigationData(_currentPersonId);
+            var data = ViewModel.BuildNavigationData(currentPersonId);
 
             Frame.Navigate(typeof(FAQAddEditPage), data);
         }
