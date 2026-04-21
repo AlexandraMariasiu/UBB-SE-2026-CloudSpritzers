@@ -12,7 +12,7 @@ using CloudSpritzers1;
 
 
 
-namespace CloudSpritzers1Tests.Src.ViewModel.Review
+namespace CloudSpritzers1Tests.Src.ViewModel
 {
     [TestClass]
     public class AddReviewViewModelTests

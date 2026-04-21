@@ -103,7 +103,7 @@ namespace CloudSpritzers1Tests.Src.Service
             };
             var result = _ticketService.FilterTicketsByStatus(ticketsDto, TicketFilterStatusEnum.IN_PROGRESS).ToList();
             Assert.AreEqual(1, result.Count);
-            Assert.AreEqual(TicketStatusEnum.IN_PROGRESS, result.First().CurrentStatus);
+            Assert.AreEqual(TicketStatusEnum.IN_PROGRESS, result.First().currentStatus);
         }
 
         //[TestMethod]
