@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 
-namespace CloudSpritzers1.src.view.faq
+namespace CloudSpritzers1.src.converter
 {
     public class InverseBooleanToVisibilityConverter : IValueConverter
     {

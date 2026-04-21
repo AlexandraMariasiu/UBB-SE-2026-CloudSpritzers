@@ -15,6 +15,9 @@
 		<WindowsPackageType>None</WindowsPackageType>
 		<CodeAnalysisRuleSet>SE.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<CodeAnalysisRuleSet>SE.ruleset</CodeAnalysisRuleSet>
+	</PropertyGroup>
 	<ItemGroup>
 		<Compile Remove="src\view\faq\FAQPage.xaml.cs" />
 	</ItemGroup>
