@@ -40,9 +40,10 @@ namespace CloudSpritzers1.Src.Service
             _reviewRepository.DeleteById(id);
         }
 
-        public List<Review> GetAll()
+        public List<Review>? GetAll()
         {
-            return _reviewRepository.GetAll().ToList();
+            var reviews = _reviewRepository.GetAll();
+            return reviews?.ToList();
         }
 
         public void CreateReview(int id, User user, string message, int dutyFreeRating, int flightExperienceRating, int staffFriendlinessRating, int cleanlinessRating)

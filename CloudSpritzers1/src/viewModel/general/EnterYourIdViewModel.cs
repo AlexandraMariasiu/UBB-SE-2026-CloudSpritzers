@@ -15,6 +15,8 @@ namespace CloudSpritzers1.Src.ViewModel.General
         [ObservableProperty]
         private string _userIdentification;
 
+        public bool IsTestingMode { get; set; } = false;
+
         /// <summary>
         /// Attempts to authenticate the user by parsing the identification string
         /// and calling the application's SetUser method.
@@ -25,6 +27,11 @@ namespace CloudSpritzers1.Src.ViewModel.General
         {
             if (int.TryParse(UserIdentification, out parsedId))
             {
+                if (IsTestingMode)
+                {
+                    return true;
+                }
+
                 return ((App)App.Current).SetUser(parsedId);
             }
             return false;
