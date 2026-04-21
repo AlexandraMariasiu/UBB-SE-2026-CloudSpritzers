@@ -45,8 +45,7 @@ namespace CloudSpritzers1.Src.Repository.Database
             }
 
             string connectionString = $"Server={serverAddress};Database={databaseName};User Id={userName};Password={userPassword};TrustServerCertificate=True;";
-            return @"Server=RATON\SQLEXPRESS;Database=CloudSpritzers;Integrated Security=True;TrustServerCertificate=True;";
-            //return connectionString;
+            return connectionString;
         }
     }
 }
