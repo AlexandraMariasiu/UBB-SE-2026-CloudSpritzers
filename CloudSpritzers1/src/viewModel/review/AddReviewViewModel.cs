@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.service;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace CloudSpritzers1.src.viewModel.review
+namespace CloudSpritzers1.Src.ViewModel.Review
 {
     public partial class AddReviewViewModel : ObservableObject
     {

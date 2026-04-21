@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml.Data;
 
-namespace CloudSpritzers1.src.view.faq
+namespace CloudSpritzers1.Src.Converter
 {
         public class BooleanToGlyphConverter : IValueConverter
         {

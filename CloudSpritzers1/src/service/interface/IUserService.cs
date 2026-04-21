@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using CloudSpritzers1.src.model;
+using CloudSpritzers1.Src.Model;
 
-namespace CloudSpritzers1.src.service.interfaces
+namespace CloudSpritzers1.Src.Service.Interfaces
 {
     public interface IUserService
     {

@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CloudSpritzers1.src.model.faq;
-using CloudSpritzers1.src.repository.implementations;
-using CloudSpritzers1.src.repository.interfaces;
-using CloudSpritzers1.src.service.interfaces;
+using CloudSpritzers1.Src.Model.Faq;
+using CloudSpritzers1.Src.Repository.Implementation;
+using CloudSpritzers1.Src.Repository.Interfaces;
+using CloudSpritzers1.Src.Service.Interfaces;
 using Sprache;
 
-namespace CloudSpritzers1.src.service.implementation
+namespace CloudSpritzers1.Src.Service.Implementation
 {
 	public class FAQService : IFAQService
 	{

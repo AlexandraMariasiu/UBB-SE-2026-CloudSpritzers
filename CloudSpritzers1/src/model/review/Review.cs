@@ -1,6 +1,6 @@
-using CloudSpritzers1.src.model;
+using CloudSpritzers1.Src.Model;
 
-namespace CloudSpritzers1.src.model.review
+namespace CloudSpritzers1.Src.Model.Review
 {
     public class Review
     {

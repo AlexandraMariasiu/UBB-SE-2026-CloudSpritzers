@@ -4,13 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using AutoMapper;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.dto.mappingProfiles;
-using CloudSpritzers1.src.model.faq;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.repository.implementations;
-using CloudSpritzers1.src.service.implementation;
-using CloudSpritzers1.src.viewModel.faq;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Dto.MappingProfiles;
+using CloudSpritzers1.Src.Model.Faq;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Repository.Implementation;
+using CloudSpritzers1.Src.Service.Implementation;
+using CloudSpritzers1.Src.ViewModel.Faq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -24,7 +24,7 @@ using Windows.Foundation.Collections;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
-namespace CloudSpritzers1.src.view.faq
+namespace CloudSpritzers1.Src.View.Faq
 {
     public sealed partial class FAQAddEditPage : Page
     {

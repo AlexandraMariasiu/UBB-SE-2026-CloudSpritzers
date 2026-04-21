@@ -4,12 +4,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.model.faq.bot;
-using CloudSpritzers1.src.model.message;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.service.bot.strategy;
+using CloudSpritzers1.Src.Model.Faq.Bot;
+using CloudSpritzers1.Src.Model.Message;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Service.Bot.Strategy;
 
-namespace CloudSpritzers1.src.service.bot
+namespace CloudSpritzers1.Src.Service.Bot
 {
     public class BotEngine : ISender
     {

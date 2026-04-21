@@ -12,17 +12,17 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using CloudSpritzers1.src.model.ticket;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.service;
-using CloudSpritzers1.src.viewModel;
+using CloudSpritzers1.Src.Model.Ticket;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Service;
+using CloudSpritzers1.Src.ViewModel;
 using Microsoft.UI;
 using Microsoft.Extensions.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
-namespace CloudSpritzers1.src.view.ticket
+namespace CloudSpritzers1.Src.View.Ticket
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

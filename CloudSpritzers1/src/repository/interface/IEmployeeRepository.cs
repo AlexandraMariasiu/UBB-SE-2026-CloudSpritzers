@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using CloudSpritzers1.src.model.employee;
+using CloudSpritzers1.Src.Model.Employee;
 
-namespace CloudSpritzers1.src.repository
+namespace CloudSpritzers1.Src.Repository
 {
     public interface IEmployeeRepository
     {

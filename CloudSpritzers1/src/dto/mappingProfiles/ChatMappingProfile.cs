@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.model.chat;
-using CloudSpritzers1.src.dto;
+using CloudSpritzers1.Src.Model.Chats;
+using CloudSpritzers1.Src.Dto;
 using AutoMapper;
 
-namespace CloudSpritzers1.src.dto.mappingProfiles
+namespace CloudSpritzers1.Src.Dto.MappingProfiles
 {
     public class ChatMappingProfile : Profile
     {

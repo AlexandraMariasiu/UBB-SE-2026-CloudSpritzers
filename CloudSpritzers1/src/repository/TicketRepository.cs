@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System;
-using CloudSpritzers1.src.model.ticket;
+using CloudSpritzers1.Src.Model.Ticket;
 using Microsoft.Data.SqlClient;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.model.faq;
-using CloudSpritzers1.src.repository.interfaces;
-using CloudSpritzers1.src.repository.database;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Model.Faq;
+using CloudSpritzers1.Src.Repository.Interfaces;
+using CloudSpritzers1.Src.Repository.Database;
 
-namespace CloudSpritzers1.src.repository
+namespace CloudSpritzers1.Src.Repository
 {
     public class TicketRepository : DatabaseRepository<int, Ticket>, ITicketRepository
     {
@@ -51,7 +51,7 @@ namespace CloudSpritzers1.src.repository
 
             string query = @"INSERT INTO Ticket 
                 (user_id, status, category_id, subcategory_id, subject, description, created_at, urgency_level) " +
-                "OUTPUT INSERTED.ticket_id " +
+                "OUTPUT INSERTED.Ticket_id " +
                 "VALUES (@userId, @status, @categoryId, @subcategoryId, @subject, @description, @creationTimestamp, @urgency)";
 
             SqlCommand command = new SqlCommand(query);

@@ -1,8 +1,8 @@
-﻿using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.viewmodel;
+﻿using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.ViewModel;
 using Microsoft.UI.Xaml.Controls;
 
-namespace CloudSpritzers1.src.view.message
+namespace CloudSpritzers1.Src.View.Message
 {
     public sealed partial class MessageView : UserControl
     {

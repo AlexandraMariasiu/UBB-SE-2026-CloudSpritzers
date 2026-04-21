@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudSpritzers1.src.repository.database
+namespace CloudSpritzers1.Src.Repository.Database
 {
     public class DatabaseConnectionException : Exception
     {

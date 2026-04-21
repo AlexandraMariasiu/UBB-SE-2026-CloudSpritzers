@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.model.ticket;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.repository.database;
+using CloudSpritzers1.Src.Model.Ticket;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Repository.Database;
 using Microsoft.Data.SqlClient;
 
 public class TicketSubcategoryRepository : DatabaseRepository<int, TicketSubcategory> , ITicketSubcategoryRepository

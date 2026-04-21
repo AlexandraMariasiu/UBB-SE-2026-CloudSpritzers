@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using CloudSpritzers1.src.model.review;
-using CloudSpritzers1.src.dto;
+using CloudSpritzers1.Src.Model.Review;
+using CloudSpritzers1.Src.Dto;
 using Microsoft.IdentityModel.Tokens;
 
-namespace CloudSpritzers1.src.dto.mappingProfiles
+namespace CloudSpritzers1.Src.Dto.MappingProfiles
 {
     public class ReviewMappingProfile : Profile
     {

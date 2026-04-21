@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
-using CloudSpritzers1.src.model.message;
-using CloudSpritzers1.src.model.chat;
+using CloudSpritzers1.Src.Model.Message;
+using CloudSpritzers1.Src.Model.Chats;
 
-namespace CloudSpritzers1.src.repository.database
+namespace CloudSpritzers1.Src.Repository.Database
 {
     public class MessageDatabaseRepository : DatabaseRepository<int, Message>, IRepository<int, Message>
     {

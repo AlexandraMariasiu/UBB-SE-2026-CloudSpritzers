@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using CloudSpritzers1.src.model.faq;
+using CloudSpritzers1.Src.Model.Faq;
 
-namespace CloudSpritzers1.src.dto
+namespace CloudSpritzers1.Src.Dto
 {
     public class FAQEntryDTO : INotifyPropertyChanged
     {

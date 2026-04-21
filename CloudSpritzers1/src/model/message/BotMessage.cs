@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
-using CloudSpritzers1.src.model.chat;
-using CloudSpritzers1.src.model.faq.bot;
+using CloudSpritzers1.Src.Model.Chats;
+using CloudSpritzers1.Src.Model.Faq.Bot;
 
 // TODO : Maybe merge this with the regular message or pull general data in IMessage and make it abstract class instead of interface
 // At this point it is not a contract of functionality but an identity
-namespace CloudSpritzers1.src.model.message
+namespace CloudSpritzers1.Src.Model.Message
 {
     public class BotMessage : IMessage
     {

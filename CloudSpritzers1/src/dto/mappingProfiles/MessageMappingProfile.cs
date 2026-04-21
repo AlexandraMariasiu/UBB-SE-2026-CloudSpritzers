@@ -1,9 +1,9 @@
 ﻿using System;
 using AutoMapper;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model.message;
-using CloudSpritzers1.src.service;
-using CloudSpritzers1.src.service.bot;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Model.Message;
+using CloudSpritzers1.Src.Service;
+using CloudSpritzers1.Src.Service.Bot;
 
 public class MessageMappingProfile : Profile
 {

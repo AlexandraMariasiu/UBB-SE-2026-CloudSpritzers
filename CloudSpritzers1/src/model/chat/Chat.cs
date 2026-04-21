@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using CloudSpritzers1.src.model.message;
-using CloudSpritzers1.src.model.chat;
-
-namespace CloudSpritzers1.src.model.chat
+using CloudSpritzers1.Src.Model.Message;
+namespace CloudSpritzers1.Src.Model.Chats
 {
     public class Chat
     {

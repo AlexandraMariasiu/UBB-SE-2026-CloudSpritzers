@@ -1,9 +1,9 @@
 ﻿using System;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.model.employee;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Model.Employee;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace CloudSpritzers1.src.viewModel.general
+namespace CloudSpritzers1.Src.ViewModel.General
 {
     public sealed partial class UpperBarViewModel : ObservableObject
     {
@@ -53,15 +53,15 @@ namespace CloudSpritzers1.src.viewModel.general
         }
 
         // Navigation targets are resolved here so the view does not contain branching logic
-        public Type LandingPageType => typeof(CloudSpritzers1.src.view.general.LandingPage);
-        public Type FAQPageType => typeof(CloudSpritzers1.src.view.faq.FAQView);
-        public Type ChatPageType => typeof(CloudSpritzers1.src.view.chat.ChatPage);
+        public Type LandingPageType => typeof(CloudSpritzers1.Src.View.General.LandingPage);
+        public Type FAQPageType => typeof(CloudSpritzers1.Src.View.Faq.FAQView);
+        public Type ChatPageType => typeof(CloudSpritzers1.Src.View.Chat.ChatPage);
         public Type TicketsPageType => IsClientView
-            ? typeof(CloudSpritzers1.src.view.ticket.TicketsView)
-            : typeof(CloudSpritzers1.src.view.ticket.TicketEmployeeView);
+            ? typeof(CloudSpritzers1.Src.View.Ticket.TicketsView)
+            : typeof(CloudSpritzers1.Src.View.Ticket.TicketEmployeeView);
         public Type ReviewsPageType => IsClientView
-            ? typeof(CloudSpritzers1.src.view.review.ReviewPage)
-            : typeof(CloudSpritzers1.src.view.review.EmployeeSeeReviews);
-        public Type ChoosingPageType => typeof(CloudSpritzers1.src.view.general.ChoosingPage);
+            ? typeof(CloudSpritzers1.Src.View.Review.ReviewPage)
+            : typeof(CloudSpritzers1.Src.View.Review.EmployeeSeeReviews);
+        public Type ChoosingPageType => typeof(CloudSpritzers1.Src.View.General.ChoosingPage);
     }
 }

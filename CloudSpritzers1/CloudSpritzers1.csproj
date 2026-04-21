@@ -15,19 +15,22 @@
 		<WindowsPackageType>None</WindowsPackageType>
 		<CodeAnalysisRuleSet>SE.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<CodeAnalysisRuleSet>SE.ruleset</CodeAnalysisRuleSet>
+	</PropertyGroup>
 	<ItemGroup>
-		<Compile Remove="src\view\faq\FAQPage.xaml.cs" />
+		<Compile Remove="Src\View\Faq\FAQPage.xaml.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove=".env" />
-		<None Remove="src\view\faq\FAQAddEditPage.xaml" />
-		<None Remove="src\view\faq\FAQView.xaml" />
-		<None Remove="src\view\general\ChoosingPage.xaml" />
-		<None Remove="src\view\general\LandingPage.xaml" />
-		<None Remove="src\view\general\MaiBoule.xaml" />
-		<None Remove="src\view\review\EmployeeSeeReviews.xaml" />
-		<None Remove="src\view\review\ReviewPage.xaml" />
-		<None Remove="src\view\ticket\TicketEmployeeView.xaml" />
+		<None Remove="Src\View\Faq\FAQAddEditPage.xaml" />
+		<None Remove="Src\View\Faq\FAQView.xaml" />
+		<None Remove="Src\View\General\ChoosingPage.xaml" />
+		<None Remove="Src\View\General\LandingPage.xaml" />
+		<None Remove="Src\View\General\MaiBoule.xaml" />
+		<None Remove="Src\View\Review\EmployeeSeeReviews.xaml" />
+		<None Remove="Src\View\Review\ReviewPage.xaml" />
+		<None Remove="Src\View\Ticket\TicketEmployeeView.xaml" />
 	</ItemGroup>
 	<ItemGroup>
 		<Page Remove="ChatPage.xaml" />
@@ -82,31 +85,31 @@
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.5" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Update="src\view\chat\ChatPage.xaml">
+		<None Update="Src\View\Chat\ChatPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</None>
-		<Page Update="src\view\ticket\TicketEmployeeView.xaml">
+		<Page Update="Src\View\Ticket\TicketEmployeeView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</Page>
-		<Page Update="src\view\general\MaiBoule.xaml">
+		<Page Update="Src\View\General\MaiBoule.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</Page>
-		<Page Update="src\view\faq\FAQView.xaml">
+		<Page Update="Src\View\Faq\FAQView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
-		<Page Update="src\view\faq\FAQAddEditPage.xaml">
+		<Page Update="Src\View\Faq\FAQAddEditPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
-		<Page Update="src\view\review\EmployeeSeeReviews.xaml">
+		<Page Update="Src\View\Review\EmployeeSeeReviews.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
-		<Page Update="src\view\review\ReviewPage.xaml">
+		<Page Update="Src\View\Review\ReviewPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
-		<Page Update="src\view\general\LandingPage.xaml">
+		<Page Update="Src\View\General\LandingPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
-		<Page Update="src\view\general\ChoosingPage.xaml">
+		<Page Update="Src\View\General\ChoosingPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 		<Page Update="src\view\generic\ThemeResource.xaml">

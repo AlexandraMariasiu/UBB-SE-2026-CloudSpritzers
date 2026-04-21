@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
-using CloudSpritzers1.src.repository.database;
+using CloudSpritzers1.Src.Repository.Database;
 
-namespace CloudSpritzers1.src.repository
+namespace CloudSpritzers1.Src.Repository
 {
     public class UserRepository : DatabaseRepository<int, User>, IRepository<int, User>, IUserRepository
     {

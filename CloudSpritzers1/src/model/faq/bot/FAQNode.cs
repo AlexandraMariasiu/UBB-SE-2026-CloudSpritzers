@@ -4,9 +4,9 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.service.bot;
+using CloudSpritzers1.Src.Service.Bot;
 
-namespace CloudSpritzers1.src.model.faq.bot
+namespace CloudSpritzers1.Src.Model.Faq.Bot
 {
     public record FAQNode(
         int FaqNodeId,

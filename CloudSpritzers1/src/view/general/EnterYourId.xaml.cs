@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using CloudSpritzers1.src.view.chat;
-using CloudSpritzers1.src.view.general;
-using CloudSpritzers1.src.viewModel.general;
+using CloudSpritzers1.Src.View.Chat;
+using CloudSpritzers1.Src.View.General;
+using CloudSpritzers1.Src.ViewModel.General;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -16,7 +16,7 @@ using Microsoft.UI.Xaml.Navigation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-namespace CloudSpritzers1.src.view.general
+namespace CloudSpritzers1.Src.View.General
 {
     public sealed partial class EnterYourId : Page
     {

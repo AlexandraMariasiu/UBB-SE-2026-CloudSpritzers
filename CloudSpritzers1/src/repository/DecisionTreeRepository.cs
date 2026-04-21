@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using CloudSpritzers1.src.model.faq.bot;
+using CloudSpritzers1.Src.Model.Faq.Bot;
 using Microsoft.Data.SqlClient;
 
-namespace CloudSpritzers1.src.repository.database
+namespace CloudSpritzers1.Src.Repository.Database
 {
     public class DecisionTreeRepository : DatabaseRepository<int, FAQNode>, IRepository<int, FAQNode>
     {

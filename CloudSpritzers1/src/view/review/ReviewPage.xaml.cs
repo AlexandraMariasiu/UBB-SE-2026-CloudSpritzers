@@ -1,13 +1,13 @@
 ﻿using System;
-using CloudSpritzers1.src.view.faq;
-using CloudSpritzers1.src.view.general;
-using CloudSpritzers1.src.view.ticket;
-using CloudSpritzers1.src.viewModel.review;
+using CloudSpritzers1.Src.View.Faq;
+using CloudSpritzers1.Src.View.General;
+using CloudSpritzers1.Src.View.Ticket;
+using CloudSpritzers1.Src.ViewModel.Review;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace CloudSpritzers1.src.view.review
+namespace CloudSpritzers1.Src.View.Review
 {
     public sealed partial class ReviewPage : Page
     {

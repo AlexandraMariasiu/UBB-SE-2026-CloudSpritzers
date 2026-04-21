@@ -1,7 +1,7 @@
-﻿using CloudSpritzers1.src.viewModel.general;
+﻿using CloudSpritzers1.Src.ViewModel.General;
 using Microsoft.UI.Xaml.Controls;
 
-namespace CloudSpritzers1.src.view.general
+namespace CloudSpritzers1.Src.View.General
 {
     /// <summary>
     /// A ContentDialog for displaying a message and title to the user.

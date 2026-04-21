@@ -2,7 +2,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 
-namespace CloudSpritzers1.src.view.faq
+namespace CloudSpritzers1.Src.View.Faq
 {
     public class BooleanToVisibilityConverter : IValueConverter
     {

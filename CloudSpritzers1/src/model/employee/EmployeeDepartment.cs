@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudSpritzers1.src.model.employee
+namespace CloudSpritzers1.Src.Model.Employee
 {
     public enum EmployeeDepartment
     {

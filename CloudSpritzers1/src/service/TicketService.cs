@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.model.ticket;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.repository.interfaces;
-using CloudSpritzers1.src.service.interfaces;
-using CloudSpritzers1.src.viewModel;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Model.Ticket;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Repository.Interfaces;
+using CloudSpritzers1.Src.Service.Interfaces;
+using CloudSpritzers1.Src.ViewModel;
 using Windows.System;
-using User = CloudSpritzers1.src.model.User;
+using User = CloudSpritzers1.Src.Model.User;
 
-namespace CloudSpritzers1.src.service
+namespace CloudSpritzers1.Src.Service
 {
     public class TicketService : ITicketService
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.model.ticket;
-using CloudSpritzers1.src.viewModel;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Model.Ticket;
+using CloudSpritzers1.Src.ViewModel;
 
-namespace CloudSpritzers1.src.service.interfaces
+namespace CloudSpritzers1.Src.Service.Interfaces
 {
     public interface ITicketService
     {

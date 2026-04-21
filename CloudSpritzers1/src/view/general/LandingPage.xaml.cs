@@ -1,10 +1,10 @@
 using System;
-using CloudSpritzers1.src.viewmodel;
+using CloudSpritzers1.Src.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace CloudSpritzers1.src.view.general
+namespace CloudSpritzers1.Src.View.General
 {
     public sealed partial class LandingPage : Page
     {

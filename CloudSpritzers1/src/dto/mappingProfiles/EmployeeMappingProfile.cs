@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model.employee;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Model.Employee;
 
-namespace CloudSpritzers1.src.dto.mappingProfiles
+namespace CloudSpritzers1.Src.Dto.MappingProfiles
 {
     public class EmployeeMappingProfile : Profile
     {

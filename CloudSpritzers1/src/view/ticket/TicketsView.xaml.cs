@@ -5,12 +5,12 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI;
 using Microsoft.Extensions.DependencyInjection;
-using CloudSpritzers1.src.viewModel;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model.ticket;
+using CloudSpritzers1.Src.ViewModel;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Model.Ticket;
 using Microsoft.UI.Xaml.Media;
 
-namespace CloudSpritzers1.src.view.ticket
+namespace CloudSpritzers1.Src.View.Ticket
 {
     public sealed partial class TicketsView : Page
     {

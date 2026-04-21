@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CloudSpritzers1.src.model.chat;
-using CloudSpritzers1.src.model.faq.bot;
-using CloudSpritzers1.src.model.message;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.repository.database;
-using CloudSpritzers1.src.service.bot;
+using CloudSpritzers1.Src.Model.Chats;
+using CloudSpritzers1.Src.Model.Faq.Bot;
+using CloudSpritzers1.Src.Model.Message;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Repository.Database;
+using CloudSpritzers1.Src.Service.Bot;
 
 // FIXME: Bot Engine should not be linked to Message Service, it should be linked to a Chat...
-namespace CloudSpritzers1.src.service
+namespace CloudSpritzers1.Src.Service
 {
     public class MessageService
     {
