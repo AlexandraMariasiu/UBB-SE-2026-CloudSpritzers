@@ -16,7 +16,7 @@ namespace CloudSpritzers1.Src.Model.Ticket
         public DateTime CreationTimestamp { get; }
         public Ticket(int ticketId, User ticketCreator, TicketStatusEnum initialStatus, TicketCategory category, TicketSubcategory subcategory, string ticketSubject, string description, DateTime creationTimestamp, TicketUrgencyLevelEnum? initialUrgencyLevel = null)
         {
-            TicketId = ticketId;
+            this.TicketId = ticketId;
             Creator = ticketCreator;
             UrgencyLevel = initialUrgencyLevel ?? category.CategoryUrgencyLevel;
             CurrentStatus = initialStatus;

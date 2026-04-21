@@ -21,15 +21,15 @@ namespace CloudSpritzers1.Src.Repository
 
         public Ticket GetById(int id)
         {
-            string query = "SELECT * FROM Ticket WHERE ticket_id = @ticketId";
+            string query = "SELECT * FROM Ticket WHERE ticket_id = @TicketId";
             SqlCommand command = new SqlCommand(query);
-            command.Parameters.AddWithValue("@ticketId", id);
+            command.Parameters.AddWithValue("@TicketId", id);
 
             Ticket ticket = base.GetById(id, command);
 
             if (ticket == null)
             {
-                throw new KeyNotFoundException($"Ticket with ticketId {id} was not found.");
+                throw new KeyNotFoundException($"Ticket with TicketId {id} was not found.");
             }
 
             return ticket;
@@ -85,10 +85,10 @@ namespace CloudSpritzers1.Src.Repository
                 description = @description, 
                 created_at = @creationTimestamp, 
                 urgency_level = @urgency 
-                WHERE ticket_id = @ticketId";
+                WHERE ticket_id = @TicketId";
 
             SqlCommand command = new SqlCommand(query);
-            command.Parameters.AddWithValue("@ticketId", ticketId);
+            command.Parameters.AddWithValue("@TicketId", ticketId);
             command.Parameters.AddWithValue("@userId", ticketEntity.Creator.UserId);
             command.Parameters.AddWithValue("@status", ticketEntity.CurrentStatus.ToString());
             command.Parameters.AddWithValue("@categoryId", ticketEntity.Category.CategoryId);
@@ -103,9 +103,9 @@ namespace CloudSpritzers1.Src.Repository
 
         public void DeleteById(int ticketId)
         {
-            string query = "DELETE FROM Ticket WHERE ticket_id = @ticketId";
+            string query = "DELETE FROM Ticket WHERE ticket_id = @TicketId";
             SqlCommand command = new SqlCommand(query);
-            command.Parameters.AddWithValue("@ticketId", ticketId);
+            command.Parameters.AddWithValue("@TicketId", ticketId);
 
             base.DeleteById(ticketId, command);
         }
