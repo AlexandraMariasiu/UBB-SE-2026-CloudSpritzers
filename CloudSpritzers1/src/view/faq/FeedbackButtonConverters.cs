@@ -17,11 +17,11 @@ namespace CloudSpritzers1.src.view.faq
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             bool selected = value is bool b && b;
-            Color HelpfulBackgroundColor = Color.FromArgb(255, 232, 247, 236);
-            Color DefaultBackgroundColor = Color.FromArgb(255, 248, 249, 251);
+            Color helpfulBackgroundColor = Color.FromArgb(255, 232, 247, 236);
+            Color defaultBackgroundColor = Color.FromArgb(255, 248, 249, 251);
             return new SolidColorBrush(selected
-                ? HelpfulBackgroundColor
-                : DefaultBackgroundColor);
+                ? helpfulBackgroundColor
+                : defaultBackgroundColor);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -33,11 +33,11 @@ namespace CloudSpritzers1.src.view.faq
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             bool selected = value is bool b && b;
-            Color HelpfulForegroundColor = Color.FromArgb(255, 21, 128, 61);
-            Color DefaultForegroundColor = Color.FromArgb(255, 107, 114, 128);
+            Color helpfulForegroundColor = Color.FromArgb(255, 21, 128, 61);
+            Color defaultForegroundColor = Color.FromArgb(255, 107, 114, 128);
             return new SolidColorBrush(selected
-                ? HelpfulForegroundColor
-                : DefaultForegroundColor);
+                ? helpfulForegroundColor
+                : defaultForegroundColor);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
