@@ -140,7 +140,7 @@ namespace CloudSpritzers1.src.service.implementation.Tests
         [TestMethod()]
         public void FilterFAQEntry_WithCategoryAndQuestionSearchMatch_ReturnsFilteredEntities()
         {
-            var FAQCatgoryToFilterBy = FAQCategoryEnum.Parking;
+            var FAQCatgoryToFilterBy = FAQCategoryEnum.All;
             var SearchQueryToFilterBy = "cars";
 
             var expected = new List<FAQEntry>
@@ -148,7 +148,7 @@ namespace CloudSpritzers1.src.service.implementation.Tests
                 new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0),
             };
 
-            _faqRepo.GetByCategory(FAQCategoryEnum.Parking).Returns(expected);
+            _faqRepo.GetByCategory(FAQCategoryEnum.All).Returns(expected);
             
             var result = _faqService.FilterFAQEntry(FAQCatgoryToFilterBy, SearchQueryToFilterBy);
             CollectionAssert.AreEqual(expected, result);
