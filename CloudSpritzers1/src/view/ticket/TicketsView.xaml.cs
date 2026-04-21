@@ -55,6 +55,7 @@ namespace CloudSpritzers1.src.view.ticket
         {
             try
             {
+                inputs.ErrorBlock.Visibility = Visibility.Collapsed;
                 if (string.IsNullOrWhiteSpace(inputs.TitleBox.Text) || string.IsNullOrWhiteSpace(inputs.DescriptionBox.Text))
                 {
                     throw new Exception("Please fill all required fields.");
@@ -82,7 +83,9 @@ namespace CloudSpritzers1.src.view.ticket
             }
             catch (Exception ex)
             {
-                await ShowError(ex.Message);
+                //await ShowError(ex.Message);
+                inputs.ErrorBlock.Text = ex.Message;
+                inputs.ErrorBlock.Visibility = Visibility.Visible;
             }
         }
 
@@ -113,6 +116,9 @@ namespace CloudSpritzers1.src.view.ticket
             var descriptionBox = new TextBox { Header = "Description*", PlaceholderText = "Details...", Height = 120, TextWrapping = TextWrapping.Wrap, AcceptsReturn = true };
             panel.Children.Add(descriptionBox);
 
+            var errorBlock = new TextBlock { Foreground = new SolidColorBrush(Colors.Red), Visibility = Visibility.Collapsed, TextWrapping = TextWrapping.Wrap };
+            panel.Children.Add(errorBlock);
+
             var btnPanel = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 10, Margin = new Thickness(0, 10, 0, 0) };
             var sendBtn = new Button { Content = "Send", Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 43, 184, 192)), Foreground = new SolidColorBrush(Colors.White) };
             var cancelBtn = new Button { Content = "Cancel" };
@@ -120,7 +126,7 @@ namespace CloudSpritzers1.src.view.ticket
             btnPanel.Children.Add(cancelBtn);
             panel.Children.Add(btnPanel);
 
-            return (panel, new SubmissionFormInputs { TitleBox = titleBox, CategoryCombo = categoryCombo, SubcategoryCombo = subcategoryCombo, DescriptionBox = descriptionBox, SubmitButton = sendBtn, CancelButton = cancelBtn });
+            return (panel, new SubmissionFormInputs { TitleBox = titleBox, CategoryCombo = categoryCombo, SubcategoryCombo = subcategoryCombo, DescriptionBox = descriptionBox, SubmitButton = sendBtn, CancelButton = cancelBtn, ErrorBlock = errorBlock });
         }
 
         private async Task ShowError(string message)
@@ -146,5 +152,6 @@ namespace CloudSpritzers1.src.view.ticket
         public TextBox DescriptionBox { get; set; }
         public Button SubmitButton { get; set; }
         public Button CancelButton { get; set; }
+        public TextBlock ErrorBlock { get; set; }
     }
 }
