@@ -9,7 +9,7 @@ namespace CloudSpritzers1.Src.Service
 {
     public class ReviewService
     {
-        private readonly IRepository<int, Review> _reviewRepository;
+        private readonly IRepository<int, Review> reviewRepository;
 
         private const int MinRating = 1;
         private const int MaxRating = 5;
@@ -17,38 +17,38 @@ namespace CloudSpritzers1.Src.Service
 
         public ReviewService(IRepository<int, Review> reviewRepository)
         {
-            _reviewRepository = reviewRepository;
+            this.reviewRepository = reviewRepository;
         }
 
         public Review GetById(int id)
         {
-            return _reviewRepository.GetById(id);
+            return reviewRepository.GetById(id);
         }
 
         public int Add(Review review)
         {
-            return _reviewRepository.CreateNewEntity(review);
+            return reviewRepository.CreateNewEntity(review);
         }
 
         public void UpdateById(int id, Review review)
         {
-            _reviewRepository.UpdateById(id, review);
+            reviewRepository.UpdateById(id, review);
         }
 
         public void DeleteById(int id)
         {
-            _reviewRepository.DeleteById(id);
+            reviewRepository.DeleteById(id);
         }
 
         public List<Review>? GetAll()
         {
-            var reviews = _reviewRepository.GetAll();
+            var reviews = reviewRepository.GetAll();
             return reviews?.ToList();
         }
 
         public void CreateReview(int id, User user, string message, int dutyFreeRating, int flightExperienceRating, int staffFriendlinessRating, int cleanlinessRating)
         {
-            Review review = new(id, user, message, dutyFreeRating, flightExperienceRating, staffFriendlinessRating, cleanlinessRating);
+            Review review = new (id, user, message, dutyFreeRating, flightExperienceRating, staffFriendlinessRating, cleanlinessRating);
             ValidateReview(review);
             Add(review);
         }

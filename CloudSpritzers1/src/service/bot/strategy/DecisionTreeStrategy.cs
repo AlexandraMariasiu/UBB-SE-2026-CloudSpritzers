@@ -13,38 +13,38 @@ namespace CloudSpritzers1.Src.Service.Bot.Strategy
 {
     public class DecisionTreeStrategy : IBotStrategy
     {
-        const int CONSTANT_VALUE_REPRESENTING_UNASSIGNED_DATABASE_IDENTIFIER = -1;
+        private const int CONSTANT_VALUE_REPRESENTING_UNASSIGNED_DATABASE_IDENTIFIER = -1;
         [AllowNull]
-        private FAQNode _currentlyActiveConversationDecisionTreeNode;
+        private FAQNode currentlyActiveConversationDecisionTreeNode;
 
-        private DecisionTreeRepository _repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes;
+        private DecisionTreeRepository repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes;
 
         public DecisionTreeStrategy(DecisionTreeRepository faqRepository)
         {
-            this._repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes = faqRepository;
-            this._currentlyActiveConversationDecisionTreeNode = _repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes.GetById(1);
+            this.repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes = faqRepository;
+            this.currentlyActiveConversationDecisionTreeNode = repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes.GetById(1);
         }
 
         public BotMessage ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(BotEngine activeBotEngineInstance, IMessage incomingUserMessage)
         {
             string extractedTextContentFromIncomingUserMessage = incomingUserMessage.GetMessage();
 
-            FAQOption? selectedUserOptionMatchingIncomingMessageText = _currentlyActiveConversationDecisionTreeNode.Options.FirstOrDefault((option) => option.Label.Equals(extractedTextContentFromIncomingUserMessage));
+            FAQOption? selectedUserOptionMatchingIncomingMessageText = currentlyActiveConversationDecisionTreeNode.Options.FirstOrDefault((option) => option.Label.Equals(extractedTextContentFromIncomingUserMessage));
             if (selectedUserOptionMatchingIncomingMessageText == null)
             {
                 return new BotMessage.BotMessageBuilder(activeBotEngineInstance, incomingUserMessage.GetChat(), CONSTANT_VALUE_REPRESENTING_UNASSIGNED_DATABASE_IDENTIFIER,
-                    _repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes.GetById((int)BotStandardMessages.RESTART_CONVERSATION)).Build();
+                    repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes.GetById((int)BotStandardMessages.RESTART_CONVERSATION)).Build();
             }
 
-            FAQNode nextQuestion = _repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes.GetById(selectedUserOptionMatchingIncomingMessageText.NextOptionId);
-            _currentlyActiveConversationDecisionTreeNode = nextQuestion;
+            FAQNode nextQuestion = repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes.GetById(selectedUserOptionMatchingIncomingMessageText.NextOptionId);
+            currentlyActiveConversationDecisionTreeNode = nextQuestion;
 
             return new BotMessage.BotMessageBuilder(activeBotEngineInstance, incomingUserMessage.GetChat(), CONSTANT_VALUE_REPRESENTING_UNASSIGNED_DATABASE_IDENTIFIER, nextQuestion).Build();
         }
 
         public void ResetCurrentlyActiveConversationNodeToInitialStartingPoint()
         {
-            _currentlyActiveConversationDecisionTreeNode = _repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes.GetById(1);
+            currentlyActiveConversationDecisionTreeNode = repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes.GetById(1);
         }
     }
 }
