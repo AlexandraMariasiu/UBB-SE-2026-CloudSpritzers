@@ -23,7 +23,7 @@ namespace CloudSpritzers1.Src.View.General
         /// <summary>
         /// The ViewModel containing user input and authentication logic.
         /// </summary>
-        public EnterYourIdViewModel ViewModel { get; } = new();
+        public EnterYourIdViewModel ViewModel { get; } = new ();
 
         /// <summary>
         /// Initializes a new instance of the EnterYourId page and sets the DataContext.

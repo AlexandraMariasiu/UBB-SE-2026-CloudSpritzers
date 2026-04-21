@@ -10,7 +10,7 @@ namespace CloudSpritzers1.Src.Model.Review
         private int dutyFreeRating;
         private int flightExperienceRating;
         private int staffFriendlinessRating;
-        private int _cleanlinessRating;
+        private int cleanlinessRating;
 
         public Review(int id, User user, string message, int dutyFreeRating, int flightExperienceRating, int staffFriendlinesRating, int cleanlinessRating)
         {
@@ -20,7 +20,7 @@ namespace CloudSpritzers1.Src.Model.Review
             this.dutyFreeRating = dutyFreeRating;
             this.flightExperienceRating = flightExperienceRating;
             this.staffFriendlinessRating = staffFriendlinesRating;
-            this._cleanlinessRating = cleanlinessRating;
+            this.cleanlinessRating = cleanlinessRating;
         }
 
         // GETTERS
@@ -51,7 +51,7 @@ namespace CloudSpritzers1.Src.Model.Review
         }
         public int GetCleanlinessRating()
         {
-            return this._cleanlinessRating;
+            return this.cleanlinessRating;
         }
     }
 }

@@ -10,44 +10,44 @@ namespace CloudSpritzers1.Src.ViewModel.Review
 {
     public partial class AllReviewsViewModel : ObservableObject
     {
-        private readonly ReviewService _reviewService;
-        private readonly IMapper _mapper;
+        private readonly ReviewService reviewService;
+        private readonly IMapper mapper;
 
-        public ObservableCollection<ReviewDTO> Reviews { get; } = new();
+        public ObservableCollection<ReviewDTO> Reviews { get; } = new ();
 
         [ObservableProperty]
-        private int _totalReviews;
+        private int totalReviews;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FormattedAverageDutyFree))]
-        private double _averageDutyFree;
+        private double averageDutyFree;
         public string FormattedAverageDutyFree => AverageDutyFree.ToString("0.0");
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FormattedAverageFlightExperience))]
-        private double _averageFlightExperience;
+        private double averageFlightExperience;
         public string FormattedAverageFlightExperience => AverageFlightExperience.ToString("0.0");
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FormattedAverageStaffFriendliness))]
-        private double _averageStaffFriendliness;
+        private double averageStaffFriendliness;
         public string FormattedAverageStaffFriendliness => AverageStaffFriendliness.ToString("0.0");
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FormattedAverageCleanliness))]
-        private double _averageCleanliness;
+        private double averageCleanliness;
         public string FormattedAverageCleanliness => AverageCleanliness.ToString("0.0");
 
         public AllReviewsViewModel(ReviewService reviewService, IMapper mapper)
         {
-            _reviewService = reviewService;
-            _mapper = mapper;
+            this.reviewService = reviewService;
+            this.mapper = mapper;
             LoadData();
         }
 
         public void LoadData()
         {
-            var reviewsFromDb = _reviewService.GetAll();
+            var reviewsFromDb = reviewService.GetAll();
             Reviews.Clear();
 
             if (reviewsFromDb == null || reviewsFromDb.Count == 0)
@@ -59,7 +59,7 @@ namespace CloudSpritzers1.Src.ViewModel.Review
 
             CalculateCategoryAverages(reviewsFromDb);
 
-            var mappedReviews = _mapper.Map<List<ReviewDTO>>(reviewsFromDb);
+            var mappedReviews = mapper.Map<List<ReviewDTO>>(reviewsFromDb);
 
             foreach (var reviewDataTransferObject in mappedReviews)
             {

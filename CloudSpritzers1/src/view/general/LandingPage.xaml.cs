@@ -8,7 +8,7 @@ namespace CloudSpritzers1.Src.View.General
 {
     public sealed partial class LandingPage : Page
     {
-        private DispatcherTimer _carouselTimer = new DispatcherTimer();
+        private DispatcherTimer carouselTimer = new DispatcherTimer();
 
         public LandingViewModel ViewModel { get; }
 
@@ -23,9 +23,9 @@ namespace CloudSpritzers1.Src.View.General
 
         private void StartCarousel()
         {
-            _carouselTimer.Interval = TimeSpan.FromSeconds(2);
-            _carouselTimer.Tick += OnCarouselTick;
-            _carouselTimer.Start();
+            carouselTimer.Interval = TimeSpan.FromSeconds(2);
+            carouselTimer.Tick += OnCarouselTick;
+            carouselTimer.Start();
         }
 
         private void OnCarouselTick(object? sender, object e)

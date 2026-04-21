@@ -41,7 +41,7 @@ namespace CloudSpritzers1.Src.View.Ticket
         {
             if (sender is Button btn && btn.Tag is int ticketId)
             {
-                var ticket = ViewModel.FilteredTicketsForDisplay.FirstOrDefault(t => t.TicketId == ticketId);
+                var ticket = ViewModel.FilteredTicketsForDisplay.FirstOrDefault(t => t.ticketId == ticketId);
                 if (ticket == null)
                 {
                     return;
@@ -62,7 +62,7 @@ namespace CloudSpritzers1.Src.View.Ticket
                 closeButtonStyle.Setters.Add(new Setter(Button.CornerRadiusProperty, new CornerRadius(5))); // Rounded corners
                 var dialog = new ContentDialog
                 {
-                    Title = $"Edit CurrentStatus for Ticket #{ticket.TicketId}",
+                    Title = $"Edit CurrentStatus for Ticket #{ticket.ticketId}",
                     PrimaryButtonText = "Save",
                     CloseButtonText = "Cancel",
                     XamlRoot = this.XamlRoot,
@@ -89,7 +89,7 @@ namespace CloudSpritzers1.Src.View.Ticket
                 }
 
                 // Set the selected item to current status
-                combo.SelectedItem = ticket.CurrentStatus.ToString();
+                combo.SelectedItem = ticket.currentStatus.ToString();
 
                 dialog.Content = combo;
 
@@ -98,7 +98,7 @@ namespace CloudSpritzers1.Src.View.Ticket
                 {
                     if (Enum.TryParse<TicketStatusEnum>(selectedStr, out var newStatus))
                     {
-                        ViewModel.UpdateStatus(ticket.TicketId, newStatus);
+                        ViewModel.UpdateStatus(ticket.ticketId, newStatus);
                     }
                 }
             }

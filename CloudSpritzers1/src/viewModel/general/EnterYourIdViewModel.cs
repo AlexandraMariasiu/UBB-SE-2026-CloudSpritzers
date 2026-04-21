@@ -13,7 +13,7 @@ namespace CloudSpritzers1.Src.ViewModel.General
         /// The user-provided identification string.
         /// </summary>
         [ObservableProperty]
-        private string _userIdentification;
+        private string userIdentification;
 
         public bool IsTestingMode { get; set; } = false;
 

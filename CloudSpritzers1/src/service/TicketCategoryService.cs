@@ -10,19 +10,19 @@ using CloudSpritzers1.Src.Service.Interfaces;
 
 public class TicketCategoryService : ITicketCategoryService
 {
-    private readonly ITicketCategoryRepository _categoryRepository;
+    private readonly ITicketCategoryRepository categoryRepository;
 
     public TicketCategoryService(ITicketCategoryRepository categoryRepository)
     {
-        _categoryRepository = categoryRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public TicketCategory GetCategoryById(int categoryId)
     {
-        return _categoryRepository.GetById(categoryId);
+        return categoryRepository.GetById(categoryId);
     }
     public IEnumerable<TicketCategory> GetAllCategories()
     {
-        return _categoryRepository.GetAll();
+        return categoryRepository.GetAll();
     }
 }

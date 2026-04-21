@@ -17,11 +17,11 @@ namespace CloudSpritzers1.Src.Service
 {
     public class TicketService : ITicketService
     {
-        private readonly ITicketRepository _ticketRepository;
+        private readonly ITicketRepository ticketRepository;
 
         public TicketService(ITicketRepository ticketRepository)
         {
-            _ticketRepository = ticketRepository;
+            this.ticketRepository = ticketRepository;
         }
 
         public void CreateTicket(int ticketId, User ticketCreator, TicketStatusEnum initialStatus, TicketCategory category, TicketSubcategory subcategory, string subject, string description, DateTime creationTimestamp, TicketUrgencyLevelEnum? initialUrgencyLevel = null)
@@ -34,24 +34,24 @@ namespace CloudSpritzers1.Src.Service
 
         public void AddTicket(Ticket ticketEntity)
         {
-            _ticketRepository.CreateNewEntity(ticketEntity);
+            ticketRepository.CreateNewEntity(ticketEntity);
         }
         public void DeleteTicketById(int ticketId)
         {
-            _ticketRepository.DeleteById(ticketId);
+            ticketRepository.DeleteById(ticketId);
         }
         public Ticket GetTicketById(int ticketId)
         {
-            return _ticketRepository.GetById(ticketId);
+            return ticketRepository.GetById(ticketId);
         }
 
         public IEnumerable<Ticket> GetAllTickets()
         {
-            return _ticketRepository.GetAll();
+            return ticketRepository.GetAll();
         }
         public void UpdateTicketById(int id, Ticket ticket)
         {
-            _ticketRepository.UpdateById(id, ticket);
+            ticketRepository.UpdateById(id, ticket);
         }
         public void ValidateTicket(Ticket ticket)
         {
@@ -87,16 +87,16 @@ namespace CloudSpritzers1.Src.Service
 
         public void UpdateUrgencyLevel(int ticketId, TicketUrgencyLevelEnum newUrgencyLevel)
         {
-            Ticket targetTicket = _ticketRepository.GetById(ticketId);
+            Ticket targetTicket = ticketRepository.GetById(ticketId);
             targetTicket.UpdateUrgencyLevel(newUrgencyLevel);
-            _ticketRepository.UpdateById(ticketId, targetTicket);
+            ticketRepository.UpdateById(ticketId, targetTicket);
         }
 
         public void UpdateStatus(int ticketId, TicketStatusEnum newStatus)
         {
-            Ticket targetTicket = _ticketRepository.GetById(ticketId);
+            Ticket targetTicket = ticketRepository.GetById(ticketId);
             targetTicket.UpdateStatus(newStatus);
-            _ticketRepository.UpdateById(ticketId, targetTicket);
+            ticketRepository.UpdateById(ticketId, targetTicket);
         }
 
         public IEnumerable<TicketDTO> FilterTicketsByStatus(IEnumerable<TicketDTO> tickets, TicketFilterStatusEnum filter)
@@ -113,8 +113,8 @@ namespace CloudSpritzers1.Src.Service
                     return tickets;
             }
         }
-        private bool IsStatusOpen(TicketDTO ticket) => ticket.CurrentStatus == TicketStatusEnum.OPEN;
-        private bool IsStatusInProgress(TicketDTO ticket) => ticket.CurrentStatus == TicketStatusEnum.IN_PROGRESS;
-        private bool IsStatusResolved(TicketDTO ticket) => ticket.CurrentStatus == TicketStatusEnum.RESOLVED;
+        private bool IsStatusOpen(TicketDTO ticket) => ticket.currentStatus == TicketStatusEnum.OPEN;
+        private bool IsStatusInProgress(TicketDTO ticket) => ticket.currentStatus == TicketStatusEnum.IN_PROGRESS;
+        private bool IsStatusResolved(TicketDTO ticket) => ticket.currentStatus == TicketStatusEnum.RESOLVED;
     }
 }

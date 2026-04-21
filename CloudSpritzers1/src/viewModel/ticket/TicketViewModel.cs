@@ -23,29 +23,29 @@ namespace CloudSpritzers1.Src.ViewModel
 {
     public class TicketsViewModel
     {
-        private readonly ITicketService _ticketService;
-        private readonly IMapper _mapper;
-        private readonly ITicketCategoryService _categoryService;
-        private readonly ITicketSubcategoryService _subcategoryService;
-        private readonly IUserService _userService;
+        private readonly ITicketService ticketService;
+        private readonly IMapper mapper;
+        private readonly ITicketCategoryService categoryService;
+        private readonly ITicketSubcategoryService subcategoryService;
+        private readonly IUserService userService;
 
-        public ObservableCollection<TicketDTO> AllTickets { get; } = new();
+        public ObservableCollection<TicketDTO> AllTickets { get; } = new ();
 
-        private ObservableCollection<TicketDTO> _filteredTicketsForDisplay = new();
-        public ObservableCollection<TicketDTO> FilteredTicketsForDisplay => _filteredTicketsForDisplay;
+        private ObservableCollection<TicketDTO> filteredTicketsForDisplay = new ();
+        public ObservableCollection<TicketDTO> FilteredTicketsForDisplay => filteredTicketsForDisplay;
 
-        private TicketFilterStatusEnum _selectedFilter = TicketFilterStatusEnum.ALL;
+        private TicketFilterStatusEnum selectedFilter = TicketFilterStatusEnum.ALL;
 
-        public ObservableCollection<TicketCategory> Categories { get; } = new();
-        public ObservableCollection<TicketSubcategory> Subcategories { get; } = new();
+        public ObservableCollection<TicketCategory> Categories { get; } = new ();
+        public ObservableCollection<TicketSubcategory> Subcategories { get; } = new ();
 
         public TicketsViewModel(ITicketService ticketService, ITicketCategoryService categoryService, ITicketSubcategoryService subcategoryService, IUserService userService, IMapper mapper)
         {
-            _ticketService = ticketService;
-            _categoryService = categoryService;
-            _subcategoryService = subcategoryService;
-            _userService = userService;
-            _mapper = mapper;
+            this.ticketService = ticketService;
+            this.categoryService = categoryService;
+            this.subcategoryService = subcategoryService;
+            this.userService = userService;
+            this.mapper = mapper;
 
             LoadTickets();
             LoadCategories();
@@ -66,12 +66,12 @@ namespace CloudSpritzers1.Src.ViewModel
 
         public TicketFilterStatusEnum SelectedFilterStatus
         {
-            get => _selectedFilter;
+            get => selectedFilter;
             set
             {
-                if (_selectedFilter != value)
+                if (selectedFilter != value)
                 {
-                    _selectedFilter = value;
+                    selectedFilter = value;
                     ApplyFilterLogic();
                 }
             }
@@ -94,13 +94,13 @@ namespace CloudSpritzers1.Src.ViewModel
         // =================================
         private void LoadTickets()
         {
-            var ticketsFromDatabase = _ticketService.GetAllTickets();
+            var ticketsFromDatabase = ticketService.GetAllTickets();
 
             AllTickets.Clear();
 
             foreach (var ticketEntity in ticketsFromDatabase)
             {
-                var ticketDTO = _mapper.Map<TicketDTO>(ticketEntity);
+                var ticketDTO = mapper.Map<TicketDTO>(ticketEntity);
                 AllTickets.Add(ticketDTO);
             }
 
@@ -112,15 +112,15 @@ namespace CloudSpritzers1.Src.ViewModel
         // =================================
         private void ApplyFilterLogic()
         {
-            _filteredTicketsForDisplay.Clear();
+            filteredTicketsForDisplay.Clear();
 
-            IEnumerable<TicketDTO> filteredResults = _ticketService.FilterTicketsByStatus(
+            IEnumerable<TicketDTO> filteredResults = ticketService.FilterTicketsByStatus(
                 AllTickets,
                 SelectedFilterStatus);
 
             foreach (var ticket in filteredResults)
             {
-                _filteredTicketsForDisplay.Add(ticket);
+                filteredTicketsForDisplay.Add(ticket);
             }
         }
 
@@ -129,7 +129,7 @@ namespace CloudSpritzers1.Src.ViewModel
         // =================================
         public void UpdateStatus(int ticketId, TicketStatusEnum newStatus)
         {
-            _ticketService.UpdateStatus(ticketId, newStatus);
+            ticketService.UpdateStatus(ticketId, newStatus);
             LoadTickets();
         }
 
@@ -138,7 +138,7 @@ namespace CloudSpritzers1.Src.ViewModel
         // =================================
         public void UpdateUrgencyLevel(int ticketId, TicketUrgencyLevelEnum newUrgencyLevel)
         {
-            _ticketService.UpdateUrgencyLevel(ticketId, newUrgencyLevel);
+            ticketService.UpdateUrgencyLevel(ticketId, newUrgencyLevel);
             LoadTickets();
         }
 
@@ -148,29 +148,29 @@ namespace CloudSpritzers1.Src.ViewModel
         public void CreateTicket(TicketDTO ticketDTO)
         {
             // Fetch related entities from DB
-            var creator = _userService.GetById(ticketDTO.CreatorAccountId);
-            var category = _categoryService.GetCategoryById(ticketDTO.CategoryId);
-            var subcategory = _subcategoryService.GetSubcategoryById(ticketDTO.SubcategoryId);
+            var creator = userService.GetById(ticketDTO.creatorAccountId);
+            var category = categoryService.GetCategoryById(ticketDTO.categoryId);
+            var subcategory = subcategoryService.GetSubcategoryById(ticketDTO.subcategoryId);
 
             var ticket = new Ticket(
-                ticketDTO.TicketId,
+                ticketDTO.ticketId,
                 creator,
-                ticketDTO.CurrentStatus,
+                ticketDTO.currentStatus,
                 category,
                 subcategory,
-                ticketDTO.Subject,
-                ticketDTO.Description,
-                ticketDTO.CreationTimestamp,
-                ticketDTO.UrgencyLevel);
+                ticketDTO.subject,
+                ticketDTO.description,
+                ticketDTO.creationTimestamp,
+                ticketDTO.urgencyLevel);
 
-            _ticketService.AddTicket(ticket);
+            ticketService.AddTicket(ticket);
             LoadTickets();
         }
 
         private void LoadCategories()
         {
             Categories.Clear();
-            foreach (var categoryEntity in _categoryService.GetAllCategories())
+            foreach (var categoryEntity in categoryService.GetAllCategories())
             {
                 Categories.Add(categoryEntity);
             }
@@ -179,7 +179,7 @@ namespace CloudSpritzers1.Src.ViewModel
         public void LoadSubcategories(int categoryId)
         {
             Subcategories.Clear();
-            foreach (var subcategoryEntity in _subcategoryService.GetSubcategoriesByCategoryId(categoryId))
+            foreach (var subcategoryEntity in subcategoryService.GetSubcategoriesByCategoryId(categoryId))
             {
                 Subcategories.Add(subcategoryEntity);
             }

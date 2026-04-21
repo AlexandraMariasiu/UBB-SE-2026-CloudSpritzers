@@ -7,26 +7,26 @@ namespace CloudSpritzers1.Src.ViewModel.General
 {
     public sealed partial class UpperBarViewModel : ObservableObject
     {
-        private readonly User _user;
-        private readonly Employee _employee;
+        private readonly User user;
+        private readonly Employee employee;
 
         public UpperBarViewModel()
         {
             // Access to application state is performed inside the ViewModel layer
-            _user = ((App)App.Current).User;
-            _employee = ((App)App.Current).Employee;
+            user = ((App)App.Current).User;
+            employee = ((App)App.Current).Employee;
 
             // Determine if the current context is a client (user) or an employee
-            _isClientView = _user != null;
+            isClientView = user != null;
         }
 
-        private bool _isClientView;
+        private bool isClientView;
         public bool IsClientView
         {
-            get => _isClientView;
+            get => isClientView;
             private set
             {
-                if (SetProperty(ref _isClientView, value))
+                if (SetProperty(ref isClientView, value))
                 {
                     // Notify dependent properties
                     OnPropertyChanged(nameof(UserDisplayLabel));
@@ -38,14 +38,14 @@ namespace CloudSpritzers1.Src.ViewModel.General
         {
             get
             {
-                if (IsClientView && _user != null)
+                if (IsClientView && user != null)
                 {
-                    return $"ID: {_user.RetrieveUniqueDatabaseIdentifierForBot()}";
+                    return $"ID: {user.RetrieveUniqueDatabaseIdentifierForBot()}";
                 }
 
-                if (!IsClientView && _employee != null)
+                if (!IsClientView && employee != null)
                 {
-                    return $"ID: {_employee.RetrieveUniqueDatabaseIdentifierForBot()}";
+                    return $"ID: {employee.RetrieveUniqueDatabaseIdentifierForBot()}";
                 }
 
                 return "Not signed in";

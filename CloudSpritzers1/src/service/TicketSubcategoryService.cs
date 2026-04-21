@@ -10,20 +10,20 @@ using CloudSpritzers1.Src.Service.Interfaces;
 
 public class TicketSubcategoryService : ITicketSubcategoryService
 {
-    private readonly ITicketSubcategoryRepository _subcategoryRepository;
+    private readonly ITicketSubcategoryRepository subcategoryRepository;
 
     public TicketSubcategoryService(ITicketSubcategoryRepository subcategoryRepository)
     {
-        _subcategoryRepository = subcategoryRepository;
+        this.subcategoryRepository = subcategoryRepository;
     }
 
     public IEnumerable<TicketSubcategory> GetSubcategoriesByCategoryId(int categoryId)
     {
-        return _subcategoryRepository.GetByCategoryId(categoryId);
+        return subcategoryRepository.GetByCategoryId(categoryId);
     }
     public TicketSubcategory GetSubcategoryById(int subcategoryId)
     {
-        return _subcategoryRepository.GetById(subcategoryId);
+        return subcategoryRepository.GetById(subcategoryId);
     }
     // public IEnumerable<TicketCategory> GetAllSubcategories()
     // {
