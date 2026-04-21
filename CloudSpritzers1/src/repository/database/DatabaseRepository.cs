@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.repository.database;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Repository.Database;
 using Microsoft.Data.SqlClient;
-namespace CloudSpritzers1.src.repository.database
+namespace CloudSpritzers1.Src.Repository.Database
 {
     public abstract class DatabaseRepository<TKey, TEntity>
         where TEntity : class

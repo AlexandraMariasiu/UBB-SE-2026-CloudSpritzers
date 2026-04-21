@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Linq;
 using AutoMapper;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.model.ticket;
-using CloudSpritzers1.src.repository.database;
-using CloudSpritzers1.src.service;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Model.Ticket;
+using CloudSpritzers1.Src.Repository.Database;
+using CloudSpritzers1.Src.Service;
 using Microsoft.Data.SqlClient;
-using CloudSpritzers1.src.service.interfaces;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model.ticket;
-using CloudSpritzers1.src.service;
+using CloudSpritzers1.Src.Service.interfaces;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Model.Ticket;
+using CloudSpritzers1.Src.Service;
 using AutoMapper;
 
-namespace CloudSpritzers1.src.viewModel
+namespace CloudSpritzers1.Src.ViewModel
 {
     public class TicketsViewModel
     {

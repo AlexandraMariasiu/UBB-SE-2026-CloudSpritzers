@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudSpritzers1.src.dto
+namespace CloudSpritzers1.Src.Dto
 {
     public record ChatDTO(string Name, string Email);
 }

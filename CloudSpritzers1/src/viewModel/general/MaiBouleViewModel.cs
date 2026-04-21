@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace CloudSpritzers1.src.viewModel.general
+namespace CloudSpritzers1.Src.ViewModel.general
 {
     /// <summary>
     /// ViewModel for the MaiBoule dialog.

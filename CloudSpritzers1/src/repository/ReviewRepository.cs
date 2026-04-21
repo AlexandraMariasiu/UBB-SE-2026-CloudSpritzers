@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.model.review;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Model.Review;
 using Microsoft.Data.SqlClient;
-using CloudSpritzers1.src.repository.interfaces;
-using CloudSpritzers1.src.repository.database;
+using CloudSpritzers1.Src.Repository.interfaces;
+using CloudSpritzers1.Src.Repository.Database;
 
-namespace CloudSpritzers1.src.repository
+namespace CloudSpritzers1.Src.Repository
 {
     public class ReviewRepository : DatabaseRepository<int, Review>, IRepository<int, Review>
     {
@@ -53,7 +53,7 @@ namespace CloudSpritzers1.src.repository
 
             string query = "INSERT INTO Review " +
                 "(user_id, message, duty_free_rating, flight_experience_rating, staff_friendliness_rating, cleanliness_rating) " +
-                "OUTPUT INSERTED.review_id " +
+                "OUTPUT INSERTED.Review_id " +
                 "VALUES (@userId, @message, @dutyFree, @flightExp, @staff, @clean)";
 
             SqlCommand command = new SqlCommand(query);

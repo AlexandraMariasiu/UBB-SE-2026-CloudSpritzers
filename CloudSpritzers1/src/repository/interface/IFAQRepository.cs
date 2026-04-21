@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.model.faq;
+using CloudSpritzers1.Src.Model.Faq;
 
-namespace CloudSpritzers1.src.repository.interfaces
+namespace CloudSpritzers1.Src.Repository.interfaces
 {
     public interface IFAQRepository : IRepository<int, FAQEntry>
     {

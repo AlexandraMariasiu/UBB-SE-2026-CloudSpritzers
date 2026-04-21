@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Formats.Tar;
 using AutoMapper;
-using CloudSpritzers1.src.model.message;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model.faq;
+using CloudSpritzers1.Src.Model.Message;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Model.Faq;
 
-namespace CloudSpritzers1.src.dto.mappingProfiles
+namespace CloudSpritzers1.Src.Dto.MappingProfiles
 {
     public class FAQEntryMappingProfile : Profile
     {

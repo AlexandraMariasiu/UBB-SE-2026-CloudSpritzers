@@ -1,7 +1,7 @@
 ﻿using System;
-using CloudSpritzers1.src.model;
+using CloudSpritzers1.Src.Model;
 
-namespace CloudSpritzers1.src.model.ticket
+namespace CloudSpritzers1.Src.Model.Ticket
 {
     public class Ticket
     {

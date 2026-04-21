@@ -1,22 +1,23 @@
-﻿using System;
+﻿using CloudSpritzers1.Src.ViewModel.Chat;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.model.chat;
-using CloudSpritzers1.src.model.faq.bot;
+using ChatModel = CloudSpritzers1.Src.Model.Chat.Chat;
+using CloudSpritzers1.Src.Model.Faq.Bot;
 
-namespace CloudSpritzers1.src.model.message
+namespace CloudSpritzers1.Src.Model.Message
 {
     public class Message : IMessage
     {
         private int _message_id;
         private ISender _sender;
-        private Chat _chat;
+        private ChatModel _chat;
         private DateTimeOffset _timestamp;
         private string _messageText;
 
-        public Message(ISender sender, Chat chat, string messageText)
+        public Message(ISender sender, ChatModel chat, string messageText)
         {
             this._sender = sender;
             this._chat = chat;
@@ -25,7 +26,7 @@ namespace CloudSpritzers1.src.model.message
         }
 
         // TODO: This constructor is currently used only for mapping from DB. Without this message_id and timestamp are unsettable.
-        public Message(int id, ISender sender, Chat chat, string messageText, DateTimeOffset timestamp)
+        public Message(int id, ISender sender, ChatModel chat, string messageText, DateTimeOffset timestamp)
         {
             this._message_id = id;
             this._sender = sender;
@@ -34,7 +35,7 @@ namespace CloudSpritzers1.src.model.message
             this._timestamp = timestamp;
         }
 
-        public Chat GetChat()
+        public ChatModel GetChat()
         {
             return this._chat;
         }
@@ -65,7 +66,7 @@ namespace CloudSpritzers1.src.model.message
             return _timestamp;
         }
 
-        Chat IMessage.GetChat()
+        ChatModel IMessage.GetChat()
         {
             return this._chat;
         }

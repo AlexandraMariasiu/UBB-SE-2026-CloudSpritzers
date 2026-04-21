@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.model.review;
-using CloudSpritzers1.src.repository;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Model.Review;
+using CloudSpritzers1.Src.Repository;
 
-namespace CloudSpritzers1.src.service
+namespace CloudSpritzers1.Src.Service
 {
     public class ReviewService
     {

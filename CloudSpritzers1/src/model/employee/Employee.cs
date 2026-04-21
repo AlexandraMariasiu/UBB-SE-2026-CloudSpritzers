@@ -1,7 +1,7 @@
-using CloudSpritzers1.src.model.message;
+using CloudSpritzers1.Src.Model.Message;
 
 
-namespace CloudSpritzers1.src.model.employee
+namespace CloudSpritzers1.Src.Model.Employee
 {
     public class Employee : ISender
     {

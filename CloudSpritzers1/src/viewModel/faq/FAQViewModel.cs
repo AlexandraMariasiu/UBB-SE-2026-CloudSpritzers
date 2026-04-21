@@ -5,13 +5,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AutoMapper;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model.faq;
-using CloudSpritzers1.src.service.implementation;
-using CloudSpritzers1.src.service.interfaces;
-using CloudSpritzers1.src.view.faq;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Model.Faq;
+using CloudSpritzers1.Src.Service.Implementation;
+using CloudSpritzers1.Src.Service.interfaces;
+using CloudSpritzers1.Src.View.Faq;
 
-namespace CloudSpritzers1.src.viewModel.faq
+namespace CloudSpritzers1.Src.ViewModel.Faq
 {
     public class FAQViewModel : INotifyPropertyChanged
     {

@@ -2,7 +2,7 @@
 using Microsoft.UI.Windowing;
 using Windows.Graphics;
 
-namespace CloudSpritzers1.src.logic
+namespace CloudSpritzers1.Src.Helpers
 {
     public static class WindowHelper
     {

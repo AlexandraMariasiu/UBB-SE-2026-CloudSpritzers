@@ -2,18 +2,18 @@ using System;
 using System.Linq;
 using System.Runtime.Intrinsics.X86;
 using AutoMapper;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.dto.mappingProfiles;
-using CloudSpritzers1.src.model.faq;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.repository.implementations;
-using CloudSpritzers1.src.service.implementation;
-using CloudSpritzers1.src.viewModel.faq;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Dto.MappingProfiles;
+using CloudSpritzers1.Src.Model.Faq;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Repository.Implementation;
+using CloudSpritzers1.Src.Service.Implementation;
+using CloudSpritzers1.Src.ViewModel.Faq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
-namespace CloudSpritzers1.src.view.faq
+namespace CloudSpritzers1.Src.View.Faq
 {
     public sealed partial class FAQView : Page
     {

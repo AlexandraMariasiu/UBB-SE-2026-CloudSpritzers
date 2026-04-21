@@ -5,7 +5,7 @@
 /// Handles user identification input and authentication logic.
 /// </summary>
 ///
-namespace CloudSpritzers1.src.viewModel.general
+namespace CloudSpritzers1.Src.ViewModel.general
 {
     public sealed partial class EnterYourIdViewModel : ObservableObject
     {

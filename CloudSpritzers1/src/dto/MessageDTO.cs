@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using CloudSpritzers1.src.model.faq.bot;
+using CloudSpritzers1.Src.Model.Faq.Bot;
 
-namespace CloudSpritzers1.src.dto
+namespace CloudSpritzers1.Src.Dto
 {
         public class MessageDTO
         {
@@ -20,7 +20,7 @@ namespace CloudSpritzers1.src.dto
             {
             }
 
-            public MessageDTO(int messageId, int chatId, int senderId, string senderName, string messageText, DateTimeOffset timestamp, IEnumerable<CloudSpritzers1.src.model.faq.bot.FAQOption> faqOptions)
+            public MessageDTO(int messageId, int chatId, int senderId, string senderName, string messageText, DateTimeOffset timestamp, IEnumerable<CloudSpritzers1.Src.Model.Faq.Bot.FAQOption> faqOptions)
             {
                 MessageId = messageId;
                 ChatId = chatId;

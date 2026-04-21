@@ -9,10 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CloudSpritzers1;
-using CloudSpritzers1.src.model;
+using CloudSpritzers1.Src.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace CloudSpritzers1.src.viewModel.general
+namespace CloudSpritzers1.Src.ViewModel.general
 {
 	public class ChoosingPageViewModel
 	{

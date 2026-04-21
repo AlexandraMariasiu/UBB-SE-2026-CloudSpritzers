@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.model.employee;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.repository.interfaces;
-using CloudSpritzers1.src.service.interfaces;
+using CloudSpritzers1.Src.Model.Employee;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Repository.interfaces;
+using CloudSpritzers1.Src.Service.interfaces;
 
-namespace CloudSpritzers1.src.service
+namespace CloudSpritzers1.Src.Service
 {
     public class EmployeeService : IEmployeeService
     {

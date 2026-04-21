@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.model.chat;
-using CloudSpritzers1.src.model.faq.bot;
-using CloudSpritzers1.src.model.message;
-using CloudSpritzers1.src.service;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Model.Chat;
+using CloudSpritzers1.Src.Model.Faq.Bot;
+using CloudSpritzers1.Src.Model.Message;
+using CloudSpritzers1.Src.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
-using CloudSpritzers1.src.service.interfaces;
+using CloudSpritzers1.Src.Service.interfaces;
 
-namespace CloudSpritzers1.src.viewModel.chat
+namespace CloudSpritzers1.Src.ViewModel.Chat
 {
     public sealed partial class ChatViewModel : ObservableObject
     {

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CloudSpritzers1.src.model.faq;
+using CloudSpritzers1.Src.Model.Faq;
 using Microsoft.Data.SqlClient;
-using CloudSpritzers1.src.repository.database;
-using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.Src.Repository.Database;
+using CloudSpritzers1.Src.Repository.interfaces;
 
-namespace CloudSpritzers1.src.repository.implementations
+namespace CloudSpritzers1.Src.Repository.Implementation
 {
   public class FAQRepository : DatabaseRepository<int, FAQEntry>, IFAQRepository
     {

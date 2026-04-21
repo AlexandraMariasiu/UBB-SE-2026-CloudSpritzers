@@ -1,8 +1,8 @@
-﻿using CloudSpritzers1.src.viewModel.general;
+﻿using CloudSpritzers1.Src.ViewModel.general;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace CloudSpritzers1.src.view.general
+namespace CloudSpritzers1.Src.View.general
 {
     public sealed partial class YouSure : ContentDialog
     {

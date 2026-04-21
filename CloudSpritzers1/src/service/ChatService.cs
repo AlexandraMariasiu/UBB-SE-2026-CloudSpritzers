@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.repository.database;
-using CloudSpritzers1.src.model.chat;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Repository.Database;
+using CloudSpritzers1.Src.Model.Chat;
 
-namespace CloudSpritzers1.src.service
+namespace CloudSpritzers1.Src.Service
 {
     public class ChatService
     {

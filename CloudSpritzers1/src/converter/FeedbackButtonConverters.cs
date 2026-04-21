@@ -10,7 +10,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using Windows.UI;
 
-namespace CloudSpritzers1.src.converter
+namespace CloudSpritzers1.Src.Converter
 {
     public class HelpfulBackgroundConverter : IValueConverter
     {

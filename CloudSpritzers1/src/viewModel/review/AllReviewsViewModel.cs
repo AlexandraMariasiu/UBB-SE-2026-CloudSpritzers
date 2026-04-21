@@ -2,11 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using AutoMapper;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.service;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace CloudSpritzers1.src.viewModel.review
+namespace CloudSpritzers1.Src.ViewModel.Review
 {
     public partial class AllReviewsViewModel : ObservableObject
     {
@@ -83,7 +83,7 @@ namespace CloudSpritzers1.src.viewModel.review
             }
         }
 
-        private void CalculateCategoryAverages(List<model.review.Review> reviews)
+        private void CalculateCategoryAverages(List<Model.Review.Review> reviews)
         {
             AverageDutyFree = reviews.Average(review => review.GetDutyFreeRating());
             AverageFlightExperience = reviews.Average(review => review.GetFlightExperienceRating());

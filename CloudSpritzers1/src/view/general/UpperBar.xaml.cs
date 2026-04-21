@@ -1,19 +1,19 @@
-﻿using CloudSpritzers1.src.viewModel.general;
+﻿using CloudSpritzers1.Src.ViewModel.general;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace CloudSpritzers1.src.view.general
+namespace CloudSpritzers1.Src.View.general
 {
     public sealed partial class UpperBar : UserControl
     {
-        public CloudSpritzers1.src.viewModel.general.UpperBarViewModel ViewModel { get; }
+        public CloudSpritzers1.Src.ViewModel.general.UpperBarViewModel ViewModel { get; }
 
         public UpperBar()
         {
             this.InitializeComponent();
 
-            ViewModel = (App.Current as App).Services.GetService<CloudSpritzers1.src.viewModel.general.UpperBarViewModel>();
+            ViewModel = (App.Current as App).Services.GetService<CloudSpritzers1.Src.ViewModel.general.UpperBarViewModel>();
             this.DataContext = ViewModel;
         }
 

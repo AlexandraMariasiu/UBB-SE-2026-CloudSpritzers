@@ -1,6 +1,6 @@
-using CloudSpritzers1.src.model.message;
+using CloudSpritzers1.Src.Model.Message;
 
-namespace CloudSpritzers1.src.model
+namespace CloudSpritzers1.Src.Model
 {
     public class User : ISender
     {

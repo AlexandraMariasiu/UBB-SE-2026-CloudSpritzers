@@ -4,7 +4,7 @@ using System.Data.Common;
 using System.Linq;
 using DotNetEnv;
 using Microsoft.Data.SqlClient;
-namespace CloudSpritzers1.src.repository.database
+namespace CloudSpritzers1.Src.Repository.Database
 {
     public class DatabaseConnectionHandler
     {

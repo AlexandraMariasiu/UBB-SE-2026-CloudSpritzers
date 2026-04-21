@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using AutoMapper;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.service;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace CloudSpritzers1.src.viewmodel
+namespace CloudSpritzers1.Src.ViewModel
 {
     public partial class LandingViewModel : ObservableObject
     {

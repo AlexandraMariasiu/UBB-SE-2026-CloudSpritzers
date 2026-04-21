@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.model.message;
+using CloudSpritzers1.Src.Model.Message;
 
-namespace CloudSpritzers1.src.service.bot.strategy
+namespace CloudSpritzers1.Src.Service.Bot.strategy
 {
     public interface IBotStrategy
     {

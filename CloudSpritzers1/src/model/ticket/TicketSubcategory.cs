@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudSpritzers1.src.model.ticket
+namespace CloudSpritzers1.Src.Model.Ticket
 {
     public class TicketSubcategory
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.model.ticket;
+using CloudSpritzers1.Src.Model.Ticket;
 
-namespace CloudSpritzers1.src.repository.interfaces
+namespace CloudSpritzers1.Src.Repository.interfaces
 {
     public interface ITicketCategoryRepository
     {

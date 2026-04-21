@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.model.employee;
-using CloudSpritzers1.src.repository.database;
+using CloudSpritzers1.Src.Model.Employee;
+using CloudSpritzers1.Src.Repository.Database;
 using Microsoft.Data.SqlClient;
 
-namespace CloudSpritzers1.src.repository
+namespace CloudSpritzers1.Src.Repository
 {
     public class EmployeeRepository : DatabaseRepository<int, Employee>, IRepository<int, Employee>, IEmployeeRepository
     {
@@ -20,7 +20,7 @@ namespace CloudSpritzers1.src.repository
 
             string insertQuery = "INSERT INTO Employee " +
                 "(name, email, group) " +
-                "OUTPUT INSERTED.employee_id " +
+                "OUTPUT INSERTED.Employee_id " +
                 "VALUES (@name, @email, @group)";
 
             SqlCommand sqlCommand = new SqlCommand(insertQuery);
