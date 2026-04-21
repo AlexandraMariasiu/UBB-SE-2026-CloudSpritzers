@@ -11,10 +11,10 @@ namespace CloudSpritzers1.Src.Repository
 {
     public class TicketRepository : DatabaseRepository<int, Ticket>, ITicketRepository
     {
-        private IUserRepository _userRepository = new UserRepository();
+        private IUserRepository userRepository = new UserRepository();
 
-        private ITicketCategoryRepository _categoryRepository = new TicketCategoryRepository();
-        private ITicketSubcategoryRepository _subcategoryRepository = new TicketSubcategoryRepository();
+        private ITicketCategoryRepository categoryRepository = new TicketCategoryRepository();
+        private ITicketSubcategoryRepository subcategoryRepository = new TicketSubcategoryRepository();
         public TicketRepository()
         {
         }
@@ -25,7 +25,7 @@ namespace CloudSpritzers1.Src.Repository
             SqlCommand command = new SqlCommand(query);
             command.Parameters.AddWithValue("@ticketId", id);
 
-            Ticket ticket = base.GetById(id, command);
+            Ticket ticket = GetById(id, command);
 
             if (ticket == null)
             {
@@ -39,7 +39,7 @@ namespace CloudSpritzers1.Src.Repository
         {
             string query = "SELECT * FROM Ticket";
             SqlCommand command = new SqlCommand(query);
-            return base.GetAll(command);
+            return GetAll(command);
         }
 
         public int CreateNewEntity(Ticket ticketEntity)
@@ -65,7 +65,7 @@ namespace CloudSpritzers1.Src.Repository
             command.Parameters.AddWithValue("@creationTimestamp", ticketEntity.CreationTimestamp);
             command.Parameters.AddWithValue("@urgency", ticketEntity.UrgencyLevel.ToString());
 
-            int id = base.Add(command, ticketEntity);
+            int id = Add(command, ticketEntity);
             return id;
         }
 
@@ -98,7 +98,7 @@ namespace CloudSpritzers1.Src.Repository
             command.Parameters.AddWithValue("@creationTimestamp", ticketEntity.CreationTimestamp);
             command.Parameters.AddWithValue("@urgency", ticketEntity.UrgencyLevel.ToString());
 
-            base.UpdateById(ticketId, command, ticketEntity);
+            UpdateById(ticketId, command, ticketEntity);
         }
 
         public void DeleteById(int ticketId)
@@ -107,7 +107,7 @@ namespace CloudSpritzers1.Src.Repository
             SqlCommand command = new SqlCommand(query);
             command.Parameters.AddWithValue("@ticketId", ticketId);
 
-            base.DeleteById(ticketId, command);
+            DeleteById(ticketId, command);
         }
 
         protected override Ticket MapRowToEntity(SqlDataReader reader)
@@ -122,9 +122,9 @@ namespace CloudSpritzers1.Src.Repository
             DateTime creationTimestamp = reader.GetDateTime(reader.GetOrdinal("created_at"));
             TicketUrgencyLevelEnum urgency = Enum.Parse<TicketUrgencyLevelEnum>(reader.GetString(reader.GetOrdinal("urgency_level")), ignoreCase: true);
 
-            TicketCategory category = _categoryRepository.GetById(categoryId);
-            TicketSubcategory subcategory = _subcategoryRepository.GetById(subcategoryId);
-            User creator = _userRepository.GetById(userId);
+            TicketCategory category = categoryRepository.GetById(categoryId);
+            TicketSubcategory subcategory = subcategoryRepository.GetById(subcategoryId);
+            User creator = userRepository.GetById(userId);
 
             return new Ticket(ticketId, creator, status, category, subcategory, subject, description, creationTimestamp, urgency);
         }

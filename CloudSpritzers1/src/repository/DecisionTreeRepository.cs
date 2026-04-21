@@ -64,7 +64,7 @@ namespace CloudSpritzers1.Src.Repository.Database
                 "SELECT node_id, question_text, is_final_answer FROM FAQNode WHERE node_id = @Id");
             sqlCommandObjectForRetrievingSpecificFAQNode.Parameters.AddWithValue("@Id", id);
 
-            var retrievedFAQNodeEntityFromBaseRepository = base.GetById(id, sqlCommandObjectForRetrievingSpecificFAQNode);
+            var retrievedFAQNodeEntityFromBaseRepository = GetById(id, sqlCommandObjectForRetrievingSpecificFAQNode);
             if (retrievedFAQNodeEntityFromBaseRepository == null)
             {
                 return null;
@@ -84,7 +84,7 @@ namespace CloudSpritzers1.Src.Repository.Database
             sqlCommandForInsertingNewFAQNodeIntoDatabase.Parameters.AddWithValue("@QuestionText", incomingFAQNodeEntityToBeSaved.QuestionText);
             sqlCommandForInsertingNewFAQNodeIntoDatabase.Parameters.AddWithValue("@IsFinalAnswer", incomingFAQNodeEntityToBeSaved.IsFinalAnswer);
 
-            int newlyGeneratedDatabaseIdentifierForCreatedFAQNode = base.Add(sqlCommandForInsertingNewFAQNodeIntoDatabase, incomingFAQNodeEntityToBeSaved);
+            int newlyGeneratedDatabaseIdentifierForCreatedFAQNode = Add(sqlCommandForInsertingNewFAQNodeIntoDatabase, incomingFAQNodeEntityToBeSaved);
 
             foreach (var currentlyIteratedFAQOptionToInsert in incomingFAQNodeEntityToBeSaved.Options)
             {
@@ -96,7 +96,7 @@ namespace CloudSpritzers1.Src.Repository.Database
                 sqlCommandForInsertingNewFAQOptionIntoDatabase.Parameters.AddWithValue("@Label", currentlyIteratedFAQOptionToInsert.Label);
                 sqlCommandForInsertingNewFAQOptionIntoDatabase.Parameters.AddWithValue("@NextOptionId", currentlyIteratedFAQOptionToInsert.NextOptionId);
 
-                base.ExecuteNonQuery(sqlCommandForInsertingNewFAQOptionIntoDatabase);
+                ExecuteNonQuery(sqlCommandForInsertingNewFAQOptionIntoDatabase);
             }
 
             return newlyGeneratedDatabaseIdentifierForCreatedFAQNode;
@@ -107,12 +107,12 @@ namespace CloudSpritzers1.Src.Repository.Database
             using var sqlCommandForRemovingAllFAQOptionsAssociatedWithNode = new SqlCommand(
                 "DELETE FROM FAQOption WHERE node_id = @Id");
             sqlCommandForRemovingAllFAQOptionsAssociatedWithNode.Parameters.AddWithValue("@Id", identifierForFAQNodeToBeDeleted);
-            base.ExecuteNonQuery(sqlCommandForRemovingAllFAQOptionsAssociatedWithNode);
+            ExecuteNonQuery(sqlCommandForRemovingAllFAQOptionsAssociatedWithNode);
 
             using var sqlCommandForRemovingSpecificFAQNodeFromDatabase = new SqlCommand(
                 "DELETE FROM FAQNode WHERE node_id = @Id");
             sqlCommandForRemovingSpecificFAQNodeFromDatabase.Parameters.AddWithValue("@Id", identifierForFAQNodeToBeDeleted);
-            base.DeleteById(identifierForFAQNodeToBeDeleted, sqlCommandForRemovingSpecificFAQNodeFromDatabase);
+            DeleteById(identifierForFAQNodeToBeDeleted, sqlCommandForRemovingSpecificFAQNodeFromDatabase);
         }
 
         public void UpdateById(int identifierForFAQNodeToBeUpdated, FAQNode updatedFAQNodeEntityData)
@@ -127,12 +127,12 @@ namespace CloudSpritzers1.Src.Repository.Database
             sqlCommandForUpdatingSpecificFAQNodeInDatabase.Parameters.AddWithValue("@QuestionText", updatedFAQNodeEntityData.QuestionText);
             sqlCommandForUpdatingSpecificFAQNodeInDatabase.Parameters.AddWithValue("@IsFinalAnswer", updatedFAQNodeEntityData.IsFinalAnswer);
 
-            base.UpdateById(identifierForFAQNodeToBeUpdated, sqlCommandForUpdatingSpecificFAQNodeInDatabase, updatedFAQNodeEntityData);
+            UpdateById(identifierForFAQNodeToBeUpdated, sqlCommandForUpdatingSpecificFAQNodeInDatabase, updatedFAQNodeEntityData);
 
             using var sqlCommandForRemovingAllOldFAQOptionsAssociatedWithNode = new SqlCommand(
                 "DELETE FROM FAQOption WHERE node_id = @Id");
             sqlCommandForRemovingAllOldFAQOptionsAssociatedWithNode.Parameters.AddWithValue("@Id", identifierForFAQNodeToBeUpdated);
-            base.ExecuteNonQuery(sqlCommandForRemovingAllOldFAQOptionsAssociatedWithNode);
+            ExecuteNonQuery(sqlCommandForRemovingAllOldFAQOptionsAssociatedWithNode);
 
             foreach (var currentlyIteratedFAQOptionToInsertAsReplacement in updatedFAQNodeEntityData.Options)
             {
@@ -144,7 +144,7 @@ namespace CloudSpritzers1.Src.Repository.Database
                 sqlCommandForInsertingReplacementFAQOptionIntoDatabase.Parameters.AddWithValue("@Label", currentlyIteratedFAQOptionToInsertAsReplacement.Label);
                 sqlCommandForInsertingReplacementFAQOptionIntoDatabase.Parameters.AddWithValue("@NextOptionId", currentlyIteratedFAQOptionToInsertAsReplacement.NextOptionId);
 
-                base.ExecuteNonQuery(sqlCommandForInsertingReplacementFAQOptionIntoDatabase);
+                ExecuteNonQuery(sqlCommandForInsertingReplacementFAQOptionIntoDatabase);
             }
         }
 
@@ -153,7 +153,7 @@ namespace CloudSpritzers1.Src.Repository.Database
             using var sqlCommandForRetrievingAllFAQNodesFromDatabase = new SqlCommand(
                 "SELECT node_id, question_text, is_final_answer FROM FAQNode");
 
-            var listOfAllRetrievedFAQNodesFromDatabase = base.GetAll(sqlCommandForRetrievingAllFAQNodesFromDatabase).ToList();
+            var listOfAllRetrievedFAQNodesFromDatabase = GetAll(sqlCommandForRetrievingAllFAQNodesFromDatabase).ToList();
 
             var comprehensiveDictionaryOfAllFAQOptionsMappedByNodeId = RetrieveAndGroupAllFAQOptionsAvailableInTheEntireDatabase();
 

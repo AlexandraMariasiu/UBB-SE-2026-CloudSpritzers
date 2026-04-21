@@ -8,16 +8,16 @@ namespace CloudSpritzers1.Src.Repository.Database
 {
     public class DatabaseConnectionHandler
     {
-        private static readonly DatabaseConnectionHandler _instance = new DatabaseConnectionHandler();
-        public static DatabaseConnectionHandler Instance => _instance;
+        private static readonly DatabaseConnectionHandler DatabaseInstance = new DatabaseConnectionHandler();
+        public static DatabaseConnectionHandler Instance => DatabaseInstance;
 
-        private readonly string _connectionString;
+        private readonly string connectionString;
         // https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-connection-pooling
         // Seems like ado.net pools connections by default, sorry Maria
-        public SqlConnection CreateConnection() => new SqlConnection(_connectionString);
+        public SqlConnection CreateConnection() => new SqlConnection(connectionString);
         private DatabaseConnectionHandler()
         {
-            _connectionString = InitializeConnectionString();
+            connectionString = InitializeConnectionString();
         }
 
         private string InitializeConnectionString()

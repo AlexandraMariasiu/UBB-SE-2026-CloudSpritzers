@@ -115,9 +115,9 @@ namespace CloudSpritzers1.Src.Repository.Database
         // TODO: I swear I wanted to remove stubs, not end more. I hope God and Mihai will forgive me, at least Mihai.
         private sealed class SenderStub : ISender
         {
-            private readonly int _id;
-            public SenderStub(int id) => _id = id;
-            public int RetrieveUniqueDatabaseIdentifierForBot() => _id;
+            private readonly int identificationNumber;
+            public SenderStub(int id) => identificationNumber = id;
+            public int RetrieveUniqueDatabaseIdentifierForBot() => identificationNumber;
             public string RetrieveConfiguredDisplayFullNameForBot() => string.Empty;
             public string RetrieveConfiguredEmailAddressForBotContact() => string.Empty;
         }

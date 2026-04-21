@@ -13,12 +13,12 @@ namespace CloudSpritzers1.Src.Repository
     {
         // private UserRepository _userRepository = new UserRepository();
         // public ReviewRepository() { }
-        private readonly IRepository<int, User> _userRepository;
+        private readonly IRepository<int, User> userRepository;
 
         // Dependency Injection: Pass the repository in rather than creating it here
         public ReviewRepository(IRepository<int, User> userRepository)
         {
-            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
         public Review GetById(int reviewId)
         {
@@ -26,7 +26,7 @@ namespace CloudSpritzers1.Src.Repository
             SqlCommand command = new SqlCommand(query);
             command.Parameters.AddWithValue("@id", reviewId);
 
-            Review review = base.GetById(reviewId, command);
+            Review review = GetById(reviewId, command);
 
             if (review == null)
             {
@@ -40,13 +40,15 @@ namespace CloudSpritzers1.Src.Repository
         {
             string query = "SELECT * FROM Review";
             SqlCommand command = new SqlCommand(query);
-            return base.GetAll(command);
+            return GetAll(command);
         }
 
         public int CreateNewEntity(Review reviewElement)
         {
             if (reviewElement == null)
+            {
                 throw new ArgumentNullException(nameof(reviewElement), "Review cannot be null.");
+            }
 
             string query = "INSERT INTO Review " +
                 "(user_id, message, duty_free_rating, flight_experience_rating, staff_friendliness_rating, cleanliness_rating) " +
@@ -62,14 +64,16 @@ namespace CloudSpritzers1.Src.Repository
             command.Parameters.AddWithValue("@staff", reviewElement.GetStaffFriendlinessRating());
             command.Parameters.AddWithValue("@clean", reviewElement.GetCleanlinessRating());
 
-            int id = base.Add(command, reviewElement);
+            int id = Add(command, reviewElement);
             return id;
         }
 
         public void UpdateById(int id, Review reviewElement)
         {
             if (reviewElement == null)
+            {
                 throw new ArgumentNullException(nameof(reviewElement), "Review cannot be null.");
+            }
 
             string query = "UPDATE Review SET " +
                 "user_id = @userId, " +
@@ -90,7 +94,7 @@ namespace CloudSpritzers1.Src.Repository
             command.Parameters.AddWithValue("@staff", reviewElement.GetStaffFriendlinessRating());
             command.Parameters.AddWithValue("@clean", reviewElement.GetCleanlinessRating());
 
-            base.UpdateById(id, command, reviewElement);
+            UpdateById(id, command, reviewElement);
         }
 
         public void DeleteById(int reviewId)
@@ -99,7 +103,7 @@ namespace CloudSpritzers1.Src.Repository
             SqlCommand command = new SqlCommand(query);
             command.Parameters.AddWithValue("@id", reviewId);
 
-            base.DeleteById(reviewId, command);
+            DeleteById(reviewId, command);
         }
 
         protected override Review MapRowToEntity(SqlDataReader reader)
@@ -112,7 +116,7 @@ namespace CloudSpritzers1.Src.Repository
             int staffFriendlinessRating = reader.GetInt32(reader.GetOrdinal("staff_friendliness_rating"));
             int cleanlinessRating = reader.GetInt32(reader.GetOrdinal("cleanliness_rating"));
 
-            User reviewUser = _userRepository.GetById(userId);
+            User reviewUser = userRepository.GetById(userId);
 
             return new Review(reviewId, reviewUser, reviewMessage, dutyFreeRating, flightExperienceRating, staffFriendlinessRating, cleanlinessRating);
         }
@@ -121,6 +125,5 @@ namespace CloudSpritzers1.Src.Repository
         {
             return entity.GetId();
         }
-
     }
 }

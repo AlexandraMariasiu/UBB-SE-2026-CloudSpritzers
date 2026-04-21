@@ -8,13 +8,13 @@ using CloudSpritzers1.Src.Repository;
 using CloudSpritzers1.Src.Repository.Database;
 using Microsoft.Data.SqlClient;
 
-public class TicketSubcategoryRepository : DatabaseRepository<int, TicketSubcategory> , ITicketSubcategoryRepository
+public class TicketSubcategoryRepository : DatabaseRepository<int, TicketSubcategory>, ITicketSubcategoryRepository
 {
     public IEnumerable<TicketSubcategory> GetAll()
     {
         string query = "SELECT * FROM TicketSubcategory";
         SqlCommand command = new SqlCommand(query);
-        return base.GetAll(command);
+        return GetAll(command);
     }
 
     public TicketSubcategory GetById(int subcategoryId)
@@ -23,7 +23,7 @@ public class TicketSubcategoryRepository : DatabaseRepository<int, TicketSubcate
         SqlCommand command = new SqlCommand(query);
         command.Parameters.AddWithValue("@id", subcategoryId);
 
-        return base.GetAll(command).FirstOrDefault()
+        return GetAll(command).FirstOrDefault()
                ?? throw new KeyNotFoundException($"Subcategory with id {subcategoryId} not found.");
     }
     public IEnumerable<TicketSubcategory> GetByCategoryId(int categoryId)
@@ -32,7 +32,7 @@ public class TicketSubcategoryRepository : DatabaseRepository<int, TicketSubcate
         SqlCommand command = new SqlCommand(query);
         command.Parameters.AddWithValue("@categoryId", categoryId);
 
-        return base.GetAll(command);
+        return GetAll(command);
     }
 
     protected override TicketSubcategory MapRowToEntity(SqlDataReader reader)

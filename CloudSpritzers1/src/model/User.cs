@@ -4,22 +4,22 @@ namespace CloudSpritzers1.Src.Model
 {
     public class User : ISender
     {
-        private int _userId;
-        private string _fullName;
-        private string _emailAddress;
+        private int userId;
+        private string fullName;
+        private string emailAddress;
 
         public User(int userId, string fullName, string emailAddress)
         {
-            _userId = userId;
-            _fullName = fullName;
-            _emailAddress = emailAddress;
+            this.userId = userId;
+            this.fullName = fullName;
+            this.emailAddress = emailAddress;
         }
 
-        public int UserId => _userId;
+        public int UserId => userId;
 
-        public string RetrieveConfiguredDisplayFullNameForBot() => _fullName;
-        public string RetrieveConfiguredEmailAddressForBotContact() => _emailAddress;
+        public string RetrieveConfiguredDisplayFullNameForBot() => fullName;
+        public string RetrieveConfiguredEmailAddressForBotContact() => emailAddress;
 
-        public int RetrieveUniqueDatabaseIdentifierForBot() => _userId;
+        public int RetrieveUniqueDatabaseIdentifierForBot() => userId;
     }
 }
