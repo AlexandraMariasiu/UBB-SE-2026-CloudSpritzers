@@ -9,43 +9,43 @@ namespace CloudSpritzers1.Src.ViewModel.Review
 {
     public partial class AddReviewViewModel : ObservableObject
     {
-        private readonly ReviewService _reviewService;
+        private readonly ReviewService reviewService;
 
         public event EventHandler<(string Title, string Message)>? AlertRequested;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SubmitReviewCommand))]
         [NotifyPropertyChangedFor(nameof(DutyText))]
-        private int _dutyRating;
+        private int dutyRating;
         public string DutyText => DutyRating > 0 ? $"{DutyRating}/5" : "Not rated";
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SubmitReviewCommand))]
         [NotifyPropertyChangedFor(nameof(FlightText))]
-        private int _flightRating;
+        private int flightRating;
         public string FlightText => FlightRating > 0 ? $"{FlightRating}/5" : "Not rated";
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SubmitReviewCommand))]
         [NotifyPropertyChangedFor(nameof(StaffText))]
-        private int _staffRating;
+        private int staffRating;
         public string StaffText => StaffRating > 0 ? $"{StaffRating}/5" : "Not rated";
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SubmitReviewCommand))]
         [NotifyPropertyChangedFor(nameof(CleanText))]
-        private int _cleanRating;
+        private int cleanRating;
         public string CleanText => CleanRating > 0 ? $"{CleanRating}/5" : "Not rated";
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SubmitReviewCommand))]
         [NotifyPropertyChangedFor(nameof(CharCountText))]
-        private string _reviewMessage = string.Empty;
+        private string reviewMessage = string.Empty;
         public string CharCountText => $"{ReviewMessage?.Length ?? 0} characters";
 
         public AddReviewViewModel(ReviewService reviewService)
         {
-            _reviewService = reviewService;
+            this.reviewService = reviewService;
         }
 
         private bool CanSubmitReview()
@@ -71,7 +71,7 @@ namespace CloudSpritzers1.Src.ViewModel.Review
                     return;
                 }
 
-                _reviewService.CreateReview(1, currentUser, ReviewMessage, DutyRating, FlightRating, StaffRating, CleanRating);
+                reviewService.CreateReview(1, currentUser, ReviewMessage, DutyRating, FlightRating, StaffRating, CleanRating);
 
                 DutyRating = 0;
                 FlightRating = 0;

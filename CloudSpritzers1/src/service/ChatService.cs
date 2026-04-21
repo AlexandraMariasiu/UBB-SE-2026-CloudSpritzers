@@ -11,11 +11,11 @@ namespace CloudSpritzers1.Src.Service
 {
     public class ChatService
     {
-        private IRepository<int, Chat> _repository;
+        private IRepository<int, Chat> repository;
 
         public ChatService(ChatDatabaseRepository repository)
         {
-            _repository = repository;
+            this.repository = repository;
         }
 
         public Chat OpenChat(int userId)
@@ -23,7 +23,7 @@ namespace CloudSpritzers1.Src.Service
             try
             {
                 Chat newChat = new Chat(0, userId, ChatStatus.Active);
-                int newId = Convert.ToInt32(_repository.CreateNewEntity(newChat));
+                int newId = Convert.ToInt32(repository.CreateNewEntity(newChat));
                 newChat.ChatId = newId;
                 return newChat;
             }
@@ -37,9 +37,9 @@ namespace CloudSpritzers1.Src.Service
         {
             try
             {
-                Chat chat = _repository.GetById(chatId);
+                Chat chat = repository.GetById(chatId);
                 chat.CloseChat();
-                _repository.UpdateById(chatId, chat);
+                repository.UpdateById(chatId, chat);
             }
             catch (Exception ex)
             {

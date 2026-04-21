@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudSpritzers1.src.model.faq;
-using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.Src.Model.Faq;
+using CloudSpritzers1.Src.Repository.Interfaces;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Interfaces;
 using NSubstitute.ReceivedExtensions;
 
-namespace CloudSpritzers1Tests.src.mockClasses
+namespace CloudSpritzers1Tests.Src.MockClasses
 {
     public class InMemoryFAQRepository : IFAQRepository
     {

@@ -1,10 +1,9 @@
 using AutoMapper;
-using CloudSpritzers1.src.model.faq;
-using CloudSpritzers1.src.repository.interfaces;
+using CloudSpritzers1.Src.Model.Faq;
+using CloudSpritzers1.Src.Repository.Interfaces;
 using NSubstitute;
 
-namespace CloudSpritzers1.src.dto.mappingProfiles;
-
+namespace CloudSpritzers1.Src.Dto.MappingProfiles;
 [TestClass]
 public class FAQEntryMappingProfileTests
 {

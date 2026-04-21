@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +17,7 @@ public class TicketCategoryRepository : DatabaseRepository<int, TicketCategory>,
     {
         string query = "SELECT * FROM TicketCategory";
         SqlCommand command = new SqlCommand(query);
-        return base.GetAll(command);
+        return GetAll(command);
     }
 
     public TicketCategory GetById(int categoryId)
@@ -26,7 +25,7 @@ public class TicketCategoryRepository : DatabaseRepository<int, TicketCategory>,
         string query = "SELECT * FROM TicketCategory WHERE category_id = @id";
         SqlCommand command = new SqlCommand(query);
         command.Parameters.AddWithValue("@id", categoryId);
-        return base.GetById(categoryId, command);
+        return GetById(categoryId, command);
     }
 
     protected override TicketCategory MapRowToEntity(SqlDataReader reader)
@@ -37,7 +36,7 @@ public class TicketCategoryRepository : DatabaseRepository<int, TicketCategory>,
 
         if (!Enum.TryParse<TicketUrgencyLevelEnum>(urgencyLevelString, true, out var urgencyLevel))
         {
-            urgencyLevel = TicketUrgencyLevelEnum.LOW; 
+            urgencyLevel = TicketUrgencyLevelEnum.LOW;
         }
         return new TicketCategory(categoryId, categoryName, urgencyLevel);
     }

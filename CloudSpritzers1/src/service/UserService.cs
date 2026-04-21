@@ -12,36 +12,36 @@ namespace CloudSpritzers1.Src.Service
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserRepository userRepository;
 
         public UserService(IUserRepository userRepository)
         {
-            _userRepository = userRepository;
+            this.userRepository = userRepository;
         }
 
         public User GetById(int identificationNumber)
         {
-            return _userRepository.GetById(identificationNumber);
+            return userRepository.GetById(identificationNumber);
         }
 
         public int AddUser(User user)
         {
-            return _userRepository.CreateNewEntity(user);
+            return userRepository.CreateNewEntity(user);
         }
 
         public void UpdateUserById(int identificationNumber, User userEntity)
         {
-            _userRepository.UpdateById(identificationNumber, userEntity);
+            userRepository.UpdateById(identificationNumber, userEntity);
         }
 
         public void DeleteUserById(int identificationNumber)
         {
-            _userRepository.DeleteById(identificationNumber);
+            userRepository.DeleteById(identificationNumber);
         }
 
         public List<User> GetAllUsers()
         {
-            return _userRepository.GetAll().ToList();
+            return userRepository.GetAll().ToList();
         }
 
         public void CreateNewUser(int identificationNumber, string fullName, string emailAddress)

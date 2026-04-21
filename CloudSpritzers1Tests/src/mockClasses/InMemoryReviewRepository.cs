@@ -1,11 +1,11 @@
-﻿using CloudSpritzers1.src.model.review;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.repository.interfaces;
+﻿using CloudSpritzers1.Src.Model.Review;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CloudSpritzers1Tests.src.mockClasses
+namespace CloudSpritzers1Tests.Src.MockClasses
 {
     public class InMemoryReviewRepository : IRepository<int, Review>
     {

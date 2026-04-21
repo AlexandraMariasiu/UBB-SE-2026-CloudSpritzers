@@ -21,7 +21,7 @@ namespace CloudSpritzers1.Src.ViewModel.General
             bool isEmployee = roleTag == "Employee";
 
             var app = (App)App.Current;
-            app.isEmployee = isEmployee;
+            app.IsEmployee = isEmployee;
         }
     }
 }
