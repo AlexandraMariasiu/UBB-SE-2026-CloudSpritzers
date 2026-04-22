@@ -32,8 +32,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
 
             _mapper.Map<FAQEntryDTO>(Arg.Any<FAQEntry>()).Returns(callInfo => MapToDto((FAQEntry)callInfo[0]));
             _mapper.Map<FAQEntry>(Arg.Any<FAQEntryDTO>()).Returns(callInfo => MapToEntity((FAQEntryDTO)callInfo[0]));
-            //_mapper.Map<List<FAQEntryDTO>>(Arg.Any<List<FAQEntry>>()).Returns(callInfo =>
-            //    new List<FAQEntryDTO>(((List<FAQEntry>)callInfo[0]).Select(e => MapToDto(e))));
 
             var entries = new List<FAQEntry>
             {
@@ -41,7 +39,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
                 new FAQEntry(2, "How much does parking cost per day?", "Parking is 100 euros", FAQCategoryEnum.Parking, 2, 3, 1),
                 new FAQEntry(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 3, 4, 2),
             };
-        
+            entries = entries.OrderByDescending(entry => entry.ViewCount).ToList();
             _faqService.GetAll().Returns(entries);
             _faqService.FilterFAQEntry(Arg.Any<FAQCategoryEnum>(), Arg.Any<string>()).Returns(entries);
 
@@ -52,7 +50,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         [TestMethod]
         public void ConstructorLoadsFAQs()
         {
-            var allFAQs = _faqService.GetAll();
+            var allFAQs = _faqService.GetAll().OrderByDescending(entry => entry.ViewCount).ToList();
             _faqService.FilterFAQEntry(Arg.Any<FAQCategoryEnum>(), Arg.Any<string>()).Returns(allFAQs);
 
             Assert.AreEqual(3, _faqViewModel.FAQs.Count);
@@ -72,12 +70,13 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
                 new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0),
                 new FAQEntry(2, "How much does parking cost per day?", "Parking is 100 euros", FAQCategoryEnum.Parking, 2, 3, 1),
             };
+            searchResults = searchResults.OrderByDescending(entry => entry.ViewCount).ToList();
             _faqService.FilterFAQEntry(FAQCategoryEnum.All, "park").Returns(searchResults);
 
             _faqViewModel.SearchQuery = "park";
 
             Assert.AreEqual(2, _faqViewModel.FilteredFAQs.Count);
-            CollectionAssert.AreEqual(new[] { 1, 2 }, _faqViewModel.FilteredFAQs.Select(x => x.Id).ToArray());
+            CollectionAssert.AreEqual(new[] { 2, 1 }, _faqViewModel.FilteredFAQs.Select(x => x.Id).ToArray());
         }
 
         [TestMethod]
@@ -88,12 +87,13 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
                 new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0),
                 new FAQEntry(2, "How much does parking cost per day?", "Parking is 100 euros", FAQCategoryEnum.Parking, 2, 3, 1),
             };
+            parkingEntries.OrderByDescending(entry => entry.ViewCount).ToList();
             _faqService.FilterFAQEntry(FAQCategoryEnum.Parking, Arg.Any<string>()).Returns(parkingEntries);
             _faqViewModel.FilterByCategory(FAQCategoryEnum.Parking);
 
             Assert.AreEqual(FAQCategoryEnum.Parking, _faqViewModel.SelectedCategory);
             Assert.AreEqual(2, _faqViewModel.FilteredFAQs.Count);
-            CollectionAssert.AreEqual(new[] { 1, 2 }, _faqViewModel.FilteredFAQs.Select(x => x.Id).ToArray());
+            CollectionAssert.AreEqual(new[] { 2, 1 }, _faqViewModel.FilteredFAQs.Select(x => x.Id).ToArray());
         }
 
         [TestMethod]
@@ -200,6 +200,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         public void ToggleFAQExpandsEntryAndIncrementsViewCount()
         {
             var firstFaq = _faqViewModel.FilteredFAQs[0];
+            var viewCountBeforeExpanding = firstFaq.ViewCount;
             var secondFaq = _faqViewModel.FilteredFAQs[1];
 
             _faqViewModel.ToggleFAQ(firstFaq);
@@ -207,8 +208,8 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             Assert.IsTrue(firstFaq.IsExpanded);
             Assert.IsFalse(secondFaq.IsExpanded);
             Assert.AreEqual(firstFaq, _faqViewModel.SelectedFAQEntry);
-            Assert.AreEqual(2, _faqViewModel.FAQs.First(x => x.Id == firstFaq.Id).ViewCount);
-            Assert.AreEqual(2, _faqViewModel.FilteredFAQs.First(x => x.Id == firstFaq.Id).ViewCount);
+            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FAQs.First(x => x.Id == firstFaq.Id).ViewCount);
+            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FilteredFAQs.First(x => x.Id == firstFaq.Id).ViewCount);
             _faqService.Received(1).IncrementViewCount(Arg.Any<FAQEntry>());
         }
 
@@ -225,12 +226,13 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         [TestMethod]
         public void IncrementWasHelpfulVotes()
         {
-            _faqViewModel.SelectedFAQEntry = _faqViewModel.FilteredFAQs[0];
-
+            var entryToIncrementHelpfulVotes= new FAQEntryDTO(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 4, 4, 2); ;
+            _faqViewModel.SelectedFAQEntry = entryToIncrementHelpfulVotes;
+            var expectedUpdatedEntry= new FAQEntryDTO(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 4, 5, 2);
             _faqViewModel.IncrementWasHelpfulVotes();
 
             _faqService.Received(1).IncrementWasHelpfulVotes(Arg.Any<FAQEntry>());
-            Assert.AreEqual(2, _faqViewModel.SelectedFAQEntry!.HelpfulVotesCount);
+            Assert.AreEqual(expectedUpdatedEntry.HelpfulVotesCount, _faqViewModel.SelectedFAQEntry!.HelpfulVotesCount);
         }
 
         [TestMethod]
@@ -244,12 +246,13 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         [TestMethod]
         public void IncrementWasNotHelpfulVotes()
         {
-            _faqViewModel.SelectedFAQEntry = _faqViewModel.FilteredFAQs[0];
-
+            var entryToIncrementNotHelpfulVotes = new FAQEntryDTO(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 4, 4, 2); ;
+            _faqViewModel.SelectedFAQEntry = entryToIncrementNotHelpfulVotes;
+            var expectedUpdatedEntry = new FAQEntryDTO(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 4, 4, 3);
             _faqViewModel.IncrementWasNotHelpfulVotes();
 
             _faqService.Received(1).IncrementWasNotHelpfulVotes(Arg.Any<FAQEntry>());
-            Assert.AreEqual(1, _faqViewModel.SelectedFAQEntry!.NotHelpfulVotesCount);
+            Assert.AreEqual(expectedUpdatedEntry.NotHelpfulVotesCount, _faqViewModel.SelectedFAQEntry!.NotHelpfulVotesCount);
         }
 
         [TestMethod]
@@ -271,19 +274,12 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         [TestMethod]
         public void IncrementViewCount_WithValidFAQ_IsSuccessful()
         {
-            _faqViewModel.SelectedFAQEntry = _faqViewModel.FAQs[0];
+            
+            _faqViewModel.SelectedFAQEntry = new FAQEntryDTO(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 3, 4, 2);
             var faqEntryToIncrementViewCount = _faqViewModel.SelectedFAQEntry;
-            var updatedEntries = new List<FAQEntry>
-            {
-                new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 2, 1, 0),
-                new FAQEntry(2, "How much does parking cost per day?", "Parking is 100 euros", FAQCategoryEnum.Parking, 2, 3, 1),
-                new FAQEntry(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 3, 4, 2),
-            };
-
-            _faqService.GetAll().Returns(updatedEntries);
 
             _faqViewModel.IncrementViewCount();
-            var updatedFaqEntry = _faqViewModel.FAQs[0];
+            var updatedFaqEntry = new FAQEntryDTO(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 4, 4, 2);
 
             _faqService.Received(1).IncrementViewCount(MapToEntity(faqEntryToIncrementViewCount));
             Assert.AreEqual(updatedFaqEntry.ViewCount, faqEntryToIncrementViewCount.ViewCount + 1);
@@ -460,14 +456,14 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         public void IncrementViewCountFor_FilteredFaqSameInstance_DoesNotDuplicateUpdate()
         {
             var faq = _faqViewModel.FAQs[0];
-
+            var viewCountBeforeIncrementing = faq.ViewCount;
             _faqViewModel.FilteredFAQs.Clear();
             _faqViewModel.FilteredFAQs.Add(faq);
 
             _faqViewModel.IncrementViewCountFor(faq.Id);
 
             _faqService.Received(1).IncrementViewCount(Arg.Any<FAQEntry>());
-            Assert.AreEqual(2, faq.ViewCount);
+            Assert.AreEqual(viewCountBeforeIncrementing+1, faq.ViewCount);
         }
 
         [TestMethod]

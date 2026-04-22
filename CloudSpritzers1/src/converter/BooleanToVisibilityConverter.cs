@@ -16,6 +16,8 @@ namespace CloudSpritzers1.Src.Converter
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
-            => throw new NotImplementedException();
+        {
+            return value is Visibility v && v == Visibility.Visible;
+        }
     }
 }
