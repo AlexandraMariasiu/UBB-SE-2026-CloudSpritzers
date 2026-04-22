@@ -419,5 +419,5 @@ FodyWeavers.xsd
 .env
 
 # Coverage reports
-coverage-report/
-coveragereport/
+**/coveragereport/
+**/coverage-report/
