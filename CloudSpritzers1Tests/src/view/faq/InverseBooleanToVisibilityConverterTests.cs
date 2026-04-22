@@ -1,6 +1,6 @@
-using CloudSpritzers1.src.view.faq;
+using CloudSpritzers1.Src.Converter;
 using Microsoft.UI.Xaml;
-namespace CloudSpritzers1.src.view.faq;
+namespace CloudSpritzers1Tests.Src.View.Faq;
 
 [TestClass]
 public class InverseBooleanToVisibilityConverterTests

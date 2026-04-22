@@ -1,18 +1,18 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CloudSpritzers1.src.viewModel.review;
-using CloudSpritzers1.src.service;
-using CloudSpritzers1.src.repository.interfaces;
-using CloudSpritzers1.src.model.review;
-using CloudSpritzers1Tests.src.mockClasses;
+using CloudSpritzers1.Src.ViewModel.Review;
+using CloudSpritzers1.Src.Service;
+using CloudSpritzers1.Src.Repository.Interfaces;
+using CloudSpritzers1.Src.Model.Review;
+using CloudSpritzers1Tests.Src.MockClasses;
 using NSubstitute;
 using System.Collections.Generic;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.model;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Model;
 using CloudSpritzers1;
 
 
 
-namespace CloudSpritzers1Tests.src.viewModel
+namespace CloudSpritzers1Tests.Src.ViewModel
 {
     [TestClass]
     public class AddReviewViewModelTests

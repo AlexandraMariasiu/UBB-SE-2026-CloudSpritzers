@@ -10,6 +10,7 @@ using CloudSpritzers1.Src.Dto;
 using CloudSpritzers1.Src.Dto.MappingProfiles;
 using CloudSpritzers1.Src.Model;
 using CloudSpritzers1.Src.Model.Chats;
+using CloudSpritzers1.Src.Model.Review;
 using CloudSpritzers1.Src.Model.Employee;
 using CloudSpritzers1.Src.Repository;
 using CloudSpritzers1.Src.Repository.Implementation;

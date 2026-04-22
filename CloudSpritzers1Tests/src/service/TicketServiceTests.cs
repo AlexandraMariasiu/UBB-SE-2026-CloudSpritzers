@@ -1,17 +1,17 @@
-﻿using CloudSpritzers1.src.dto;
-using CloudSpritzers1.src.model;
-using CloudSpritzers1.src.model.ticket;
-using CloudSpritzers1.src.repository;
-using CloudSpritzers1.src.repository.interfaces;
-using CloudSpritzers1.src.service;
-using CloudSpritzers1.src.viewModel;
+﻿using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Model;
+using CloudSpritzers1.Src.Model.Ticket;
+using CloudSpritzers1.Src.Repository;
+using CloudSpritzers1.Src.Repository.Interfaces;
+using CloudSpritzers1.Src.Service;
+using CloudSpritzers1.Src.ViewModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CloudSpritzers1Tests.src.service
+namespace CloudSpritzers1Tests.Src.Service
 {
     [TestClass]
     public class TicketServiceTests
@@ -103,7 +103,7 @@ namespace CloudSpritzers1Tests.src.service
             };
             var result = _ticketService.FilterTicketsByStatus(ticketsDto, TicketFilterStatusEnum.IN_PROGRESS).ToList();
             Assert.AreEqual(1, result.Count);
-            Assert.AreEqual(TicketStatusEnum.IN_PROGRESS, result.First().CurrentStatus);
+            Assert.AreEqual(TicketStatusEnum.IN_PROGRESS, result.First().currentStatus);
         }
 
         //[TestMethod]

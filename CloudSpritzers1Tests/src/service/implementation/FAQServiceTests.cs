@@ -1,17 +1,17 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CloudSpritzers1.src.service.implementation;
+using CloudSpritzers1.Src.Service.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NSubstitute;
-using CloudSpritzers1.src.repository.interfaces;
-using CloudSpritzers1.src.model.faq;
-using CloudSpritzers1.src.service.interfaces;
-using CloudSpritzers1.src.dto;
-using CloudSpritzers1Tests.src.mockClasses;
-namespace CloudSpritzers1.src.service.implementation.Tests
+using CloudSpritzers1.Src.Repository.Interfaces;
+using CloudSpritzers1.Src.Model.Faq;
+using CloudSpritzers1.Src.Service.Interfaces;
+using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1Tests.Src.MockClasses;
+namespace CloudSpritzers1Tests.Src.Service.Implementation
 {
     [TestClass()]
     public class FAQServiceTests

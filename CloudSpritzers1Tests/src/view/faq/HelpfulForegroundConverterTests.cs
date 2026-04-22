@@ -1,8 +1,9 @@
-using CloudSpritzers1.src.view.faq;
+using CloudSpritzers1.Src.View.Faq;
 using Microsoft.UI.Xaml.Media;
 using Windows.UI;
+using CloudSpritzers1.Src.Converter;
 
-namespace CloudSpritzers1.src.view.faq;
+namespace CloudSpritzers1.Src.View.Faq;
 
 [TestClass]
 public class HelpfulForegroundConverterTests

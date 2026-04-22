@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CloudSpritzers1.Src.Repository.Implementations;
+using CloudSpritzers1.Src.Repository.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using CloudSpritzers1.Src.Repository.Interfaces;
 using CloudSpritzers1.Src.Model.Faq;
 using CloudSpritzers1Tests.Src.MockClasses;
 
-namespace CloudSpritzers1.Src.Repository.Implementations.Tests
+namespace CloudSpritzers1Tests.Src.Repository.Implementation
 {
     [TestClass()]
     public class FAQRepositoryTests

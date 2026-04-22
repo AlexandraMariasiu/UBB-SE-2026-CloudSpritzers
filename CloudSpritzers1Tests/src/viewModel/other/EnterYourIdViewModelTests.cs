@@ -1,4 +1,4 @@
-﻿using CloudSpritzers1.src.viewModel.general;
+﻿using CloudSpritzers1.Src.ViewModel.General;
 
 [TestClass]
 public class EnterYourIdViewModelTests

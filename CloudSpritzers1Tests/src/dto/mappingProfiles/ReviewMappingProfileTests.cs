@@ -6,7 +6,7 @@ using CloudSpritzers1.Src.Dto.MappingProfiles;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
-namespace CloudSpritzers1.Src.Tests.Dto.MappingProfiles
+namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
 {
     [TestClass]
     public class ReviewMappingProfileTests
