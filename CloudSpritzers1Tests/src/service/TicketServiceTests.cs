@@ -116,7 +116,7 @@ namespace CloudSpritzers1Tests.Src.Service
         //    };
         //    var result = _ticketService.FilterTicketsByStatus(ticketsDto, TicketFilterStatusEnum.RESOLVED).ToList();
         //    Assert.AreEqual(1, result.Count);
-        //    Assert.AreEqual(TicketStatusEnum.RESOLVED, result.First().CurrentStatus);
+        //    Assert.AreEqual(TicketStatusEnum.RESOLVED, result.First().CurrentStatus); 
         //}
 
 
