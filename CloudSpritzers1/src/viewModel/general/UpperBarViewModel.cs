@@ -2,6 +2,7 @@
 using CloudSpritzers1.Src.Model;
 using CloudSpritzers1.Src.Model.Employee;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.UI.Xaml;
 
 namespace CloudSpritzers1.Src.ViewModel.General
 {
@@ -10,11 +11,14 @@ namespace CloudSpritzers1.Src.ViewModel.General
         private readonly User user;
         private readonly Employee employee;
 
-        public UpperBarViewModel()
+        public UpperBarViewModel(User? currentUser = null, Employee? currentEmployee = null)
         {
             // Access to application state is performed inside the ViewModel layer
-            user = ((App)App.Current).User;
-            employee = ((App)App.Current).Employee;
+            // user = ((App)App.Current).User;
+            // employee = ((App)App.Current).Employee;
+
+            user = currentUser ?? (Application.Current is App a ? a.User : null);
+            employee = currentEmployee ?? (Application.Current is App ap ? ap.Employee : null);
 
             // Determine if the current context is a client (user) or an employee
             isClientView = user != null;
