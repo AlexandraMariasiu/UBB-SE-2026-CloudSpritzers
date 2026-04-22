@@ -107,5 +107,20 @@ namespace CloudSpritzers1Tests.Src.Repository
 
             Assert.AreEqual($"Employee with id {nonExistingId} not found.", exception.Message);
         }
+
+        [TestMethod]
+        public void GetById_ReturnsCorrectEmployeeId()
+        {
+            var employee = new Employee(1, "John Doe", "john@test.com", EmployeeDepartment.ADMIN);
+
+            employeeRepository!.CreateNewEntity(employee);
+
+            var result = employeeRepository.GetById(1);
+
+            Assert.AreEqual(
+                employee.RetrieveUniqueDatabaseIdentifierForBot(),
+                result.RetrieveUniqueDatabaseIdentifierForBot()
+            );
+        }
     }
 }
