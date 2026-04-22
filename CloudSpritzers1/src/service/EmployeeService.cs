@@ -68,10 +68,6 @@ namespace CloudSpritzers1.Src.Service
             {
                 throw new ArgumentException("Email cannot be null or empty");
             }
-            if (string.IsNullOrEmpty(employeeEntity.GetDepartmentName()))
-            {
-                throw new ArgumentException("Group cannot be null or empty");
-            }
             if (!Enum.IsDefined(typeof(EmployeeDepartment), employeeEntity.GetDepartmentName()))
             {
                 throw new ArgumentException("Invalid group");

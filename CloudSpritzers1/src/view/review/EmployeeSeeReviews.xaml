@@ -83,7 +83,7 @@
                                         <Grid ColumnDefinitions="Auto, *, Auto">
                                             <Grid Width="48" Height="48">
                                                 <Ellipse Fill="{ThemeResource PrimaryBrush}"/>
-                                                <TextBlock Text="{Binding Initials}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding userId}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold"/>
                                             </Grid>
 
                                             <StackPanel Grid.Column="1" Margin="16,0" VerticalAlignment="Center">

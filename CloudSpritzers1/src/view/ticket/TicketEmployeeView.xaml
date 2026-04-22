@@ -141,7 +141,7 @@
                                                     <TextBlock Text="{x:Bind description}" Foreground="{ThemeResource SecondaryTextBrush}" Margin="0,4,0,8"/>
 
                                                     <StackPanel Orientation="Horizontal" Spacing="10">
-                                                        <TextBlock Text="{Binding CategoryName, ConverterParameter='Category: {0}', Mode=OneWay}" FontSize="12" Foreground="{ThemeResource SecondaryTextBrush}"/>
+                                                        <TextBlock Text="{Binding categoryName, ConverterParameter='Category: {0}', Mode=OneWay}" FontSize="12" Foreground="{ThemeResource SecondaryTextBrush}"/>
                                                         <TextBlock Text="|" Foreground="{ThemeResource SecondaryTextBrush}"/>
                                                         <TextBlock Text= "{x:Bind subcategoryName}" FontSize="12" Foreground="{ThemeResource SecondaryTextBrush}"/>
                                                         <TextBlock Text="|" Foreground="{ThemeResource SecondaryTextBrush}"/>
