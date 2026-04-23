@@ -6,7 +6,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.UI.Dispatching;
 using System;
 using System.Threading.Tasks;
-namespace CloudSpritzers1.Src.Converter;
+using CloudSpritzers1.Src.Converter;
+
+namespace CloudSpritzers1Tests.src.converter;
 
 [TestClass]
 public class HelpfulBackgroundConverterTests

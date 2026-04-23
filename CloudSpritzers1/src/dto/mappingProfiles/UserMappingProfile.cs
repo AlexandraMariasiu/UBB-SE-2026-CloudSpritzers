@@ -13,7 +13,10 @@ namespace CloudSpritzers1.Src.Dto.MappingProfiles
     {
         public UserMappingProfile()
         {
-            CreateMap<User, UserDTO>();
+            CreateMap<User, UserDTO>()
+                .ConstructUsing(user => new UserDTO(
+                    user.RetrieveConfiguredDisplayFullNameForBot(),
+                    user.RetrieveConfiguredEmailAddressForBotContact())).ForAllMembers(opt => opt.Ignore());
         }
     }
 }

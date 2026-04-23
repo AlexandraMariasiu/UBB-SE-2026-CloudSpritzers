@@ -13,8 +13,13 @@ namespace CloudSpritzers1.Src.Dto.MappingProfiles
     {
         public ChatMappingProfile()
         {
-            System.Diagnostics.Debug.WriteLine("ChatMappingProfile Loaded!");
-            CreateMap<Chat, ChatDTO>();
+            CreateMap<Chat, ChatDTO>()
+                .ConstructUsing(chat => new ChatDTO(
+                    chat.ChatId,
+                    chat.UserId,
+                    chat.Status,
+                    chat.MessageCount()))
+                .ForAllMembers(opt => opt.Ignore());
         }
     }
 }
