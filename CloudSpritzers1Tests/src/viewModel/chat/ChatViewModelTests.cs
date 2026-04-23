@@ -22,19 +22,18 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
     [TestClass]
     public class ChatViewModelTests
     {
-        // Mock Repositories
+        // mock Repositories
         private IRepository<int, Chat> _chatRepoMock;
         private IRepository<int, Message> _msgRepoMock;
         private IBotStrategy _strategyMock;
         private IUserService _userService;
         private IMapper _mapper;
 
-        // Real Services using mocked Repositories
+        // real Services using mocked Repositories
         private BotEngine _botEngine;
         private MessageService _messageService;
         private ChatService _chatService;
 
-        // Test Data
         private User _testUser;
         private Chat _testChat;
 
@@ -87,7 +86,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
                 _msgRepoMock.GetAll().Returns(new List<Message>());
             }
 
-            // Inject _testUser explicitly to bypass App.Current crash
             return new ChatViewModel(_messageService, _chatService, _mapper, _userService, _testUser);
         }
 
@@ -98,7 +96,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
 
             var vm = CreateViewModel(new List<Message>());
 
-            // An empty history triggers LoadFirstMessage which queries the bot Strategy to formulate a bot response
             _strategyMock.ReceivedWithAnyArgs(1).ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(default, default);
         }
 
@@ -108,7 +105,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
             var mockMsg = new Message(1, _testUser, _testChat, "Test", DateTimeOffset.UtcNow);
             _strategyMock.ClearReceivedCalls();
 
-            // Because history has 1 message, it bypasses LoadFirstMessage entirely
             var vm = CreateViewModel(new List<Message> { mockMsg });
 
             _strategyMock.DidNotReceiveWithAnyArgs().ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(default, default);
@@ -129,7 +125,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
 
             vm.CloseChat();
 
-            // Modifying chat state updates the Chat via the repository
             _chatRepoMock.Received(1).UpdateById(1, Arg.Any<Chat>());
         }
 
@@ -142,7 +137,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
 
             vm.HandleOptionClickCommand.Execute(null);
 
-            // Null option causes early return; message execution strategy should never be invoked
             _strategyMock.DidNotReceiveWithAnyArgs().ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(default, default);
         }
 
@@ -157,7 +151,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
 
             vm.HandleOptionClickCommand.Execute(option);
 
-            // Sending a message saves exactly 2 DB records (the User's message + the Bot's algorithmic reply)
             _msgRepoMock.Received(2).CreateNewEntity(Arg.Any<Message>());
         }
 
@@ -188,7 +181,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
             var option = new FAQOption("Test", 2);
             var botReply = new BotMessage.BotMessageBuilder(_testUser, _testChat, 2).Build();
 
-            // Force the IEnumerable of faqOptions to null to test fallback branch inside UpdateAvailableOptions
             typeof(BotMessage).GetField("faqOptions", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                 ?.SetValue(botReply, null);
 
