@@ -16,7 +16,7 @@ namespace CloudSpritzers1.Src.Converter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            bool selected = value is bool b && b;
+            bool selected = value is bool isSelected && isSelected;
             Color helpfulBackgroundColor = Color.FromArgb(255, 232, 247, 236);
             Color defaultBackgroundColor = Color.FromArgb(255, 248, 249, 251);
             return new SolidColorBrush(selected
@@ -32,7 +32,7 @@ namespace CloudSpritzers1.Src.Converter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            bool selected = value is bool b && b;
+            bool selected = value is bool isSelected && isSelected;
             Color helpfulForegroundColor = Color.FromArgb(255, 21, 128, 61);
             Color defaultForegroundColor = Color.FromArgb(255, 107, 114, 128);
             return new SolidColorBrush(selected
@@ -48,7 +48,7 @@ namespace CloudSpritzers1.Src.Converter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            bool selected = value is bool b && b;
+            bool selected = value is bool isSelected && isSelected;
             return new SolidColorBrush(selected
                 ? Color.FromArgb(255, 134, 239, 172)
                 : Color.FromArgb(255, 209, 213, 219));
@@ -62,7 +62,7 @@ namespace CloudSpritzers1.Src.Converter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            bool selected = value is bool b && b;
+            bool selected = value is bool isSelected && isSelected;
             return new SolidColorBrush(selected
                 ? Color.FromArgb(255, 253, 236, 236)
                 : Color.FromArgb(255, 248, 249, 251));
@@ -76,7 +76,7 @@ namespace CloudSpritzers1.Src.Converter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            bool selected = value is bool b && b;
+            bool selected = value is bool isSelected && isSelected;
             return new SolidColorBrush(selected
                 ? Color.FromArgb(255, 180, 35, 24)
                 : Color.FromArgb(255, 107, 114, 128));
@@ -90,7 +90,7 @@ namespace CloudSpritzers1.Src.Converter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            bool selected = value is bool b && b;
+            bool selected = value is bool isSelected && isSelected;
             return new SolidColorBrush(selected
                 ? Color.FromArgb(255, 245, 181, 176)
                 : Color.FromArgb(255, 209, 213, 219));
