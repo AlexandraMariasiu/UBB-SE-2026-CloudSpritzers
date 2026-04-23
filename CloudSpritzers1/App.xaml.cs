@@ -45,6 +45,8 @@ using CloudSpritzers1.Src.ViewModel;
 using CloudSpritzers1.Src.Repository.Interfaces;
 using CloudSpritzers1.Src.Service.Interfaces;
 using CloudSpritzers1.Src.Model.Review;
+using CloudSpritzers1.Src.Model.Faq.Bot;
+using CloudSpritzers1.Src.Model.Message;
 
 namespace CloudSpritzers1
 {
@@ -105,13 +107,16 @@ namespace CloudSpritzers1
                 typeof(TicketMappingProfile).Assembly);
 
             services.AddSingleton<DecisionTreeRepository>();
+            services.AddSingleton<IRepository<int, FAQNode>>(provider => provider.GetRequiredService<DecisionTreeRepository>());
             services.AddTransient<IBotStrategy, DecisionTreeStrategy>(); // I am not sure this is the way to do it :(
             services.AddTransient<BotEngine>();
 
             services.AddSingleton<MessageDatabaseRepository>();
+            services.AddSingleton<IRepository<int, Message>>(provider => provider.GetRequiredService<MessageDatabaseRepository>());
             services.AddSingleton<MessageService>();
 
             services.AddSingleton<ChatDatabaseRepository>();
+            services.AddSingleton<IRepository<int, Chat>>(provider => provider.GetRequiredService<ChatDatabaseRepository>());
             services.AddSingleton<ChatService>();
 
             services.AddSingleton<ReviewRepository>();
