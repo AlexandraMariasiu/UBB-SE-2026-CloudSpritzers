@@ -17,9 +17,9 @@ namespace CloudSpritzers1.Src.Service.Bot.Strategy
         [AllowNull]
         private FAQNode currentlyActiveConversationDecisionTreeNode;
 
-        private DecisionTreeRepository repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes;
+        private IRepository<int, FAQNode> repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes;
 
-        public DecisionTreeStrategy(DecisionTreeRepository faqRepository)
+        public DecisionTreeStrategy(IRepository<int, FAQNode> faqRepository)
         {
             this.repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes = faqRepository;
             this.currentlyActiveConversationDecisionTreeNode = repositoryForAccessingFrequentlyAskedQuestionsDecisionNodes.GetById(1);
