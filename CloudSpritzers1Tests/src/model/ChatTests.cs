@@ -24,7 +24,7 @@ public class ChatTests
         Assert.AreEqual(chatId, newChat.ChatId);
         Assert.AreEqual(userId, newChat.UserId);
         Assert.AreEqual(status, newChat.Status);
-        Assert.AreEqual(expectedMessageList, newChat.Messages);
+        CollectionAssert.AreEquivalent(expectedMessageList, newChat.Messages);
     }
 
     [TestMethod]
