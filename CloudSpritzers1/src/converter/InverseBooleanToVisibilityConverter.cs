@@ -20,7 +20,7 @@ namespace CloudSpritzers1.Src.Converter
         // }
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return value is bool b && !b
+            return value is bool isFalse && !isFalse
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }

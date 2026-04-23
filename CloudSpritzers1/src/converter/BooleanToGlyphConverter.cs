@@ -14,7 +14,7 @@ namespace CloudSpritzers1.Src.Converter
 
         public object Convert(object value, Type targetType, object parameter, string language)
             {
-                bool isExpanded = value is bool b && b;
+                bool isExpanded = value is bool isTrue && isTrue;
                 return isExpanded ? IconWhenExpanded : IconWhenNotExpanded;
             }
 
