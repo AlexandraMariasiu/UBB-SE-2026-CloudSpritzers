@@ -30,15 +30,20 @@ namespace CloudSpritzers1.Src.ViewModel.Chats
         private Chat chat;
         private User user;
         private const int FIRST_OPTION = 1;
-        public ChatViewModel(MessageService msgService, ChatService chatService, IMapper mapper, IUserService userService)
+        public ChatViewModel(MessageService msgService, ChatService chatService, IMapper mapper, IUserService userService, User testUser = null)
         {
             messageService = msgService;
             this.chatService = chatService;
             this.mapper = mapper;
             this.userService = userService;
 
-            // TODO: add null guard
-            user = (App.Current as App).User;
+            // uses the injected user for tests, otherwise fallback to App.Current
+            user = testUser ?? (App.Current as App)?.User;
+
+            if (user == null)
+            {
+                return;
+            }
 
             chat = this.chatService.OpenChat(user.RetrieveUniqueDatabaseIdentifierForBot());
 
