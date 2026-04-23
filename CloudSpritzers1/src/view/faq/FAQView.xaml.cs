@@ -8,10 +8,12 @@ using CloudSpritzers1.Src.Model.Faq;
 using CloudSpritzers1.Src.Repository;
 using CloudSpritzers1.Src.Repository.Implementation;
 using CloudSpritzers1.Src.Service.Implementation;
+using CloudSpritzers1.Src.ViewModel;
 using CloudSpritzers1.Src.ViewModel.Faq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CloudSpritzers1.Src.View.Faq
 {
@@ -37,22 +39,9 @@ namespace CloudSpritzers1.Src.View.Faq
 
         public FAQView()
         {
+            ViewModel = (App.Current as App).Services.GetService<FAQViewModel>();
             this.InitializeComponent();
-
-            var mapperConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<FAQEntryMappingProfile>();
-            });
-
-            var mapper = mapperConfig.CreateMapper();
-            var repository = new FAQRepository();
-            var service = new FAQService(repository);
-
-            // bool isAdmin =true; // set true for testing admin mode
-            // ViewModel = new FAQViewModel(service, mapper, isAdmin);
-            ViewModel = new FAQViewModel(service, mapper);
-
-            DataContext = ViewModel;
+            this.DataContext = ViewModel;
 
             UpdateAdminVisibility();
         }
