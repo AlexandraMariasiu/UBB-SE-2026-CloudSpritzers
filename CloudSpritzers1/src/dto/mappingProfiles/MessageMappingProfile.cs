@@ -16,7 +16,9 @@ public class MessageMappingProfile : Profile
             .ForMember(dest => dest.FaqOptions, opt => opt.MapFrom(src => src.GetNextOptions()))
             .ForMember(dest => dest.ChatId, opt => opt.MapFrom(src => src.GetChat().ChatId))
             .ForMember(dest => dest.SenderName, opt => opt.MapFrom(src => src.GetSender().RetrieveConfiguredDisplayFullNameForBot()))
-            .ForMember(dest => dest.SenderId, opt => opt.MapFrom(src => src.GetSender().RetrieveUniqueDatabaseIdentifierForBot()));
+            .ForMember(dest => dest.SenderId, opt => opt.MapFrom(src => src.GetSender().RetrieveUniqueDatabaseIdentifierForBot()))
+            .ForMember(dest => dest.MessageId, opt => opt.Ignore())
+            .ForMember(dest => dest.IsOutgoing, opt => opt.Ignore());
 
         CreateMap<BotMessage, MessageDTO>()
             .IncludeBase<IMessage, MessageDTO>()

@@ -1,7 +1,6 @@
 using Microsoft.UI.Xaml;
 using CloudSpritzers1.Src.Converter;
-
-namespace CloudSpritzers1Tests.Src.Converter;
+namespace CloudSpritzers1Tests.src.converter;
 
 [TestClass]
 public class BooleanToVisibilityConverterTests

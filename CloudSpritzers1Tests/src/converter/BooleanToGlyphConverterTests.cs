@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 
-namespace CloudSpritzers1Tests.Src.Converter;
+namespace CloudSpritzers1Tests.src.converter;
 
 [TestClass()]
 public class BooleanToGlyphConverterTests
