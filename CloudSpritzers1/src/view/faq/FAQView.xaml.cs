@@ -46,21 +46,6 @@ namespace CloudSpritzers1.Src.View.Faq
             UpdateAdminVisibility();
         }
 
-        // protected override void OnNavigatedTo(NavigationEventArgs e)
-        // {
-        //    base.OnNavigatedTo(e);
-        //    if (e.Parameter is FAQNavigationData navData)
-        //    {
-        //        _currentPersonId = navData.CurrentPersonId;
-        //        ViewModel.IsAdmin = navData.IsEmployee;
-        //    }
-        //    else
-        //    {
-        //        ViewModel.IsAdmin = false;
-        //    }
-        //    ViewModel.LoadFAQ();
-        //    UpdateAdminVisibility();
-        // }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
