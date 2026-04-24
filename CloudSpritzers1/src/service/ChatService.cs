@@ -20,9 +20,10 @@ namespace CloudSpritzers1.Src.Service
 
         public Chat OpenChat(int userId)
         {
+            private int UNASSIGNED_CHAT_ID = 0;
             try
             {
-                Chat newChat = new Chat(0, userId, ChatStatus.Active);
+                Chat newChat = new Chat(UNASSIGNED_CHAT_ID, userId, ChatStatus.Active);
                 int newId = Convert.ToInt32(chatRepository.CreateNewEntity(newChat));
                 newChat.ChatId = newId;
                 return newChat;
