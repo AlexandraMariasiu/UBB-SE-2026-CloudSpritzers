@@ -12,6 +12,7 @@ namespace CloudSpritzers1.Src.Service
     public class ChatService
     {
         private IRepository<int, Chat> chatRepository;
+        public const int UNASSIGNED_CHAT_ID = 0;
 
         public ChatService(IRepository<int, Chat> chatRepository)
         {
@@ -20,7 +21,6 @@ namespace CloudSpritzers1.Src.Service
 
         public Chat OpenChat(int userId)
         {
-            private int UNASSIGNED_CHAT_ID = 0;
             try
             {
                 Chat newChat = new Chat(UNASSIGNED_CHAT_ID, userId, ChatStatus.Active);
