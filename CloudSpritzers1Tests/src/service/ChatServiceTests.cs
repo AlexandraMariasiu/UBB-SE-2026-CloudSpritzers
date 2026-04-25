@@ -54,7 +54,7 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod]
         public void OpenChat_RepositoryThrowsException_ThrowsException()
         {
-            _mockChatRepo.CreateNewEntity(Arg.Any<Chat>()).Returns(x => throw new Exception("Database error"));
+            _mockChatRepo.CreateNewEntity(Arg.Any<Chat>()).Returns(capturedArgs => throw new Exception("Database error"));
 
             Assert.ThrowsExactly<Exception>(() => _chatService.OpenChat(101));
         }
@@ -62,7 +62,7 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod]
         public void OpenChat_RepositoryThrowsException_ThrowsCorrectErrorMessage()
         {
-            _mockChatRepo.CreateNewEntity(Arg.Any<Chat>()).Returns(x => throw new Exception("Database error"));
+            _mockChatRepo.CreateNewEntity(Arg.Any<Chat>()).Returns(capturedArgs => throw new Exception("Database error"));
 
             var ex = Assert.ThrowsExactly<Exception>(() => _chatService.OpenChat(101));
 
@@ -77,13 +77,13 @@ namespace CloudSpritzers1Tests.Src.Service
 
             _chatService.CloseChat(1);
 
-            _mockChatRepo.Received(1).UpdateById(1, Arg.Is<Chat>(c => c.Status == ChatStatus.Closed));
+            _mockChatRepo.Received(1).UpdateById(1, Arg.Is<Chat>(updatedChatEntity => updatedChatEntity.Status == ChatStatus.Closed));
         }
 
         [TestMethod]
         public void CloseChat_RepositoryThrowsException_ThrowsException()
         {
-            _mockChatRepo.GetById(999).Returns(x => throw new KeyNotFoundException("Chat not found"));
+            _mockChatRepo.GetById(999).Returns(capturedArgs => throw new KeyNotFoundException("Chat not found"));
 
             Assert.ThrowsExactly<Exception>(() => _chatService.CloseChat(999));
         }
@@ -91,7 +91,7 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod]
         public void CloseChat_RepositoryThrowsException_ThrowsCorrectErrorMessage()
         {
-            _mockChatRepo.GetById(999).Returns(x => throw new KeyNotFoundException("Chat not found"));
+            _mockChatRepo.GetById(999).Returns(capturedArgs => throw new KeyNotFoundException("Chat not found"));
 
             var ex = Assert.ThrowsExactly<Exception>(() => _chatService.CloseChat(999));
 

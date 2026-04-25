@@ -76,7 +76,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             _faqViewModel.SearchQuery = "park";
 
             Assert.AreEqual(2, _faqViewModel.FilteredFAQs.Count);
-            CollectionAssert.AreEqual(new[] { 2, 1 }, _faqViewModel.FilteredFAQs.Select(x => x.Id).ToArray());
+            CollectionAssert.AreEqual(new[] { 2, 1 }, _faqViewModel.FilteredFAQs.Select(faqDto => faqDto.Id).ToArray());
         }
 
         [TestMethod]
@@ -93,7 +93,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
 
             Assert.AreEqual(FAQCategoryEnum.Parking, _faqViewModel.SelectedCategory);
             Assert.AreEqual(2, _faqViewModel.FilteredFAQs.Count);
-            CollectionAssert.AreEqual(new[] { 2, 1 }, _faqViewModel.FilteredFAQs.Select(x => x.Id).ToArray());
+            CollectionAssert.AreEqual(new[] { 2, 1 }, _faqViewModel.FilteredFAQs.Select(filteredFaq => filteredFaq.Id).ToArray());
         }
 
         [TestMethod]
@@ -113,7 +113,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
 
             _faqViewModel.AddFAQEntry(newDto);
 
-            _faqService.Received(1).AddFAQEntry(Arg.Is<FAQEntry>(x => x.Id == newEntry.Id && x.Question == newEntry.Question));
+            _faqService.Received(1).AddFAQEntry(Arg.Is<FAQEntry>(entry => entry.Id == newEntry.Id && entry.Question == newEntry.Question));
             Assert.AreEqual(3, _faqViewModel.FAQs.Count);
             Assert.AreEqual(3, _faqViewModel.FilteredFAQs.Count);
         }
@@ -142,8 +142,8 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
 
             _faqViewModel.EditFAQEntry(updatedDto);
 
-            _faqService.Received(1).EditFAQEntry(Arg.Is<FAQEntry>(x => x.Id == 1), 1);
-            Assert.AreEqual("Only BMWs", _faqViewModel.FAQs.First(x => x.Id == 1).Answer);
+            _faqService.Received(1).EditFAQEntry(Arg.Is<FAQEntry>(entity => entity.Id == 1), 1);
+            Assert.AreEqual("Only BMWs", _faqViewModel.FAQs.First(entity => entity.Id == 1).Answer);
         }
 
         [TestMethod]
@@ -208,8 +208,8 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             Assert.IsTrue(firstFaq.IsExpanded);
             Assert.IsFalse(secondFaq.IsExpanded);
             Assert.AreEqual(firstFaq, _faqViewModel.SelectedFAQEntry);
-            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FAQs.First(x => x.Id == firstFaq.Id).ViewCount);
-            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FilteredFAQs.First(x => x.Id == firstFaq.Id).ViewCount);
+            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FAQs.First(faqDto => faqDto.Id == firstFaq.Id).ViewCount);
+            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FilteredFAQs.First(faqDto => faqDto.Id == firstFaq.Id).ViewCount);
             _faqService.Received(1).IncrementViewCount(Arg.Any<FAQEntry>());
         }
 
@@ -292,11 +292,11 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
 
             await _faqViewModel.Save("Can my dog come on the plane?", "Depending on the breed", FAQCategoryEnum.Baggage.ToString());
 
-            _faqService.Received(1).AddFAQEntry(Arg.Is<FAQEntry>(x =>
-                x.Id == 0 &&
-                x.Question == "Can my dog come on the plane?" &&
-                x.Answer == "Depending on the breed" &&
-                x.Category == FAQCategoryEnum.Baggage));
+            _faqService.Received(1).AddFAQEntry(Arg.Is<FAQEntry>(receivedEntry =>
+                receivedEntry.Id == 0 &&
+                receivedEntry.Question == "Can my dog come on the plane?" &&
+                receivedEntry.Answer == "Depending on the breed" &&
+                receivedEntry.Category == FAQCategoryEnum.Baggage));
         }
 
         [TestMethod]
@@ -308,11 +308,11 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             await _faqViewModel.Save("Can my dog come on the plane?", "Depending on the size", FAQCategoryEnum.Parking.ToString());
 
             _faqService.Received(1).EditFAQEntry(
-                Arg.Is<FAQEntry>(x =>
-                    x.Id == _faqViewModel.FAQs[0].Id &&
-                    x.Question == "Can my dog come on the plane?" &&
-                    x.Answer == "Depending on the size" &&
-                    x.Category == FAQCategoryEnum.Parking),
+                Arg.Is<FAQEntry>(entityToUpdate =>
+                    entityToUpdate.Id == _faqViewModel.FAQs[0].Id &&
+                    entityToUpdate.Question == "Can my dog come on the plane?" &&
+                    entityToUpdate.Answer == "Depending on the size" &&
+                    entityToUpdate.Category == FAQCategoryEnum.Parking),
                 _faqViewModel.FAQs[0].Id);
         }
 
@@ -485,9 +485,9 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         {
             bool eventRaised = false;
 
-            _faqViewModel.PropertyChanged += (s, e) =>
+            _faqViewModel.PropertyChanged += (sender, propertyArguments) =>
             {
-                if (e.PropertyName == nameof(_faqViewModel.FAQs))
+                if (propertyArguments.PropertyName == nameof(_faqViewModel.FAQs))
                     eventRaised = true;
             };
 
@@ -503,11 +503,11 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             bool faqsChanged = false;
             bool filteredChanged = false;
 
-            _faqViewModel.PropertyChanged += (s, e) =>
+            _faqViewModel.PropertyChanged += (sender, propertyArguments) =>
             {
-                if (e.PropertyName == nameof(_faqViewModel.FAQs))
+                if (propertyArguments.PropertyName == nameof(_faqViewModel.FAQs))
                     faqsChanged = true;
-                if (e.PropertyName == nameof(_faqViewModel.FilteredFAQs))
+                if (propertyArguments.PropertyName == nameof(_faqViewModel.FilteredFAQs))
                     filteredChanged = true;
             };
 
@@ -547,9 +547,9 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         {
             bool eventRaised = false;
 
-            _faqViewModel.PropertyChanged += (s, e) =>
+            _faqViewModel.PropertyChanged += (sender, propertyArguments) =>
             {
-                if (e.PropertyName == nameof(_faqViewModel.FilteredFAQs))
+                if (propertyArguments.PropertyName == nameof(_faqViewModel.FilteredFAQs))
                     eventRaised = true;
             };
 

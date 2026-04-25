@@ -56,16 +56,16 @@ namespace CloudSpritzers1Tests.Src.MockClasses
         public IEnumerable<Message> GetByChatId(int chatId)
         {
             return _items.Values
-                .Where(m => m.GetChat().ChatId == chatId)
-                .OrderBy(m => ((IMessage)m).GetTimeStamp())
+                .Where(message => message.GetChat().ChatId == chatId)
+                .OrderBy(message => ((IMessage)message).GetTimeStamp())
                 .ToList();
         }
 
         public IEnumerable<Message> GetMessagesSince(int chatId, int firstMessageId)
         {
             return _items.Values
-                .Where(m => m.GetChat().ChatId == chatId && m.GetId() >= firstMessageId)
-                .OrderBy(m => ((IMessage)m).GetTimeStamp())
+                .Where(message => message.GetChat().ChatId == chatId && message.GetId() >= firstMessageId)
+                .OrderBy(message => ((IMessage)message).GetTimeStamp())
                 .ToList();
         }
 

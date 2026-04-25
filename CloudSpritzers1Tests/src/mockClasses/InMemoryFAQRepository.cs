@@ -18,20 +18,20 @@ namespace CloudSpritzers1Tests.Src.MockClasses
         {
             _faqEntries = new List<FAQEntry>();
         }
-        public int CreateNewEntity(FAQEntry elem)
+        public int CreateNewEntity(FAQEntry element)
         {
-            foreach (var e in _faqEntries)
+            foreach (var entry in _faqEntries)
             {
-                if (e.Equals(elem))
+                if (entry.Equals(element))
                     throw new ArgumentException("This FAQ already exists in the list.");
             }
-            _faqEntries.Add(elem);
-            return elem.Id;
+            _faqEntries.Add(element);
+            return element.Id;
         }
 
         public void DeleteById(int id)
         {
-            var entryToDelete = _faqEntries.FirstOrDefault(e => e.Id == id);
+            var entryToDelete = _faqEntries.FirstOrDefault(entry => entry.Id == id);
             if (entryToDelete == null)
                 throw new KeyNotFoundException($"FAQ with ID {id} not found.");
 
@@ -54,7 +54,7 @@ namespace CloudSpritzers1Tests.Src.MockClasses
 
         public FAQEntry GetById(int id)
         {
-            var entry = _faqEntries.FirstOrDefault(e => e.Id == id);
+            var entry = _faqEntries.FirstOrDefault(entry => entry.Id == id);
             if (entry == null)
                 throw new KeyNotFoundException($"FAQ with ID {id} not found.");
             return entry;
@@ -62,7 +62,7 @@ namespace CloudSpritzers1Tests.Src.MockClasses
 
         public void IncrementViewCount(int id)
         {
-            var entry = _faqEntries.FirstOrDefault(e => e.Id == id);
+            var entry = _faqEntries.FirstOrDefault(entry => entry.Id == id);
             if (entry == null)
                 throw new KeyNotFoundException($"FAQ with ID {id} not found.");
 
@@ -75,7 +75,7 @@ namespace CloudSpritzers1Tests.Src.MockClasses
 
         public void IncrementWasHelpfulVotes(int id)
         {
-            var entry = _faqEntries.FirstOrDefault(e => e.Id == id);
+            var entry = _faqEntries.FirstOrDefault(entry => entry.Id == id);
             if (entry == null)
                 throw new KeyNotFoundException($"FAQ with ID {id} not found.");
 
@@ -84,7 +84,7 @@ namespace CloudSpritzers1Tests.Src.MockClasses
 
         public void IncrementWasNotHelpfulVotes(int id)
         {
-            var entry = _faqEntries.FirstOrDefault(e => e.Id == id);
+            var entry = _faqEntries.FirstOrDefault(entry => entry.Id == id);
             if (entry == null)
                 throw new KeyNotFoundException($"FAQ with ID {id} not found.");
 
@@ -93,7 +93,7 @@ namespace CloudSpritzers1Tests.Src.MockClasses
 
         public void UpdateById(int id, FAQEntry elem)
         {
-            var entry = _faqEntries.FirstOrDefault(e => e.Id == id);
+            var entry = _faqEntries.FirstOrDefault(entry => entry.Id == id);
             if (entry == null)
                 throw new KeyNotFoundException($"FAQ with ID {id} not found.");
             entry.Question = elem.Question;

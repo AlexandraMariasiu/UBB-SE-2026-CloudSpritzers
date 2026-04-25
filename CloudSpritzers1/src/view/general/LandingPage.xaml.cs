@@ -18,7 +18,7 @@ namespace CloudSpritzers1.Src.View.General
             this.InitializeComponent();
             this.DataContext = ViewModel;
             StartCarousel();
-            this.Loaded += (s, e) => ViewModel.LoadReviews();
+            this.Loaded += (sender, arguments) => ViewModel.LoadReviews();
         }
 
         private void StartCarousel()
@@ -28,7 +28,7 @@ namespace CloudSpritzers1.Src.View.General
             carouselTimer.Start();
         }
 
-        private void OnCarouselTick(object? sender, object e)
+        private void OnCarouselTick(object? sender, object arguments)
         {
             if (SupportCarousel.Items.Count <= 1)
             {

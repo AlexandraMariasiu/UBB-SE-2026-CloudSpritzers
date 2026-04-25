@@ -99,10 +99,10 @@ namespace CloudSpritzers1Tests.Src.ViewModel
             _ticketsViewModel.CreateTicket(dto);
 
 
-            _ticketService.Received(1).AddTicket(Arg.Is<Ticket>(t =>
-                t.TicketId == 101 &&
-                t.Subject == "Broken Screen" &&
-                t.Creator.UserId == 42));
+            _ticketService.Received(1).AddTicket(Arg.Is<Ticket>(ticket =>
+                ticket.TicketId == 101 &&
+                ticket.Subject == "Broken Screen" &&
+                ticket.Creator.UserId == 42));
 
 
             _ticketService.Received(2).GetAllTickets();

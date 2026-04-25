@@ -254,7 +254,7 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
 
         public void IncrementViewCountFor(int faqId)
         {
-            var faq = FAQs.FirstOrDefault(x => x.Id == faqId);
+            var faq = FAQs.FirstOrDefault(mainListDto => mainListDto.Id == faqId);
             if (faq == null)
             {
                 return;
@@ -265,7 +265,7 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
 
             faq.ViewCount++;
 
-            var filteredFaq = FilteredFAQs.FirstOrDefault(x => x.Id == faqId);
+            var filteredFaq = FilteredFAQs.FirstOrDefault(filteredListDto => filteredListDto.Id == faqId);
             if (filteredFaq != null && filteredFaq != faq)
             {
                 filteredFaq.ViewCount = faq.ViewCount;

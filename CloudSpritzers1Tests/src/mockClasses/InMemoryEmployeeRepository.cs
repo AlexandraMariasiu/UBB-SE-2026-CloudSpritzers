@@ -22,7 +22,7 @@ namespace CloudSpritzers1Tests.Src.MockClasses
 
         public void DeleteById(int id)
         {
-            var employee = _employees.FirstOrDefault(e => e.EmployeeId == id);
+            var employee = _employees.FirstOrDefault(employee => employee.EmployeeId == id);
             if (employee == null)
                 throw new KeyNotFoundException($"Employee with id {id} not found.");
 
@@ -33,7 +33,7 @@ namespace CloudSpritzers1Tests.Src.MockClasses
 
         public Employee GetById(int id)
         {
-            var employee = _employees.FirstOrDefault(e => e.EmployeeId == id);
+            var employee = _employees.FirstOrDefault(employee => employee.EmployeeId == id);
             if (employee == null)
                 throw new KeyNotFoundException($"Employee with id {id} not found.");
 
@@ -45,11 +45,11 @@ namespace CloudSpritzers1Tests.Src.MockClasses
             if (employeeEntity == null)
                 throw new ArgumentNullException(nameof(employeeEntity));
 
-            var index = _employees.FindIndex(e => e.EmployeeId == id);
-            if (index == -1)
+            var employeePosition = _employees.FindIndex(employee => employee.EmployeeId == id);
+            if (employeePosition == -1)
                 throw new KeyNotFoundException();
 
-            _employees[index] = employeeEntity;
+            _employees[employeePosition] = employeeEntity;
         }
     }
 }

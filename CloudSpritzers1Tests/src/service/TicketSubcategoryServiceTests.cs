@@ -58,7 +58,7 @@ namespace CloudSpritzers1Tests.Src.Service
         public void GetSubcategoryById_WhenIdIsInvalid_PropagatesException()
         {
 
-            _subcategoryRepoMock.GetById(999).Returns(x => { throw new KeyNotFoundException(); });
+            _subcategoryRepoMock.GetById(999).Returns(capturedArgs => { throw new KeyNotFoundException(); });
             Assert.ThrowsExactly<KeyNotFoundException>(() => _subcategoryService.GetSubcategoryById(999));
         }
     }

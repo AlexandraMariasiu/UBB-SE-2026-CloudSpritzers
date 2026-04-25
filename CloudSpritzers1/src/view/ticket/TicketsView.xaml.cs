@@ -26,7 +26,7 @@ namespace CloudSpritzers1.Src.View.Ticket
             this.DataContext = ViewModel;
         }
 
-        private async void CreateTicketButton_Click(object sender, RoutedEventArgs e)
+        private async void CreateTicketButton_Click(object sender, RoutedEventArgs arguments)
         {
             // Build the UI using the helper method to keep this handler clean
             var (layout, inputs) = BuildSubmissionForm();
@@ -40,13 +40,13 @@ namespace CloudSpritzers1.Src.View.Ticket
             };
 
             // Logic for the Send button
-            inputs.SubmitButton.Click += async (s, args) =>
+            inputs.SubmitButton.Click += async (sender, args) =>
             {
                 await HandleSubmission(inputs, submissionDialog);
             };
 
             // Logic for the Cancel button
-            inputs.CancelButton.Click += (s, args) => submissionDialog.Hide();
+            inputs.CancelButton.Click += (sender, args) => submissionDialog.Hide();
 
             await submissionDialog.ShowAsync();
         }
@@ -61,8 +61,8 @@ namespace CloudSpritzers1.Src.View.Ticket
                     throw new Exception("Please fill all required fields.");
                 }
 
-                var selectedCategory = ViewModel.Categories.FirstOrDefault(c => c.CategoryName == inputs.CategoryCombo.SelectedItem?.ToString());
-                var selectedSubcategory = ViewModel.Subcategories.FirstOrDefault(s => s.SubcategoryName == inputs.SubcategoryCombo.SelectedItem?.ToString());
+                var selectedCategory = ViewModel.Categories.FirstOrDefault(categoryItem => categoryItem.CategoryName == inputs.CategoryCombo.SelectedItem?.ToString());
+                var selectedSubcategory = ViewModel.Subcategories.FirstOrDefault(subcategoryItem => subcategoryItem.SubcategoryName == inputs.SubcategoryCombo.SelectedItem?.ToString());
 
                 var newTicket = new TicketDTO(
                     ticketId: ViewModel.GetTotalTicketCount() + 1,
@@ -107,10 +107,10 @@ namespace CloudSpritzers1.Src.View.Ticket
             var subcategoryCombo = new ComboBox { Header = "Subcategory*", Width = 400, PlaceholderText = "Select Subcategory" };
             panel.Children.Add(subcategoryCombo);
 
-            categoryCombo.SelectionChanged += (s, e) =>
+            categoryCombo.SelectionChanged += (sender, arguments) =>
             {
                 subcategoryCombo.Items.Clear();
-                var cat = ViewModel.Categories.FirstOrDefault(c => c.CategoryName == categoryCombo.SelectedItem?.ToString());
+                var cat = ViewModel.Categories.FirstOrDefault(categoryItem => categoryItem.CategoryName == categoryCombo.SelectedItem?.ToString());
                 if (cat == null)
                 {
                     return;
@@ -144,7 +144,7 @@ namespace CloudSpritzers1.Src.View.Ticket
             await dialog.ShowAsync();
         }
 
-        private void FilterChanged(object sender, SelectionChangedEventArgs e)
+        private void FilterChanged(object sender, SelectionChangedEventArgs arguments)
         {
             if (sender is ComboBox combo && combo.SelectedItem is ComboBoxItem selected && selected.Tag != null)
             {

@@ -113,9 +113,9 @@ namespace CloudSpritzers1Tests.Src.ViewModel.General
             var viewModel = new UpperBarViewModel(null, null);
             bool propertyChangedRaised = false;
 
-            viewModel.PropertyChanged += (s, e) =>
+            viewModel.PropertyChanged += (sender, arguments) =>
             {
-                if (e.PropertyName == nameof(viewModel.UserDisplayLabel))
+                if (arguments.PropertyName == nameof(viewModel.UserDisplayLabel))
                 {
                     propertyChangedRaised = true;
                 }

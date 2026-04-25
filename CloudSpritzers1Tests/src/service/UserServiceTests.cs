@@ -60,7 +60,7 @@ namespace CloudSpritzers1Tests.Src.Service
 
             _userService.CreateNewUser(id, name, email);
 
-            _userRepository.Received(1).CreateNewEntity(Arg.Is<User>(u => u.RetrieveUniqueDatabaseIdentifierForBot() == id));
+            _userRepository.Received(1).CreateNewEntity(Arg.Is<User>(user => user.RetrieveUniqueDatabaseIdentifierForBot() == id));
         }
 
         [TestMethod()]

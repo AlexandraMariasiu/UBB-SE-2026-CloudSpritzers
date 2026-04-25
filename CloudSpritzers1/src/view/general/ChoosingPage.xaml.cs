@@ -49,7 +49,7 @@ namespace CloudSpritzers1.Src.View.General
         /// </summary>
         /// <param name="sender">The button that was clicked.</param>
         /// <param name="e">Event data for the click event.</param>
-        private void SelectUserRole_Click(object sender, RoutedEventArgs e)
+        private void SelectUserRole_Click(object sender, RoutedEventArgs arguments)
         {
             if (sender is Button button && button.Tag != null)
             {
