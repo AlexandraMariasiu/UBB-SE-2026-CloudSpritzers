@@ -27,6 +27,7 @@ namespace CloudSpritzers1.Src.Repository.Database
 
         protected override int GetEntityId(Message entity) => entity.GetId();
 
+
         public int CreateNewEntity(Message newEntity)
         {
             const string insertQuery =

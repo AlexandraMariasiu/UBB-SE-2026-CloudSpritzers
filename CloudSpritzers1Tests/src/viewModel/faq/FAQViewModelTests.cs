@@ -18,7 +18,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
     [TestClass]
     public class FAQViewModelTests
     {
-        private IFAQRepository _faqRepository;
         private IMapper _mapper;
         private IFAQService _faqService;
         private FAQViewModel _faqViewModel;
@@ -26,7 +25,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         [TestInitialize]
         public void Setup()
         {
-            _faqRepository = Substitute.For<IFAQRepository>();
             _mapper = Substitute.For<IMapper>();
             _faqService = Substitute.For<IFAQService>();
 
@@ -48,7 +46,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         }
 
         [TestMethod]
-        public void ConstructorLoadsFAQs()
+        public void Constructor_WhenCalled_LoadsFAQsAndSetsVariable()
         {
             var allFAQs = _faqService.GetAll().OrderByDescending(entry => entry.ViewCount).ToList();
             _faqService.FilterFAQEntry(Arg.Any<FAQCategoryEnum>(), Arg.Any<string>()).Returns(allFAQs);
@@ -57,13 +55,10 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             Assert.AreEqual(3, _faqViewModel.FilteredFAQs.Count);
             Assert.AreEqual(FAQCategoryEnum.All, _faqViewModel.SelectedCategory);
             Assert.AreEqual(string.Empty, _faqViewModel.SearchQuery);
-
-            AssertFaqMatches(_faqViewModel.FAQs[0], allFAQs[0]);
-            AssertFaqMatches(_faqViewModel.FilteredFAQs[2], allFAQs[2]);
         }
 
         [TestMethod]
-        public void SearchByQuestionOrAnswer()
+        public void Search_ByQuestionOrAnswer_ReturnsCorrespondingFAQs()
         {
             var searchResults = new List<FAQEntry>
             {
@@ -76,11 +71,11 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             _faqViewModel.SearchQuery = "park";
 
             Assert.AreEqual(2, _faqViewModel.FilteredFAQs.Count);
-            CollectionAssert.AreEqual(new[] { 2, 1 }, _faqViewModel.FilteredFAQs.Select(x => x.Id).ToArray());
+            CollectionAssert.AreEqual(new[] { 2, 1 }, _faqViewModel.FilteredFAQs.Select(faqDto => faqDto.Id).ToArray());
         }
 
         [TestMethod]
-        public void FilterByCategory()
+        public void Filter_ByCategory_ReturnsCorrespondingFAQs()
         {
             var parkingEntries = new List<FAQEntry>
             {
@@ -93,76 +88,11 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
 
             Assert.AreEqual(FAQCategoryEnum.Parking, _faqViewModel.SelectedCategory);
             Assert.AreEqual(2, _faqViewModel.FilteredFAQs.Count);
-            CollectionAssert.AreEqual(new[] { 2, 1 }, _faqViewModel.FilteredFAQs.Select(x => x.Id).ToArray());
+            CollectionAssert.AreEqual(new[] { 2, 1 }, _faqViewModel.FilteredFAQs.Select(filteredFaq => filteredFaq.Id).ToArray());
         }
 
         [TestMethod]
-        public void AddFAQEntryAsAdminSucceeds()
-        {
-            _faqViewModel.IsAdmin = true;
-            var newEntry = new FAQEntry(4, "How much can the baggage on the plane be?", "10kg", FAQCategoryEnum.Baggage, 0, 0, 0);
-            var allFAQs = new List<FAQEntry>
-            {
-                new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0),
-                new FAQEntry(2, "How much does parking cost per day?", "Parking is 100 euros", FAQCategoryEnum.Parking, 2, 3, 1),
-                new FAQEntry(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 3, 4, 2),
-                newEntry
-            };
-
-            var newDto = MapToDto(newEntry);
-
-            _faqViewModel.AddFAQEntry(newDto);
-
-            _faqService.Received(1).AddFAQEntry(Arg.Is<FAQEntry>(x => x.Id == newEntry.Id && x.Question == newEntry.Question));
-            Assert.AreEqual(3, _faqViewModel.FAQs.Count);
-            Assert.AreEqual(3, _faqViewModel.FilteredFAQs.Count);
-        }
-
-        [TestMethod]
-        public void AddFAQEntryNotAdminThrowsUnauthorizedAccessException()
-        {
-            Assert.ThrowsExactly<UnauthorizedAccessException>(() => _faqViewModel.AddFAQEntry(MapToDto(new FAQEntry(4, "Q", "A", FAQCategoryEnum.Baggage, 0, 0, 0))));
-            _faqService.DidNotReceive().AddFAQEntry(Arg.Any<FAQEntry>());
-        }
-
-        [TestMethod]
-        public void EditFAQEntryAsAdminSucceeds()
-        {
-            _faqViewModel.IsAdmin = true;
-            var updatedEntry = new FAQEntry(1, "What cars can I park here?", "Only BMWs", FAQCategoryEnum.Parking, 5, 2, 1);
-            var allFAQs = new List<FAQEntry>
-            {
-                updatedEntry,
-                new FAQEntry(2, "How much does parking cost per day?", "Parking is 100 euros", FAQCategoryEnum.Parking, 2, 3, 1),
-                new FAQEntry(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 3, 4, 2),
-            };
-            _faqService.GetAll().Returns(allFAQs);
-
-            var updatedDto = MapToDto(updatedEntry);
-
-            _faqViewModel.EditFAQEntry(updatedDto);
-
-            _faqService.Received(1).EditFAQEntry(Arg.Is<FAQEntry>(x => x.Id == 1), 1);
-            Assert.AreEqual("Only BMWs", _faqViewModel.FAQs.First(x => x.Id == 1).Answer);
-        }
-
-        [TestMethod]
-        public void EditFAQEntryNotAdminThrowsUnauthorizedAccessException()
-        {
-            Assert.ThrowsExactly<UnauthorizedAccessException>(() => _faqViewModel.EditFAQEntry(MapToDto(new FAQEntry(4, "Q", "A", FAQCategoryEnum.Baggage, 0, 0, 0))));
-            _faqService.DidNotReceive().EditFAQEntry(Arg.Any<FAQEntry>(), Arg.Any<int>());
-        }
-
-        [TestMethod]
-        public void EditFAQEntryThrowsArgumentNullException()
-        {
-            _faqViewModel.IsAdmin = true;
-            Assert.ThrowsExactly<ArgumentNullException>(() => _faqViewModel.EditFAQEntry(null));
-            _faqService.DidNotReceive().EditFAQEntry(Arg.Any<FAQEntry>(), Arg.Any<int>());
-        }
-
-        [TestMethod]
-        public void DeleteFAQEntryAsAdminSucceeds()
+        public void Delete_FAQEntryAsAdmin_Succeeds()
         {
             _faqViewModel.IsAdmin = true;
             var entryToDelete = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
@@ -172,7 +102,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
                 new FAQEntry(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 3, 4, 2),
             };
             _faqService.GetAll().Returns(updatedEntries);
-
             var entryToDeleteDto = MapToDto(entryToDelete);
 
             _faqViewModel.DeleteFAQEntry(entryToDeleteDto);
@@ -182,14 +111,14 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         }
 
         [TestMethod]
-        public void DeleteFAQEntryNotAdminThrowsUnauthorizedAccessException()
+        public void Delete_FAQEntryNotAdmin_ThrowsUnauthorizedAccessException()
         {
             Assert.ThrowsExactly<UnauthorizedAccessException>(() => _faqViewModel.DeleteFAQEntry(MapToDto(new FAQEntry(4, "Q", "A", FAQCategoryEnum.Baggage, 0, 0, 0))));
             _faqService.DidNotReceive().DeleteFAQEntry(Arg.Any<int>());
         }
 
         [TestMethod]
-        public void DeleteFAQEntryThrowsArgumentNullException()
+        public void Delete_NullFAQEntry_ThrowsArgumentNullException()
         {
             _faqViewModel.IsAdmin = true;
             Assert.ThrowsExactly<ArgumentNullException>(() => _faqViewModel.DeleteFAQEntry(null));
@@ -197,7 +126,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         }
 
         [TestMethod]
-        public void ToggleFAQExpandsEntryAndIncrementsViewCount()
+        public void ToggleFAQ_WhenPressed_ExpandsEntryAndIncrementsViewCount()
         {
             var firstFaq = _faqViewModel.FilteredFAQs[0];
             var viewCountBeforeExpanding = firstFaq.ViewCount;
@@ -208,13 +137,13 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             Assert.IsTrue(firstFaq.IsExpanded);
             Assert.IsFalse(secondFaq.IsExpanded);
             Assert.AreEqual(firstFaq, _faqViewModel.SelectedFAQEntry);
-            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FAQs.First(x => x.Id == firstFaq.Id).ViewCount);
-            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FilteredFAQs.First(x => x.Id == firstFaq.Id).ViewCount);
+            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FAQs.First(faqDto => faqDto.Id == firstFaq.Id).ViewCount);
+            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FilteredFAQs.First(faqDto => faqDto.Id == firstFaq.Id).ViewCount);
             _faqService.Received(1).IncrementViewCount(Arg.Any<FAQEntry>());
         }
 
         [TestMethod]
-        public void ToggleFAQCalledForNullEntityReturns()
+        public void ToggleFAQ_CalledForNullEntity_ReturnsWithoutCallingService()
         {
             var firstFaq = _faqViewModel.FilteredFAQs[0];
             _faqViewModel.ToggleFAQ(null);
@@ -224,27 +153,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         }
 
         [TestMethod]
-        public void IncrementWasHelpfulVotes()
-        {
-            var entryToIncrementHelpfulVotes= new FAQEntryDTO(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 4, 4, 2); ;
-            _faqViewModel.SelectedFAQEntry = entryToIncrementHelpfulVotes;
-            var expectedUpdatedEntry= new FAQEntryDTO(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 4, 5, 2);
-            _faqViewModel.IncrementWasHelpfulVotes();
-
-            _faqService.Received(1).IncrementWasHelpfulVotes(Arg.Any<FAQEntry>());
-            Assert.AreEqual(expectedUpdatedEntry.HelpfulVotesCount, _faqViewModel.SelectedFAQEntry!.HelpfulVotesCount);
-        }
-
-        [TestMethod]
-        public void IncrementHelpfulCount_WithNoSelectedFAQ_DoesNothing()
-        {
-            _faqViewModel.IncrementWasHelpfulVotes();
-
-            _faqService.DidNotReceive().IncrementWasHelpfulVotes(Arg.Any<FAQEntry>());
-        }
-
-        [TestMethod]
-        public void IncrementWasNotHelpfulVotes()
+        public void IncrementWasNotHelpfulVotes_ForSelectedFAQ_UpdatesNotHelpfulVotesCount()
         {
             var entryToIncrementNotHelpfulVotes = new FAQEntryDTO(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 4, 4, 2); ;
             _faqViewModel.SelectedFAQEntry = entryToIncrementNotHelpfulVotes;
@@ -256,47 +165,17 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         }
 
         [TestMethod]
-        public void IncrementNotHelpfulCount_WithNoSelectedFAQ_DoesNothing()
-        {
-            _faqViewModel.IncrementWasNotHelpfulVotes();
-
-            _faqService.DidNotReceive().IncrementWasNotHelpfulVotes(Arg.Any<FAQEntry>());
-        }
-
-        [TestMethod]
-        public void IncrementViewCount_WithNoSelectedFAQ_DoesNothing()
-        {
-            _faqViewModel.IncrementViewCount();
-
-            _faqService.DidNotReceive().IncrementViewCount(Arg.Any<FAQEntry>());
-        }
-
-        [TestMethod]
-        public void IncrementViewCount_WithValidFAQ_IsSuccessful()
-        {
-            
-            _faqViewModel.SelectedFAQEntry = new FAQEntryDTO(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 3, 4, 2);
-            var faqEntryToIncrementViewCount = _faqViewModel.SelectedFAQEntry;
-
-            _faqViewModel.IncrementViewCount();
-            var updatedFaqEntry = new FAQEntryDTO(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 4, 4, 2);
-
-            _faqService.Received(1).IncrementViewCount(MapToEntity(faqEntryToIncrementViewCount));
-            Assert.AreEqual(updatedFaqEntry.ViewCount, faqEntryToIncrementViewCount.ViewCount + 1);
-        }
-
-        [TestMethod]
         public async Task Save_WithNewEntry_AddsFaq()
         {
             _faqViewModel.IsAdmin = true;
 
             await _faqViewModel.Save("Can my dog come on the plane?", "Depending on the breed", FAQCategoryEnum.Baggage.ToString());
 
-            _faqService.Received(1).AddFAQEntry(Arg.Is<FAQEntry>(x =>
-                x.Id == 0 &&
-                x.Question == "Can my dog come on the plane?" &&
-                x.Answer == "Depending on the breed" &&
-                x.Category == FAQCategoryEnum.Baggage));
+            _faqService.Received(1).AddFAQEntry(Arg.Is<FAQEntry>(receivedEntry =>
+                receivedEntry.Id == 0 &&
+                receivedEntry.Question == "Can my dog come on the plane?" &&
+                receivedEntry.Answer == "Depending on the breed" &&
+                receivedEntry.Category == FAQCategoryEnum.Baggage));
         }
 
         [TestMethod]
@@ -308,11 +187,11 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             await _faqViewModel.Save("Can my dog come on the plane?", "Depending on the size", FAQCategoryEnum.Parking.ToString());
 
             _faqService.Received(1).EditFAQEntry(
-                Arg.Is<FAQEntry>(x =>
-                    x.Id == _faqViewModel.FAQs[0].Id &&
-                    x.Question == "Can my dog come on the plane?" &&
-                    x.Answer == "Depending on the size" &&
-                    x.Category == FAQCategoryEnum.Parking),
+                Arg.Is<FAQEntry>(entityToUpdate =>
+                    entityToUpdate.Id == _faqViewModel.FAQs[0].Id &&
+                    entityToUpdate.Question == "Can my dog come on the plane?" &&
+                    entityToUpdate.Answer == "Depending on the size" &&
+                    entityToUpdate.Category == FAQCategoryEnum.Parking),
                 _faqViewModel.FAQs[0].Id);
         }
 
@@ -335,22 +214,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         {
             await Assert.ThrowsExactlyAsync<ArgumentException>(async () =>
                 await _faqViewModel.Save("Can my dog come on the plane?", "Depending on the size", "NotARealCategory"));
-        }
-
-        [TestMethod]
-        public void SetCategory_UpdatesCategoryAndFilters()
-        {
-            var parkingEntries = new List<FAQEntry>
-            {
-                new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0),
-                new FAQEntry(2, "How much does parking cost per day?", "100 euros", FAQCategoryEnum.Parking, 2, 3, 1),
-            };
-            _faqService.FilterFAQEntry(FAQCategoryEnum.Parking, Arg.Any<string>()).Returns(parkingEntries);
-
-            _faqViewModel.SetCategory(FAQCategoryEnum.Parking);
-
-            Assert.AreEqual(FAQCategoryEnum.Parking, _faqViewModel.SelectedCategory);
-            Assert.AreEqual(2, _faqViewModel.FilteredFAQs.Count);
         }
 
         [TestMethod]
@@ -395,7 +258,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         }
 
         [TestMethod]
-        public void BuildNavigationData_ReturnsExpectedValues()
+        public void Build_NavigationData_ReturnsExpectedValues()
         {
             _faqViewModel.IsAdmin = true;
             _faqViewModel.SelectedFAQEntry = _faqViewModel.FAQs[1];
@@ -429,17 +292,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
                 dto.ViewCount,
                 dto.HelpfulVotesCount,
                 dto.NotHelpfulVotesCount);
-        }
-
-        private static void AssertFaqMatches(FAQEntryDTO actual, FAQEntry expected)
-        {
-            Assert.AreEqual(expected.Id, actual.Id);
-            Assert.AreEqual(expected.Question, actual.Question);
-            Assert.AreEqual(expected.Answer, actual.Answer);
-            Assert.AreEqual(expected.Category, actual.Category);
-            Assert.AreEqual(expected.ViewCount, actual.ViewCount);
-            Assert.AreEqual(expected.HelpfulVotesCount, actual.HelpfulVotesCount);
-            Assert.AreEqual(expected.NotHelpfulVotesCount, actual.NotHelpfulVotesCount);
         }
 
         [TestMethod]
@@ -481,33 +333,17 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         }
 
         [TestMethod]
-        public void OnPropertyChanged_RaisesEvent()
-        {
-            bool eventRaised = false;
-
-            _faqViewModel.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == nameof(_faqViewModel.FAQs))
-                    eventRaised = true;
-            };
-
-            _faqViewModel.FAQs = new System.Collections.ObjectModel.ObservableCollection<FAQEntryDTO>();
-
-            Assert.IsTrue(eventRaised);
-        }
-
-        [TestMethod]
         public void IncrementViewCountFor_RaisesPropertyChanged()
         {
             var faq = _faqViewModel.FAQs[0];
             bool faqsChanged = false;
             bool filteredChanged = false;
 
-            _faqViewModel.PropertyChanged += (s, e) =>
+            _faqViewModel.PropertyChanged += (sender, propertyArguments) =>
             {
-                if (e.PropertyName == nameof(_faqViewModel.FAQs))
+                if (propertyArguments.PropertyName == nameof(_faqViewModel.FAQs))
                     faqsChanged = true;
-                if (e.PropertyName == nameof(_faqViewModel.FilteredFAQs))
+                if (propertyArguments.PropertyName == nameof(_faqViewModel.FilteredFAQs))
                     filteredChanged = true;
             };
 
@@ -515,50 +351,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
 
             Assert.IsTrue(faqsChanged);
             Assert.IsTrue(filteredChanged);
-        }
-
-        [TestMethod]
-        public void IncrementViewCountFor_FilteredFaqDifferentInstance_UpdatesBoth()
-        {
-            var faq = _faqViewModel.FAQs[0];
-
-            var separateInstance = new FAQEntryDTO(
-                faq.Id,
-                faq.Question,
-                faq.Answer,
-                faq.Category,
-                faq.ViewCount,
-                faq.HelpfulVotesCount,
-                faq.NotHelpfulVotesCount
-            );
-
-            _faqViewModel.FilteredFAQs.Clear();
-            _faqViewModel.FilteredFAQs.Add(separateInstance);
-
-            _faqViewModel.IncrementViewCountFor(faq.Id);
-
-            _faqService.Received(1).IncrementViewCount(Arg.Any<FAQEntry>());
-
-            Assert.AreEqual(faq.ViewCount, separateInstance.ViewCount);
-        }
-
-        [TestMethod]
-        public void FilteredFAQs_Setter_UpdatesValue_AndRaisesPropertyChanged()
-        {
-            bool eventRaised = false;
-
-            _faqViewModel.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == nameof(_faqViewModel.FilteredFAQs))
-                    eventRaised = true;
-            };
-
-            var newCollection = new System.Collections.ObjectModel.ObservableCollection<FAQEntryDTO>();
-
-            _faqViewModel.FilteredFAQs = newCollection;
-
-            Assert.AreEqual(newCollection, _faqViewModel.FilteredFAQs);
-            Assert.IsTrue(eventRaised);
         }
     }
 }

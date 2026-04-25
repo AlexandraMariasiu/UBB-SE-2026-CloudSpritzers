@@ -16,7 +16,7 @@ namespace CloudSpritzers1.Src.ViewModel.General
             // Access to application state is performed inside the ViewModel layer
             // user = ((App)App.Current).User;
             // employee = ((App)App.Current).Employee
-            user = currentUser ?? (Application.Current is App a ? a.User : null);
+            user = currentUser ?? (Application.Current is App app ? app.User : null);
             employee = currentEmployee ?? (Application.Current is App ap ? ap.Employee : null);
 
             // Determine if the current context is a client (user) or an employee

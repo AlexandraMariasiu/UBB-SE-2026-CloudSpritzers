@@ -18,7 +18,7 @@ namespace CloudSpritzers1.Src.View.Chat
             this.InitializeComponent();
         }
 
-        public void EndChat(object sender, RoutedEventArgs e)
+        public void EndChat(object sender, RoutedEventArgs arguments)
         {
             ViewModel.CloseChat();
             this.Frame.Navigate(typeof(CloudSpritzers1.Src.View.General.LandingPage));

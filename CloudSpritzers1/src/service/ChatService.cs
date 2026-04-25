@@ -12,6 +12,7 @@ namespace CloudSpritzers1.Src.Service
     public class ChatService
     {
         private IRepository<int, Chat> chatRepository;
+        public const int UNASSIGNED_CHAT_ID = 0;
 
         public ChatService(IRepository<int, Chat> chatRepository)
         {
@@ -22,7 +23,7 @@ namespace CloudSpritzers1.Src.Service
         {
             try
             {
-                Chat newChat = new Chat(0, userId, ChatStatus.Active);
+                Chat newChat = new Chat(UNASSIGNED_CHAT_ID, userId, ChatStatus.Active);
                 int newId = Convert.ToInt32(chatRepository.CreateNewEntity(newChat));
                 newChat.ChatId = newId;
                 return newChat;

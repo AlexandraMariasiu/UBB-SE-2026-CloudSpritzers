@@ -191,7 +191,6 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
             questionsService.IncrementViewCount(questionEntity);
             LoadFAQ();
         }
-
         public void IncrementWasHelpfulVotes()
         {
             if (SelectedFAQEntry == null)
@@ -265,7 +264,7 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
 
             frequentlyAskedQuestion.ViewCount++;
 
-            var filteredFaq = FilteredFAQs.FirstOrDefault(x => x.Id == questionId);
+            var filteredFaq = FilteredFAQs.FirstOrDefault(filteredListDto => filteredListDto.Id == questionId);
             if (filteredFaq != null && filteredFaq != frequentlyAskedQuestion)
             {
                 filteredFaq.ViewCount = frequentlyAskedQuestion.ViewCount;

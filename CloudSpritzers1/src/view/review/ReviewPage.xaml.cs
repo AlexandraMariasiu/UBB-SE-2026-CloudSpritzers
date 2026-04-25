@@ -37,7 +37,7 @@ namespace CloudSpritzers1.Src.View.Review
             await dialog.ShowAsync();
         }
 
-        private async void NavigateToTicketsView_Click(object sender, RoutedEventArgs e)
+        private async void NavigateToTicketsView_Click(object sender, RoutedEventArgs arguments)
         {
             var button = sender as Button;
 
