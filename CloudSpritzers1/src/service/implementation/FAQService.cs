@@ -68,9 +68,9 @@ namespace CloudSpritzers1.Src.Service.Implementation
 
             if (!string.IsNullOrWhiteSpace(searchQuery))
             {
-                faqs = faqs.Where(f =>
-                    (f.Question?.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                    (f.Answer?.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ?? false));
+                faqs = faqs.Where(faq =>
+                    (faq.Question?.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    (faq.Answer?.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ?? false));
             }
 			return faqs.ToList();
         }

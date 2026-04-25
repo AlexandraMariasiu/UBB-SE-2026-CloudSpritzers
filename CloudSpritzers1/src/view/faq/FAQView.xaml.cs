@@ -46,9 +46,9 @@ namespace CloudSpritzers1.Src.View.Faq
             UpdateAdminVisibility();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs arguments)
         {
-            base.OnNavigatedTo(e);
+            base.OnNavigatedTo(arguments);
 
             var app = (App)App.Current;
 
@@ -67,7 +67,7 @@ namespace CloudSpritzers1.Src.View.Faq
             UpdateAdminVisibility();
         }
 
-        private void OpenFaqButton_Click(object sender, RoutedEventArgs e)
+        private void OpenFaqButton_Click(object sender, RoutedEventArgs arguments)
         {
             if (sender is Button button && button.DataContext is FAQEntryDTO faq)
             {
@@ -76,7 +76,7 @@ namespace CloudSpritzers1.Src.View.Faq
             }
         }
 
-        private void AccordionHeader_Click(object sender, RoutedEventArgs e)
+        private void AccordionHeader_Click(object sender, RoutedEventArgs arguments)
         {
             if (sender is Button button && button.DataContext is FAQEntryDTO faq)
             {
@@ -85,43 +85,43 @@ namespace CloudSpritzers1.Src.View.Faq
             }
         }
 
-        private void AllQuestionsButton_Click(object sender, RoutedEventArgs e)
+        private void AllQuestionsButton_Click(object sender, RoutedEventArgs arguments)
         {
             ViewModel.SetCategory(FAQCategoryEnum.All);
             SetCategoryUI(AllQuestionsButton);
         }
 
-        private void CheckInButton_Click(object sender, RoutedEventArgs e)
+        private void CheckInButton_Click(object sender, RoutedEventArgs arguments)
         {
             ViewModel.SetCategory(FAQCategoryEnum.CheckIn);
             SetCategoryUI(CheckInButton);
         }
 
-        private void ParkingButton_Click(object sender, RoutedEventArgs e)
+        private void ParkingButton_Click(object sender, RoutedEventArgs arguments)
         {
             ViewModel.SetCategory(FAQCategoryEnum.Parking);
             SetCategoryUI(ParkingButton);
         }
 
-        private void BaggageButton_Click(object sender, RoutedEventArgs e)
+        private void BaggageButton_Click(object sender, RoutedEventArgs arguments)
         {
             ViewModel.SetCategory(FAQCategoryEnum.Baggage);
             SetCategoryUI(BaggageButton);
         }
 
-        private void TicketButton_Click(object sender, RoutedEventArgs e)
+        private void TicketButton_Click(object sender, RoutedEventArgs arguments)
         {
             ViewModel.SetCategory(FAQCategoryEnum.Tickets);
             SetCategoryUI(TicketsButton);
         }
 
-        private void FacilitiesButton_Click(object sender, RoutedEventArgs e)
+        private void FacilitiesButton_Click(object sender, RoutedEventArgs arguments)
         {
             ViewModel.SetCategory(FAQCategoryEnum.Facilities);
             SetCategoryUI(FacilitiesButton);
         }
 
-        private void AddFaqButton_Click(object sender, RoutedEventArgs e)
+        private void AddFaqButton_Click(object sender, RoutedEventArgs arguments)
         {
             var data = new FAQNavigationData
             {
@@ -133,7 +133,7 @@ namespace CloudSpritzers1.Src.View.Faq
             Frame.Navigate(typeof(FAQAddEditPage), data);
         }
 
-        private void EditFaqButton_Click(object sender, RoutedEventArgs e)
+        private void EditFaqButton_Click(object sender, RoutedEventArgs arguments)
         {
             if (ViewModel.SelectedFAQEntry == null)
             {
@@ -145,7 +145,7 @@ namespace CloudSpritzers1.Src.View.Faq
             Frame.Navigate(typeof(FAQAddEditPage), data);
         }
 
-        private async void DeleteFaqButton_Click(object sender, RoutedEventArgs e)
+        private async void DeleteFaqButton_Click(object sender, RoutedEventArgs arguments)
         {
             if (ViewModel.SelectedFAQEntry == null)
             {
@@ -172,7 +172,7 @@ namespace CloudSpritzers1.Src.View.Faq
             }
         }
 
-        private void HelpfulButton_Click(object sender, RoutedEventArgs e)
+        private void HelpfulButton_Click(object sender, RoutedEventArgs arguments)
         {
             if (sender is Button button && button.Tag is FAQEntryDTO faq)
             {
@@ -180,7 +180,7 @@ namespace CloudSpritzers1.Src.View.Faq
             }
         }
 
-        private void NotHelpfulButton_Click(object sender, RoutedEventArgs e)
+        private void NotHelpfulButton_Click(object sender, RoutedEventArgs arguments)
         {
             if (sender is Button button && button.Tag is FAQEntryDTO faq)
             {

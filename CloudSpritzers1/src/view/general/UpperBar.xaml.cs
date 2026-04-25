@@ -27,7 +27,7 @@ namespace CloudSpritzers1.Src.View.General
             return parent;
         }
 
-        public void OnChatRequested(object sender, RoutedEventArgs e)
+        public void OnChatRequested(object sender, RoutedEventArgs arguments)
         {
             if (FindParentFrame() is Frame frame)
             {
@@ -35,7 +35,7 @@ namespace CloudSpritzers1.Src.View.General
             }
         }
 
-        public void OnLandingRequested(object sender, RoutedEventArgs e)
+        public void OnLandingRequested(object sender, RoutedEventArgs arguments)
         {
             if (FindParentFrame() is Frame frame)
             {
@@ -43,7 +43,7 @@ namespace CloudSpritzers1.Src.View.General
             }
         }
 
-        public void OnFAQRequested(object sender, RoutedEventArgs e)
+        public void OnFAQRequested(object sender, RoutedEventArgs arguments)
         {
             if (FindParentFrame() is Frame frame)
             {
@@ -51,7 +51,7 @@ namespace CloudSpritzers1.Src.View.General
             }
         }
 
-        public void OnTicketsRequested(object sender, RoutedEventArgs e)
+        public void OnTicketsRequested(object sender, RoutedEventArgs arguments)
         {
             if (FindParentFrame() is Frame frame)
             {
@@ -59,7 +59,7 @@ namespace CloudSpritzers1.Src.View.General
             }
         }
 
-        public void OnReviewsRequested(object sender, RoutedEventArgs e)
+        public void OnReviewsRequested(object sender, RoutedEventArgs arguments)
         {
             if (FindParentFrame() is Frame frame)
             {
@@ -67,7 +67,7 @@ namespace CloudSpritzers1.Src.View.General
             }
         }
 
-        public void OnHomeRequested(object sender, RoutedEventArgs e)
+        public void OnHomeRequested(object sender, RoutedEventArgs arguments)
         {
             // Navigate to choosing page using the Window's root content safe for WinUI 3
             if (this.XamlRoot.Content is Frame rootFrame)

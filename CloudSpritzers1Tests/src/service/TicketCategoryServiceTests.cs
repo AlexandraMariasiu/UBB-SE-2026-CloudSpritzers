@@ -55,7 +55,7 @@ namespace CloudSpritzers1Tests.Src.Service
         public void GetCategoryById_WhenRepositoryThrows_ServicePropagatesException()
         {
 
-            _categoryRepoMock.GetById(Arg.Any<int>()).Returns(x => { throw new KeyNotFoundException(); });
+            _categoryRepoMock.GetById(Arg.Any<int>()).Returns(capturedArgs => { throw new KeyNotFoundException(); });
 
             Assert.ThrowsExactly<KeyNotFoundException>(() => _categoryService.GetCategoryById(999));
         }

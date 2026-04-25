@@ -88,7 +88,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
             string? alertTitle = null;
 
             // Subscribe to the event
-            _viewModel.AlertRequested += (s, args) =>
+            _viewModel.AlertRequested += (sender, args) =>
             {
                 alertFired = true;
                 alertTitle = args.Title;

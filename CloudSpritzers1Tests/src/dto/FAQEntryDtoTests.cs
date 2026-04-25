@@ -11,7 +11,7 @@ public class FAQEntryDtoTests
     {
         var dto = new FAQEntryDTO(1, "What type of cars can I park here", "Only audis", FAQCategoryEnum.All, 34, 23, 3);
         string? changedProperty = null;
-        dto.PropertyChanged += (s, e) => changedProperty = e.PropertyName;
+        dto.PropertyChanged += (sender, arguments) => changedProperty = arguments.PropertyName;
 
         dto.IsExpanded = true;
 

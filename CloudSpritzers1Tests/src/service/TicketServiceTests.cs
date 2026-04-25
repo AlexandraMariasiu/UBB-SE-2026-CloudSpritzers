@@ -101,7 +101,7 @@ namespace CloudSpritzers1Tests.Src.Service
 
             var categoryField = typeof(Ticket)
                 .GetFields(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                .FirstOrDefault(f => f.FieldType == typeof(TicketCategory));
+                .FirstOrDefault(field => field.FieldType == typeof(TicketCategory));
 
             if (categoryField == null)
             {

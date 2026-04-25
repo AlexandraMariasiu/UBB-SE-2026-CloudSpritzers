@@ -96,11 +96,11 @@ namespace CloudSpritzers1.Src.View.Faq
         //        }
         //    }
         // }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs arguments)
         {
-            base.OnNavigatedTo(e);
+            base.OnNavigatedTo(arguments);
 
-            if (e.Parameter is FAQNavigationData navData)
+            if (arguments.Parameter is FAQNavigationData navData)
             {
                 currentPersonId = navData.CurrentPersonId;
                 viewModel.IsAdmin = navData.IsEmployee;
@@ -150,12 +150,12 @@ namespace CloudSpritzers1.Src.View.Faq
             return null;
         }
 
-        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveButton_Click(object sender, RoutedEventArgs arguments)
         {
             await HandleSaveChanges();
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object sender, RoutedEventArgs arguments)
         {
             if (Frame != null && Frame.CanGoBack)
             {

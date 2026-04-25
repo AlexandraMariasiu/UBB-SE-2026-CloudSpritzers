@@ -37,11 +37,11 @@ namespace CloudSpritzers1.Src.View.Ticket
             this.DataContext = ViewModel;
         }
 
-        private async void EditTicketStatus_Click(object sender, RoutedEventArgs e)
+        private async void EditTicketStatus_Click(object sender, RoutedEventArgs arguments)
         {
             if (sender is Button btn && btn.Tag is int ticketId)
             {
-                var ticket = ViewModel.FilteredTicketsForDisplay.FirstOrDefault(t => t.ticketId == ticketId);
+                var ticket = ViewModel.FilteredTicketsForDisplay.FirstOrDefault(ticketDto => ticketDto.ticketId == ticketId);
                 if (ticket == null)
                 {
                     return;
@@ -105,7 +105,7 @@ namespace CloudSpritzers1.Src.View.Ticket
         }
 
         // Optional: if you still have a filter combobox
-        private void FilterChanged(object sender, SelectionChangedEventArgs e)
+        private void FilterChanged(object sender, SelectionChangedEventArgs arguments)
         {
             if (ViewModel == null)
             {

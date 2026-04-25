@@ -64,8 +64,8 @@ namespace CloudSpritzers1.Src.Service
             _ = chatRepository.GetById(chatId);
 
             return messageRepository.GetAll()
-                .Where(m => m.GetChat().ChatId == chatId)
-                .OrderBy(m => ((IMessage)m).GetTimeStamp());
+                .Where(chatMessage => chatMessage.GetChat().ChatId == chatId)
+                .OrderBy(chatMessage => ((IMessage)chatMessage).GetTimeStamp());
         }
 
         private Chat GetActiveChat(int chatId)

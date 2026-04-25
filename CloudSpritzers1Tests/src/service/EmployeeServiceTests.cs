@@ -51,7 +51,7 @@ namespace CloudSpritzers1Tests.Src.Service
 
             _employeeService.CreateNewEmployee(id, name, email, dept);
 
-            _employeeRepository.Received(1).CreateNewEntity(Arg.Is<Employee>(e => e.EmployeeId == id)); 
+            _employeeRepository.Received(1).CreateNewEntity(Arg.Is<Employee>(employee => employee.EmployeeId == id)); 
         }
 
         [TestMethod()]
