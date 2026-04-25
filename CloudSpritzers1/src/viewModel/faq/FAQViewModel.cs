@@ -130,11 +130,6 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
         {
             SelectedCategory = category;
         }
-
-        // public void Search()
-        // {
-        //    ApplyFilters();
-        // }
         public void AddFAQEntry(FAQEntryDTO faqDto)
         {
             if (!IsAdmin)
@@ -146,7 +141,6 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
             faqService.AddFAQEntry(entity);
             LoadFAQ();
         }
-
         public void EditFAQEntry(FAQEntryDTO faqDto)
         {
             if (!IsAdmin)
@@ -191,7 +185,6 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
             faqService.IncrementViewCount(entity);
             LoadFAQ();
         }
-
         public void IncrementWasHelpfulVotes()
         {
             if (SelectedFAQEntry == null)
