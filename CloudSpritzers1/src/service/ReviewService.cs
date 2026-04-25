@@ -20,9 +20,9 @@ namespace CloudSpritzers1.Src.Service
             this.reviewRepository = reviewRepository;
         }
 
-        public Review GetById(int id)
+        public Review GetById(int identificationNumber)
         {
-            return reviewRepository.GetById(id);
+            return reviewRepository.GetById(identificationNumber);
         }
 
         public int Add(Review review)
@@ -30,14 +30,14 @@ namespace CloudSpritzers1.Src.Service
             return reviewRepository.CreateNewEntity(review);
         }
 
-        public void UpdateById(int id, Review review)
+        public void UpdateById(int identificationNumber, Review review)
         {
-            reviewRepository.UpdateById(id, review);
+            reviewRepository.UpdateById(identificationNumber, review);
         }
 
-        public void DeleteById(int id)
+        public void DeleteById(int identificationNumber)
         {
-            reviewRepository.DeleteById(id);
+            reviewRepository.DeleteById(identificationNumber);
         }
 
         public List<Review>? GetAll()
@@ -46,9 +46,9 @@ namespace CloudSpritzers1.Src.Service
             return reviews?.ToList();
         }
 
-        public void CreateReview(int id, User user, string message, int dutyFreeRating, int flightExperienceRating, int staffFriendlinessRating, int cleanlinessRating)
+        public void CreateReview(int identificationNumber, User user, string message, int dutyFreeRating, int flightExperienceRating, int staffFriendlinessRating, int cleanlinessRating)
         {
-            Review review = new (id, user, message, dutyFreeRating, flightExperienceRating, staffFriendlinessRating, cleanlinessRating);
+            Review review = new (identificationNumber, user, message, dutyFreeRating, flightExperienceRating, staffFriendlinessRating, cleanlinessRating);
             ValidateReview(review);
             Add(review);
         }

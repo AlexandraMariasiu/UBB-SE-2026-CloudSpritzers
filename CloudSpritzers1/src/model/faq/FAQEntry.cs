@@ -37,9 +37,9 @@ namespace CloudSpritzers1.Src.Model.Faq
         // {
         //  NotHelpfulVotesCount++;
         // }
-        public override bool Equals(object? obj)
+        public override bool Equals(object? objectName)
         {
-            return obj is FAQEntry entry &&
+            return objectName is FAQEntry entry &&
                    Id == entry.Id &&
                    Question == entry.Question &&
                    Answer == entry.Answer &&

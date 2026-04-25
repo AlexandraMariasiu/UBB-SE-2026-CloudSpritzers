@@ -49,9 +49,9 @@ namespace CloudSpritzers1.Src.Service
         {
             return ticketRepository.GetAll();
         }
-        public void UpdateTicketById(int id, Ticket ticket)
+        public void UpdateTicketById(int identificationNumber, Ticket ticket)
         {
-            ticketRepository.UpdateById(id, ticket);
+            ticketRepository.UpdateById(identificationNumber, ticket);
         }
         public void ValidateTicket(Ticket ticket)
         {

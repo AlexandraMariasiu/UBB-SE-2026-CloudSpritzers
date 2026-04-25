@@ -31,15 +31,15 @@ namespace CloudSpritzers1.Src.ViewModel
 
                 float averageRating = reviewService.CalculateAverageRating(review);
 
-                var reviewDto = mapper.Map<ReviewDTO>(review);
+                var reviewDateTime = mapper.Map<ReviewDTO>(review);
 
-                var finalDto = reviewDto with
+                var finalDateTime = reviewDateTime with
                 {
                     userName = realName,
                     overallRating = averageRating
                 };
 
-                Reviews.Add(finalDto);
+                Reviews.Add(finalDateTime);
             }
         }
     }

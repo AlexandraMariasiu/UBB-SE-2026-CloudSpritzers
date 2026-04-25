@@ -24,38 +24,38 @@ namespace CloudSpritzers1.Src.Repository
                 "OUTPUT INSERTED.user_id " +
                 "VALUES (@name, @email)";
 
-            SqlCommand sqlCommand = new SqlCommand(insertQuery);
+            SqlCommand insertCommand = new SqlCommand(insertQuery);
 
-            sqlCommand.Parameters.AddWithValue("@name", userEntity.RetrieveConfiguredDisplayFullNameForBot());
-            sqlCommand.Parameters.AddWithValue("@email", userEntity.RetrieveConfiguredEmailAddressForBotContact());
+            insertCommand.Parameters.AddWithValue("@name", userEntity.RetrieveConfiguredDisplayFullNameForBot());
+            insertCommand.Parameters.AddWithValue("@email", userEntity.RetrieveConfiguredEmailAddressForBotContact());
 
-            int generatedIdentificationNumber = Add(sqlCommand, userEntity);
+            int generatedIdentificationNumber = Add(insertCommand, userEntity);
             return generatedIdentificationNumber;
         }
 
         public void DeleteById(int identificationNumber)
         {
             string deleteQuery = "DELETE FROM [User] WHERE user_id = @id";
-            SqlCommand sqlCommand = new SqlCommand(deleteQuery);
-            sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
+            SqlCommand deleteCommand = new SqlCommand(deleteQuery);
+            deleteCommand.Parameters.AddWithValue("@id", identificationNumber);
 
-            DeleteById(identificationNumber, sqlCommand);
+            DeleteById(identificationNumber, deleteCommand);
         }
 
         public IEnumerable<User> GetAll()
         {
             string selectAllQuery = "SELECT * FROM [User]";
-            SqlCommand command = new SqlCommand(selectAllQuery);
-            return GetAll(command);
+            SqlCommand getAllCommand = new SqlCommand(selectAllQuery);
+            return GetAll(getAllCommand);
         }
 
         public User GetById(int identificationNumber)
         {
             string selectByIdQuery = "SELECT * FROM [User] WHERE user_id = @id";
-            SqlCommand sqlCommand = new SqlCommand(selectByIdQuery);
-            sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
+            SqlCommand selectByIdCommand = new SqlCommand(selectByIdQuery);
+            selectByIdCommand.Parameters.AddWithValue("@id", identificationNumber);
 
-            User foundUser = GetById(identificationNumber, sqlCommand);
+            User foundUser = GetById(identificationNumber, selectByIdCommand);
 
             if (foundUser == null)
             {
@@ -77,13 +77,13 @@ namespace CloudSpritzers1.Src.Repository
                 "email = @email " +
                 "WHERE user_id = @id";
 
-            SqlCommand sqlCommand = new SqlCommand(updateQuery);
+            SqlCommand updateCommand = new SqlCommand(updateQuery);
 
-            sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
-            sqlCommand.Parameters.AddWithValue("@name", userEntity.RetrieveConfiguredDisplayFullNameForBot());
-            sqlCommand.Parameters.AddWithValue("@email", userEntity.RetrieveConfiguredEmailAddressForBotContact());
+            updateCommand.Parameters.AddWithValue("@id", identificationNumber);
+            updateCommand.Parameters.AddWithValue("@name", userEntity.RetrieveConfiguredDisplayFullNameForBot());
+            updateCommand.Parameters.AddWithValue("@email", userEntity.RetrieveConfiguredEmailAddressForBotContact());
 
-            UpdateById(identificationNumber, sqlCommand, userEntity);
+            UpdateById(identificationNumber, updateCommand, userEntity);
         }
 
         protected override int GetEntityId(User userEntity)
@@ -91,11 +91,11 @@ namespace CloudSpritzers1.Src.Repository
             return userEntity.UserId;
         }
 
-        protected override User MapRowToEntity(SqlDataReader sqlDataReader)
+        protected override User MapRowToEntity(SqlDataReader dataReader)
         {
-            int userIdentificationNumber = sqlDataReader.GetInt32(sqlDataReader.GetOrdinal("user_id"));
-            string userFullName = sqlDataReader.GetString(sqlDataReader.GetOrdinal("name"));
-            string userEmailAddress = sqlDataReader.GetString(sqlDataReader.GetOrdinal("email"));
+            int userIdentificationNumber = dataReader.GetInt32(dataReader.GetOrdinal("user_id"));
+            string userFullName = dataReader.GetString(dataReader.GetOrdinal("name"));
+            string userEmailAddress = dataReader.GetString(dataReader.GetOrdinal("email"));
 
             return new User(userIdentificationNumber, userFullName, userEmailAddress);
         }

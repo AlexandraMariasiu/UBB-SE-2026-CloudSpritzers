@@ -10,7 +10,7 @@ namespace CloudSpritzers1.Src.Repository.Interfaces;
 public interface IFAQRepository : IRepository<int, FAQEntry>
 {
     List<FAQEntry> GetByCategory(FAQCategoryEnum category);
-    void IncrementViewCount(int id);
-    void IncrementWasHelpfulVotes(int id);
-    void IncrementWasNotHelpfulVotes(int id);
+    void IncrementViewCount(int identificationNumber);
+    void IncrementWasHelpfulVotes(int identificationNumber);
+    void IncrementWasNotHelpfulVotes(int identificationNumber);
 }

@@ -62,8 +62,8 @@ namespace CloudSpritzers1.Src.ViewModel.Review
         {
             try
             {
-                var app = App.Current as App;
-                User? currentUser = app?.User;
+                var application = App.Current as App;
+                User? currentUser = application?.User;
 
                 if (currentUser == null)
                 {

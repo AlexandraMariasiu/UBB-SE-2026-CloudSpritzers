@@ -11,10 +11,10 @@ namespace CloudSpritzers1.Src.Converter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is DateTimeOffset dto)
+            if (value is DateTimeOffset sourceDateTime)
             {
                 // 1. Ensure we start from the absolute UTC moment
-                DateTime utcTime = dto.UtcDateTime;
+                DateTime utcTime = sourceDateTime.UtcDateTime;
 
                 // 2. Get the specific TimeZone for Romania (or your local system)
                 // "GTB Standard Time" covers UTC+2/+3 for Romania/Greece/Turkey/etc.

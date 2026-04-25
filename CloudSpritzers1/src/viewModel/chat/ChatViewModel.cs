@@ -65,12 +65,12 @@ namespace CloudSpritzers1.Src.ViewModel.Chats
             ChatHistory.Clear();
             var messages = messageService.GetAllMessages(chat.ChatId);
             var currentUserId = user.RetrieveUniqueDatabaseIdentifierForBot();
-            foreach (var msg in messages)
+            foreach (var message in messages)
             {
-                var dto = mapper.Map<MessageDTO>(msg);
-                dto.SenderName = userService.GetById(dto.SenderId)?.RetrieveConfiguredDisplayFullNameForBot();
-                dto.IsOutgoing = (dto.SenderId == currentUserId);
-                ChatHistory.Add(dto);
+                var dateTime = mapper.Map<MessageDTO>(message);
+                dateTime.SenderName = userService.GetById(dateTime.SenderId)?.RetrieveConfiguredDisplayFullNameForBot();
+                dateTime.IsOutgoing = (dateTime.SenderId == currentUserId);
+                ChatHistory.Add(dateTime);
             }
         }
 
@@ -97,9 +97,9 @@ namespace CloudSpritzers1.Src.ViewModel.Chats
             // var dto = _mapper.Map<MessageDTO>();
             if (nextOptions != null)
             {
-                foreach (var opt in nextOptions)
+                foreach (var option in nextOptions)
                 {
-                    CurrentOptions.Add(opt);
+                    CurrentOptions.Add(option);
                 }
             }
             else

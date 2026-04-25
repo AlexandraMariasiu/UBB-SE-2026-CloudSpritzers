@@ -10,19 +10,19 @@ public class MessageMappingProfile : Profile
     public MessageMappingProfile()
     {
         CreateMap<IMessage, MessageDTO>()
-            .ForMember(dest => dest.MessageText, opt => opt.MapFrom(src => src.GetMessage()))
-            .ForMember(dest => dest.Timestamp, opt => opt.MapFrom(src =>
-                new DateTimeOffset(((IMessage)src).GetTimeStamp().Ticks, TimeSpan.Zero)))
-            .ForMember(dest => dest.FaqOptions, opt => opt.MapFrom(src => src.GetNextOptions()))
-            .ForMember(dest => dest.ChatId, opt => opt.MapFrom(src => src.GetChat().ChatId))
-            .ForMember(dest => dest.SenderName, opt => opt.MapFrom(src => src.GetSender().RetrieveConfiguredDisplayFullNameForBot()))
-            .ForMember(dest => dest.SenderId, opt => opt.MapFrom(src => src.GetSender().RetrieveUniqueDatabaseIdentifierForBot()))
-            .ForMember(dest => dest.MessageId, opt => opt.Ignore())
-            .ForMember(dest => dest.IsOutgoing, opt => opt.Ignore());
+            .ForMember(destination => destination.MessageText, option => option.MapFrom(source => source.GetMessage()))
+            .ForMember(destination => destination.Timestamp, option => option.MapFrom(source =>
+                new DateTimeOffset(((IMessage)source).GetTimeStamp().Ticks, TimeSpan.Zero)))
+            .ForMember(destination => destination.FaqOptions, option => option.MapFrom(source => source.GetNextOptions()))
+            .ForMember(destination => destination.ChatId, option => option.MapFrom(source => source.GetChat().ChatId))
+            .ForMember(destination => destination.SenderName, option => option.MapFrom(source => source.GetSender().RetrieveConfiguredDisplayFullNameForBot()))
+            .ForMember(destination => destination.SenderId, option => option.MapFrom(source => source.GetSender().RetrieveUniqueDatabaseIdentifierForBot()))
+            .ForMember(destination => destination.MessageId, option => option.Ignore())
+            .ForMember(destination => destination.IsOutgoing, option => option.Ignore());
 
         CreateMap<BotMessage, MessageDTO>()
             .IncludeBase<IMessage, MessageDTO>()
-            .ForMember(dest => dest.SenderId, opt => opt.MapFrom(src => BotEngine.CONSTANT_IDENTIFIER_FOR_DEFAULT_BOT_SYSTEM_USER));
+            .ForMember(destination => destination.SenderId, option => option.MapFrom(source => BotEngine.CONSTANT_IDENTIFIER_FOR_DEFAULT_BOT_SYSTEM_USER));
 
         CreateMap<Message, MessageDTO>()
             .IncludeBase<IMessage, MessageDTO>();

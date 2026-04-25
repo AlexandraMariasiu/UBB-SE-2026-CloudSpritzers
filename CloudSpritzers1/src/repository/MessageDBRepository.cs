@@ -16,99 +16,99 @@ namespace CloudSpritzers1.Src.Repository.Database
             string text = reader.GetString(reader.GetOrdinal("text"));
             /// DateTimeOffset timestamp = reader.GetDateTimeOffset(reader.GetOrdinal("timestamp"));
             // Read as DateTime, then convert to DateTimeOffset
-            DateTime dbDt = reader.GetDateTime(reader.GetOrdinal("timestamp"));
-            DateTimeOffset timestamp = new DateTimeOffset(dbDt);
+            DateTime databaseDateTime = reader.GetDateTime(reader.GetOrdinal("timestamp"));
+            DateTimeOffset timestamp = new DateTimeOffset(databaseDateTime);
 
-            var senderStub = new SenderStub(senderId);
-            var chatStub = new ChatStub(chatId);
+            var senderPlaceholder = new SenderStub(senderId);
+            var chatPlaceholder = new ChatStub(chatId);
 
-            return new Message(messageId, senderStub, chatStub, text, timestamp);
+            return new Message(messageId, senderPlaceholder, chatPlaceholder, text, timestamp);
         }
 
         protected override int GetEntityId(Message entity) => entity.GetId();
 
-        public int CreateNewEntity(Message elem)
+        public int CreateNewEntity(Message newEntity)
         {
-            const string query =
+            const string insertQuery =
                 "INSERT INTO Message (sender_id, chat_id, timestamp, text, is_read) " +
                 "VALUES (@senderId, @chatId, @timestamp, @text, @isRead); " +
                 "SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
-            var cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("@senderId", elem.GetSender().RetrieveUniqueDatabaseIdentifierForBot());
-            cmd.Parameters.AddWithValue("@chatId", ((IMessage)elem).GetChat().ChatId);
-            cmd.Parameters.AddWithValue("@timestamp", DateTimeOffset.UtcNow);
-            cmd.Parameters.AddWithValue("@text", elem.GetMessage());
-            cmd.Parameters.AddWithValue("@isRead", false);
+            var insertCommand = new SqlCommand(insertQuery);
+            insertCommand.Parameters.AddWithValue("@senderId", newEntity.GetSender().RetrieveUniqueDatabaseIdentifierForBot());
+            insertCommand.Parameters.AddWithValue("@chatId", ((IMessage)newEntity).GetChat().ChatId);
+            insertCommand.Parameters.AddWithValue("@timestamp", DateTimeOffset.UtcNow);
+            insertCommand.Parameters.AddWithValue("@text", newEntity.GetMessage());
+            insertCommand.Parameters.AddWithValue("@isRead", false);
 
-            return Add(cmd, elem);
+            return Add(insertCommand, newEntity);
         }
 
-        public void DeleteById(int id)
+        public void DeleteById(int identificationNumber)
         {
-            const string query = "DELETE FROM Message WHERE message_id = @id";
-            var cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("@id", id);
+            const string deleteQuery = "DELETE FROM Message WHERE message_id = @id";
+            var deleteCommand = new SqlCommand(deleteQuery);
+            deleteCommand.Parameters.AddWithValue("@id", identificationNumber);
 
-            DeleteById(id, cmd);
+            DeleteById(identificationNumber, deleteCommand);
         }
 
-        public void UpdateById(int id, Message message)
+        public void UpdateById(int identificationNumber, Message message)
         {
-            const string query = "UPDATE Message SET text = @text WHERE message_id = @id";
-            var cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("@text", message.GetMessage());
-            cmd.Parameters.AddWithValue("@id", id);
+            const string updateQuery = "UPDATE Message SET text = @text WHERE message_id = @id";
+            var updateCommand = new SqlCommand(updateQuery);
+            updateCommand.Parameters.AddWithValue("@text", message.GetMessage());
+            updateCommand.Parameters.AddWithValue("@id", identificationNumber);
 
-            UpdateById(id, cmd, message);
+            UpdateById(identificationNumber, updateCommand, message);
         }
 
         public IEnumerable<Message> GetAll()
         {
-            const string query = "SELECT * FROM Message";
-            return GetAll(new SqlCommand(query));
+            const string selectQuery = "SELECT * FROM Message";
+            return GetAll(new SqlCommand(selectQuery));
         }
 
-        public Message GetById(int id)
+        public Message GetById(int identificationNumber)
         {
-            const string query = "SELECT * FROM Message WHERE message_id = @id";
-            var cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("@id", id);
+            const string selectByIQuery = "SELECT * FROM Message WHERE message_id = @id";
+            var selectCommand = new SqlCommand(selectByIQuery);
+            selectCommand.Parameters.AddWithValue("@id", identificationNumber);
 
-            return GetById(id, cmd)
-                ?? throw new KeyNotFoundException($"Message with id {id} not found.");
+            return GetById(identificationNumber, selectCommand)
+                ?? throw new KeyNotFoundException($"Message with id {identificationNumber} not found.");
         }
 
         public IEnumerable<Message> GetByChatId(int chatId)
         {
-            const string query =
+            const string selectQuery =
                 "SELECT * FROM Message WHERE chat_id = @chatId ORDER BY timestamp ASC";
-            var cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("@chatId", chatId);
+            var selectCommand = new SqlCommand(selectQuery);
+            selectCommand.Parameters.AddWithValue("@chatId", chatId);
 
-            return GetAll(cmd);
+            return GetAll(selectCommand);
         }
 
         public IEnumerable<Message> GetMessagesSince(int chatId, int firstMessageId)
         {
-            const string query =
+            const string selectMessageQuery =
                 "SELECT * FROM Message " +
                 "WHERE chat_id = @chatId AND message_id >= @firstMessageId " +
                 "ORDER BY timestamp ASC";
-            var cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("@chatId", chatId);
-            cmd.Parameters.AddWithValue("@firstMessageId", firstMessageId);
+            var selectCommand = new SqlCommand(selectMessageQuery);
+            selectCommand.Parameters.AddWithValue("@chatId", chatId);
+            selectCommand.Parameters.AddWithValue("@firstMessageId", firstMessageId);
 
-            return GetAll(cmd);
+            return GetAll(selectCommand);
         }
 
         public void MarkAsRead(int messageId)
         {
-            const string query = "UPDATE Message SET is_read = 1 WHERE message_id = @id";
-            var cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("@id", messageId);
+            const string updateMessageQuery = "UPDATE Message SET is_read = 1 WHERE message_id = @id";
+            var updateCommand = new SqlCommand(updateMessageQuery);
+            updateCommand.Parameters.AddWithValue("@id", messageId);
 
-            ExecuteNonQuery(cmd);
+            ExecuteNonQuery(updateCommand);
             InvalidateCacheEntry(messageId);
         }
 
@@ -116,7 +116,7 @@ namespace CloudSpritzers1.Src.Repository.Database
         private sealed class SenderStub : ISender
         {
             private readonly int identificationNumber;
-            public SenderStub(int id) => identificationNumber = id;
+            public SenderStub(int identificationNumber) => this.identificationNumber = identificationNumber;
             public int RetrieveUniqueDatabaseIdentifierForBot() => identificationNumber;
             public string RetrieveConfiguredDisplayFullNameForBot() => string.Empty;
             public string RetrieveConfiguredEmailAddressForBotContact() => string.Empty;

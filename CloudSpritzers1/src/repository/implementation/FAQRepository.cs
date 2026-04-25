@@ -14,26 +14,26 @@ namespace CloudSpritzers1.Src.Repository.Implementation
         {
         }
 
-    public FAQEntry GetById(int faqId)
+    public FAQEntry GetById(int askedQuestionId)
         {
             SqlCommand command = new SqlCommand("SELECT * FROM FAQEntry WHERE FAQentry_id = @id");
-            command.Parameters.AddWithValue("@id", faqId);
+            command.Parameters.AddWithValue("@id", askedQuestionId);
 
-            FAQEntry faq = GetById(faqId, command);
+            FAQEntry frequentlyAskedQuestion = GetById(askedQuestionId, command);
 
-            if (faq == null)
+            if (frequentlyAskedQuestion == null)
             {
-                throw new KeyNotFoundException($"FAQ with id {faqId} was not found.");
+                throw new KeyNotFoundException($"FAQ with id {askedQuestionId} was not found.");
             }
 
-            return faq;
+            return frequentlyAskedQuestion;
         }
 
-    public int CreateNewEntity(FAQEntry elem)
+    public int CreateNewEntity(FAQEntry questionEntity)
     {
-            if (elem == null)
+            if (questionEntity == null)
             {
-                throw new ArgumentNullException(nameof(elem), "FAQ entry cannot be null.");
+                throw new ArgumentNullException(nameof(questionEntity), "FAQ entry cannot be null.");
             }
 
             SqlCommand command = new SqlCommand(
@@ -41,20 +41,20 @@ namespace CloudSpritzers1.Src.Repository.Implementation
                 "OUTPUT INSERTED.FAQentry_id " +
                 "VALUES (@question, @answer, @category)");
 
-            command.Parameters.AddWithValue("@question", elem.Question);
-            command.Parameters.AddWithValue("@answer", elem.Answer);
-            command.Parameters.AddWithValue("@category", elem.Category.ToString());
+            command.Parameters.AddWithValue("@question", questionEntity.Question);
+            command.Parameters.AddWithValue("@answer", questionEntity.Answer);
+            command.Parameters.AddWithValue("@category", questionEntity.Category.ToString());
 
-            int addedEntityId = Add(command, elem);
+            int addedEntityId = Add(command, questionEntity);
             InvalidateCacheEntry(addedEntityId);
             return addedEntityId;
         }
 
-    public void UpdateById(int id, FAQEntry elem)
+    public void UpdateById(int identificationNumber, FAQEntry questionEntity)
     {
-            if (elem == null)
+            if (questionEntity == null)
             {
-                throw new ArgumentNullException(nameof(elem), "FAQ entry cannot be null.");
+                throw new ArgumentNullException(nameof(questionEntity), "FAQ entry cannot be null.");
             }
 
         SqlCommand command = new SqlCommand(
@@ -67,24 +67,24 @@ namespace CloudSpritzers1.Src.Repository.Implementation
             "was_not_helpful_votes = @wasNotHelpfulVotes " +
             "WHERE FAQentry_id = @id");
 
-        command.Parameters.AddWithValue("@id", id);
-        command.Parameters.AddWithValue("@question", elem.Question);
-        command.Parameters.AddWithValue("@answer", elem.Answer);
-        command.Parameters.AddWithValue("@category", elem.Category.ToString());
-        command.Parameters.AddWithValue("@viewCount", elem.ViewCount);
-        command.Parameters.AddWithValue("@wasHelpfulVotes", elem.HelpfulVotesCount);
-        command.Parameters.AddWithValue("@wasNotHelpfulVotes", elem.NotHelpfulVotesCount);
+        command.Parameters.AddWithValue("@id", identificationNumber);
+        command.Parameters.AddWithValue("@question", questionEntity.Question);
+        command.Parameters.AddWithValue("@answer", questionEntity.Answer);
+        command.Parameters.AddWithValue("@category", questionEntity.Category.ToString());
+        command.Parameters.AddWithValue("@viewCount", questionEntity.ViewCount);
+        command.Parameters.AddWithValue("@wasHelpfulVotes", questionEntity.HelpfulVotesCount);
+        command.Parameters.AddWithValue("@wasNotHelpfulVotes", questionEntity.NotHelpfulVotesCount);
 
-        UpdateById(id, command, elem);
-        InvalidateCacheEntry(id);
+        UpdateById(identificationNumber, command, questionEntity);
+        InvalidateCacheEntry(identificationNumber);
     }
 
-    public void DeleteById(int id)
+    public void DeleteById(int identificationNumber)
     {
             SqlCommand command = new SqlCommand("DELETE FROM FAQEntry WHERE FAQentry_id = @id");
-            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@id", identificationNumber);
 
-            DeleteById(id, command);
+            DeleteById(identificationNumber, command);
     }
 
     public IEnumerable<FAQEntry> GetAll()
@@ -110,39 +110,39 @@ namespace CloudSpritzers1.Src.Repository.Implementation
             return GetAll(command).ToList();
     }
 
-    public void IncrementViewCount(int id)
+    public void IncrementViewCount(int identificationNumber)
     {
             SqlCommand command = new SqlCommand(
                 "UPDATE FAQEntry SET view_count = view_count + 1 WHERE FAQentry_id = @id");
-            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@id", identificationNumber);
 
             ExecuteNonQuery(command);
-            InvalidateCacheEntry(id);
+            InvalidateCacheEntry(identificationNumber);
         }
 
-    public void IncrementWasHelpfulVotes(int id)
+    public void IncrementWasHelpfulVotes(int identificationNumber)
     {
             SqlCommand command = new SqlCommand(
                 "UPDATE FAQEntry SET was_helpful_votes = was_helpful_votes + 1 WHERE FAQentry_id = @id");
-            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@id", identificationNumber);
 
             ExecuteNonQuery(command);
-            InvalidateCacheEntry(id);
+            InvalidateCacheEntry(identificationNumber);
         }
 
-    public void IncrementWasNotHelpfulVotes(int id)
+    public void IncrementWasNotHelpfulVotes(int identificationNumber)
     {
             SqlCommand command = new SqlCommand(
                      "UPDATE FAQEntry SET was_not_helpful_votes = was_not_helpful_votes + 1 WHERE FAQentry_id = @id");
-            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@id", identificationNumber);
 
             ExecuteNonQuery(command);
-            InvalidateCacheEntry(id);
+            InvalidateCacheEntry(identificationNumber);
         }
 
     protected override FAQEntry MapRowToEntity(SqlDataReader reader)
         {
-            int id = (int)reader["FAQentry_id"];
+            int identificationNumber = (int)reader["FAQentry_id"];
             string question = reader["question"].ToString();
             string answer = reader["answer"].ToString();
             FAQCategoryEnum category = Enum.Parse<FAQCategoryEnum>(reader["category"].ToString());
@@ -150,12 +150,12 @@ namespace CloudSpritzers1.Src.Repository.Implementation
             int helpfulVotesCount = (int)reader["was_helpful_votes"];
             int notHelpfulVotesCount = (int)reader["was_not_helpful_votes"];
 
-            return new FAQEntry(id, question, answer, category, viewCount, helpfulVotesCount, notHelpfulVotesCount);
+            return new FAQEntry(identificationNumber, question, answer, category, viewCount, helpfulVotesCount, notHelpfulVotesCount);
         }
 
-    protected override int GetEntityId(FAQEntry entity)
+    protected override int GetEntityId(FAQEntry questionEntity)
     {
-            return entity.Id;
+            return questionEntity.Id;
     }
 }
 }

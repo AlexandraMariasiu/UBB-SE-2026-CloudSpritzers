@@ -100,8 +100,8 @@ namespace CloudSpritzers1.Src.ViewModel
 
             foreach (var ticketEntity in ticketsFromDatabase)
             {
-                var ticketDTO = mapper.Map<TicketDTO>(ticketEntity);
-                AllTickets.Add(ticketDTO);
+                var ticketDateTime = mapper.Map<TicketDTO>(ticketEntity);
+                AllTickets.Add(ticketDateTime);
             }
 
             ApplyFilterLogic();

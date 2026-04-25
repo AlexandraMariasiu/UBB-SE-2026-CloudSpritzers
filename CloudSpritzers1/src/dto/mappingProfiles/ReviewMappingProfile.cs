@@ -12,16 +12,16 @@ namespace CloudSpritzers1.Src.Dto.MappingProfiles
             System.Diagnostics.Debug.WriteLine("ReviewMappingProfile Loaded!");
             CreateMap<Review, ReviewDTO>()
 
-            .ConstructUsing(src => new ReviewDTO(
-                src.GetId(),
-                src.GetUser().UserId,
-                src.GetUser().RetrieveConfiguredDisplayFullNameForBot(),
-                src.GetMessage(),
-                src.GetDutyFreeRating(),
-                src.GetFlightExperienceRating(),
-                src.GetStaffFriendlinessRating(),
-                src.GetCleanlinessRating(),
-                CalculateOverallAverage(src))); // Replaces manual math in loop
+            .ConstructUsing(source => new ReviewDTO(
+                source.GetId(),
+                source.GetUser().UserId,
+                source.GetUser().RetrieveConfiguredDisplayFullNameForBot(),
+                source.GetMessage(),
+                source.GetDutyFreeRating(),
+                source.GetFlightExperienceRating(),
+                source.GetStaffFriendlinessRating(),
+                source.GetCleanlinessRating(),
+                CalculateOverallAverage(source))); // Replaces manual math in loop
         }
 
         private static float CalculateOverallAverage(Review review)
