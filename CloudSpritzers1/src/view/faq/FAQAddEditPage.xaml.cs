@@ -177,9 +177,9 @@ namespace CloudSpritzers1.Src.View.Faq
                     Frame.GoBack();
                 }
             }
-            catch (Exception ex)
+            catch (Exception exceptionThrown)
             {
-                await ShowMessage("Save failed", ex.Message);
+                await ShowMessage("Save failed", exceptionThrown.Message);
             }
         }
         private async System.Threading.Tasks.Task ShowMessage(string title, string message)

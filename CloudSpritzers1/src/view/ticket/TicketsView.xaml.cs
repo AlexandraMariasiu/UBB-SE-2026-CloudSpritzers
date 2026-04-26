@@ -81,9 +81,9 @@ namespace CloudSpritzers1.Src.View.Ticket
                 ViewModel.CreateTicket(newTicket);
                 dialog.Hide();
             }
-            catch (Exception ex)
+            catch (Exception exceptionThrown)
             {
-                inputs.ErrorBlock.Text = ex.Message;
+                inputs.ErrorBlock.Text = exceptionThrown.Message;
                 inputs.ErrorBlock.Visibility = Visibility.Visible;
             }
         }
