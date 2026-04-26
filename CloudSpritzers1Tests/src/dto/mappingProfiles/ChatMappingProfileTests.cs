@@ -10,6 +10,7 @@ namespace CloudSpritzers1Tests.src.dto.mappingprofiles;
 public class ChatMappingProfileTests
 {
     private IMapper _mapper;
+    private Chat _chat;
 
     [TestInitialize]
     public void Setup()
@@ -17,23 +18,43 @@ public class ChatMappingProfileTests
         var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<ChatMappingProfile>());
 
         _mapper = configuration.CreateMapper();
+        _chat = new Chat(1, 10, ChatStatus.Active);
     }
 
     [TestMethod]
-    public void Map_ChatToChatDTO_Succeeds()
+    public void Map_ChatToChatDTO_MapsChatIdCorrectly()
     {
-        var chat = new Chat(1, 10, ChatStatus.Active);
+        var result = _mapper.Map<ChatDTO>(_chat);
 
-        var result = _mapper.Map<ChatDTO>(chat);
+        Assert.AreEqual(_chat.ChatId, result.chatId);
+    }
 
-        Assert.AreEqual(chat.ChatId, result.chatId);
-        Assert.AreEqual(chat.UserId, result.userId);
-        Assert.AreEqual(chat.Status, result.status);
+    [TestMethod]
+    public void Map_ChatToChatDTO_MapsUserIdCorrectly()
+    {
+        var result = _mapper.Map<ChatDTO>(_chat);
+
+        Assert.AreEqual(_chat.UserId, result.userId);
+    }
+
+    [TestMethod]
+    public void Map_ChatToChatDTO_MapsStatusCorrectly()
+    {
+        var result = _mapper.Map<ChatDTO>(_chat);
+
+        Assert.AreEqual(_chat.Status, result.status);
+    }
+
+    [TestMethod]
+    public void Map_ChatToChatDTO_MapsMessageCountCorrectly()
+    {
+        var result = _mapper.Map<ChatDTO>(_chat);   
+
         Assert.AreEqual(0, result.messageCount); 
     }
 
     [TestMethod]
-    public void Configuration_IsValid()
+    public void Map_ChatToChatDTO_ValidConfiguration()
     {
         var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<ChatMappingProfile>());
 

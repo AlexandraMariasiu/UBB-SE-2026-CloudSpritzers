@@ -25,18 +25,27 @@ public class UserMappingProfileTests
     }
 
     [TestMethod]
-    public void Map_UserToUserDTO_Succeeds()
+    public void Map_UserToUserDTO_MapsUserNameCorrectly()
     {
         var user = new User(1, "Alex", "alex@mail.com");
 
         var result = _mapper.Map<UserDTO>(user);
 
         Assert.AreEqual(user.RetrieveConfiguredDisplayFullNameForBot(), result.name);
+    }
+
+    [TestMethod]
+    public void Map_UserToUserDTO_MapsUserEmailCorrectly()
+    {
+        var user = new User(1, "Alex", "alex@mail.com");
+
+        var result = _mapper.Map<UserDTO>(user);
+
         Assert.AreEqual(user.RetrieveConfiguredEmailAddressForBotContact(), result.email);
     }
 
     [TestMethod]
-    public void Configuration_IsValid()
+    public void Map_UserToUserDTO_ValidConfiguration()
     {
         var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<UserMappingProfile>());
 

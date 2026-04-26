@@ -25,18 +25,27 @@ public class EmployeeMappingProfileTests
     }
 
     [TestMethod]
-    public void Map_EmployeeToEmployeeDTO_Succeeds()
+    public void Map_EmployeeToEmployeeDTO_MapsNameCorrectly()
     {
         var employee = new Employee(1, "Alex", "alex@mail.com", EmployeeDepartment.HR);
 
         var result = _mapper.Map<EmployeeDTO>(employee);
 
         Assert.AreEqual(employee.RetrieveConfiguredDisplayFullNameForBot(), result.name);
+    }
+
+    [TestMethod]
+    public void Map_EmployeeToEmployeeDTO_MapsEmailCorrectly()
+    {
+        var employee = new Employee(1, "Alex", "alex@mail.com", EmployeeDepartment.HR);
+
+        var result = _mapper.Map<EmployeeDTO>(employee);
+
         Assert.AreEqual(employee.RetrieveConfiguredEmailAddressForBotContact(), result.email);
     }
 
     [TestMethod]
-    public void Configuration_IsValid()
+    public void Map_EmployeeToEmployeeDTO_ValidConfiguration()
     {
         var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<EmployeeMappingProfile>());
 
