@@ -58,17 +58,17 @@ namespace CloudSpritzers1Tests.Src.Service.Bot
         [TestMethod]
         public void RetrieveConfiguredDisplayFullNameForBot_WhenCalled_ReturnsCarlos()
         {
-            var result = _botEngine.RetrieveConfiguredDisplayFullNameForBot();
+            var resultedFullName = _botEngine.RetrieveConfiguredDisplayFullNameForBot();
 
-            Assert.AreEqual("Carlos", result);
+            Assert.AreEqual("Carlos", resultedFullName);
         }
 
         [TestMethod]
         public void RetrieveUniqueDatabaseIdentifierForBot_WhenCalled_ReturnsZero()
         {
-            var result = _botEngine.RetrieveUniqueDatabaseIdentifierForBot();
+            var resultedIdentifier = _botEngine.RetrieveUniqueDatabaseIdentifierForBot();
 
-            Assert.AreEqual(0, result);
+            Assert.AreEqual(0, resultedIdentifier);
         }
     }
 }

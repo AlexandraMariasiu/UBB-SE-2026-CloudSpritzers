@@ -146,9 +146,9 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
             var mockMessage = new Message(1, _testUser, _testChat, "Init", DateTimeOffset.UtcNow);
             var mockViewModel = CreateViewModel(new List<Message> { mockMessage });
             _msgRepositoryMock.ClearReceivedCalls();
-            var option = new FAQOption("Test", 2);
+            var selectedChatOption = new FAQOption("Test", 2);
 
-            mockViewModel.HandleOptionClickCommand.Execute(option);
+            mockViewModel.HandleOptionClickCommand.Execute(selectedChatOption);
 
             _msgRepositoryMock.Received(2).CreateNewEntity(Arg.Any<Message>());
         }
@@ -158,14 +158,14 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
         {
             var mockMessage = new Message(1, _testUser, _testChat, "Init", DateTimeOffset.UtcNow);
             var mockViewModel = CreateViewModel(new List<Message> { mockMessage });
-            var option = new FAQOption("Test", 2);
+            var selectedChatOption = new FAQOption("Test", 2);
             var nextOption = new FAQOption("Next", 3);
             var botReply = new BotMessage.BotMessageBuilder(_testUser, _testChat, 2)
                 .AddOption(nextOption)
                 .Build();
             _strategyMock.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(Arg.Any<BotEngine>(), Arg.Any<IMessage>()).Returns(botReply);
             
-            mockViewModel.HandleOptionClickCommand.Execute(option);
+            mockViewModel.HandleOptionClickCommand.Execute(selectedChatOption);
 
             Assert.AreEqual(nextOption, mockViewModel.CurrentOptions[0]);
         }
@@ -175,13 +175,13 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
         {
             var mockMessage = new Message(1, _testUser, _testChat, "Init", DateTimeOffset.UtcNow);
             var mockViewModel = CreateViewModel(new List<Message> { mockMessage });
-            var option = new FAQOption("Test", 2);
+            var selectedChatOption = new FAQOption("Test", 2);
             var botReply = new BotMessage.BotMessageBuilder(_testUser, _testChat, 2).Build();
             typeof(BotMessage).GetField("faqOptions", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                 ?.SetValue(botReply, null);
             _strategyMock.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(Arg.Any<BotEngine>(), Arg.Any<IMessage>()).Returns(botReply);
 
-            mockViewModel.HandleOptionClickCommand.Execute(option);
+            mockViewModel.HandleOptionClickCommand.Execute(selectedChatOption);
 
             Assert.AreEqual("Restart Chat", mockViewModel.CurrentOptions[0].label);
         }

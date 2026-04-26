@@ -280,11 +280,11 @@ namespace CloudSpritzers1Tests.Src.Service
 
             var unknownFilter = (TicketFilterStatusEnum)999;
             
-            var result = _ticketService.FilterTicketsByStatus(ticketsDataTransferObject, unknownFilter).ToList();
+            var resultedTickets = _ticketService.FilterTicketsByStatus(ticketsDataTransferObject, unknownFilter).ToList();
 
-            Assert.AreEqual(2, result.Count);
-            Assert.AreEqual(ticketsDataTransferObject[0].subject, result[0].subject);
-            Assert.AreEqual(ticketsDataTransferObject[1].subject, result[1].subject);
+            Assert.AreEqual(2, resultedTickets.Count);
+            Assert.AreEqual(ticketsDataTransferObject[0].subject, resultedTickets[0].subject);
+            Assert.AreEqual(ticketsDataTransferObject[1].subject, resultedTickets[1].subject);
         }
     }
 }

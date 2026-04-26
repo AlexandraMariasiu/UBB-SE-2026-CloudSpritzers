@@ -25,9 +25,9 @@ namespace CloudSpritzers1Tests.Src.Model
         {
             var user = new User(10, "Test User", "test@test.com");
 
-            var result = user.UserId;
+            var resultedUserId = user.UserId;
 
-            Assert.AreEqual(10, result);
+            Assert.AreEqual(10, resultedUserId);
         }
     }
 }

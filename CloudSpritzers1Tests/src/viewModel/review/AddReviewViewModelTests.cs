@@ -74,10 +74,10 @@ namespace CloudSpritzers1Tests.Src.ViewModel
             _viewModel.ReviewMessage = "Great experience!";
 
            
-            bool canExecute = _viewModel.SubmitReviewCommand.CanExecute(null);
+            bool canExecuteCommand = _viewModel.SubmitReviewCommand.CanExecute(null);
 
             
-            Assert.IsTrue(canExecute, "Command should be enabled when all data is valid");
+            Assert.IsTrue(canExecuteCommand, "Command should be enabled when all data is valid");
         }
 
         [TestMethod]
