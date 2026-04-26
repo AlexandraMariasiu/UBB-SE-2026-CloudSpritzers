@@ -18,14 +18,14 @@ namespace CloudSpritzers1Tests.Src.ViewModel
     {
         private AddReviewViewModel _viewModel;
         private ReviewService _reviewService;
-        private IRepository<int, Review> _mockRepo;
+        private IRepository<int, Review> _mockRepository;
 
         [TestInitialize]
         public void Setup()
         {
             
-            _mockRepo = Substitute.For<IRepository<int, Review>>();
-            _reviewService = new ReviewService(_mockRepo);
+            _mockRepository = Substitute.For<IRepository<int, Review>>();
+            _reviewService = new ReviewService(_mockRepository);
 
             _viewModel = new AddReviewViewModel(_reviewService);
         }
@@ -88,10 +88,10 @@ namespace CloudSpritzers1Tests.Src.ViewModel
             string? alertTitle = null;
 
             // Subscribe to the event
-            _viewModel.AlertRequested += (sender, args) =>
+            _viewModel.AlertRequested += (sender, arguments) =>
             {
                 alertFired = true;
-                alertTitle = args.Title;
+                alertTitle = arguments.Title;
             };
 
             _viewModel.SubmitReviewCommand.Execute(null);
@@ -129,12 +129,10 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         [TestMethod]
         public void CharCountText_WhenMessageIsNull_ReturnsZeroCharacters()
         {
-            // Arrange: Force the message to null
-            // We use the '!' or cast to bypass the string.Empty default
+            
             _viewModel.ReviewMessage = null!;
 
-            // Assert
-            // This forces the code to use the '?? 0' path
+            
             Assert.AreEqual("0 characters", _viewModel.CharCountText);
         }
 
@@ -166,13 +164,13 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         [TestMethod]
         public void CleanText_WhenRatingIsZeroOrPositive_ReturnsCorrectStrings()
         {
-            // Arrange & Act
+            
             _viewModel.CleanRating = 0;
             Assert.AreEqual("Not rated", _viewModel.CleanText);
 
             _viewModel.CleanRating = 5;
 
-            // Assert
+            
             Assert.AreEqual("5/5", _viewModel.CleanText);
         }
 

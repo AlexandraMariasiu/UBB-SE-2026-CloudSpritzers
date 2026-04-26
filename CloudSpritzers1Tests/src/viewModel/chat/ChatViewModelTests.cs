@@ -23,8 +23,8 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
     public class ChatViewModelTests
     {
         // mock Repositories
-        private IRepository<int, Chat> _chatRepoMock;
-        private IRepository<int, Message> _msgRepoMock;
+        private IRepository<int, Chat> _chatRepositoryMock;
+        private IRepository<int, Message> _msgRepositoryMock;
         private IBotStrategy _strategyMock;
         private IUserService _userService;
         private IMapper _mapper;
@@ -40,32 +40,32 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
         [TestInitialize]
         public void Setup()
         {
-            _chatRepoMock = Substitute.For<IRepository<int, Chat>>();
-            _msgRepoMock = Substitute.For<IRepository<int, Message>>();
+            _chatRepositoryMock = Substitute.For<IRepository<int, Chat>>();
+            _msgRepositoryMock = Substitute.For<IRepository<int, Message>>();
             _strategyMock = Substitute.For<IBotStrategy>();
             _userService = Substitute.For<IUserService>();
             _mapper = Substitute.For<IMapper>();
 
             _botEngine = new BotEngine(_strategyMock);
-            _messageService = new MessageService(_chatRepoMock, _msgRepoMock, _botEngine);
-            _chatService = new ChatService(_chatRepoMock);
+            _messageService = new MessageService(_chatRepositoryMock, _msgRepositoryMock, _botEngine);
+            _chatService = new ChatService(_chatRepositoryMock);
 
             _testUser = new User(42, "Test User", "test@test.com");
             _testChat = new Chat(1, 42, ChatStatus.Active);
 
-            _chatRepoMock.CreateNewEntity(Arg.Any<Chat>()).Returns(1);
-            _chatRepoMock.GetById(1).Returns(_testChat);
+            _chatRepositoryMock.CreateNewEntity(Arg.Any<Chat>()).Returns(1);
+            _chatRepositoryMock.GetById(1).Returns(_testChat);
 
             _mapper.Map<MessageDTO>(Arg.Any<IMessage>()).Returns(callInfo =>
             {
-                var msg = (IMessage)callInfo[0];
-                var dto = new MessageDTO();
-                var sender = msg.GetSender();
+                var message = (IMessage)callInfo[0];
+                var dataTransferObject = new MessageDTO();
+                var sender = message.GetSender();
                 if (sender != null)
                 {
-                    dto.SenderId = sender.RetrieveUniqueDatabaseIdentifierForBot();
+                    dataTransferObject.SenderId = sender.RetrieveUniqueDatabaseIdentifierForBot();
                 }
-                return dto;
+                return dataTransferObject;
             });
 
             var defaultBotReply = new BotMessage.BotMessageBuilder(_testUser, _testChat, 2).Build();
@@ -79,11 +79,11 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
         {
             if (initialMessages != null)
             {
-                _msgRepoMock.GetAll().Returns(initialMessages);
+                _msgRepositoryMock.GetAll().Returns(initialMessages);
             }
             else
             {
-                _msgRepoMock.GetAll().Returns(new List<Message>());
+                _msgRepositoryMock.GetAll().Returns(new List<Message>());
             }
 
             return new ChatViewModel(_messageService, _chatService, _mapper, _userService, _testUser);
@@ -94,7 +94,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
         {
             _strategyMock.ClearReceivedCalls();
 
-            var vm = CreateViewModel(new List<Message>());
+            var newViewModel = CreateViewModel(new List<Message>());
 
             _strategyMock.ReceivedWithAnyArgs(1).ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(default, default);
         }
@@ -105,7 +105,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
             var mockMsg = new Message(1, _testUser, _testChat, "Test", DateTimeOffset.UtcNow);
             _strategyMock.ClearReceivedCalls();
 
-            var vm = CreateViewModel(new List<Message> { mockMsg });
+            var newViewModel = CreateViewModel(new List<Message> { mockMsg });
 
             _strategyMock.DidNotReceiveWithAnyArgs().ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(default, default);
         }
@@ -113,29 +113,29 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
         [TestMethod]
         public void FormatUserId_ReturnsCorrectlyFormattedString()
         {
-            var vm = CreateViewModel();
+            var newViewModel = CreateViewModel();
 
-            Assert.AreEqual("User Id: 42", vm.FormatUserId);
+            Assert.AreEqual("User Id: 42", newViewModel.FormatUserId);
         }
 
         [TestMethod]
         public void CloseChat_CallsChatRepositoryUpdate()
         {
-            var vm = CreateViewModel();
+            var newViewModel = CreateViewModel();
 
-            vm.CloseChat();
+            newViewModel.CloseChat();
 
-            _chatRepoMock.Received(1).UpdateById(1, Arg.Any<Chat>());
+            _chatRepositoryMock.Received(1).UpdateById(1, Arg.Any<Chat>());
         }
 
         [TestMethod]
         public void HandleOptionClick_NullOption_DoesNothing()
         {
-            var mockMsg = new Message(1, _testUser, _testChat, "Init", DateTimeOffset.UtcNow);
-            var vm = CreateViewModel(new List<Message> { mockMsg });
+            var mockMessage = new Message(1, _testUser, _testChat, "Init", DateTimeOffset.UtcNow);
+            var newViewModel = CreateViewModel(new List<Message> { mockMessage });
             _strategyMock.ClearReceivedCalls();
 
-            vm.HandleOptionClickCommand.Execute(null);
+            newViewModel.HandleOptionClickCommand.Execute(null);
 
             _strategyMock.DidNotReceiveWithAnyArgs().ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(default, default);
         }
@@ -143,22 +143,22 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
         [TestMethod]
         public void HandleOptionClick_ValidOption_SendsMessage()
         {
-            var mockMsg = new Message(1, _testUser, _testChat, "Init", DateTimeOffset.UtcNow);
-            var vm = CreateViewModel(new List<Message> { mockMsg });
-            _msgRepoMock.ClearReceivedCalls();
+            var mockMessage = new Message(1, _testUser, _testChat, "Init", DateTimeOffset.UtcNow);
+            var mockViewModel = CreateViewModel(new List<Message> { mockMessage });
+            _msgRepositoryMock.ClearReceivedCalls();
 
             var option = new FAQOption("Test", 2);
 
-            vm.HandleOptionClickCommand.Execute(option);
+            mockViewModel.HandleOptionClickCommand.Execute(option);
 
-            _msgRepoMock.Received(2).CreateNewEntity(Arg.Any<Message>());
+            _msgRepositoryMock.Received(2).CreateNewEntity(Arg.Any<Message>());
         }
 
         [TestMethod]
         public void HandleOptionClick_NextOptionsAvailable_AddsToCurrentOptions()
         {
-            var mockMsg = new Message(1, _testUser, _testChat, "Init", DateTimeOffset.UtcNow);
-            var vm = CreateViewModel(new List<Message> { mockMsg });
+            var mockMessage = new Message(1, _testUser, _testChat, "Init", DateTimeOffset.UtcNow);
+            var mockViewModel = CreateViewModel(new List<Message> { mockMessage });
             var option = new FAQOption("Test", 2);
             var nextOption = new FAQOption("Next", 3);
 
@@ -168,16 +168,16 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
 
             _strategyMock.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(Arg.Any<BotEngine>(), Arg.Any<IMessage>()).Returns(botReply);
 
-            vm.HandleOptionClickCommand.Execute(option);
+            mockViewModel.HandleOptionClickCommand.Execute(option);
 
-            Assert.AreEqual(nextOption, vm.CurrentOptions[0]);
+            Assert.AreEqual(nextOption, mockViewModel.CurrentOptions[0]);
         }
 
         [TestMethod]
         public void HandleOptionClick_NextOptionsNull_AddsRestartChatOption()
         {
-            var mockMsg = new Message(1, _testUser, _testChat, "Init", DateTimeOffset.UtcNow);
-            var vm = CreateViewModel(new List<Message> { mockMsg });
+            var mockMessage = new Message(1, _testUser, _testChat, "Init", DateTimeOffset.UtcNow);
+            var mockViewModel = CreateViewModel(new List<Message> { mockMessage });
             var option = new FAQOption("Test", 2);
             var botReply = new BotMessage.BotMessageBuilder(_testUser, _testChat, 2).Build();
 
@@ -186,42 +186,42 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Chats
 
             _strategyMock.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(Arg.Any<BotEngine>(), Arg.Any<IMessage>()).Returns(botReply);
 
-            vm.HandleOptionClickCommand.Execute(option);
+            mockViewModel.HandleOptionClickCommand.Execute(option);
 
-            Assert.AreEqual("Restart Chat", vm.CurrentOptions[0].label);
+            Assert.AreEqual("Restart Chat", mockViewModel.CurrentOptions[0].label);
         }
 
         [TestMethod]
         public void LoadChatHistory_OutgoingMessage_SetsIsOutgoingTrue()
         {
-            var mockMsg = new Message(1, _testUser, _testChat, "Test", DateTimeOffset.UtcNow);
+            var mockMessage = new Message(1, _testUser, _testChat, "Test", DateTimeOffset.UtcNow);
 
-            var vm = CreateViewModel(new List<Message> { mockMsg });
+            var mockViewModel = CreateViewModel(new List<Message> { mockMessage });
 
-            Assert.IsTrue(vm.ChatHistory[0].IsOutgoing);
+            Assert.IsTrue(mockViewModel.ChatHistory[0].IsOutgoing);
         }
 
         [TestMethod]
         public void LoadChatHistory_IncomingMessage_SetsIsOutgoingFalse()
         {
             var otherUser = new User(99, "Other", "other@other.com");
-            var mockMsg = new Message(1, otherUser, _testChat, "Test", DateTimeOffset.UtcNow);
+            var mockMessage = new Message(1, otherUser, _testChat, "Test", DateTimeOffset.UtcNow);
 
-            var vm = CreateViewModel(new List<Message> { mockMsg });
+            var mockViewModel = CreateViewModel(new List<Message> { mockMessage });
 
-            Assert.IsFalse(vm.ChatHistory[0].IsOutgoing);
+            Assert.IsFalse(mockViewModel.ChatHistory[0].IsOutgoing);
         }
 
         [TestMethod]
         public void LoadChatHistory_SetsSenderNameCorrectly()
         {
             var otherUser = new User(99, "Other Name", "other@other.com");
-            var mockMsg = new Message(1, otherUser, _testChat, "Test", DateTimeOffset.UtcNow);
+            var mockMessage = new Message(1, otherUser, _testChat, "Test", DateTimeOffset.UtcNow);
             _userService.GetById(99).Returns(otherUser);
 
-            var vm = CreateViewModel(new List<Message> { mockMsg });
+            var mockViewModel = CreateViewModel(new List<Message> { mockMessage });
 
-            Assert.AreEqual("Other Name", vm.ChatHistory[0].SenderName);
+            Assert.AreEqual("Other Name", mockViewModel.ChatHistory[0].SenderName);
         }
     }
 }

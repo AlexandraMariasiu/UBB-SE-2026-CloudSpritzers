@@ -54,13 +54,13 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod()]
         public void CreateNewUser_WithValidData_CallsRepository()
         {
-            int id = 10;
-            string name = "New User";
-            string email = "new@test.com";
+            int identificationNumber = 10;
+            string fullName = "New User";
+            string emailAddress = "new@test.com";
 
-            _userService.CreateNewUser(id, name, email);
+            _userService.CreateNewUser(identificationNumber, fullName, emailAddress);
 
-            _userRepository.Received(1).CreateNewEntity(Arg.Is<User>(user => user.RetrieveUniqueDatabaseIdentifierForBot() == id));
+            _userRepository.Received(1).CreateNewEntity(Arg.Is<User>(user => user.RetrieveUniqueDatabaseIdentifierForBot() == identificationNumber));
         }
 
         [TestMethod()]
@@ -75,10 +75,10 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             var existingUser = _userService.GetAllUsers().First();
 
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _userService.ValidateUserIntegrity(existingUser));
 
-            StringAssert.Contains("User already exists", ex.Message);
+            StringAssert.Contains("User already exists", exceptionThrown.Message);
         }
 
         [TestMethod()]
@@ -86,10 +86,10 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             var userWithEmptyName = new User(1, "", "email@test.com");
 
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _userService.ValidateUserIntegrity(userWithEmptyName));
 
-            StringAssert.Contains("Name cannot be null or empty", ex.Message);
+            StringAssert.Contains("Name cannot be null or empty", exceptionThrown.Message);
         }
 
         [TestMethod()]
@@ -97,10 +97,10 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             var userWithEmptyEmail = new User(1, "Nume Valid", "");
 
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _userService.ValidateUserIntegrity(userWithEmptyEmail));
 
-            StringAssert.Contains("Email cannot be null or empty", ex.Message);
+            StringAssert.Contains("Email cannot be null or empty", exceptionThrown.Message);
         }
 
         [TestMethod()]
@@ -114,12 +114,12 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod()]
         public void UpdateUserById_CallsRepositoryWithCorrectData()
         {
-            int id = 1;
-            var updatedUser = new User(id, "Nume Actualizat", "updated@test.com");
+            int identificationNumber = 1;
+            var updatedUser = new User(identificationNumber, "Nume Actualizat", "updated@test.com");
 
-            _userService.UpdateUserById(id, updatedUser);
+            _userService.UpdateUserById(identificationNumber, updatedUser);
 
-            _userRepository.Received(1).UpdateById(id, updatedUser);
+            _userRepository.Received(1).UpdateById(identificationNumber, updatedUser);
         }
     }
 }

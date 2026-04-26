@@ -9,11 +9,11 @@ public class FAQEntryDtoTests
     [TestMethod]
     public void IsExpanded_Set_RaisesPropertyChanged()
     {
-        var dto = new FAQEntryDTO(1, "What type of cars can I park here", "Only audis", FAQCategoryEnum.All, 34, 23, 3);
+        var dataTransferObject = new FAQEntryDTO(1, "What type of cars can I park here", "Only audis", FAQCategoryEnum.All, 34, 23, 3);
         string? changedProperty = null;
-        dto.PropertyChanged += (sender, arguments) => changedProperty = arguments.PropertyName;
+        dataTransferObject.PropertyChanged += (sender, arguments) => changedProperty = arguments.PropertyName;
 
-        dto.IsExpanded = true;
+        dataTransferObject.IsExpanded = true;
 
         Assert.AreEqual("IsExpanded", changedProperty);
     }

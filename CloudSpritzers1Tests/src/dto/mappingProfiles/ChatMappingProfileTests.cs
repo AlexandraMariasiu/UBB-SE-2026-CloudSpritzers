@@ -14,9 +14,9 @@ public class ChatMappingProfileTests
     [TestInitialize]
     public void Setup()
     {
-        var config = new MapperConfiguration(cfg => cfg.AddProfile<ChatMappingProfile>());
+        var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<ChatMappingProfile>());
 
-        _mapper = config.CreateMapper();
+        _mapper = configuration.CreateMapper();
     }
 
     [TestMethod]
@@ -35,8 +35,8 @@ public class ChatMappingProfileTests
     [TestMethod]
     public void Configuration_IsValid()
     {
-        var config = new MapperConfiguration(cfg => cfg.AddProfile<ChatMappingProfile>());
+        var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<ChatMappingProfile>());
 
-        config.AssertConfigurationIsValid();
+        configuration.AssertConfigurationIsValid();
     }
 }

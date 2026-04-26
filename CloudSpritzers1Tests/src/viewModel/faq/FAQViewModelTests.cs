@@ -31,15 +31,15 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             _mapper.Map<FAQEntryDTO>(Arg.Any<FAQEntry>()).Returns(callInfo => MapToDto((FAQEntry)callInfo[0]));
             _mapper.Map<FAQEntry>(Arg.Any<FAQEntryDTO>()).Returns(callInfo => MapToEntity((FAQEntryDTO)callInfo[0]));
 
-            var entries = new List<FAQEntry>
+            var questionEntries = new List<FAQEntry>
             {
                 new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0),
                 new FAQEntry(2, "How much does parking cost per day?", "Parking is 100 euros", FAQCategoryEnum.Parking, 2, 3, 1),
                 new FAQEntry(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 3, 4, 2),
             };
-            entries = entries.OrderByDescending(entry => entry.ViewCount).ToList();
-            _faqService.GetAll().Returns(entries);
-            _faqService.FilterFAQEntry(Arg.Any<FAQCategoryEnum>(), Arg.Any<string>()).Returns(entries);
+            questionEntries = questionEntries.OrderByDescending(entry => entry.ViewCount).ToList();
+            _faqService.GetAll().Returns(questionEntries);
+            _faqService.FilterFAQEntry(Arg.Any<FAQCategoryEnum>(), Arg.Any<string>()).Returns(questionEntries);
 
             _faqViewModel = new FAQViewModel(_faqService, _mapper);
             _faqViewModel.LoadFAQ();
@@ -48,8 +48,8 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         [TestMethod]
         public void Constructor_WhenCalled_LoadsFAQsAndSetsVariable()
         {
-            var allFAQs = _faqService.GetAll().OrderByDescending(entry => entry.ViewCount).ToList();
-            _faqService.FilterFAQEntry(Arg.Any<FAQCategoryEnum>(), Arg.Any<string>()).Returns(allFAQs);
+            var allFrequentlyAskedQuestions = _faqService.GetAll().OrderByDescending(questionEntry => questionEntry.ViewCount).ToList();
+            _faqService.FilterFAQEntry(Arg.Any<FAQCategoryEnum>(), Arg.Any<string>()).Returns(allFrequentlyAskedQuestions);
 
             Assert.AreEqual(3, _faqViewModel.FAQs.Count);
             Assert.AreEqual(3, _faqViewModel.FilteredFAQs.Count);
@@ -102,9 +102,9 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
                 new FAQEntry(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 3, 4, 2),
             };
             _faqService.GetAll().Returns(updatedEntries);
-            var entryToDeleteDto = MapToDto(entryToDelete);
+            var entryToDeleteDataTransferObject = MapToDto(entryToDelete);
 
-            _faqViewModel.DeleteFAQEntry(entryToDeleteDto);
+            _faqViewModel.DeleteFAQEntry(entryToDeleteDataTransferObject);
 
             _faqService.Received(1).DeleteFAQEntry(entryToDelete.Id);
             Assert.AreEqual(2, _faqViewModel.FAQs.Count);
@@ -128,27 +128,27 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         [TestMethod]
         public void ToggleFAQ_WhenPressed_ExpandsEntryAndIncrementsViewCount()
         {
-            var firstFaq = _faqViewModel.FilteredFAQs[0];
-            var viewCountBeforeExpanding = firstFaq.ViewCount;
-            var secondFaq = _faqViewModel.FilteredFAQs[1];
+            var firstFrequentlyAskedQuestion = _faqViewModel.FilteredFAQs[0];
+            var viewCountBeforeExpanding = firstFrequentlyAskedQuestion.ViewCount;
+            var secondFrequentlyAskedQuestion = _faqViewModel.FilteredFAQs[1];
 
-            _faqViewModel.ToggleFAQ(firstFaq);
+            _faqViewModel.ToggleFAQ(firstFrequentlyAskedQuestion);
 
-            Assert.IsTrue(firstFaq.IsExpanded);
-            Assert.IsFalse(secondFaq.IsExpanded);
-            Assert.AreEqual(firstFaq, _faqViewModel.SelectedFAQEntry);
-            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FAQs.First(faqDto => faqDto.Id == firstFaq.Id).ViewCount);
-            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FilteredFAQs.First(faqDto => faqDto.Id == firstFaq.Id).ViewCount);
+            Assert.IsTrue(firstFrequentlyAskedQuestion.IsExpanded);
+            Assert.IsFalse(secondFrequentlyAskedQuestion.IsExpanded);
+            Assert.AreEqual(firstFrequentlyAskedQuestion, _faqViewModel.SelectedFAQEntry);
+            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FAQs.First(faqDataTransferObject => faqDataTransferObject.Id == firstFrequentlyAskedQuestion.Id).ViewCount);
+            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FilteredFAQs.First(faqDataTransferObject => faqDataTransferObject.Id == firstFrequentlyAskedQuestion.Id).ViewCount);
             _faqService.Received(1).IncrementViewCount(Arg.Any<FAQEntry>());
         }
 
         [TestMethod]
         public void ToggleFAQ_CalledForNullEntity_ReturnsWithoutCallingService()
         {
-            var firstFaq = _faqViewModel.FilteredFAQs[0];
+            var firstFrequentlyAskedQuestion = _faqViewModel.FilteredFAQs[0];
             _faqViewModel.ToggleFAQ(null);
 
-            Assert.IsFalse(firstFaq.IsExpanded);
+            Assert.IsFalse(firstFrequentlyAskedQuestion.IsExpanded);
             _faqService.DidNotReceive().IncrementViewCount(Arg.Any<FAQEntry>());
         }
 
@@ -219,33 +219,33 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         [TestMethod]
         public void GiveFeedback_Helpful_UpdatesFlagsAndVotes()
         {
-            var faq = _faqViewModel.FilteredFAQs[0];
-            var initialHelpfulVotes = faq.HelpfulVotesCount;
+            var frequentlyAskedQuestion = _faqViewModel.FilteredFAQs[0];
+            var initialHelpfulVotes = frequentlyAskedQuestion.HelpfulVotesCount;
 
-            _faqViewModel.GiveFeedback(faq, true);
+            _faqViewModel.GiveFeedback(frequentlyAskedQuestion, true);
 
             _faqService.Received(1).IncrementWasHelpfulVotes(Arg.Any<FAQEntry>());
-            Assert.AreEqual(initialHelpfulVotes + 1, faq.HelpfulVotesCount);
-            Assert.IsTrue(faq.HasFeedback);
-            Assert.IsTrue(faq.IsHelpfulSelected);
-            Assert.IsFalse(faq.IsNotHelpfulSelected);
-            Assert.AreEqual(faq, _faqViewModel.SelectedFAQEntry);
+            Assert.AreEqual(initialHelpfulVotes + 1, frequentlyAskedQuestion.HelpfulVotesCount);
+            Assert.IsTrue(frequentlyAskedQuestion.HasFeedback);
+            Assert.IsTrue(frequentlyAskedQuestion.IsHelpfulSelected);
+            Assert.IsFalse(frequentlyAskedQuestion.IsNotHelpfulSelected);
+            Assert.AreEqual(frequentlyAskedQuestion, _faqViewModel.SelectedFAQEntry);
         }
 
         [TestMethod]
         public void GiveFeedback_NotHelpful_UpdatesFlagsAndVotes()
         {
-            var faq = _faqViewModel.FilteredFAQs[0];
-            var initialNotHelpfulVotes = faq.NotHelpfulVotesCount;
+            var frequentlyAskedQuestion = _faqViewModel.FilteredFAQs[0];
+            var initialNotHelpfulVotes = frequentlyAskedQuestion.NotHelpfulVotesCount;
 
-            _faqViewModel.GiveFeedback(faq, false);
+            _faqViewModel.GiveFeedback(frequentlyAskedQuestion, false);
 
             _faqService.Received(1).IncrementWasNotHelpfulVotes(Arg.Any<FAQEntry>());
-            Assert.AreEqual(initialNotHelpfulVotes + 1, faq.NotHelpfulVotesCount);
-            Assert.IsTrue(faq.HasFeedback);
-            Assert.IsFalse(faq.IsHelpfulSelected);
-            Assert.IsTrue(faq.IsNotHelpfulSelected);
-            Assert.AreEqual(faq, _faqViewModel.SelectedFAQEntry);
+            Assert.AreEqual(initialNotHelpfulVotes + 1, frequentlyAskedQuestion.NotHelpfulVotesCount);
+            Assert.IsTrue(frequentlyAskedQuestion.HasFeedback);
+            Assert.IsFalse(frequentlyAskedQuestion.IsHelpfulSelected);
+            Assert.IsTrue(frequentlyAskedQuestion.IsNotHelpfulSelected);
+            Assert.AreEqual(frequentlyAskedQuestion, _faqViewModel.SelectedFAQEntry);
         }
 
         [TestMethod]
@@ -270,28 +270,28 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             Assert.AreEqual(_faqViewModel.SelectedFAQEntry, result.FAQEntry);
         }
 
-        private static FAQEntryDTO MapToDto(FAQEntry entry)
+        private static FAQEntryDTO MapToDto(FAQEntry questionEntry)
         {
             return new FAQEntryDTO(
-                entry.Id,
-                entry.Question,
-                entry.Answer,
-                entry.Category,
-                entry.ViewCount,
-                entry.HelpfulVotesCount,
-                entry.NotHelpfulVotesCount);
+                questionEntry.Id,
+                questionEntry.Question,
+                questionEntry.Answer,
+                questionEntry.Category,
+                questionEntry.ViewCount,
+                questionEntry.HelpfulVotesCount,
+                questionEntry.NotHelpfulVotesCount);
         }
 
-        private static FAQEntry MapToEntity(FAQEntryDTO dto)
+        private static FAQEntry MapToEntity(FAQEntryDTO dataTransferObject)
         {
             return new FAQEntry(
-                dto.Id,
-                dto.Question,
-                dto.Answer,
-                dto.Category,
-                dto.ViewCount,
-                dto.HelpfulVotesCount,
-                dto.NotHelpfulVotesCount);
+                dataTransferObject.Id,
+                dataTransferObject.Question,
+                dataTransferObject.Answer,
+                dataTransferObject.Category,
+                dataTransferObject.ViewCount,
+                dataTransferObject.HelpfulVotesCount,
+                dataTransferObject.NotHelpfulVotesCount);
         }
 
         [TestMethod]
@@ -307,49 +307,49 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         [TestMethod]
         public void IncrementViewCountFor_FilteredFaqSameInstance_DoesNotDuplicateUpdate()
         {
-            var faq = _faqViewModel.FAQs[0];
-            var viewCountBeforeIncrementing = faq.ViewCount;
+            var frequentlyAskedQuestion = _faqViewModel.FAQs[0];
+            var viewCountBeforeIncrementing = frequentlyAskedQuestion.ViewCount;
             _faqViewModel.FilteredFAQs.Clear();
-            _faqViewModel.FilteredFAQs.Add(faq);
+            _faqViewModel.FilteredFAQs.Add(frequentlyAskedQuestion);
 
-            _faqViewModel.IncrementViewCountFor(faq.Id);
+            _faqViewModel.IncrementViewCountFor(frequentlyAskedQuestion.Id);
 
             _faqService.Received(1).IncrementViewCount(Arg.Any<FAQEntry>());
-            Assert.AreEqual(viewCountBeforeIncrementing+1, faq.ViewCount);
+            Assert.AreEqual(viewCountBeforeIncrementing+1, frequentlyAskedQuestion.ViewCount);
         }
 
         [TestMethod]
         public void ToggleFAQ_WhenCollapsing_SetsSelectedToNull()
         {
-            var faq = _faqViewModel.FilteredFAQs[0];
+            var frequentlyAskedQuestion = _faqViewModel.FilteredFAQs[0];
 
-            _faqViewModel.ToggleFAQ(faq);
-            Assert.IsTrue(faq.IsExpanded);
+            _faqViewModel.ToggleFAQ(frequentlyAskedQuestion);
+            Assert.IsTrue(frequentlyAskedQuestion.IsExpanded);
 
-            _faqViewModel.ToggleFAQ(faq);
+            _faqViewModel.ToggleFAQ(frequentlyAskedQuestion);
 
-            Assert.IsFalse(faq.IsExpanded);
+            Assert.IsFalse(frequentlyAskedQuestion.IsExpanded);
             Assert.IsNull(_faqViewModel.SelectedFAQEntry);
         }
 
         [TestMethod]
         public void IncrementViewCountFor_RaisesPropertyChanged()
         {
-            var faq = _faqViewModel.FAQs[0];
-            bool faqsChanged = false;
+            var frequentlyAskedQuestion = _faqViewModel.FAQs[0];
+            bool questionsChanged = false;
             bool filteredChanged = false;
 
             _faqViewModel.PropertyChanged += (sender, propertyArguments) =>
             {
                 if (propertyArguments.PropertyName == nameof(_faqViewModel.FAQs))
-                    faqsChanged = true;
+                    questionsChanged = true;
                 if (propertyArguments.PropertyName == nameof(_faqViewModel.FilteredFAQs))
                     filteredChanged = true;
             };
 
-            _faqViewModel.IncrementViewCountFor(faq.Id);
+            _faqViewModel.IncrementViewCountFor(frequentlyAskedQuestion.Id);
 
-            Assert.IsTrue(faqsChanged);
+            Assert.IsTrue(questionsChanged);
             Assert.IsTrue(filteredChanged);
         }
     }

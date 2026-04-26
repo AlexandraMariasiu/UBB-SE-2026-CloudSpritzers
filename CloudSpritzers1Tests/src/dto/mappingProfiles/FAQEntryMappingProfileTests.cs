@@ -12,12 +12,12 @@ public class FAQEntryMappingProfileTests
     [TestInitialize]
     public void Setup()
     {
-        var config = new MapperConfiguration(cfg => cfg.AddProfile<FAQEntryMappingProfile>());
-        _mapper = config.CreateMapper();
+        var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<FAQEntryMappingProfile>());
+        _mapper = configuration.CreateMapper();
     }
     
     [TestMethod]
-    public void MapFromEntryToDTO_MapsCorrectly()
+    public void Map_FromEntryToDTO_MapsCorrectly()
     {
         var FAQEntry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
         var expectedFAQDto = new FAQEntryDTO(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
@@ -32,12 +32,12 @@ public class FAQEntryMappingProfileTests
     }
 
     [TestMethod]
-    public void MapFromDtoToEntry_MapsCorrectly()
+    public void Map_FromDtoToEntry_MapsCorrectly()
     {
-        var FAQDto = new FAQEntryDTO(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
+        var FAQDataTransferObject = new FAQEntryDTO(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
         var expectedFAQEntry = new FAQEntry(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
 
-        var result = _mapper.Map<FAQEntry>(FAQDto);
+        var result = _mapper.Map<FAQEntry>(FAQDataTransferObject);
         Assert.AreEqual(expectedFAQEntry.Id, result.Id);
         Assert.AreEqual(expectedFAQEntry.Question, result.Question);
         Assert.AreEqual(expectedFAQEntry.Answer, result.Answer);

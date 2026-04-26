@@ -11,15 +11,15 @@ namespace CloudSpritzers1Tests.Src.Service
     [TestClass]
     public class TicketCategoryServiceTests
     {
-        private ITicketCategoryRepository _categoryRepoMock;
+        private ITicketCategoryRepository _categoryRepositoryMock;
         private TicketCategoryService _categoryService;
 
         [TestInitialize]
         public void Setup()
         {
             
-            _categoryRepoMock = Substitute.For<ITicketCategoryRepository>();
-            _categoryService = new TicketCategoryService(_categoryRepoMock);
+            _categoryRepositoryMock = Substitute.For<ITicketCategoryRepository>();
+            _categoryService = new TicketCategoryService(_categoryRepositoryMock);
         }
 
         [TestMethod]
@@ -27,11 +27,11 @@ namespace CloudSpritzers1Tests.Src.Service
         {
            
             var expectedCategory = new TicketCategory(1, "Technical", TicketUrgencyLevelEnum.HIGH);
-            _categoryRepoMock.GetById(1).Returns(expectedCategory);          
+            _categoryRepositoryMock.GetById(1).Returns(expectedCategory);          
             var result = _categoryService.GetCategoryById(1);
 
             Assert.AreEqual(expectedCategory.CategoryName, result.CategoryName);
-            _categoryRepoMock.Received(1).GetById(1);
+            _categoryRepositoryMock.Received(1).GetById(1);
         }
 
         [TestMethod]
@@ -43,19 +43,19 @@ namespace CloudSpritzers1Tests.Src.Service
                 new TicketCategory(1, "IT", TicketUrgencyLevelEnum.MEDIUM),
                 new TicketCategory(2, "HR", TicketUrgencyLevelEnum.LOW)
             };
-            _categoryRepoMock.GetAll().Returns(categories);
+            _categoryRepositoryMock.GetAll().Returns(categories);
 
             var result = _categoryService.GetAllCategories().ToList();
 
             Assert.AreEqual(2, result.Count);
-            _categoryRepoMock.Received(1).GetAll();
+            _categoryRepositoryMock.Received(1).GetAll();
         }
 
         [TestMethod]
         public void GetCategoryById_WhenRepositoryThrows_ServicePropagatesException()
         {
 
-            _categoryRepoMock.GetById(Arg.Any<int>()).Returns(capturedArgs => { throw new KeyNotFoundException(); });
+            _categoryRepositoryMock.GetById(Arg.Any<int>()).Returns(capturedArgs => { throw new KeyNotFoundException(); });
 
             Assert.ThrowsExactly<KeyNotFoundException>(() => _categoryService.GetCategoryById(999));
         }

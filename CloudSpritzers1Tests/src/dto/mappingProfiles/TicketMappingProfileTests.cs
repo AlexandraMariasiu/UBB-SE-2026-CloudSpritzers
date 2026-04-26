@@ -18,13 +18,13 @@ public class TicketMappingProfileTests
     [TestInitialize]
     public void Setup()
     {
-        var config = new MapperConfiguration(cfg => cfg.AddProfile<TicketMappingProfile>());
-        _mapper = config.CreateMapper();
+        var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<TicketMappingProfile>());
+        _mapper = configuration.CreateMapper();
     }
 
 
     [TestMethod]
-    public void MapFromTicketToDTO_MapsCorrectly()
+    public void Map_FromTicketToDTO_MapsCorrectly()
     {
         var creatorMock = new User(1, "John Doe", "johdoe@gmail.com");
 
@@ -34,19 +34,19 @@ public class TicketMappingProfileTests
 
         var ticket = new Ticket(1, creatorMock, TicketStatusEnum.IN_PROGRESS, categoryMock, subcategoryMock, "Issue with login", "Cannot login to the system", DateTime.UtcNow);
 
-        var ticketDTO = _mapper.Map<TicketDTO>(ticket);
-        Assert.AreEqual(ticket.TicketId, ticketDTO.ticketId);
-        Assert.AreEqual(ticket.Creator.RetrieveUniqueDatabaseIdentifierForBot(), ticketDTO.creatorAccountId);
-        Assert.AreEqual(ticket.Creator.RetrieveConfiguredEmailAddressForBotContact(), ticketDTO.creatorEmailAddress);
-        Assert.AreEqual(ticket.UrgencyLevel, ticketDTO.urgencyLevel);
-        Assert.AreEqual(ticket.CurrentStatus, ticketDTO.currentStatus);
-        Assert.AreEqual(ticket.Category.CategoryId, ticketDTO.categoryId);
-        Assert.AreEqual(ticket.Category.CategoryName, ticketDTO.categoryName);
-        Assert.AreEqual(ticket.Subcategory.SubcategoryId, ticketDTO.subcategoryId);
-        Assert.AreEqual(ticket.Subcategory.SubcategoryName, ticketDTO.subcategoryName);
-        Assert.AreEqual(ticket.Subject, ticketDTO.subject);
-        Assert.AreEqual(ticket.Description, ticketDTO.description);
-        Assert.AreEqual(ticket.CreationTimestamp, ticketDTO.creationTimestamp);
+        var ticketDataTransferObject = _mapper.Map<TicketDTO>(ticket);
+        Assert.AreEqual(ticket.TicketId, ticketDataTransferObject.ticketId);
+        Assert.AreEqual(ticket.Creator.RetrieveUniqueDatabaseIdentifierForBot(), ticketDataTransferObject.creatorAccountId);
+        Assert.AreEqual(ticket.Creator.RetrieveConfiguredEmailAddressForBotContact(), ticketDataTransferObject.creatorEmailAddress);
+        Assert.AreEqual(ticket.UrgencyLevel, ticketDataTransferObject.urgencyLevel);
+        Assert.AreEqual(ticket.CurrentStatus, ticketDataTransferObject.currentStatus);
+        Assert.AreEqual(ticket.Category.CategoryId, ticketDataTransferObject.categoryId);
+        Assert.AreEqual(ticket.Category.CategoryName, ticketDataTransferObject.categoryName);
+        Assert.AreEqual(ticket.Subcategory.SubcategoryId, ticketDataTransferObject.subcategoryId);
+        Assert.AreEqual(ticket.Subcategory.SubcategoryName, ticketDataTransferObject.subcategoryName);
+        Assert.AreEqual(ticket.Subject, ticketDataTransferObject.subject);
+        Assert.AreEqual(ticket.Description, ticketDataTransferObject.description);
+        Assert.AreEqual(ticket.CreationTimestamp, ticketDataTransferObject.creationTimestamp);
 
 
     }

@@ -44,14 +44,14 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod()]
         public void CreateNewEmployee_WithValidData_CallsRepository()
         {
-            int id = 3;
-            string name = "Cristi Dan";
-            string email = "cristi@test.com";
-            string dept = "SECURITY";
+            int identificationNumber = 3;
+            string fullName = "Cristi Dan";
+            string emailAddress = "cristi@test.com";
+            string department = "SECURITY";
 
-            _employeeService.CreateNewEmployee(id, name, email, dept);
+            _employeeService.CreateNewEmployee(identificationNumber, fullName, emailAddress, department);
 
-            _employeeRepository.Received(1).CreateNewEntity(Arg.Is<Employee>(employee => employee.EmployeeId == id)); 
+            _employeeRepository.Received(1).CreateNewEntity(Arg.Is<Employee>(employee => employee.EmployeeId == identificationNumber)); 
         }
 
         [TestMethod()]
@@ -66,9 +66,9 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             var invalidEmployee = new Employee(4, "", "test@test.com", EmployeeDepartment.ADMIN);
 
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _employeeService.ValidateEmployeeIntegrity(invalidEmployee));
-            StringAssert.Contains("Name cannot be null or empty", ex.Message); 
+            StringAssert.Contains("Name cannot be null or empty", exceptionThrown.Message); 
         }
 
         [TestMethod()]
@@ -77,9 +77,9 @@ namespace CloudSpritzers1Tests.Src.Service
             
             var employee = new Employee(5, "Name", "email@test.com", (EmployeeDepartment)999);
 
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _employeeService.ValidateEmployeeIntegrity(employee)); 
-            StringAssert.Contains("Invalid group", ex.Message); 
+            StringAssert.Contains("Invalid group", exceptionThrown.Message); 
         }
 
         [TestMethod()]
@@ -97,22 +97,22 @@ namespace CloudSpritzers1Tests.Src.Service
             var existingEmployee = new Employee(1, "Andrei Muresan", "andrei@test.com", EmployeeDepartment.ADMIN);
             _employeeRepository.GetAll().Returns(new List<Employee> { existingEmployee }); 
 
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _employeeService.ValidateEmployeeIntegrity(existingEmployee));
 
-            StringAssert.Contains("Employee already exists", ex.Message); 
+            StringAssert.Contains("Employee already exists", exceptionThrown.Message); 
         }
 
         [TestMethod()]
         public void CreateNewEmployee_InvalidDepartmentString_ThrowsArgumentException()
         {
-            int id = 10;
-            string name = "Cristi Dan";
-            string email = "cristi@test.com";
-            string invalidDept = "NON_EXISTENT_DEPT"; 
+            int identificationNumber = 10;
+            string fullName = "Cristi Dan";
+            string emailAddress = "cristi@test.com";
+            string invalidDepartment = "NON_EXISTENT_DEPT"; 
 
             Assert.ThrowsExactly<ArgumentException>(() =>
-                _employeeService.CreateNewEmployee(id, name, email, invalidDept));
+                _employeeService.CreateNewEmployee(identificationNumber, fullName, emailAddress, invalidDepartment));
         }
 
         [TestMethod()]
@@ -142,10 +142,10 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             var employeeWithEmptyEmail = new Employee(1, "Name", "", EmployeeDepartment.ADMIN);
 
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _employeeService.ValidateEmployeeIntegrity(employeeWithEmptyEmail));
 
-            StringAssert.Contains("Email cannot be null or empty", ex.Message);
+            StringAssert.Contains("Email cannot be null or empty", exceptionThrown.Message);
         }
 
         [TestMethod()]
@@ -153,10 +153,10 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             var employeeWithEmptyDept = new Employee(1, "Name", "test@test.com", (EmployeeDepartment)999);
 
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _employeeService.ValidateEmployeeIntegrity(employeeWithEmptyDept));
 
-            StringAssert.Contains("Invalid group", ex.Message);
+            StringAssert.Contains("Invalid group", exceptionThrown.Message);
         }
 
     }
