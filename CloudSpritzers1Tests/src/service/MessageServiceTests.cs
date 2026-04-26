@@ -92,11 +92,11 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             var activeChat = new Chat(1, 101, ChatStatus.Active);
             _mockChatRepository.GetById(1).Returns(activeChat);
-            var option = new FAQOption("Help me", 2);
+            var selectedChatOption = new FAQOption("Help me", 2);
             var expectedReply = new BotMessage.BotMessageBuilder(_realBotEngine, activeChat, 2).WithMessage("I can help").Build();
             _mockStrategy.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(Arg.Any<BotEngine>(), Arg.Any<IMessage>()).Returns(expectedReply);
 
-            var resultedChatMessage = _messageService.SendMessage(1, _testSender, option);
+            var resultedChatMessage = _messageService.SendMessage(1, _testSender, selectedChatOption);
 
             Assert.AreEqual("I can help", resultedChatMessage.GetMessage());
         }
@@ -133,8 +133,8 @@ namespace CloudSpritzers1Tests.Src.Service
         public void GetMessage_ForWrongChat_ThrowsInvalidOperationException()
         {
             var wrongChat = new Chat(99, 101, ChatStatus.Active);
-            var message = new Message(_testSender, wrongChat, "Text");
-            _mockMessageRepository.GetById(5).Returns(message);
+            var chatMessage = new Message(_testSender, wrongChat, "Text");
+            _mockMessageRepository.GetById(5).Returns(chatMessage);
 
             Assert.ThrowsExactly<InvalidOperationException>(() => _messageService.GetMessage(1, 5));
         }
@@ -157,9 +157,9 @@ namespace CloudSpritzers1Tests.Src.Service
             var chatMessage = new Message(_testSender, correctChat, "Correct Text");
             _mockMessageRepository.GetById(5).Returns(chatMessage);
 
-            var result = _messageService.GetMessage(1, 5);
+            var resultedMessage = _messageService.GetMessage(1, 5);
 
-            Assert.AreEqual("Correct Text", result.GetMessage());
+            Assert.AreEqual("Correct Text", resultedMessage.GetMessage());
         }
 
         [TestMethod]
@@ -170,18 +170,18 @@ namespace CloudSpritzers1Tests.Src.Service
             var secondMessage = new Message(2, _testSender, firstChat, "B", DateTimeOffset.UtcNow);
             _mockMessageRepository.GetAll().Returns(new List<Message> { firstMessage, secondMessage });
 
-            var result = _messageService.GetAllMessages(1).ToList();
+            var resultedMessages = _messageService.GetAllMessages(1).ToList();
 
-            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(2, resultedMessages.Count);
         }
 
         [TestMethod]
         public void GetAllMessages_WhenCalled_ReturnsMessagesOrderedByTimestampAscending()
         {
             var firstChat = new Chat(1, 101, ChatStatus.Active);
-            var earlier = new Message(1, _testSender, firstChat, "Earlier", DateTimeOffset.UtcNow.AddMinutes(-10));
-            var later = new Message(2, _testSender, firstChat, "Later", DateTimeOffset.UtcNow);
-            _mockMessageRepository.GetAll().Returns(new List<Message> { later, earlier });
+            var earlierMessage = new Message(1, _testSender, firstChat, "Earlier", DateTimeOffset.UtcNow.AddMinutes(-10));
+            var laterMessage = new Message(2, _testSender, firstChat, "Later", DateTimeOffset.UtcNow);
+            _mockMessageRepository.GetAll().Returns(new List<Message> { laterMessage, earlierMessage });
 
             var resultedMessages = _messageService.GetAllMessages(1).ToList();
 

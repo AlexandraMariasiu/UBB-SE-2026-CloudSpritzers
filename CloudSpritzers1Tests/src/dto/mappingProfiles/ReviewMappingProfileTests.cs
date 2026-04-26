@@ -102,8 +102,8 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
         public void Map_AllRatingsEqual_OverallRatingCalculatedCorrectly()
         {
             
-            var user = new User(102, "Jane Doe", "jane@example.com");
-            var sourceReview = new Review(2, user, "Good", 4, 4, 4, 4);
+            var userEntity = new User(102, "Jane Doe", "jane@example.com");
+            var sourceReview = new Review(2, userEntity, "Good", 4, 4, 4, 4);
 
            
             var resultDataTransferObject = _mapper.Map<ReviewDTO>(sourceReview);
@@ -115,8 +115,8 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
         public void Map_ZeroRatings_OverallRatingIsZero()
         {
             
-            var user = new User(103, "Bob", "bob@example.com");
-            var sourceReview = new Review(3, user, "Bad", 0, 0, 0, 0);
+            var userEntity = new User(103, "Bob", "bob@example.com");
+            var sourceReview = new Review(3, userEntity, "Bad", 0, 0, 0, 0);
 
             var resultDataTransferObject = _mapper.Map<ReviewDTO>(sourceReview);
 

@@ -27,21 +27,21 @@ public class UserMappingProfileTests
     [TestMethod]
     public void Map_UserToUserDTO_MapsUserNameCorrectly()
     {
-        var user = new User(1, "Alex", "alex@mail.com");
+        var userEntity = new User(1, "Alex", "alex@mail.com");
 
-        var resultedDto = _mapper.Map<UserDTO>(user);
+        var resultedDataTransferObject = _mapper.Map<UserDTO>(userEntity);
 
-        Assert.AreEqual(user.RetrieveConfiguredDisplayFullNameForBot(), resultedDto.name);
+        Assert.AreEqual(userEntity.RetrieveConfiguredDisplayFullNameForBot(), resultedDataTransferObject.name);
     }
 
     [TestMethod]
     public void Map_UserToUserDTO_MapsUserEmailCorrectly()
     {
-        var user = new User(1, "Alex", "alex@mail.com");
+        var userEntity = new User(1, "Alex", "alex@mail.com");
 
-        var resultDto = _mapper.Map<UserDTO>(user);
+        var resultedDataTransferObject = _mapper.Map<UserDTO>(userEntity);
 
-        Assert.AreEqual(user.RetrieveConfiguredEmailAddressForBotContact(), resultDto.email);
+        Assert.AreEqual(userEntity.RetrieveConfiguredEmailAddressForBotContact(), resultedDataTransferObject.email);
     }
 
     [TestMethod]

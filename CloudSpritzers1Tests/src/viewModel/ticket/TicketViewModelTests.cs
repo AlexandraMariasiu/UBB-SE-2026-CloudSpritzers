@@ -69,17 +69,17 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         public void GetAllTickets_WhenCalled_ShouldReturnAllTickets()
         {
 
-            var result = _ticketsViewModel.GetAllTickets();
-            Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.Count());
-            Assert.AreEqual(_ticketsViewModel.AllTickets.First(), result.First());
+            var resultedTickets = _ticketsViewModel.GetAllTickets();
+            Assert.IsNotNull(resultedTickets);
+            Assert.AreEqual(1, resultedTickets.Count());
+            Assert.AreEqual(_ticketsViewModel.AllTickets.First(), resultedTickets.First());
         }
 
         [TestMethod]
         public void GetTotalTicketCount_WhenCalled_ShouldReturnCountOfAllTickets()
         {
-            var count = _ticketsViewModel.GetTotalTicketCount();
-            Assert.AreEqual(1, count);
+            var ticketsCount = _ticketsViewModel.GetTotalTicketCount();
+            Assert.AreEqual(1, ticketsCount);
         }
 
         [TestMethod]
@@ -144,8 +144,8 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         [TestMethod]
         public void LoadSubcategories_WhenCalled_ShouldPopulateCorrectCategory()
         {
-            var subList = new List<TicketSubcategory> { _testSubcategory };
-            _subcategoryService.GetSubcategoriesByCategoryId(1).Returns(subList);
+            var subcategoriesList = new List<TicketSubcategory> { _testSubcategory };
+            _subcategoryService.GetSubcategoriesByCategoryId(1).Returns(subcategoriesList);
 
             _ticketsViewModel.LoadSubcategories(1);
 

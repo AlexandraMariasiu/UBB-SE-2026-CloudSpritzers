@@ -27,21 +27,21 @@ public class EmployeeMappingProfileTests
     [TestMethod]
     public void Map_EmployeeToEmployeeDTO_MapsNameCorrectly()
     {
-        var employee = new Employee(1, "Alex", "alex@mail.com", EmployeeDepartment.HR);
+        var employeeEntity = new Employee(1, "Alex", "alex@mail.com", EmployeeDepartment.HR);
 
-        var resultedDataTransferObject = _mapper.Map<EmployeeDTO>(employee);
+        var resultedDataTransferObject = _mapper.Map<EmployeeDTO>(employeeEntity);
 
-        Assert.AreEqual(employee.RetrieveConfiguredDisplayFullNameForBot(), resultedDataTransferObject.name);
+        Assert.AreEqual(employeeEntity.RetrieveConfiguredDisplayFullNameForBot(), resultedDataTransferObject.name);
     }
 
     [TestMethod]
     public void Map_EmployeeToEmployeeDTO_MapsEmailCorrectly()
     {
-        var employee = new Employee(1, "Alex", "alex@mail.com", EmployeeDepartment.HR);
+        var employeeEntity = new Employee(1, "Alex", "alex@mail.com", EmployeeDepartment.HR);
 
-        var resultedDataTransferObject = _mapper.Map<EmployeeDTO>(employee);
+        var resultedDataTransferObject = _mapper.Map<EmployeeDTO>(employeeEntity);
 
-        Assert.AreEqual(employee.RetrieveConfiguredEmailAddressForBotContact(), resultedDataTransferObject.email);
+        Assert.AreEqual(employeeEntity.RetrieveConfiguredEmailAddressForBotContact(), resultedDataTransferObject.email);
     }
 
     [TestMethod]

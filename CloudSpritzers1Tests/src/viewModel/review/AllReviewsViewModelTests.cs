@@ -32,11 +32,11 @@ namespace CloudSpritzers1Tests.Src.ViewModel
 
             // 2. Setup Service with Mock Repo
             _mockRepository = Substitute.For<IRepository<int, Review>>();
-            var service = new ReviewService(_mockRepository);
+            var reviewService = new ReviewService(_mockRepository);
 
             _testUser = new User(1, "Test", "test@test.com");
 
-            _viewModel = new AllReviewsViewModel(service, _mapper);
+            _viewModel = new AllReviewsViewModel(reviewService, _mapper);
         }
 
         [TestMethod]
@@ -79,9 +79,9 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         {
           
             var reviews = new List<Review>
-    {
-        new Review(1, _testUser, "Excellent service", 5, 5, 5, 5)
-    };
+                {
+                    new Review(1, _testUser, "Excellent service", 5, 5, 5, 5)
+                };
             _mockRepository.GetAll().Returns(reviews);
 
             _viewModel.LoadData();

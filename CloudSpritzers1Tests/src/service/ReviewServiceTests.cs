@@ -123,10 +123,10 @@ namespace CloudSpritzers1Tests.Src.Service
             _reviewRepository.GetById(1).Returns(expectedReview);
 
             
-            var result = _reviewService.GetById(1);
+            var resultedReview = _reviewService.GetById(1);
 
             
-            Assert.AreEqual(expectedReview, result);
+            Assert.AreEqual(expectedReview, resultedReview);
             _reviewRepository.Received(1).GetById(1); 
         }
 
@@ -158,10 +158,10 @@ namespace CloudSpritzers1Tests.Src.Service
             _reviewRepository.GetAll().Returns(reviews);
 
             
-            var result = _reviewService.GetAll();
+            var resultedReviewList = _reviewService.GetAll();
 
             
-            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(2, resultedReviewList.Count);
             _reviewRepository.Received(1).GetAll();
         }
 
