@@ -12,35 +12,91 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
     public class ReviewMappingProfileTests
     {
         private IMapper _mapper;
+        private User _testUser;
+        private Review _testReview;
 
         [TestInitialize]
         public void Setup()
         {
-            // Initialize AutoMapper with the specific profile
             var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<ReviewMappingProfile>());
             _mapper = configuration.CreateMapper();
+            _testUser = new User(101, "John Doe", "john@example.com");
+            _testReview = new Review(1, _testUser, "Great flight!", 5, 4, 3, 2);
         }
 
         [TestMethod]
-        public void Map_FromReviewToReviewDTO_ValidReview_AllFieldsMappedCorrectly()
+        public void Map_FromReviewToReviewDTO_ValidReview_ReturnsNotNullObject()
         {
-            var user = new User(101, "John Doe", "john@example.com");
-            var sourceReview = new Review(1, user, "Great flight!", 5, 4, 3, 2);
+            var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
 
-            
-            var resultDataTransferObject = _mapper.Map<ReviewDTO>(sourceReview);
-
-            
             Assert.IsNotNull(resultDataTransferObject);
-            Assert.AreEqual(sourceReview.GetId(), resultDataTransferObject.reviewId);
-            Assert.AreEqual(sourceReview.GetUser().UserId, resultDataTransferObject.userId);
-            Assert.AreEqual("John Doe", resultDataTransferObject.userName);
-            Assert.AreEqual(sourceReview.GetMessage(), resultDataTransferObject.message);
-            Assert.AreEqual(sourceReview.GetDutyFreeRating(), resultDataTransferObject.dutyFreeRating);
-            Assert.AreEqual(sourceReview.GetFlightExperienceRating(), resultDataTransferObject.flightExperienceRating);
-            Assert.AreEqual(sourceReview.GetStaffFriendlinessRating(), resultDataTransferObject.staffFriendlinessRating);
-            Assert.AreEqual(sourceReview.GetCleanlinessRating(), resultDataTransferObject.cleanlinessRating);
         }
+
+        [TestMethod]
+        public void Map_FromReviewToReviewDTO_ValidReview_MapsReviewIdCorrectly()
+        {
+            var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
+
+            Assert.AreEqual(_testReview.GetId(), resultDataTransferObject.reviewId);
+        }
+
+        [TestMethod]
+        public void Map_FromReviewToReviewDTO_ValidReview_MapsUserIdCorrectly()
+        {
+            var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
+
+            Assert.AreEqual(_testReview.GetUser().UserId, resultDataTransferObject.userId);
+        }
+
+        [TestMethod]
+        public void Map_FromReviewToReviewDTO_ValidReview_MapsUserNameCOrrectly()
+        {
+            var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
+
+            Assert.AreEqual("John Doe", resultDataTransferObject.userName);
+        }
+
+        [TestMethod]
+        public void Map_FromReviewToReviewDTO_ValidReview_MapsMessageCorrectly()
+        {
+            var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
+
+            Assert.AreEqual(_testReview.GetMessage(), resultDataTransferObject.message);
+        }
+
+        [TestMethod]
+        public void Map_FromReviewToReviewDTO_ValidReview_MapsDutyFreeRatingCorrectly()
+        {
+            var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
+
+            Assert.AreEqual(_testReview.GetDutyFreeRating(), resultDataTransferObject.dutyFreeRating);
+        }
+
+        [TestMethod]
+        public void Map_FromReviewToReviewDTO_ValidReview_MapsFlightExprienceRatingCorrectly()
+        {
+            var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
+
+            Assert.AreEqual(_testReview.GetFlightExperienceRating(), resultDataTransferObject.flightExperienceRating);
+        }
+
+        [TestMethod]
+        public void Map_FromReviewToReviewDTO_ValidReview_MapsStaffFriendlinessRatingCorrectly()
+        {
+            var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
+
+            Assert.AreEqual(_testReview.GetStaffFriendlinessRating(), resultDataTransferObject.staffFriendlinessRating);
+        }
+
+        [TestMethod]
+        public void Map_FromReviewToReviewDTO_ValidReview_MapsCleanlinessRatingCorrectly()
+        {
+            var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
+
+            Assert.AreEqual(_testReview.GetCleanlinessRating(), resultDataTransferObject.cleanlinessRating);
+        }
+
+
 
         [TestMethod]
         public void Map_FromReviewToReviewDTO_AllRatingsEqual_OverallRatingCalculatedCorrectly()
