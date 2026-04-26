@@ -85,7 +85,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         [TestMethod]
         public void CreateTicket_ShouldExecuteFlowCorrectly()
         {
-            var dto = new TicketDTO(
+            var ticketDataTransferObject = new TicketDTO(
                 101, 42, "dede_the_racoon@gmail.com",
                 TicketUrgencyLevelEnum.HIGH, TicketStatusEnum.OPEN,
                 1, "Hardware", 10, "Monitor",
@@ -96,7 +96,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
             _subcategoryService.GetSubcategoryById(10).Returns(_testSubcategory);
 
 
-            _ticketsViewModel.CreateTicket(dto);
+            _ticketsViewModel.CreateTicket(ticketDataTransferObject);
 
 
             _ticketService.Received(1).AddTicket(Arg.Is<Ticket>(ticket =>

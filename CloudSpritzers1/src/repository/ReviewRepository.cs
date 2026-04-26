@@ -22,25 +22,25 @@ namespace CloudSpritzers1.Src.Repository
         }
         public Review GetById(int reviewId)
         {
-            string query = "SELECT * FROM Review WHERE review_id = @id";
-            SqlCommand command = new SqlCommand(query);
-            command.Parameters.AddWithValue("@id", reviewId);
+            string selectReviewQuery = "SELECT * FROM Review WHERE review_id = @id";
+            SqlCommand selectCommand = new SqlCommand(selectReviewQuery);
+            selectCommand.Parameters.AddWithValue("@id", reviewId);
 
-            Review review = GetById(reviewId, command);
+            Review selectedReview = GetById(reviewId, selectCommand);
 
-            if (review == null)
+            if (selectedReview == null)
             {
                 throw new KeyNotFoundException($"Review with id {reviewId} was not found.");
             }
 
-            return review;
+            return selectedReview;
         }
 
         public IEnumerable<Review> GetAll()
         {
-            string query = "SELECT * FROM Review";
-            SqlCommand command = new SqlCommand(query);
-            return GetAll(command);
+            string selectAllQuery = "SELECT * FROM Review";
+            SqlCommand selectAllCommand = new SqlCommand(selectAllQuery);
+            return GetAll(selectAllCommand);
         }
 
         public int CreateNewEntity(Review reviewElement)
@@ -50,32 +50,32 @@ namespace CloudSpritzers1.Src.Repository
                 throw new ArgumentNullException(nameof(reviewElement), "Review cannot be null.");
             }
 
-            string query = "INSERT INTO Review " +
+            string newEntityQuery = "INSERT INTO Review " +
                 "(user_id, message, duty_free_rating, flight_experience_rating, staff_friendliness_rating, cleanliness_rating) " +
                 "OUTPUT INSERTED.Review_id " +
                 "VALUES (@userId, @message, @dutyFree, @flightExp, @staff, @clean)";
 
-            SqlCommand command = new SqlCommand(query);
+            SqlCommand newEntityCommand = new SqlCommand(newEntityQuery);
 
-            command.Parameters.AddWithValue("@userId", reviewElement.GetUser().UserId);
-            command.Parameters.AddWithValue("@message", reviewElement.GetMessage());
-            command.Parameters.AddWithValue("@dutyFree", reviewElement.GetDutyFreeRating());
-            command.Parameters.AddWithValue("@flightExp", reviewElement.GetFlightExperienceRating());
-            command.Parameters.AddWithValue("@staff", reviewElement.GetStaffFriendlinessRating());
-            command.Parameters.AddWithValue("@clean", reviewElement.GetCleanlinessRating());
+            newEntityCommand.Parameters.AddWithValue("@userId", reviewElement.GetUser().UserId);
+            newEntityCommand.Parameters.AddWithValue("@message", reviewElement.GetMessage());
+            newEntityCommand.Parameters.AddWithValue("@dutyFree", reviewElement.GetDutyFreeRating());
+            newEntityCommand.Parameters.AddWithValue("@flightExp", reviewElement.GetFlightExperienceRating());
+            newEntityCommand.Parameters.AddWithValue("@staff", reviewElement.GetStaffFriendlinessRating());
+            newEntityCommand.Parameters.AddWithValue("@clean", reviewElement.GetCleanlinessRating());
 
-            int id = Add(command, reviewElement);
-            return id;
+            int identificationNumber = Add(newEntityCommand, reviewElement);
+            return identificationNumber;
         }
 
-        public void UpdateById(int id, Review reviewElement)
+        public void UpdateById(int identificationNumber, Review reviewElement)
         {
             if (reviewElement == null)
             {
                 throw new ArgumentNullException(nameof(reviewElement), "Review cannot be null.");
             }
 
-            string query = "UPDATE Review SET " +
+            string updateQuery = "UPDATE Review SET " +
                 "user_id = @userId, " +
                 "message = @message, " +
                 "duty_free_rating = @dutyFree, " +
@@ -84,26 +84,26 @@ namespace CloudSpritzers1.Src.Repository
                 "cleanliness_rating = @clean " +
                 "WHERE review_id = @id";
 
-            SqlCommand command = new SqlCommand(query);
+            SqlCommand updateCommand = new SqlCommand(updateQuery);
 
-            command.Parameters.AddWithValue("@id", id);
-            command.Parameters.AddWithValue("@userId", reviewElement.GetUser().UserId);
-            command.Parameters.AddWithValue("@message", reviewElement.GetMessage());
-            command.Parameters.AddWithValue("@dutyFree", reviewElement.GetDutyFreeRating());
-            command.Parameters.AddWithValue("@flightExp", reviewElement.GetFlightExperienceRating());
-            command.Parameters.AddWithValue("@staff", reviewElement.GetStaffFriendlinessRating());
-            command.Parameters.AddWithValue("@clean", reviewElement.GetCleanlinessRating());
+            updateCommand.Parameters.AddWithValue("@id", identificationNumber);
+            updateCommand.Parameters.AddWithValue("@userId", reviewElement.GetUser().UserId);
+            updateCommand.Parameters.AddWithValue("@message", reviewElement.GetMessage());
+            updateCommand.Parameters.AddWithValue("@dutyFree", reviewElement.GetDutyFreeRating());
+            updateCommand.Parameters.AddWithValue("@flightExp", reviewElement.GetFlightExperienceRating());
+            updateCommand.Parameters.AddWithValue("@staff", reviewElement.GetStaffFriendlinessRating());
+            updateCommand.Parameters.AddWithValue("@clean", reviewElement.GetCleanlinessRating());
 
-            UpdateById(id, command, reviewElement);
+            UpdateById(identificationNumber, updateCommand, reviewElement);
         }
 
         public void DeleteById(int reviewId)
         {
-            string query = "DELETE FROM Review WHERE review_id = @id";
-            SqlCommand command = new SqlCommand(query);
-            command.Parameters.AddWithValue("@id", reviewId);
+            string deleteQuery = "DELETE FROM Review WHERE review_id = @id";
+            SqlCommand deleteCommand = new SqlCommand(deleteQuery);
+            deleteCommand.Parameters.AddWithValue("@id", reviewId);
 
-            DeleteById(reviewId, command);
+            DeleteById(reviewId, deleteCommand);
         }
 
         protected override Review MapRowToEntity(SqlDataReader reader)

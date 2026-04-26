@@ -12,27 +12,27 @@ public class TicketSubcategoryRepository : DatabaseRepository<int, TicketSubcate
 {
     public IEnumerable<TicketSubcategory> GetAll()
     {
-        string query = "SELECT * FROM TicketSubcategory";
-        SqlCommand command = new SqlCommand(query);
-        return GetAll(command);
+        string selectQuery = "SELECT * FROM TicketSubcategory";
+        SqlCommand selectCommand = new SqlCommand(selectQuery);
+        return GetAll(selectCommand);
     }
 
     public TicketSubcategory GetById(int subcategoryId)
     {
-        string query = "SELECT * FROM TicketSubcategory WHERE subcategory_id = @id";
-        SqlCommand command = new SqlCommand(query);
-        command.Parameters.AddWithValue("@id", subcategoryId);
+        string getByIdQuery = "SELECT * FROM TicketSubcategory WHERE subcategory_id = @id";
+        SqlCommand getByIdCommand = new SqlCommand(getByIdQuery);
+        getByIdCommand.Parameters.AddWithValue("@id", subcategoryId);
 
-        return GetAll(command).FirstOrDefault()
+        return GetAll(getByIdCommand).FirstOrDefault()
                ?? throw new KeyNotFoundException($"Subcategory with id {subcategoryId} not found.");
     }
     public IEnumerable<TicketSubcategory> GetByCategoryId(int categoryId)
     {
-        string query = "SELECT * FROM TicketSubcategory WHERE category_id = @categoryId";
-        SqlCommand command = new SqlCommand(query);
-        command.Parameters.AddWithValue("@categoryId", categoryId);
+        string selectQuery = "SELECT * FROM TicketSubcategory WHERE category_id = @categoryId";
+        SqlCommand selectCommand = new SqlCommand(selectQuery);
+        selectCommand.Parameters.AddWithValue("@categoryId", categoryId);
 
-        return GetAll(command);
+        return GetAll(selectCommand);
     }
 
     protected override TicketSubcategory MapRowToEntity(SqlDataReader reader)

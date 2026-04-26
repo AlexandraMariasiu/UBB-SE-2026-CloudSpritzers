@@ -19,17 +19,17 @@ namespace CloudSpritzers1.Src.Repository
         {
         }
 
-        public Ticket GetById(int id)
+        public Ticket GetById(int identificationNumber)
         {
-            string query = "SELECT * FROM Ticket WHERE ticket_id = @TicketId";
-            SqlCommand command = new SqlCommand(query);
-            command.Parameters.AddWithValue("@TicketId", id);
+            string selectQuery = "SELECT * FROM Ticket WHERE ticket_id = @TicketId";
+            SqlCommand selectCommand = new SqlCommand(selectQuery);
+            selectCommand.Parameters.AddWithValue("@TicketId", identificationNumber);
 
-            Ticket ticket = GetById(id, command);
+            Ticket ticket = GetById(identificationNumber, selectCommand);
 
             if (ticket == null)
             {
-                throw new KeyNotFoundException($"Ticket with TicketId {id} was not found.");
+                throw new KeyNotFoundException($"Ticket with TicketId {identificationNumber} was not found.");
             }
 
             return ticket;
@@ -37,9 +37,9 @@ namespace CloudSpritzers1.Src.Repository
 
         public IEnumerable<Ticket> GetAll()
         {
-            string query = "SELECT * FROM Ticket";
-            SqlCommand command = new SqlCommand(query);
-            return GetAll(command);
+            string selectQuery = "SELECT * FROM Ticket";
+            SqlCommand selectCommand = new SqlCommand(selectQuery);
+            return GetAll(selectCommand);
         }
 
         public int CreateNewEntity(Ticket ticketEntity)
@@ -49,24 +49,24 @@ namespace CloudSpritzers1.Src.Repository
                 throw new ArgumentNullException(nameof(ticketEntity), "Ticket can't be null.");
             }
 
-            string query = @"INSERT INTO Ticket 
+            string createNewQuery = @"INSERT INTO Ticket 
                 (user_id, status, category_id, subcategory_id, subject, description, created_at, urgency_level) " +
                 "OUTPUT INSERTED.Ticket_id " +
                 "VALUES (@userId, @status, @categoryId, @subcategoryId, @subject, @description, @creationTimestamp, @urgency)";
 
-            SqlCommand command = new SqlCommand(query);
+            SqlCommand createNewCommand = new SqlCommand(createNewQuery);
 
-            command.Parameters.AddWithValue("@userId", ticketEntity.Creator.UserId);
-            command.Parameters.AddWithValue("@status", ticketEntity.CurrentStatus.ToString());
-            command.Parameters.AddWithValue("@categoryId", ticketEntity.Category.CategoryId);
-            command.Parameters.AddWithValue("@subcategoryId", ticketEntity.Subcategory.SubcategoryId);
-            command.Parameters.AddWithValue("@subject", ticketEntity.Subject);
-            command.Parameters.AddWithValue("@description", ticketEntity.Description);
-            command.Parameters.AddWithValue("@creationTimestamp", ticketEntity.CreationTimestamp);
-            command.Parameters.AddWithValue("@urgency", ticketEntity.UrgencyLevel.ToString());
+            createNewCommand.Parameters.AddWithValue("@userId", ticketEntity.Creator.UserId);
+            createNewCommand.Parameters.AddWithValue("@status", ticketEntity.CurrentStatus.ToString());
+            createNewCommand.Parameters.AddWithValue("@categoryId", ticketEntity.Category.CategoryId);
+            createNewCommand.Parameters.AddWithValue("@subcategoryId", ticketEntity.Subcategory.SubcategoryId);
+            createNewCommand.Parameters.AddWithValue("@subject", ticketEntity.Subject);
+            createNewCommand.Parameters.AddWithValue("@description", ticketEntity.Description);
+            createNewCommand.Parameters.AddWithValue("@creationTimestamp", ticketEntity.CreationTimestamp);
+            createNewCommand.Parameters.AddWithValue("@urgency", ticketEntity.UrgencyLevel.ToString());
 
-            int id = Add(command, ticketEntity);
-            return id;
+            int identificationNumber = Add(createNewCommand, ticketEntity);
+            return identificationNumber;
         }
 
         public void UpdateById(int ticketId, Ticket ticketEntity)
@@ -76,7 +76,7 @@ namespace CloudSpritzers1.Src.Repository
                 throw new ArgumentNullException(nameof(ticketEntity), "Ticket can't be null.");
             }
 
-            string query = @"UPDATE Ticket SET 
+            string updateTicketQuery = @"UPDATE Ticket SET 
                 user_id = @userId, 
                 status = @status, 
                 category_id = @categoryId, 
@@ -87,27 +87,27 @@ namespace CloudSpritzers1.Src.Repository
                 urgency_level = @urgency 
                 WHERE ticket_id = @TicketId";
 
-            SqlCommand command = new SqlCommand(query);
-            command.Parameters.AddWithValue("@TicketId", ticketId);
-            command.Parameters.AddWithValue("@userId", ticketEntity.Creator.UserId);
-            command.Parameters.AddWithValue("@status", ticketEntity.CurrentStatus.ToString());
-            command.Parameters.AddWithValue("@categoryId", ticketEntity.Category.CategoryId);
-            command.Parameters.AddWithValue("@subcategoryId", ticketEntity.Subcategory.SubcategoryId);
-            command.Parameters.AddWithValue("@subject", ticketEntity.Subject);
-            command.Parameters.AddWithValue("@description", ticketEntity.Description);
-            command.Parameters.AddWithValue("@creationTimestamp", ticketEntity.CreationTimestamp);
-            command.Parameters.AddWithValue("@urgency", ticketEntity.UrgencyLevel.ToString());
+            SqlCommand updateTicketCommand = new SqlCommand(updateTicketQuery);
+            updateTicketCommand.Parameters.AddWithValue("@TicketId", ticketId);
+            updateTicketCommand.Parameters.AddWithValue("@userId", ticketEntity.Creator.UserId);
+            updateTicketCommand.Parameters.AddWithValue("@status", ticketEntity.CurrentStatus.ToString());
+            updateTicketCommand.Parameters.AddWithValue("@categoryId", ticketEntity.Category.CategoryId);
+            updateTicketCommand.Parameters.AddWithValue("@subcategoryId", ticketEntity.Subcategory.SubcategoryId);
+            updateTicketCommand.Parameters.AddWithValue("@subject", ticketEntity.Subject);
+            updateTicketCommand.Parameters.AddWithValue("@description", ticketEntity.Description);
+            updateTicketCommand.Parameters.AddWithValue("@creationTimestamp", ticketEntity.CreationTimestamp);
+            updateTicketCommand.Parameters.AddWithValue("@urgency", ticketEntity.UrgencyLevel.ToString());
 
-            UpdateById(ticketId, command, ticketEntity);
+            UpdateById(ticketId, updateTicketCommand, ticketEntity);
         }
 
         public void DeleteById(int ticketId)
         {
-            string query = "DELETE FROM Ticket WHERE ticket_id = @TicketId";
-            SqlCommand command = new SqlCommand(query);
-            command.Parameters.AddWithValue("@TicketId", ticketId);
+            string deleteQuery = "DELETE FROM Ticket WHERE ticket_id = @TicketId";
+            SqlCommand deleteCommand = new SqlCommand(deleteQuery);
+            deleteCommand.Parameters.AddWithValue("@TicketId", ticketId);
 
-            DeleteById(ticketId, command);
+            DeleteById(ticketId, deleteCommand);
         }
 
         protected override Ticket MapRowToEntity(SqlDataReader reader)

@@ -19,9 +19,9 @@ public class EmployeeMappingProfileTests
     [TestInitialize]
     public void Setup()
     {
-        var config = new MapperConfiguration(cfg => cfg.AddProfile<EmployeeMappingProfile>());
+        var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<EmployeeMappingProfile>());
 
-        _mapper = config.CreateMapper();
+        _mapper = configuration.CreateMapper();
     }
 
     [TestMethod]
@@ -38,8 +38,8 @@ public class EmployeeMappingProfileTests
     [TestMethod]
     public void Configuration_IsValid()
     {
-        var config = new MapperConfiguration(cfg => cfg.AddProfile<EmployeeMappingProfile>());
+        var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<EmployeeMappingProfile>());
 
-        config.AssertConfigurationIsValid();
+        configuration.AssertConfigurationIsValid();
     }
 }

@@ -19,9 +19,9 @@ public class UserMappingProfileTests
     [TestInitialize]
     public void Setup()
     {
-        var config = new MapperConfiguration(cfg => cfg.AddProfile<UserMappingProfile>());
+        var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<UserMappingProfile>());
 
-        _mapper = config.CreateMapper();
+        _mapper = configuration.CreateMapper();
     }
 
     [TestMethod]
@@ -38,8 +38,8 @@ public class UserMappingProfileTests
     [TestMethod]
     public void Configuration_IsValid()
     {
-        var config = new MapperConfiguration(cfg => cfg.AddProfile<UserMappingProfile>());
+        var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<UserMappingProfile>());
 
-        config.AssertConfigurationIsValid();
+        configuration.AssertConfigurationIsValid();
     }
 }

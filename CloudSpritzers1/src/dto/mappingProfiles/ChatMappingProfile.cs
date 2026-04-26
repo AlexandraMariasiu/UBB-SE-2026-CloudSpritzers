@@ -19,7 +19,7 @@ namespace CloudSpritzers1.Src.Dto.MappingProfiles
                     chat.UserId,
                     chat.Status,
                     chat.MessageCount()))
-                .ForAllMembers(opt => opt.Ignore());
+                .ForAllMembers(options => options.Ignore());
         }
     }
 }

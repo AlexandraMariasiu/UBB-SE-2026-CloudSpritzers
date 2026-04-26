@@ -12,15 +12,15 @@ namespace CloudSpritzers1Tests.Src.Service
     [TestClass]
     public class TicketSubcategoryServiceTests
     {
-        private ITicketSubcategoryRepository _subcategoryRepoMock;
+        private ITicketSubcategoryRepository _subcategoryRepositoryMock;
         private TicketSubcategoryService _subcategoryService;
         private TicketCategory _testCategory;
 
         [TestInitialize]
         public void Setup()
         {
-            _subcategoryRepoMock = Substitute.For<ITicketSubcategoryRepository>();
-            _subcategoryService = new TicketSubcategoryService(_subcategoryRepoMock);
+            _subcategoryRepositoryMock = Substitute.For<ITicketSubcategoryRepository>();
+            _subcategoryService = new TicketSubcategoryService(_subcategoryRepositoryMock);
 
             _testCategory = new TicketCategory(1, "IT", TicketUrgencyLevelEnum.HIGH);
         }
@@ -29,12 +29,12 @@ namespace CloudSpritzers1Tests.Src.Service
         public void GetSubcategoryById_WhenCalled_ReturnsEntityFromRepository()
         {
             var expectedSub = new TicketSubcategory(10, "Software", 500, _testCategory);
-            _subcategoryRepoMock.GetById(10).Returns(expectedSub);
+            _subcategoryRepositoryMock.GetById(10).Returns(expectedSub);
 
             var result = _subcategoryService.GetSubcategoryById(10);
 
             Assert.AreEqual("Software", result.SubcategoryName);
-            _subcategoryRepoMock.Received(1).GetById(10);
+            _subcategoryRepositoryMock.Received(1).GetById(10);
         }
 
         [TestMethod]
@@ -45,20 +45,20 @@ namespace CloudSpritzers1Tests.Src.Service
                 new TicketSubcategory(10, "Software", 500, _testCategory),
                 new TicketSubcategory(11, "Hardware", 501, _testCategory)
             };
-            _subcategoryRepoMock.GetByCategoryId(1).Returns(expectedList);
+            _subcategoryRepositoryMock.GetByCategoryId(1).Returns(expectedList);
 
             var result = _subcategoryService.GetSubcategoriesByCategoryId(1).ToList();
 
             Assert.AreEqual(2, result.Count);
             Assert.AreEqual("Software", result[0].SubcategoryName);
-            _subcategoryRepoMock.Received(1).GetByCategoryId(1);
+            _subcategoryRepositoryMock.Received(1).GetByCategoryId(1);
         }
 
         [TestMethod]
         public void GetSubcategoryById_WhenIdIsInvalid_PropagatesException()
         {
 
-            _subcategoryRepoMock.GetById(999).Returns(capturedArgs => { throw new KeyNotFoundException(); });
+            _subcategoryRepositoryMock.GetById(999).Returns(capturedArguments => { throw new KeyNotFoundException(); });
             Assert.ThrowsExactly<KeyNotFoundException>(() => _subcategoryService.GetSubcategoryById(999));
         }
     }

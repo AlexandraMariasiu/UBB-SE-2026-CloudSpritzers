@@ -56,51 +56,51 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod]
         public void ValidateReview_RatingBelowMin_ThrowsArgumentException()
         {
-            // Arrange: Set DutyFree to 0 (Min is 1)
+
             var review = new Review(1, _testUser, "Too low", 0, 5, 5, 5);
 
            
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _reviewService.ValidateReview(review));
 
-            StringAssert.Contains("Duty Free Rating must be between 1 and 5", ex.Message);
+            StringAssert.Contains("Duty Free Rating must be between 1 and 5", exceptionThrown.Message);
         }
 
         [TestMethod]
         public void ValidateReview_RatingAboveMax_ThrowsArgumentException()
         {
-            // Arrange: Set Cleanliness to 6 (Max is 5)
+            
             var review = new Review(1, _testUser, "Too high", 5, 5, 5, 6);
 
-            // Act & Assert
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _reviewService.ValidateReview(review));
 
-            StringAssert.Contains("Cleanliness Rating must be between 1 and 5", ex.Message);
+            StringAssert.Contains("Cleanliness Rating must be between 1 and 5", exceptionThrown.Message);
         }
 
         [TestMethod]
         public void ValidateReview_EmptyMessage_ThrowsArgumentException()
         {
-            // Arrange
+            
             var review = new Review(1, _testUser, "", 5, 5, 5, 5);
 
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _reviewService.ValidateReview(review));
 
-            StringAssert.Contains("Message cannot be null or empty", ex.Message);
+            StringAssert.Contains("Message cannot be null or empty", exceptionThrown.Message);
         }
 
         [TestMethod]
         public void ValidateReview_NullUser_ThrowsArgumentException()
         {
-            // Arrange: Pass null for the user
+            
             var review = new Review(1, null, "No user", 5, 5, 5, 5);
 
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _reviewService.ValidateReview(review));
 
-            StringAssert.Contains("User cannot be null", ex.Message);
+            StringAssert.Contains("User cannot be null", exceptionThrown.Message);
         }
 
         [TestMethod]
@@ -110,23 +110,23 @@ namespace CloudSpritzers1Tests.Src.Service
 
             _reviewRepository.GetAll().Returns(new List<Review> { existingReview });
 
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _reviewService.ValidateReview(existingReview));
 
-            StringAssert.Contains("Review already exists", ex.Message);
+            StringAssert.Contains("Review already exists", exceptionThrown.Message);
         }
 
         [TestMethod]
         public void GetById_ValidId_ReturnsReviewFromRepository()
         {
-            // Arrange
+            
             var expectedReview = new Review(1, _testUser, "Great", 5, 5, 5, 5);
             _reviewRepository.GetById(1).Returns(expectedReview);
 
-            // Act
+            
             var result = _reviewService.GetById(1);
 
-            // Assert
+            
             Assert.AreEqual(expectedReview, result);
             _reviewRepository.Received(1).GetById(1); 
         }
@@ -150,7 +150,7 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod]
         public void GetAll_WhenCalled_ReturnsListOfReviews()
         {
-            // Arrange
+            
             var reviews = new List<Review>
         {
         new Review(1, _testUser, "R1", 5, 5, 5, 5),
@@ -158,10 +158,10 @@ namespace CloudSpritzers1Tests.Src.Service
         };
             _reviewRepository.GetAll().Returns(reviews);
 
-            // Act
+            
             var result = _reviewService.GetAll();
 
-            // Assert
+            
             Assert.AreEqual(2, result.Count);
             _reviewRepository.Received(1).GetAll();
         }
@@ -169,46 +169,46 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod]
         public void ValidateReview_FlightExperienceRatingInvalid_ThrowsArgumentException()
         {
-            // Arrange: 0 is below MinRating (1)
+            
             var review = new Review(1, _testUser, "Test", 5, 0, 5, 5);
 
-            // Act & Assert
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _reviewService.ValidateReview(review));
 
-            StringAssert.Contains("Flight Experience Rating must be between 1 and 5", ex.Message);
+            StringAssert.Contains("Flight Experience Rating must be between 1 and 5", exceptionThrown.Message);
         }
 
         [TestMethod]
         public void ValidateReview_StaffFriendlinessRatingInvalid_ThrowsArgumentException()
         {
-            // Arrange: 6 is above MaxRating (5)
+            
             var review = new Review(1, _testUser, "Test", 5, 5, 6, 5);
 
-            // Act & Assert
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _reviewService.ValidateReview(review));
 
-            StringAssert.Contains("Staff Friendliness Rating must be between 1 and 5", ex.Message);
+            StringAssert.Contains("Staff Friendliness Rating must be between 1 and 5", exceptionThrown.Message);
         }
 
         [TestMethod]
         public void ValidateReview_CleanlinessRatingInvalid_ThrowsArgumentException()
         {
-            // Arrange: 0 is below MinRating (1)
+            
             var review = new Review(1, _testUser, "Test", 5, 5, 5, 0);
 
-            // Act & Assert
-            var ex = Assert.ThrowsExactly<ArgumentException>(() =>
+            
+            var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _reviewService.ValidateReview(review));
 
-            StringAssert.Contains("Cleanliness Rating must be between 1 and 5", ex.Message);
+            StringAssert.Contains("Cleanliness Rating must be between 1 and 5", exceptionThrown.Message);
         }
 
         [TestMethod]
         public void ValidateReview_WithAllValidData_DoesNotThrowAndMovesToNextStep()
         {
-            // Arrange: All ratings are exactly within the 1-5 range
+            
             var validReview = new Review(1, _testUser, "Everything was perfect!", 5, 5, 5, 5);
 
             _reviewService.ValidateReview(validReview);
@@ -217,16 +217,10 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod]
         public void ValidateReview_StaffFriendlinessBelowMin_ThrowsArgumentException()
         {
-            // Arrange: 0 is < MinRating (5)
+            
             var review = new Review(1, _testUser, "Test", 5, 5, 0, 5);
 
             Assert.ThrowsExactly<ArgumentException>(() => _reviewService.ValidateReview(review));
         }
-
-
-
-
-
-
     }
 }

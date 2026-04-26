@@ -16,8 +16,8 @@ namespace CloudSpritzers1Tests.Src.Service
     [TestClass]
     public class MessageServiceTests
     {
-        private IRepository<int, Chat> _mockChatRepo = null!;
-        private IRepository<int, Message> _mockMessageRepo = null!;
+        private IRepository<int, Chat> _mockChatRepository = null!;
+        private IRepository<int, Message> _mockMessageRepository = null!;
         private IBotStrategy _mockStrategy = null!;
         private BotEngine _realBotEngine = null!;
         private MessageService _messageService = null!;
@@ -33,31 +33,31 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestInitialize]
         public void Setup()
         {
-            _mockChatRepo = Substitute.For<IRepository<int, Chat>>();
-            _mockMessageRepo = Substitute.For<IRepository<int, Message>>();
+            _mockChatRepository = Substitute.For<IRepository<int, Chat>>();
+            _mockMessageRepository = Substitute.For<IRepository<int, Message>>();
             _mockStrategy = Substitute.For<IBotStrategy>();
 
             _realBotEngine = new BotEngine(_mockStrategy);
-            _messageService = new MessageService(_mockChatRepo, _mockMessageRepo, _realBotEngine);
+            _messageService = new MessageService(_mockChatRepository, _mockMessageRepository, _realBotEngine);
             _testSender = new TestSender();
         }
 
         [TestMethod]
         public void Constructor_NullChatRepo_ThrowsArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new MessageService(null!, _mockMessageRepo, _realBotEngine));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new MessageService(null!, _mockMessageRepository, _realBotEngine));
         }
 
         [TestMethod]
         public void Constructor_NullMessageRepo_ThrowsArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new MessageService(_mockChatRepo, null!, _realBotEngine));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new MessageService(_mockChatRepository, null!, _realBotEngine));
         }
 
         [TestMethod]
         public void Constructor_NullBotEngine_ThrowsArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new MessageService(_mockChatRepo, _mockMessageRepo, null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new MessageService(_mockChatRepository, _mockMessageRepository, null!));
         }
 
         [TestMethod]
@@ -70,7 +70,7 @@ namespace CloudSpritzers1Tests.Src.Service
         public void SendMessage_InactiveChat_ThrowsInvalidOperationException()
         {
             var closedChat = new Chat(1, 101, ChatStatus.Closed);
-            _mockChatRepo.GetById(1).Returns(closedChat);
+            _mockChatRepository.GetById(1).Returns(closedChat);
             var option = new FAQOption("Hello", 2);
 
             Assert.ThrowsExactly<InvalidOperationException>(() => _messageService.SendMessage(1, _testSender, option));
@@ -80,18 +80,18 @@ namespace CloudSpritzers1Tests.Src.Service
         public void SendMessage_InactiveChat_ThrowsCorrectMessage()
         {
             var closedChat = new Chat(1, 101, ChatStatus.Closed);
-            _mockChatRepo.GetById(1).Returns(closedChat);
+            _mockChatRepository.GetById(1).Returns(closedChat);
             var option = new FAQOption("Hello", 2);
 
-            var ex = Assert.ThrowsExactly<InvalidOperationException>(() => _messageService.SendMessage(1, _testSender, option));
-            Assert.AreEqual("Chat 1 is not active.", ex.Message);
+            var exceptionThrown = Assert.ThrowsExactly<InvalidOperationException>(() => _messageService.SendMessage(1, _testSender, option));
+            Assert.AreEqual("Chat 1 is not active.", exceptionThrown.Message);
         }
 
         [TestMethod]
         public void SendMessage_ValidInput_ReturnsCorrectBotReplyMessage()
         {
             var activeChat = new Chat(1, 101, ChatStatus.Active);
-            _mockChatRepo.GetById(1).Returns(activeChat);
+            _mockChatRepository.GetById(1).Returns(activeChat);
             var option = new FAQOption("Help me", 2);
             var expectedReply = new BotMessage.BotMessageBuilder(_realBotEngine, activeChat, 2).WithMessage("I can help").Build();
             _mockStrategy.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(Arg.Any<BotEngine>(), Arg.Any<IMessage>()).Returns(expectedReply);
@@ -105,21 +105,21 @@ namespace CloudSpritzers1Tests.Src.Service
         public void SendMessage_ValidInput_PersistsBothUserAndBotMessages()
         {
             var activeChat = new Chat(1, 101, ChatStatus.Active);
-            _mockChatRepo.GetById(1).Returns(activeChat);
+            _mockChatRepository.GetById(1).Returns(activeChat);
             var option = new FAQOption("Help me", 2);
             var expectedReply = new BotMessage.BotMessageBuilder(_realBotEngine, activeChat, 2).WithMessage("I can help").Build();
             _mockStrategy.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(Arg.Any<BotEngine>(), Arg.Any<IMessage>()).Returns(expectedReply);
 
             _messageService.SendMessage(1, _testSender, option);
 
-            _mockMessageRepo.Received(2).CreateNewEntity(Arg.Any<Message>());
+            _mockMessageRepository.Received(2).CreateNewEntity(Arg.Any<Message>());
         }
 
         [TestMethod]
         public void SendMessage_OptionId1_ResetsBotStrategy()
         {
             var activeChat = new Chat(1, 101, ChatStatus.Active);
-            _mockChatRepo.GetById(1).Returns(activeChat);
+            _mockChatRepository.GetById(1).Returns(activeChat);
             var restartOption = new FAQOption("Restart", 1);
             var expectedReply = new BotMessage.BotMessageBuilder(_realBotEngine, activeChat, 1).WithMessage("Restarting").Build();
             _mockStrategy.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(Arg.Any<BotEngine>(), Arg.Any<IMessage>()).Returns(expectedReply);
@@ -134,7 +134,7 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             var wrongChat = new Chat(99, 101, ChatStatus.Active);
             var message = new Message(_testSender, wrongChat, "Text");
-            _mockMessageRepo.GetById(5).Returns(message);
+            _mockMessageRepository.GetById(5).Returns(message);
 
             Assert.ThrowsExactly<InvalidOperationException>(() => _messageService.GetMessage(1, 5));
         }
@@ -144,10 +144,10 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             var wrongChat = new Chat(99, 101, ChatStatus.Active);
             var message = new Message(_testSender, wrongChat, "Text");
-            _mockMessageRepo.GetById(5).Returns(message);
+            _mockMessageRepository.GetById(5).Returns(message);
 
-            var ex = Assert.ThrowsExactly<InvalidOperationException>(() => _messageService.GetMessage(1, 5));
-            Assert.AreEqual("Message 5 does not belong to chat 1.", ex.Message);
+            var exceptionThrown = Assert.ThrowsExactly<InvalidOperationException>(() => _messageService.GetMessage(1, 5));
+            Assert.AreEqual("Message 5 does not belong to chat 1.", exceptionThrown.Message);
         }
 
         [TestMethod]
@@ -155,7 +155,7 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             var correctChat = new Chat(1, 101, ChatStatus.Active);
             var message = new Message(_testSender, correctChat, "Correct Text");
-            _mockMessageRepo.GetById(5).Returns(message);
+            _mockMessageRepository.GetById(5).Returns(message);
 
             var result = _messageService.GetMessage(1, 5);
 
@@ -165,10 +165,10 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod]
         public void GetAllMessages_ReturnsCorrectCount()
         {
-            var chat1 = new Chat(1, 101, ChatStatus.Active);
-            var msg1 = new Message(1, _testSender, chat1, "A", DateTimeOffset.UtcNow);
-            var msg2 = new Message(2, _testSender, chat1, "B", DateTimeOffset.UtcNow);
-            _mockMessageRepo.GetAll().Returns(new List<Message> { msg1, msg2 });
+            var firstChat = new Chat(1, 101, ChatStatus.Active);
+            var firstMessage = new Message(1, _testSender, firstChat, "A", DateTimeOffset.UtcNow);
+            var secondMessage = new Message(2, _testSender, firstChat, "B", DateTimeOffset.UtcNow);
+            _mockMessageRepository.GetAll().Returns(new List<Message> { firstMessage, secondMessage });
 
             var result = _messageService.GetAllMessages(1).ToList();
 
@@ -178,10 +178,10 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod]
         public void GetAllMessages_OrdersByTimestampAscending()
         {
-            var chat1 = new Chat(1, 101, ChatStatus.Active);
-            var earlier = new Message(1, _testSender, chat1, "Earlier", DateTimeOffset.UtcNow.AddMinutes(-10));
-            var later = new Message(2, _testSender, chat1, "Later", DateTimeOffset.UtcNow);
-            _mockMessageRepo.GetAll().Returns(new List<Message> { later, earlier });
+            var firstChat = new Chat(1, 101, ChatStatus.Active);
+            var earlier = new Message(1, _testSender, firstChat, "Earlier", DateTimeOffset.UtcNow.AddMinutes(-10));
+            var later = new Message(2, _testSender, firstChat, "Later", DateTimeOffset.UtcNow);
+            _mockMessageRepository.GetAll().Returns(new List<Message> { later, earlier });
 
             var result = _messageService.GetAllMessages(1).ToList();
 
@@ -191,11 +191,11 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod]
         public void GetAllMessages_FiltersOutOtherChats()
         {
-            var chat1 = new Chat(1, 101, ChatStatus.Active);
-            var chat2 = new Chat(2, 202, ChatStatus.Active);
-            var msg1 = new Message(1, _testSender, chat1, "Keep", DateTimeOffset.UtcNow);
-            var msg2 = new Message(2, _testSender, chat2, "Discard", DateTimeOffset.UtcNow);
-            _mockMessageRepo.GetAll().Returns(new List<Message> { msg1, msg2 });
+            var firstChat = new Chat(1, 101, ChatStatus.Active);
+            var secondChat = new Chat(2, 202, ChatStatus.Active);
+            var firstMessage = new Message(1, _testSender, firstChat, "Keep", DateTimeOffset.UtcNow);
+            var secondMessage = new Message(2, _testSender, secondChat, "Discard", DateTimeOffset.UtcNow);
+            _mockMessageRepository.GetAll().Returns(new List<Message> { firstMessage, secondMessage });
 
             var result = _messageService.GetAllMessages(1).ToList();
 

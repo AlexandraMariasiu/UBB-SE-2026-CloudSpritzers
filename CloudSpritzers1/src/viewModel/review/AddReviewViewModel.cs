@@ -62,8 +62,8 @@ namespace CloudSpritzers1.Src.ViewModel.Review
         {
             try
             {
-                var app = App.Current as App;
-                User? currentUser = app?.User;
+                var application = App.Current as App;
+                User? currentUser = application?.User;
 
                 if (currentUser == null)
                 {
@@ -81,9 +81,9 @@ namespace CloudSpritzers1.Src.ViewModel.Review
 
                 AlertRequested?.Invoke(this, ("Success", "Your review has been successfully submitted!"));
             }
-            catch (Exception ex)
+            catch (Exception exceptionThrown)
             {
-                AlertRequested?.Invoke(this, ("Oopsie Daisy! Error", $"We couldn't submit your review: {ex.Message}"));
+                AlertRequested?.Invoke(this, ("Oopsie Daisy! Error", $"We couldn't submit your review: {exceptionThrown.Message}"));
             }
         }
     }

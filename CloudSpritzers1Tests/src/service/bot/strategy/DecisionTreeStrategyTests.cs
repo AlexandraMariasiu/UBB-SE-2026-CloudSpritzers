@@ -14,31 +14,31 @@ namespace CloudSpritzers1Tests.Src.Service.Bot.Strategy
     [TestClass]
     public class DecisionTreeStrategyTests
     {
-        private IRepository<int, FAQNode> _mockRepo = null!;
+        private IRepository<int, FAQNode> _mockRepository = null!;
         private DecisionTreeStrategy _strategy = null!;
-        private Dictionary<int, FAQNode> _fakeDb = null!;
+        private Dictionary<int, FAQNode> _fakeDatabase = null!;
         private int _restartId;
 
         [TestInitialize]
         public void Setup()
         {
-            _mockRepo = Substitute.For<IRepository<int, FAQNode>>();
-            _fakeDb = new Dictionary<int, FAQNode>();
+            _mockRepository = Substitute.For<IRepository<int, FAQNode>>();
+            _fakeDatabase = new Dictionary<int, FAQNode>();
 
             var options1 = ImmutableArray.Create(new FAQOption("Go to 2", 2));
-            _fakeDb[1] = new FAQNode(1, "Root Node", options1, false);
+            _fakeDatabase[1] = new FAQNode(1, "Root Node", options1, false);
 
-            _fakeDb[2] = new FAQNode(2, "Second Node", ImmutableArray<FAQOption>.Empty, true);
+            _fakeDatabase[2] = new FAQNode(2, "Second Node", ImmutableArray<FAQOption>.Empty, true);
 
             _restartId = (int)BotStandardMessages.RESTART_CONVERSATION;
-            if (!_fakeDb.ContainsKey(_restartId))
+            if (!_fakeDatabase.ContainsKey(_restartId))
             {
-                _fakeDb[_restartId] = new FAQNode(_restartId, "Restarting...", ImmutableArray<FAQOption>.Empty, true);
+                _fakeDatabase[_restartId] = new FAQNode(_restartId, "Restarting...", ImmutableArray<FAQOption>.Empty, true);
             }
 
-            _mockRepo.GetById(Arg.Any<int>()).Returns(callInfo => _fakeDb[callInfo.Arg<int>()]);
+            _mockRepository.GetById(Arg.Any<int>()).Returns(callInfo => _fakeDatabase[callInfo.Arg<int>()]);
 
-            _strategy = new DecisionTreeStrategy(_mockRepo);
+            _strategy = new DecisionTreeStrategy(_mockRepository);
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace CloudSpritzers1Tests.Src.Service.Bot.Strategy
 
             var result = _strategy.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(null!, mockMessage);
 
-            Assert.AreEqual(_fakeDb[_restartId].questionText, result.GetMessage());
+            Assert.AreEqual(_fakeDatabase[_restartId].questionText, result.GetMessage());
         }
 
         [TestMethod]

@@ -19,7 +19,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
     public class AllReviewsViewModelTests
     {
         private AllReviewsViewModel _viewModel;
-        private IRepository<int, Review> _mockRepo;
+        private IRepository<int, Review> _mockRepository;
         private IMapper _mapper;
         private User _testUser;
 
@@ -27,12 +27,12 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         public void Setup()
         {
             // 1. Setup real AutoMapper
-            var config = new MapperConfiguration(cfg => cfg.AddProfile<ReviewMappingProfile>());
-            _mapper = config.CreateMapper();
+            var configuration = new MapperConfiguration(mockConfiguration => mockConfiguration.AddProfile<ReviewMappingProfile>());
+            _mapper = configuration.CreateMapper();
 
             // 2. Setup Service with Mock Repo
-            _mockRepo = Substitute.For<IRepository<int, Review>>();
-            var service = new ReviewService(_mockRepo);
+            _mockRepository = Substitute.For<IRepository<int, Review>>();
+            var service = new ReviewService(_mockRepository);
 
             _testUser = new User(1, "Test", "test@test.com");
 
@@ -43,7 +43,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         public void LoadData_WhenNoReviewsExist_DoesNotCalculateAverages()
         {
            
-            _mockRepo.GetAll().Returns(new List<Review>());
+            _mockRepository.GetAll().Returns(new List<Review>());
 
             _viewModel.LoadData();
 
@@ -60,7 +60,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         new Review(1, _testUser, "Good", 5, 4, 3, 2),
         new Review(2, _testUser, "Bad", 1, 2, 3, 4)
     };
-            _mockRepo.GetAll().Returns(reviews);
+            _mockRepository.GetAll().Returns(reviews);
 
            
             _viewModel.LoadData();
@@ -85,7 +85,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         new Review(1, _testUser, "Test", 1, 1, 4, 2), // Staff: 4, Clean: 2
         new Review(2, _testUser, "Test", 1, 1, 5, 3)  // Staff: 5, Clean: 3
     };
-            _mockRepo.GetAll().Returns(reviews);
+            _mockRepository.GetAll().Returns(reviews);
 
            
             _viewModel.LoadData();
@@ -104,7 +104,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
     {
         new Review(1, _testUser, "Excellent service", 5, 5, 5, 5)
     };
-            _mockRepo.GetAll().Returns(reviews);
+            _mockRepository.GetAll().Returns(reviews);
 
             _viewModel.LoadData();
 
@@ -117,7 +117,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         [TestMethod]
         public void LoadData_WhenServiceReturnsNull_ReturnsEarlyWithoutError()
         {
-            _mockRepo.GetAll().Returns((IEnumerable<Review>)null!);
+            _mockRepository.GetAll().Returns((IEnumerable<Review>)null!);
 
             _viewModel.LoadData();
 

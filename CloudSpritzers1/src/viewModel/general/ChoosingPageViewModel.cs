@@ -20,8 +20,8 @@ namespace CloudSpritzers1.Src.ViewModel.General
         {
             bool isEmployee = roleTag == "Employee";
 
-            var app = (App)App.Current;
-            app.IsEmployee = isEmployee;
+            var application = (App)App.Current;
+            application.IsEmployee = isEmployee;
         }
     }
 }

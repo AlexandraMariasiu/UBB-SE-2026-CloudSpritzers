@@ -60,19 +60,19 @@ namespace CloudSpritzers1.Src.Service.Implementation
 
 		public List<FAQEntry> FilterFAQEntry(FAQCategoryEnum category, string searchQuery)
 		{
-			var faqs = this.faqRepository.GetAll().AsEnumerable();
+			var frequentlyAskedQuestions = this.faqRepository.GetAll().AsEnumerable();
 			if (category != FAQCategoryEnum.All)
 			{
-				faqs = this.GetByCategory(category);
+				frequentlyAskedQuestions = this.GetByCategory(category);
 			}
 
             if (!string.IsNullOrWhiteSpace(searchQuery))
             {
-                faqs = faqs.Where(faq =>
-                    (faq.Question?.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                    (faq.Answer?.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ?? false));
+                frequentlyAskedQuestions = frequentlyAskedQuestions.Where(question =>
+                    (question.Question?.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    (question.Answer?.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ?? false));
             }
-			return faqs.ToList();
+			return frequentlyAskedQuestions.ToList();
         }
     }
 }

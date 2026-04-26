@@ -23,39 +23,39 @@ namespace CloudSpritzers1.Src.Repository
                 "OUTPUT INSERTED.Employee_id " +
                 "VALUES (@name, @email, @group)";
 
-            SqlCommand sqlCommand = new SqlCommand(insertQuery);
+            SqlCommand insertCommand = new SqlCommand(insertQuery);
 
-            sqlCommand.Parameters.AddWithValue("@name", employeeEntity.RetrieveConfiguredDisplayFullNameForBot());
-            sqlCommand.Parameters.AddWithValue("@email", employeeEntity.RetrieveConfiguredEmailAddressForBotContact());
-            sqlCommand.Parameters.AddWithValue("@group", employeeEntity.GetDepartmentName());
+            insertCommand.Parameters.AddWithValue("@name", employeeEntity.RetrieveConfiguredDisplayFullNameForBot());
+            insertCommand.Parameters.AddWithValue("@email", employeeEntity.RetrieveConfiguredEmailAddressForBotContact());
+            insertCommand.Parameters.AddWithValue("@group", employeeEntity.GetDepartmentName());
 
-            int identificationNumber = Add(sqlCommand, employeeEntity);
+            int identificationNumber = Add(insertCommand, employeeEntity);
             return identificationNumber;
         }
 
         public void DeleteById(int identificationNumber)
         {
             string deleteQuery = "DELETE FROM Employee WHERE employee_id = @id";
-            SqlCommand sqlCommand = new SqlCommand(deleteQuery);
-            sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
+            SqlCommand deleteCommand = new SqlCommand(deleteQuery);
+            deleteCommand.Parameters.AddWithValue("@id", identificationNumber);
 
-            DeleteById(identificationNumber, sqlCommand);
+            DeleteById(identificationNumber, deleteCommand);
         }
 
         public IEnumerable<Employee> GetAll()
         {
             string selectAllQuery = "SELECT * FROM Employee";
-            SqlCommand sqlCommand = new SqlCommand(selectAllQuery);
-            return GetAll(sqlCommand);
+            SqlCommand selectCommand = new SqlCommand(selectAllQuery);
+            return GetAll(selectCommand);
         }
 
         public Employee GetById(int identificationNumber)
         {
             string selectByIdQuery = "SELECT * FROM Employee WHERE employee_id = @id";
-            SqlCommand sqlCommand = new SqlCommand(selectByIdQuery);
-            sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
+            SqlCommand selectByIdCommand = new SqlCommand(selectByIdQuery);
+            selectByIdCommand.Parameters.AddWithValue("@id", identificationNumber);
 
-            Employee foundEmployee = GetById(identificationNumber, sqlCommand);
+            Employee foundEmployee = GetById(identificationNumber, selectByIdCommand);
 
             if (foundEmployee == null)
             {
@@ -78,14 +78,14 @@ namespace CloudSpritzers1.Src.Repository
                 "group = @group " +
                 "WHERE employee_id = @id";
 
-            SqlCommand sqlCommand = new SqlCommand(updateQuery);
+            SqlCommand updateCommand = new SqlCommand(updateQuery);
 
-            sqlCommand.Parameters.AddWithValue("@id", identificationNumber);
-            sqlCommand.Parameters.AddWithValue("@name", employeeEntity.RetrieveConfiguredDisplayFullNameForBot());
-            sqlCommand.Parameters.AddWithValue("@email", employeeEntity.RetrieveConfiguredEmailAddressForBotContact());
-            sqlCommand.Parameters.AddWithValue("@group", employeeEntity.GetDepartmentName());
+            updateCommand.Parameters.AddWithValue("@id", identificationNumber);
+            updateCommand.Parameters.AddWithValue("@name", employeeEntity.RetrieveConfiguredDisplayFullNameForBot());
+            updateCommand.Parameters.AddWithValue("@email", employeeEntity.RetrieveConfiguredEmailAddressForBotContact());
+            updateCommand.Parameters.AddWithValue("@group", employeeEntity.GetDepartmentName());
 
-            UpdateById(identificationNumber, sqlCommand, employeeEntity);
+            UpdateById(identificationNumber, updateCommand, employeeEntity);
         }
 
         protected override int GetEntityId(Employee employeeEntity)
@@ -93,12 +93,12 @@ namespace CloudSpritzers1.Src.Repository
             return employeeEntity.EmployeeId;
         }
 
-        protected override Employee MapRowToEntity(SqlDataReader sqlDataReader)
+        protected override Employee MapRowToEntity(SqlDataReader dataReader)
         {
-            int employeeIdentificationNumber = sqlDataReader.GetInt32(sqlDataReader.GetOrdinal("employee_id"));
-            string employeeFullName = sqlDataReader.GetString(sqlDataReader.GetOrdinal("name"));
-            string employeeEmailAddress = sqlDataReader.GetString(sqlDataReader.GetOrdinal("email"));
-            string departmentName = sqlDataReader.GetString(sqlDataReader.GetOrdinal("group"));
+            int employeeIdentificationNumber = dataReader.GetInt32(dataReader.GetOrdinal("employee_id"));
+            string employeeFullName = dataReader.GetString(dataReader.GetOrdinal("name"));
+            string employeeEmailAddress = dataReader.GetString(dataReader.GetOrdinal("email"));
+            string departmentName = dataReader.GetString(dataReader.GetOrdinal("group"));
 
             EmployeeDepartment departmentEnum = (EmployeeDepartment)Enum.Parse(typeof(EmployeeDepartment), departmentName);
 

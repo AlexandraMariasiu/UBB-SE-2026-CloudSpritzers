@@ -67,10 +67,10 @@ namespace CloudSpritzers1.Src.ViewModel.Chats
             var currentUserId = user.RetrieveUniqueDatabaseIdentifierForBot();
             foreach (var message in messages)
             {
-                var messageDto = mapper.Map<MessageDTO>(message);
-                messageDto.SenderName = userService.GetById(messageDto.SenderId)?.RetrieveConfiguredDisplayFullNameForBot();
-                messageDto.IsOutgoing = (messageDto.SenderId == currentUserId);
-                ChatHistory.Add(messageDto);
+                var dateTime = mapper.Map<MessageDTO>(message);
+                dateTime.SenderName = userService.GetById(dateTime.SenderId)?.RetrieveConfiguredDisplayFullNameForBot();
+                dateTime.IsOutgoing = (dateTime.SenderId == currentUserId);
+                ChatHistory.Add(dateTime);
             }
         }
 

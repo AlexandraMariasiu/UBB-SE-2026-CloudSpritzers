@@ -15,11 +15,11 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
 {
     public class FAQViewModel : INotifyPropertyChanged
     {
-        private readonly IFAQService faqService;
+        private readonly IFAQService questionsService;
         private readonly IMapper mapper;
 
-        private ObservableCollection<FAQEntryDTO> faqs;
-        private ObservableCollection<FAQEntryDTO> filteredFAQs;
+        private ObservableCollection<FAQEntryDTO> frequentlyAskedQuestions;
+        private ObservableCollection<FAQEntryDTO> filteredQuestions;
         private FAQEntryDTO? selectedFAQEntry;
         private string searchQuery;
         private FAQCategoryEnum selectedCategory;
@@ -29,20 +29,20 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
 
         public ObservableCollection<FAQEntryDTO> FAQs
         {
-            get => faqs;
+            get => frequentlyAskedQuestions;
             set
             {
-                faqs = value;
+                frequentlyAskedQuestions = value;
                 OnPropertyChanged();
             }
         }
 
         public ObservableCollection<FAQEntryDTO> FilteredFAQs
         {
-            get => filteredFAQs;
+            get => filteredQuestions;
             set
             {
-                filteredFAQs = value;
+                filteredQuestions = value;
                 OnPropertyChanged();
             }
         }
@@ -89,13 +89,13 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
             }
         }
 
-        public FAQViewModel(IFAQService faqService, IMapper mapper)
+        public FAQViewModel(IFAQService faqService, IMapper faqMapper)
         {
-            this.faqService = faqService;
-            this.mapper = mapper;
+            this.questionsService = faqService;
+            this.mapper = faqMapper;
 
-            faqs = new ObservableCollection<FAQEntryDTO>();
-            filteredFAQs = new ObservableCollection<FAQEntryDTO>();
+            frequentlyAskedQuestions = new ObservableCollection<FAQEntryDTO>();
+            filteredQuestions = new ObservableCollection<FAQEntryDTO>();
             searchQuery = string.Empty;
             selectedCategory = FAQCategoryEnum.All;
         }
@@ -104,8 +104,8 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
         {
             FAQs.Clear();
 
-            var entries = faqService.GetAll().OrderByDescending(entry => entry.ViewCount);
-            foreach (var entry in entries)
+            var questionEntries = questionsService.GetAll().OrderByDescending(entry => entry.ViewCount);
+            foreach (var entry in questionEntries)
             {
                 FAQs.Add(mapper.Map<FAQEntryDTO>(entry));
             }
@@ -115,14 +115,14 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
 
         public void ApplyFilters()
         {
-            var result = faqService.FilterFAQEntry(SelectedCategory, SearchQuery)
+            var result = questionsService.FilterFAQEntry(SelectedCategory, SearchQuery)
                                     .OrderByDescending(entry => entry.ViewCount)
                                     .AsEnumerable().Select(entry => mapper.Map<FAQEntryDTO>(entry));
 
             FilteredFAQs.Clear();
-            foreach (var faq in result)
+            foreach (var frequentlyAskedQuestion in result)
             {
-                FilteredFAQs.Add(faq);
+                FilteredFAQs.Add(frequentlyAskedQuestion);
             }
         }
 
@@ -130,47 +130,53 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
         {
             SelectedCategory = category;
         }
-        public void AddFAQEntry(FAQEntryDTO faqDto)
+
+        // public void Search()
+        // {
+        //    ApplyFilters();
+        // }
+        public void AddFAQEntry(FAQEntryDTO questionDataTransfer)
         {
             if (!IsAdmin)
             {
                 throw new UnauthorizedAccessException("Only admins can add FAQs.");
             }
 
-            var entity = mapper.Map<FAQEntry>(faqDto);
-            faqService.AddFAQEntry(entity);
+            var questionEntity = mapper.Map<FAQEntry>(questionDataTransfer);
+            questionsService.AddFAQEntry(questionEntity);
             LoadFAQ();
         }
-        public void EditFAQEntry(FAQEntryDTO faqDto)
+
+        public void EditFAQEntry(FAQEntryDTO questionDataTransfer)
         {
             if (!IsAdmin)
             {
                 throw new UnauthorizedAccessException("Only admins can edit FAQs.");
             }
 
-            if (faqDto == null)
+            if (questionDataTransfer == null)
             {
-                throw new ArgumentNullException(nameof(faqDto));
+                throw new ArgumentNullException(nameof(questionDataTransfer));
             }
 
-            var entity = mapper.Map<FAQEntry>(faqDto);
-            faqService.EditFAQEntry(entity, faqDto.Id);
+            var questionEntity = mapper.Map<FAQEntry>(questionDataTransfer);
+            questionsService.EditFAQEntry(questionEntity, questionDataTransfer.Id);
             LoadFAQ();
         }
 
-        public void DeleteFAQEntry(FAQEntryDTO faqDto)
+        public void DeleteFAQEntry(FAQEntryDTO questionDataTransfer)
         {
             if (!IsAdmin)
             {
                 throw new UnauthorizedAccessException("Only admins can delete FAQs.");
             }
 
-            if (faqDto == null)
+            if (questionDataTransfer == null)
             {
-                throw new ArgumentNullException(nameof(faqDto));
+                throw new ArgumentNullException(nameof(questionDataTransfer));
             }
 
-            faqService.DeleteFAQEntry(faqDto.Id);
+            questionsService.DeleteFAQEntry(questionDataTransfer.Id);
             LoadFAQ();
         }
 
@@ -181,8 +187,8 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 return;
             }
 
-            var entity = mapper.Map<FAQEntry>(SelectedFAQEntry);
-            faqService.IncrementViewCount(entity);
+            var questionEntity = mapper.Map<FAQEntry>(SelectedFAQEntry);
+            questionsService.IncrementViewCount(questionEntity);
             LoadFAQ();
         }
         public void IncrementWasHelpfulVotes()
@@ -192,8 +198,8 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 return;
             }
 
-            var entity = mapper.Map<FAQEntry>(SelectedFAQEntry);
-            faqService.IncrementWasHelpfulVotes(entity);
+            var questionEntity = mapper.Map<FAQEntry>(SelectedFAQEntry);
+            questionsService.IncrementWasHelpfulVotes(questionEntity);
 
             SelectedFAQEntry.HelpfulVotesCount++;
             OnPropertyChanged(nameof(SelectedFAQEntry));
@@ -206,8 +212,8 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 return;
             }
 
-            var entity = mapper.Map<FAQEntry>(SelectedFAQEntry);
-            faqService.IncrementWasNotHelpfulVotes(entity);
+            var questionEntity = mapper.Map<FAQEntry>(SelectedFAQEntry);
+            questionsService.IncrementWasNotHelpfulVotes(questionEntity);
 
             SelectedFAQEntry.NotHelpfulVotesCount++;
             OnPropertyChanged(nameof(SelectedFAQEntry));
@@ -218,26 +224,26 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void ToggleFAQ(FAQEntryDTO faqDto)
+        public void ToggleFAQ(FAQEntryDTO questionDataTransfer)
         {
-            if (faqDto == null)
+            if (questionDataTransfer == null)
             {
                 return;
             }
 
-            bool willExpand = !faqDto.IsExpanded;
+            bool willExpand = !questionDataTransfer.IsExpanded;
 
-            foreach (var faq in FilteredFAQs)
+            foreach (var frequentlyAskedQuestion in FilteredFAQs)
             {
-                faq.IsExpanded = false;
+                frequentlyAskedQuestion.IsExpanded = false;
             }
 
-            faqDto.IsExpanded = willExpand;
+            questionDataTransfer.IsExpanded = willExpand;
 
             if (willExpand)
             {
-                SelectedFAQEntry = faqDto;
-                IncrementViewCountFor(faqDto.Id);
+                SelectedFAQEntry = questionDataTransfer;
+                IncrementViewCountFor(questionDataTransfer.Id);
             }
             else
             {
@@ -245,23 +251,23 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
             }
         }
 
-        public void IncrementViewCountFor(int faqId)
+        public void IncrementViewCountFor(int questionId)
         {
-            var faq = FAQs.FirstOrDefault(mainListDto => mainListDto.Id == faqId);
-            if (faq == null)
+            var frequentlyAskedQuestion = FAQs.FirstOrDefault(x => x.Id == questionId);
+            if (frequentlyAskedQuestion == null)
             {
                 return;
             }
 
-            var entity = mapper.Map<FAQEntry>(faq);
-            faqService.IncrementViewCount(entity);
+            var questionEntity = mapper.Map<FAQEntry>(frequentlyAskedQuestion);
+            questionsService.IncrementViewCount(questionEntity);
 
-            faq.ViewCount++;
+            frequentlyAskedQuestion.ViewCount++;
 
-            var filteredFaq = FilteredFAQs.FirstOrDefault(filteredListDto => filteredListDto.Id == faqId);
-            if (filteredFaq != null && filteredFaq != faq)
+            var filteredFaq = FilteredFAQs.FirstOrDefault(filteredListDto => filteredListDto.Id == questionId);
+            if (filteredFaq != null && filteredFaq != frequentlyAskedQuestion)
             {
-                filteredFaq.ViewCount = faq.ViewCount;
+                filteredFaq.ViewCount = frequentlyAskedQuestion.ViewCount;
             }
 
             OnPropertyChanged(nameof(FAQs));
@@ -285,7 +291,7 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 throw new ArgumentException("Invalid category.");
             }
 
-            var dto = new FAQEntryDTO(
+            var sourceDataTransfer = new FAQEntryDTO(
                 SelectedFAQEntry?.Id ?? 0,
                 question.Trim(),
                 answer.Trim(),
@@ -294,13 +300,13 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 SelectedFAQEntry?.HelpfulVotesCount ?? 0,
                 SelectedFAQEntry?.NotHelpfulVotesCount ?? 0);
 
-            if (dto.Id == 0)
+            if (sourceDataTransfer.Id == 0)
             {
-                AddFAQEntry(dto);
+                AddFAQEntry(sourceDataTransfer);
             }
             else
             {
-                EditFAQEntry(dto);
+                EditFAQEntry(sourceDataTransfer);
             }
 
             return Task.CompletedTask;
@@ -312,31 +318,31 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
             ApplyFilters();
         }
 
-        public void GiveFeedback(FAQEntryDTO faq, bool isHelpful)
+        public void GiveFeedback(FAQEntryDTO frequentlyAskedQuestion, bool isHelpful)
         {
-            if (faq == null)
+            if (frequentlyAskedQuestion == null)
             {
                 return;
             }
 
-            SelectedFAQEntry = faq;
+            SelectedFAQEntry = frequentlyAskedQuestion;
 
-            var entity = mapper.Map<FAQEntry>(faq);
+            var questionEntity = mapper.Map<FAQEntry>(frequentlyAskedQuestion);
 
             if (isHelpful)
             {
-                faqService.IncrementWasHelpfulVotes(entity);
-                faq.HelpfulVotesCount++;
+                questionsService.IncrementWasHelpfulVotes(questionEntity);
+                frequentlyAskedQuestion.HelpfulVotesCount++;
             }
             else
             {
-                faqService.IncrementWasNotHelpfulVotes(entity);
-                faq.NotHelpfulVotesCount++;
+                questionsService.IncrementWasNotHelpfulVotes(questionEntity);
+                frequentlyAskedQuestion.NotHelpfulVotesCount++;
             }
 
-            faq.HasFeedback = true;
-            faq.IsHelpfulSelected = isHelpful;
-            faq.IsNotHelpfulSelected = !isHelpful;
+            frequentlyAskedQuestion.HasFeedback = true;
+            frequentlyAskedQuestion.IsHelpfulSelected = isHelpful;
+            frequentlyAskedQuestion.IsNotHelpfulSelected = !isHelpful;
 
             OnPropertyChanged(nameof(SelectedFAQEntry));
         }

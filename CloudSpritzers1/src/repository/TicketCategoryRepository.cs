@@ -15,17 +15,17 @@ public class TicketCategoryRepository : DatabaseRepository<int, TicketCategory>,
 {
     public IEnumerable<TicketCategory> GetAll()
     {
-        string query = "SELECT * FROM TicketCategory";
-        SqlCommand command = new SqlCommand(query);
-        return GetAll(command);
+        string selectQuery = "SELECT * FROM TicketCategory";
+        SqlCommand selectCommand = new SqlCommand(selectQuery);
+        return GetAll(selectCommand);
     }
 
     public TicketCategory GetById(int categoryId)
     {
-        string query = "SELECT * FROM TicketCategory WHERE category_id = @id";
-        SqlCommand command = new SqlCommand(query);
-        command.Parameters.AddWithValue("@id", categoryId);
-        return GetById(categoryId, command);
+        string selectQuery = "SELECT * FROM TicketCategory WHERE category_id = @id";
+        SqlCommand selectCommand = new SqlCommand(selectQuery);
+        selectCommand.Parameters.AddWithValue("@id", categoryId);
+        return GetById(categoryId, selectCommand);
     }
 
     protected override TicketCategory MapRowToEntity(SqlDataReader reader)

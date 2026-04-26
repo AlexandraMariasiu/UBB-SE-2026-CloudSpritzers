@@ -100,8 +100,8 @@ namespace CloudSpritzers1.Src.ViewModel
 
             foreach (var ticketEntity in ticketsFromDatabase)
             {
-                var ticketDTO = mapper.Map<TicketDTO>(ticketEntity);
-                AllTickets.Add(ticketDTO);
+                var ticketDateTime = mapper.Map<TicketDTO>(ticketEntity);
+                AllTickets.Add(ticketDateTime);
             }
 
             ApplyFilterLogic();
@@ -145,23 +145,23 @@ namespace CloudSpritzers1.Src.ViewModel
         // =================================
         // CREATE TICKET
         // =================================
-        public void CreateTicket(TicketDTO ticketDTO)
+        public void CreateTicket(TicketDTO ticketDataTransferObject)
         {
             // Fetch related entities from DB
-            var creator = userService.GetById(ticketDTO.creatorAccountId);
-            var category = categoryService.GetCategoryById(ticketDTO.categoryId);
-            var subcategory = subcategoryService.GetSubcategoryById(ticketDTO.subcategoryId);
+            var creator = userService.GetById(ticketDataTransferObject.creatorAccountId);
+            var category = categoryService.GetCategoryById(ticketDataTransferObject.categoryId);
+            var subcategory = subcategoryService.GetSubcategoryById(ticketDataTransferObject.subcategoryId);
 
             var ticket = new Ticket(
-                ticketDTO.ticketId,
+                ticketDataTransferObject.ticketId,
                 creator,
-                ticketDTO.currentStatus,
+                ticketDataTransferObject.currentStatus,
                 category,
                 subcategory,
-                ticketDTO.subject,
-                ticketDTO.description,
-                ticketDTO.creationTimestamp,
-                ticketDTO.urgencyLevel);
+                ticketDataTransferObject.subject,
+                ticketDataTransferObject.description,
+                ticketDataTransferObject.creationTimestamp,
+                ticketDataTransferObject.urgencyLevel);
 
             ticketService.AddTicket(ticket);
             LoadTickets();

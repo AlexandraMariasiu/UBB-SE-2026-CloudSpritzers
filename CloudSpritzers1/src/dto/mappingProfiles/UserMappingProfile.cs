@@ -16,7 +16,7 @@ namespace CloudSpritzers1.Src.Dto.MappingProfiles
             CreateMap<User, UserDTO>()
                 .ConstructUsing(user => new UserDTO(
                     user.RetrieveConfiguredDisplayFullNameForBot(),
-                    user.RetrieveConfiguredEmailAddressForBotContact())).ForAllMembers(opt => opt.Ignore());
+                    user.RetrieveConfiguredEmailAddressForBotContact())).ForAllMembers(option => option.Ignore());
         }
     }
 }
