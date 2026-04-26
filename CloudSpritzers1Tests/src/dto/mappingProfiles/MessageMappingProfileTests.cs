@@ -7,45 +7,81 @@ using CloudSpritzers1.Src.Model.Chats;
 using CloudSpritzers1.Src.Model;
 using System;
 
-namespace CloudSpritzers1Tests.src.dto.mappingprofiles;
-
-[TestClass]
-public class MessageMappingProfileTests
+namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
 {
-    private IMapper _mapper;
-
-    [TestInitialize]
-    public void Setup()
+    [TestClass]
+    public class MessageMappingProfileTests
     {
-        var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<MessageMappingProfile>());
+        private IMapper _autoMapperInstance;
+        private User _testUser;
+        private Chat _testChat;
+        private Message _testMessage;
 
-        _mapper = configuration.CreateMapper();
-    }
+        [TestInitialize]
+        public void Setup()
+        {
+            var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<MessageMappingProfile>());
+            _autoMapperInstance = configuration.CreateMapper();
 
-    [TestMethod]
-    public void Map_MessageToMessageDTO_Succeeds()
-    {
-        var user = new User(1, "Alex", "alex@mail.com");
-        var chat = new Chat(10, 1, ChatStatus.Active);
-        var message = new Message(user, chat, "Hello");
+            _testUser = new User(1, "Alex", "alex@mail.com");
+            _testChat = new Chat(10, 1, ChatStatus.Active);
+            _testMessage = new Message(_testUser, _testChat, "Hello");
+        }
 
-        var result = _mapper.Map<MessageDTO>(message);
+        [TestMethod]
+        public void Configuration_IsValid_PassesValidation()
+        {
+            var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<MessageMappingProfile>());
 
-        Assert.AreEqual("Hello", result.MessageText);
-        Assert.AreEqual(chat.ChatId, result.ChatId);
-        Assert.AreEqual(user.RetrieveUniqueDatabaseIdentifierForBot(), result.SenderId);
-        Assert.AreEqual(user.RetrieveConfiguredDisplayFullNameForBot(), result.SenderName);
+            configuration.AssertConfigurationIsValid();
+        }
 
-        Assert.IsTrue(result.Timestamp != default);
+        [TestMethod]
+        public void Map_ValidMessage_MapsMessageTextCorrectly()
+        {
+            var resultMessageDataTransferObject = _autoMapperInstance.Map<MessageDTO>(_testMessage);
 
-        Assert.IsNotNull(result.FaqOptions);
-    }
+            Assert.AreEqual("Hello", resultMessageDataTransferObject.MessageText);
+        }
 
-    [TestMethod]
-    public void Configuration_IsValid()
-    {
-        var configuration = new MapperConfiguration(mapperConfiguration => mapperConfiguration.AddProfile<MessageMappingProfile>());
+        [TestMethod]
+        public void Map_ValidMessage_MapsChatIdentifierCorrectly()
+        {
+            var resultMessageDataTransferObject = _autoMapperInstance.Map<MessageDTO>(_testMessage);
 
-        configuration.AssertConfigurationIsValid();
+            Assert.AreEqual(_testChat.ChatId, resultMessageDataTransferObject.ChatId);
+        }
+
+        [TestMethod]
+        public void Map_ValidMessage_MapsSenderIdentifierCorrectly()
+        {
+            var resultMessageDataTransferObject = _autoMapperInstance.Map<MessageDTO>(_testMessage);
+
+            Assert.AreEqual(_testUser.RetrieveUniqueDatabaseIdentifierForBot(), resultMessageDataTransferObject.SenderId);
+        }
+
+        [TestMethod]
+        public void Map_ValidMessage_MapsSenderNameCorrectly()
+        {
+            var resultMessageDataTransferObject = _autoMapperInstance.Map<MessageDTO>(_testMessage);
+
+            Assert.AreEqual(_testUser.RetrieveConfiguredDisplayFullNameForBot(), resultMessageDataTransferObject.SenderName);
+        }
+
+        [TestMethod]
+        public void Map_ValidMessage_MapsUninitializedTimestampCorrectly()
+        {
+            var resultMessageDataTransferObject = _autoMapperInstance.Map<MessageDTO>(_testMessage);
+
+            Assert.IsTrue(resultMessageDataTransferObject.Timestamp != default);
+        }
+
+        [TestMethod]
+        public void Map_ValidMessage_MapsFrequentlyAskedQuestionsOptionsCorrectly()
+        {
+            var resultMessageDataTransferObject = _autoMapperInstance.Map<MessageDTO>(_testMessage);
+
+            Assert.IsNotNull(resultMessageDataTransferObject.FaqOptions);
+        }
     }
 }

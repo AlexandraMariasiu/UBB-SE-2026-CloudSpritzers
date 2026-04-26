@@ -253,7 +253,7 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
 
         public void IncrementViewCountFor(int questionId)
         {
-            var frequentlyAskedQuestion = FAQs.FirstOrDefault(x => x.Id == questionId);
+            var frequentlyAskedQuestion = FAQs.FirstOrDefault(mainListDataTransfer => mainListDataTransfer.Id == questionId);
             if (frequentlyAskedQuestion == null)
             {
                 return;
