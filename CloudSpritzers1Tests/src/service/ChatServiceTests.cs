@@ -26,9 +26,9 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             _mockChatRepository.CreateNewEntity(Arg.Any<Chat>()).Returns(5);
 
-            var result = _chatService.OpenChat(101);
+            var resultChat = _chatService.OpenChat(101);
 
-            Assert.AreEqual(5, result.ChatId);
+            Assert.AreEqual(5, resultChat.ChatId);
         }
 
         [TestMethod]
@@ -36,9 +36,9 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             _mockChatRepository.CreateNewEntity(Arg.Any<Chat>()).Returns(5);
 
-            var result = _chatService.OpenChat(101);
+            var resultedChat = _chatService.OpenChat(101);
 
-            Assert.AreEqual(101, result.UserId);
+            Assert.AreEqual(101, resultedChat.UserId);
         }
 
         [TestMethod]
@@ -46,9 +46,9 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             _mockChatRepository.CreateNewEntity(Arg.Any<Chat>()).Returns(5);
 
-            var result = _chatService.OpenChat(101);
+            var resultedChat = _chatService.OpenChat(101);
 
-            Assert.AreEqual(ChatStatus.Active, result.Status);
+            Assert.AreEqual(ChatStatus.Active, resultedChat.Status);
         }
 
         [TestMethod]

@@ -35,20 +35,20 @@ namespace CloudSpritzers1Tests.Src.Service
             var expectedUser = new User(1, "Ion Popescu", "ion@test.com");
             _userRepository.GetById(1).Returns(expectedUser); 
 
-            var result = _userService.GetById(1);
+            var resultedUser = _userService.GetById(1);
 
-            Assert.AreEqual(expectedUser, result);
+            Assert.AreEqual(expectedUser, resultedUser);
             _userRepository.Received(1).GetById(1); 
         }
 
         [TestMethod()]
-        public void GetAllUsers_ReturnsAllEntities()
+        public void GetAllUsers_WhenCalled_ReturnsAllEntities()
         {
-            var result = _userService.GetAllUsers();
+            var resultedUser = _userService.GetAllUsers();
 
-            Assert.AreEqual(2, result.Count); 
-            Assert.AreEqual("Ion Popescu", result[0].RetrieveConfiguredDisplayFullNameForBot()); 
-            Assert.AreEqual("Maria Ioana", result[1].RetrieveConfiguredDisplayFullNameForBot());
+            Assert.AreEqual(2, resultedUser.Count); 
+            Assert.AreEqual("Ion Popescu", resultedUser[0].RetrieveConfiguredDisplayFullNameForBot()); 
+            Assert.AreEqual("Maria Ioana", resultedUser[1].RetrieveConfiguredDisplayFullNameForBot());
         }
 
         [TestMethod()]
@@ -64,14 +64,14 @@ namespace CloudSpritzers1Tests.Src.Service
         }
 
         [TestMethod()]
-        public void ValidateUserIntegrity_NullUser_ThrowsArgumentNullException()
+        public void ValidateUserIntegrity_WithNullUser_ThrowsArgumentNullException()
         {
             Assert.ThrowsExactly<ArgumentNullException>(() =>
                 _userService.ValidateUserIntegrity(null!));
         }
 
         [TestMethod()]
-        public void ValidateUserIntegrity_DuplicateUser_ThrowsArgumentException()
+        public void ValidateUserIntegrity_ForDuplicateUser_ThrowsArgumentException()
         {
             var existingUser = _userService.GetAllUsers().First();
 
@@ -82,7 +82,7 @@ namespace CloudSpritzers1Tests.Src.Service
         }
 
         [TestMethod()]
-        public void ValidateUserIntegrity_EmptyName_ThrowsArgumentException()
+        public void ValidateUserIntegrity_WithEmptyName_ThrowsArgumentException()
         {
             var userWithEmptyName = new User(1, "", "email@test.com");
 
@@ -93,7 +93,7 @@ namespace CloudSpritzers1Tests.Src.Service
         }
 
         [TestMethod()]
-        public void ValidateUserIntegrity_EmptyEmail_ThrowsArgumentException()
+        public void ValidateUserIntegrity_WithEmptyEmail_ThrowsArgumentException()
         {
             var userWithEmptyEmail = new User(1, "Nume Valid", "");
 
@@ -104,7 +104,7 @@ namespace CloudSpritzers1Tests.Src.Service
         }
 
         [TestMethod()]
-        public void DeleteUserById_CallsRepository()
+        public void DeleteUserById_WhenCalled_CallsRepository()
         {
             _userService.DeleteUserById(100);
 
@@ -112,7 +112,7 @@ namespace CloudSpritzers1Tests.Src.Service
         }
 
         [TestMethod()]
-        public void UpdateUserById_CallsRepositoryWithCorrectData()
+        public void UpdateUserById_WithCorrectData_CallsRepository()
         {
             int identificationNumber = 1;
             var updatedUser = new User(identificationNumber, "Nume Actualizat", "updated@test.com");

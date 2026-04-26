@@ -29,9 +29,9 @@ public class EmployeeMappingProfileTests
     {
         var employee = new Employee(1, "Alex", "alex@mail.com", EmployeeDepartment.HR);
 
-        var result = _mapper.Map<EmployeeDTO>(employee);
+        var resultedDataTransferObject = _mapper.Map<EmployeeDTO>(employee);
 
-        Assert.AreEqual(employee.RetrieveConfiguredDisplayFullNameForBot(), result.name);
+        Assert.AreEqual(employee.RetrieveConfiguredDisplayFullNameForBot(), resultedDataTransferObject.name);
     }
 
     [TestMethod]
@@ -39,9 +39,9 @@ public class EmployeeMappingProfileTests
     {
         var employee = new Employee(1, "Alex", "alex@mail.com", EmployeeDepartment.HR);
 
-        var result = _mapper.Map<EmployeeDTO>(employee);
+        var resultedDataTransferObject = _mapper.Map<EmployeeDTO>(employee);
 
-        Assert.AreEqual(employee.RetrieveConfiguredEmailAddressForBotContact(), result.email);
+        Assert.AreEqual(employee.RetrieveConfiguredEmailAddressForBotContact(), resultedDataTransferObject.email);
     }
 
     [TestMethod]

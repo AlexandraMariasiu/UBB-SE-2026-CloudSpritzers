@@ -31,26 +31,26 @@ namespace CloudSpritzers1Tests.Src.Service
             var expectedSub = new TicketSubcategory(10, "Software", 500, _testCategory);
             _subcategoryRepositoryMock.GetById(10).Returns(expectedSub);
 
-            var result = _subcategoryService.GetSubcategoryById(10);
+            var resultedCategory = _subcategoryService.GetSubcategoryById(10);
 
-            Assert.AreEqual("Software", result.SubcategoryName);
+            Assert.AreEqual("Software", resultedCategory.SubcategoryName);
             _subcategoryRepositoryMock.Received(1).GetById(10);
         }
 
         [TestMethod]
         public void GetSubcategoriesByCategoryId_WhenCalled_ReturnsFilteredList()
         {
-            var expectedList = new List<TicketSubcategory>
+            var expectedSubcategoryList = new List<TicketSubcategory>
             {
                 new TicketSubcategory(10, "Software", 500, _testCategory),
                 new TicketSubcategory(11, "Hardware", 501, _testCategory)
             };
-            _subcategoryRepositoryMock.GetByCategoryId(1).Returns(expectedList);
+            _subcategoryRepositoryMock.GetByCategoryId(1).Returns(expectedSubcategoryList);
 
-            var result = _subcategoryService.GetSubcategoriesByCategoryId(1).ToList();
+            var resultedSubcategories = _subcategoryService.GetSubcategoriesByCategoryId(1).ToList();
 
-            Assert.AreEqual(2, result.Count);
-            Assert.AreEqual("Software", result[0].SubcategoryName);
+            Assert.AreEqual(2, resultedSubcategories.Count);
+            Assert.AreEqual("Software", resultedSubcategories[0].SubcategoryName);
             _subcategoryRepositoryMock.Received(1).GetByCategoryId(1);
         }
 

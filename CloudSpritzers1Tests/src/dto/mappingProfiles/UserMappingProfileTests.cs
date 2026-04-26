@@ -29,9 +29,9 @@ public class UserMappingProfileTests
     {
         var user = new User(1, "Alex", "alex@mail.com");
 
-        var result = _mapper.Map<UserDTO>(user);
+        var resultedDto = _mapper.Map<UserDTO>(user);
 
-        Assert.AreEqual(user.RetrieveConfiguredDisplayFullNameForBot(), result.name);
+        Assert.AreEqual(user.RetrieveConfiguredDisplayFullNameForBot(), resultedDto.name);
     }
 
     [TestMethod]
@@ -39,9 +39,9 @@ public class UserMappingProfileTests
     {
         var user = new User(1, "Alex", "alex@mail.com");
 
-        var result = _mapper.Map<UserDTO>(user);
+        var resultDto = _mapper.Map<UserDTO>(user);
 
-        Assert.AreEqual(user.RetrieveConfiguredEmailAddressForBotContact(), result.email);
+        Assert.AreEqual(user.RetrieveConfiguredEmailAddressForBotContact(), resultDto.email);
     }
 
     [TestMethod]

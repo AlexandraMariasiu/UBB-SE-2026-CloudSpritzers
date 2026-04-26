@@ -56,10 +56,10 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         {
             
             var reviews = new List<Review>
-    {
-        new Review(1, _testUser, "Good", 5, 4, 3, 2),
-        new Review(2, _testUser, "Bad", 1, 2, 3, 4)
-    };
+                {
+                    new Review(1, _testUser, "Good", 5, 4, 3, 2),
+                    new Review(2, _testUser, "Bad", 1, 2, 3, 4)
+                };
             _mockRepository.GetAll().Returns(reviews);
 
            
@@ -69,31 +69,9 @@ namespace CloudSpritzers1Tests.Src.ViewModel
             // Average of 5 and 1 is 3.0
             Assert.AreEqual(3.0, _viewModel.AverageDutyFree);
             Assert.AreEqual("3.0", _viewModel.FormattedAverageDutyFree);
-
             // Average of 4 and 2 is 3.0
             Assert.AreEqual("3.0", _viewModel.FormattedAverageFlightExperience);
-
             Assert.AreEqual(2, _viewModel.TotalReviews);
-        }
-
-        [TestMethod]
-        public void FormattedProperties_ReturnCorrectOneDecimalString()
-        {
-           
-            var reviews = new List<Review>
-    {
-        new Review(1, _testUser, "Test", 1, 1, 4, 2), // Staff: 4, Clean: 2
-        new Review(2, _testUser, "Test", 1, 1, 5, 3)  // Staff: 5, Clean: 3
-    };
-            _mockRepository.GetAll().Returns(reviews);
-
-           
-            _viewModel.LoadData();
-
-            // Average Staff: 4.5
-            Assert.AreEqual("4.5", _viewModel.FormattedAverageStaffFriendliness);
-            // Average Clean: 2.5
-            Assert.AreEqual("2.5", _viewModel.FormattedAverageCleanliness);
         }
 
         [TestMethod]

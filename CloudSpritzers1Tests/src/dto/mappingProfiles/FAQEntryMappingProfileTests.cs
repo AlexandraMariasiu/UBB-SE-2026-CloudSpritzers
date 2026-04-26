@@ -23,102 +23,98 @@ public class FAQEntryMappingProfileTests
         _frequentlyAskedQuestionsDataTransferObject = new FAQEntryDTO(1, "What cars can I park here?", "Only Audis", FAQCategoryEnum.Parking, 1, 1, 0);
     }
 
-    // Entry to Data Transfer Object
-
     [TestMethod]
     public void Map_FromEntryToDTO_MapsIdCorrectly()
     {
-        var result = _mapper.Map<FAQEntryDTO>(_frequentlyAskedQuestionsEntry);
+        var resultedDataTransferObject = _mapper.Map<FAQEntryDTO>(_frequentlyAskedQuestionsEntry);
 
-        Assert.AreEqual(_frequentlyAskedQuestionsDataTransferObject.Id, result.Id);
+        Assert.AreEqual(_frequentlyAskedQuestionsDataTransferObject.Id, resultedDataTransferObject.Id);
     }
     [TestMethod]
     public void Map_FromEntryToDTO_MapsQuestionCorrectly()
     {
-        var result = _mapper.Map<FAQEntryDTO>(_frequentlyAskedQuestionsEntry);
+        var resultedDataTransferObject = _mapper.Map<FAQEntryDTO>(_frequentlyAskedQuestionsEntry);
 
-        Assert.AreEqual(_frequentlyAskedQuestionsDataTransferObject.Question, result.Question);
+        Assert.AreEqual(_frequentlyAskedQuestionsDataTransferObject.Question, resultedDataTransferObject.Question);
     }
 
     [TestMethod]
     public void Map_FromEntryToDTO_MapsAnswerCorrectly()
     {
-        var result = _mapper.Map<FAQEntryDTO>(_frequentlyAskedQuestionsEntry);
+        var resultedDataTransferObject = _mapper.Map<FAQEntryDTO>(_frequentlyAskedQuestionsEntry);
 
-        Assert.AreEqual(_frequentlyAskedQuestionsDataTransferObject.Answer, result.Answer); 
+        Assert.AreEqual(_frequentlyAskedQuestionsDataTransferObject.Answer, resultedDataTransferObject.Answer); 
     }
 
     [TestMethod]
     public void Map_FromEntryToDTO_MapsViewCountCorrectly() 
     {
-        var result = _mapper.Map<FAQEntryDTO>(_frequentlyAskedQuestionsEntry);
+        var resultedDataTransferObject = _mapper.Map<FAQEntryDTO>(_frequentlyAskedQuestionsEntry);
 
-        Assert.AreEqual(_frequentlyAskedQuestionsDataTransferObject.ViewCount, result.ViewCount); 
+        Assert.AreEqual(_frequentlyAskedQuestionsDataTransferObject.ViewCount, resultedDataTransferObject.ViewCount); 
     }
 
     [TestMethod]
     public void Map_FromEntryToDTO_MapsHelpfulVotesCountCorrectly()
     {
-        var result = _mapper.Map<FAQEntryDTO>(_frequentlyAskedQuestionsEntry);
+        var resultedDataTransferObject = _mapper.Map<FAQEntryDTO>(_frequentlyAskedQuestionsEntry);
 
-        Assert.AreEqual(_frequentlyAskedQuestionsDataTransferObject.HelpfulVotesCount, result.HelpfulVotesCount);
+        Assert.AreEqual(_frequentlyAskedQuestionsDataTransferObject.HelpfulVotesCount, resultedDataTransferObject.HelpfulVotesCount);
     }
 
     [TestMethod]
     public void Map_FromEntryToDTO_MapsNotHelpfulVotesCountCorrectly()
     {
-        var result = _mapper.Map<FAQEntryDTO>(_frequentlyAskedQuestionsEntry);
+        var resultedDataTransferObject = _mapper.Map<FAQEntryDTO>(_frequentlyAskedQuestionsEntry);
 
-        Assert.AreEqual(_frequentlyAskedQuestionsDataTransferObject.NotHelpfulVotesCount, result.NotHelpfulVotesCount);
+        Assert.AreEqual(_frequentlyAskedQuestionsDataTransferObject.NotHelpfulVotesCount, resultedDataTransferObject.NotHelpfulVotesCount);
     }
-
-    // Data Transfer Object to Entry
 
     [TestMethod]
     public void Map_FromDtoToEntry_MapsIdCorrectly()
     {
-        var result = _mapper.Map<FAQEntry>(_frequentlyAskedQuestionsDataTransferObject);
+        var resultedEntity = _mapper.Map<FAQEntry>(_frequentlyAskedQuestionsDataTransferObject);
 
-        Assert.AreEqual(_frequentlyAskedQuestionsEntry.Id, result.Id);
+        Assert.AreEqual(_frequentlyAskedQuestionsEntry.Id, resultedEntity.Id);
     }
 
     [TestMethod]
     public void Map_FromDtoToEntry_MapsQuestionCorrectly()
     {
-        var result = _mapper.Map<FAQEntry>(_frequentlyAskedQuestionsDataTransferObject);
+        var resultedEntity = _mapper.Map<FAQEntry>(_frequentlyAskedQuestionsDataTransferObject);
 
-        Assert.AreEqual(_frequentlyAskedQuestionsEntry.Question, result.Question);
+        Assert.AreEqual(_frequentlyAskedQuestionsEntry.Question, resultedEntity.Question);
     }
 
     [TestMethod]
     public void Map_FromDtoToEntry_MapsAnswerCorrectly()
     {
-        var result = _mapper.Map<FAQEntry>(_frequentlyAskedQuestionsDataTransferObject);
+        var resultedEntity = _mapper.Map<FAQEntry>(_frequentlyAskedQuestionsDataTransferObject);
 
-        Assert.AreEqual(_frequentlyAskedQuestionsEntry.Answer, result.Answer);
+        Assert.AreEqual(_frequentlyAskedQuestionsEntry.Answer, resultedEntity.Answer);
     }
 
     [TestMethod]
     public void Map_FromDtoToEntry_MapsViewCountCorrectly()
     {
-        var result = _mapper.Map<FAQEntry>(_frequentlyAskedQuestionsDataTransferObject);
+        var resultedEntity = _mapper.Map<FAQEntry>(_frequentlyAskedQuestionsDataTransferObject);
 
-        Assert.AreEqual(_frequentlyAskedQuestionsEntry.ViewCount, result.ViewCount);
+        Assert.AreEqual(_frequentlyAskedQuestionsEntry.ViewCount, resultedEntity.ViewCount);
     }
 
     [TestMethod]
     public void Map_FromDtoToEntry_MapsHelpfulVotesCountCorrectly()
     {
-        var result = _mapper.Map<FAQEntry>(_frequentlyAskedQuestionsDataTransferObject);
+        var resultedEntity = _mapper.Map<FAQEntry>(_frequentlyAskedQuestionsDataTransferObject);
 
-        Assert.AreEqual(_frequentlyAskedQuestionsEntry.HelpfulVotesCount, result.HelpfulVotesCount);
+        Assert.AreEqual(_frequentlyAskedQuestionsEntry.HelpfulVotesCount, resultedEntity.HelpfulVotesCount);
     }
 
     [TestMethod]
     public void Map_FromDtoToEntry_MapsNotHelpfulVotesCountCorrectly()
     {
-        var result = _mapper.Map<FAQEntry>(_frequentlyAskedQuestionsDataTransferObject);
+        var resultedEntity = _mapper.Map<FAQEntry>(_frequentlyAskedQuestionsDataTransferObject);
 
-        Assert.AreEqual(_frequentlyAskedQuestionsEntry.NotHelpfulVotesCount, result.NotHelpfulVotesCount);
+        Assert.AreEqual(_frequentlyAskedQuestionsEntry.NotHelpfulVotesCount, resultedEntity.NotHelpfulVotesCount);
     }
 }
