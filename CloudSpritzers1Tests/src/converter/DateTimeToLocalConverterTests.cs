@@ -52,7 +52,7 @@ public class DateTimeToLocalConverterTests
     }
 
     [TestMethod]
-    public void Convert_Null_ReturnsNull()
+    public void Convert_NullValue_ReturnsNull()
     {
         var result = _converter.Convert(null, typeof(string), null, null);
 
@@ -60,7 +60,7 @@ public class DateTimeToLocalConverterTests
     }
 
     [TestMethod]
-    public void ConvertBack_ThrowsNotImplementedException()
+    public void ConvertBack_WhenCalled_ThrowsNotImplementedException()
     {
         Assert.ThrowsExactly<NotImplementedException>(() =>
             _converter.ConvertBack("Jan 10, 12:30", typeof(DateTimeOffset), null, null));

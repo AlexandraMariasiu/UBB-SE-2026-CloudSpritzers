@@ -28,7 +28,7 @@ public class InverseBooleanToVisibilityConverterTests
     }
 
     [TestMethod()]
-    public void ConvertBack_ThrowsNotImplementedException()
+    public void ConvertBack_WhenCalled_ThrowsNotImplementedException()
     {
         Assert.ThrowsExactly<NotImplementedException>(() => _converter.ConvertBack(Visibility.Collapsed, typeof(bool), null, null));
     }
