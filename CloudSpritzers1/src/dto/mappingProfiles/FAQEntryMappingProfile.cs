@@ -16,24 +16,24 @@ namespace CloudSpritzers1.Src.Dto.MappingProfiles
         public FAQEntryMappingProfile()
         {
             CreateMap<FAQEntry, FAQEntryDTO>()
-                .ConstructUsing(source => new FAQEntryDTO(
-                    source.Id,
-                    source.Question,
-                    source.Answer,
-                    source.Category,
-                    source.ViewCount,
-                    source.HelpfulVotesCount,
-                    source.NotHelpfulVotesCount));
+                .ConstructUsing(sourceEntity => new FAQEntryDTO(
+                    sourceEntity.Id,
+                    sourceEntity.Question,
+                    sourceEntity.Answer,
+                    sourceEntity.Category,
+                    sourceEntity.ViewCount,
+                    sourceEntity.HelpfulVotesCount,
+                    sourceEntity.NotHelpfulVotesCount));
 
             CreateMap<FAQEntryDTO, FAQEntry>()
-                .ConstructUsing(source => new FAQEntry(
-                    source.Id,
-                    source.Question,
-                    source.Answer,
-                    source.Category,
-                    source.ViewCount,
-                    source.HelpfulVotesCount,
-                    source.NotHelpfulVotesCount));
+                .ConstructUsing(sourceEntity => new FAQEntry(
+                    sourceEntity.Id,
+                    sourceEntity.Question,
+                    sourceEntity.Answer,
+                    sourceEntity.Category,
+                    sourceEntity.ViewCount,
+                    sourceEntity.HelpfulVotesCount,
+                    sourceEntity.NotHelpfulVotesCount));
     }
     }
 }

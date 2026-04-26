@@ -89,10 +89,10 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
             }
         }
 
-        public FAQViewModel(IFAQService faqService, IMapper mapper)
+        public FAQViewModel(IFAQService faqService, IMapper faqMapper)
         {
             this.questionsService = faqService;
-            this.mapper = mapper;
+            this.mapper = faqMapper;
 
             frequentlyAskedQuestions = new ObservableCollection<FAQEntryDTO>();
             filteredQuestions = new ObservableCollection<FAQEntryDTO>();
@@ -135,48 +135,48 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
         // {
         //    ApplyFilters();
         // }
-        public void AddFAQEntry(FAQEntryDTO questionDateTime)
+        public void AddFAQEntry(FAQEntryDTO questionDataTransfer)
         {
             if (!IsAdmin)
             {
                 throw new UnauthorizedAccessException("Only admins can add FAQs.");
             }
 
-            var questionEntity = mapper.Map<FAQEntry>(questionDateTime);
+            var questionEntity = mapper.Map<FAQEntry>(questionDataTransfer);
             questionsService.AddFAQEntry(questionEntity);
             LoadFAQ();
         }
 
-        public void EditFAQEntry(FAQEntryDTO questionDateTime)
+        public void EditFAQEntry(FAQEntryDTO questionDataTransfer)
         {
             if (!IsAdmin)
             {
                 throw new UnauthorizedAccessException("Only admins can edit FAQs.");
             }
 
-            if (questionDateTime == null)
+            if (questionDataTransfer == null)
             {
-                throw new ArgumentNullException(nameof(questionDateTime));
+                throw new ArgumentNullException(nameof(questionDataTransfer));
             }
 
-            var questionEntity = mapper.Map<FAQEntry>(questionDateTime);
-            questionsService.EditFAQEntry(questionEntity, questionDateTime.Id);
+            var questionEntity = mapper.Map<FAQEntry>(questionDataTransfer);
+            questionsService.EditFAQEntry(questionEntity, questionDataTransfer.Id);
             LoadFAQ();
         }
 
-        public void DeleteFAQEntry(FAQEntryDTO questionDateTime)
+        public void DeleteFAQEntry(FAQEntryDTO questionDataTransfer)
         {
             if (!IsAdmin)
             {
                 throw new UnauthorizedAccessException("Only admins can delete FAQs.");
             }
 
-            if (questionDateTime == null)
+            if (questionDataTransfer == null)
             {
-                throw new ArgumentNullException(nameof(questionDateTime));
+                throw new ArgumentNullException(nameof(questionDataTransfer));
             }
 
-            questionsService.DeleteFAQEntry(questionDateTime.Id);
+            questionsService.DeleteFAQEntry(questionDataTransfer.Id);
             LoadFAQ();
         }
 
@@ -224,26 +224,26 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void ToggleFAQ(FAQEntryDTO questionDateTime)
+        public void ToggleFAQ(FAQEntryDTO questionDataTransfer)
         {
-            if (questionDateTime == null)
+            if (questionDataTransfer == null)
             {
                 return;
             }
 
-            bool willExpand = !questionDateTime.IsExpanded;
+            bool willExpand = !questionDataTransfer.IsExpanded;
 
             foreach (var frequentlyAskedQuestion in FilteredFAQs)
             {
                 frequentlyAskedQuestion.IsExpanded = false;
             }
 
-            questionDateTime.IsExpanded = willExpand;
+            questionDataTransfer.IsExpanded = willExpand;
 
             if (willExpand)
             {
-                SelectedFAQEntry = questionDateTime;
-                IncrementViewCountFor(questionDateTime.Id);
+                SelectedFAQEntry = questionDataTransfer;
+                IncrementViewCountFor(questionDataTransfer.Id);
             }
             else
             {
@@ -291,7 +291,7 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 throw new ArgumentException("Invalid category.");
             }
 
-            var sourceDateTime = new FAQEntryDTO(
+            var sourceDataTransfer = new FAQEntryDTO(
                 SelectedFAQEntry?.Id ?? 0,
                 question.Trim(),
                 answer.Trim(),
@@ -300,13 +300,13 @@ namespace CloudSpritzers1.Src.ViewModel.Faq
                 SelectedFAQEntry?.HelpfulVotesCount ?? 0,
                 SelectedFAQEntry?.NotHelpfulVotesCount ?? 0);
 
-            if (sourceDateTime.Id == 0)
+            if (sourceDataTransfer.Id == 0)
             {
-                AddFAQEntry(sourceDateTime);
+                AddFAQEntry(sourceDataTransfer);
             }
             else
             {
-                EditFAQEntry(sourceDateTime);
+                EditFAQEntry(sourceDataTransfer);
             }
 
             return Task.CompletedTask;
