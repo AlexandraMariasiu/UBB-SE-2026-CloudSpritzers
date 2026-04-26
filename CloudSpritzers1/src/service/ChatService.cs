@@ -24,13 +24,13 @@ namespace CloudSpritzers1.Src.Service
             try
             {
                 Chat newChat = new Chat(UNASSIGNED_CHAT_ID, userId, ChatStatus.Active);
-                int newId = Convert.ToInt32(chatRepository.CreateNewEntity(newChat));
-                newChat.ChatId = newId;
+                int newIdentificationNumber = Convert.ToInt32(chatRepository.CreateNewEntity(newChat));
+                newChat.ChatId = newIdentificationNumber;
                 return newChat;
             }
-            catch (Exception ex)
+            catch (Exception exceptionThrown)
             {
-                    throw (new Exception(message: ex.Message));
+                    throw (new Exception(message: exceptionThrown.Message));
             }
         }
 
@@ -42,9 +42,9 @@ namespace CloudSpritzers1.Src.Service
                 chat.CloseChat();
                 chatRepository.UpdateById(chatId, chat);
             }
-            catch (Exception ex)
+            catch (Exception exceptionThrown)
             {
-                throw new Exception(ex.Message);
+                throw new Exception(exceptionThrown.Message);
             }
         }
     }

@@ -39,9 +39,9 @@ namespace CloudSpritzers1.Src.Repository.Database
             return entity;
         }
 
-        protected IEnumerable<TEntity> GetAll(SqlCommand command)
+        protected IEnumerable<TEntity> GetAll(SqlCommand executeCommand)
         {
-            var results = ExecuteQueryMany(command).ToList();
+            var results = ExecuteQueryMany(executeCommand).ToList();
             foreach (var entity in results)
             {
                 entityCache[GetEntityId(entity)] = entity;
@@ -51,21 +51,21 @@ namespace CloudSpritzers1.Src.Repository.Database
 
         protected TKey Add(SqlCommand command, TEntity entity)
         {
-            var id = ExecuteScalar<TKey>(command);
-            entityCache[id] = entity;
-            return id;
+            var identificationNumber = ExecuteScalar<TKey>(command);
+            entityCache[identificationNumber] = entity;
+            return identificationNumber;
         }
 
-        protected void DeleteById(TKey id, SqlCommand command)
+        protected void DeleteById(TKey identificationNUMBER, SqlCommand executeCommand)
         {
-            ExecuteNonQuery(command);
-            entityCache.Remove(id);
+            ExecuteNonQuery(executeCommand);
+            entityCache.Remove(identificationNUMBER);
         }
 
-        protected void UpdateById(TKey id, SqlCommand command, TEntity entity)
+        protected void UpdateById(TKey identificationNumber, SqlCommand executeCommand, TEntity entity)
         {
-            ExecuteNonQuery(command);
-            entityCache[id] = entity;
+            ExecuteNonQuery(executeCommand);
+            entityCache[identificationNumber] = entity;
         }
 
         // NOTE : If testing becomes a requirement, override the following query methods to work over something in memory.
@@ -84,12 +84,12 @@ namespace CloudSpritzers1.Src.Repository.Database
             return reader.Read() ? MapRowToEntity(reader) : null;
         }
 
-        protected virtual IEnumerable<TEntity> ExecuteQueryMany(SqlCommand command)
+        protected virtual IEnumerable<TEntity> ExecuteQueryMany(SqlCommand executeCommand)
         {
             using var connection = CreateConnection();
-            command.Connection = connection;
+            executeCommand.Connection = connection;
             connection.Open();
-            using var reader = command.ExecuteReader();
+            using var reader = executeCommand.ExecuteReader();
             var results = new List<TEntity>();
             while (reader.Read())
             {
@@ -98,22 +98,22 @@ namespace CloudSpritzers1.Src.Repository.Database
             return results;
         }
 
-        protected virtual void ExecuteNonQuery(SqlCommand command)
+        protected virtual void ExecuteNonQuery(SqlCommand executeCommand)
         {
             using var connection = CreateConnection();
-            command.Connection = connection;
+            executeCommand.Connection = connection;
             connection.Open();
-            command.ExecuteNonQuery();
+            executeCommand.ExecuteNonQuery();
         }
 
-        protected virtual T ExecuteScalar<T>(SqlCommand command)
+        protected virtual T ExecuteScalar<T>(SqlCommand executeCommand)
         {
             using var connection = CreateConnection();
-            command.Connection = connection;
+            executeCommand.Connection = connection;
             connection.Open();
-            return (T)command.ExecuteScalar();
+            return (T)executeCommand.ExecuteScalar();
         }
         protected void InvalidateCache() => entityCache.Clear();
-        protected void InvalidateCacheEntry(TKey id) => entityCache.Remove(id);
+        protected void InvalidateCacheEntry(TKey identificationNumber) => entityCache.Remove(identificationNumber);
     }
 }

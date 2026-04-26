@@ -29,7 +29,7 @@ namespace CloudSpritzers1.Src.Dto
         }
 
         public FAQEntryDTO(
-            int id,
+            int identificationNumber,
             string question,
             string answer,
             FAQCategoryEnum category,
@@ -37,7 +37,7 @@ namespace CloudSpritzers1.Src.Dto
             int wasHelpfulVotes,
             int wasNotHelpfulVotes)
         {
-            Id = id;
+            Id = identificationNumber;
             Question = question;
             Answer = answer;
             Category = category;
