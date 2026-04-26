@@ -25,7 +25,7 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
         }
 
         [TestMethod]
-        public void Map_FromReviewToReviewDTO_ValidReview_ReturnsNotNullObject()
+        public void Map_ValidReview_ReturnsNotNullObject()
         {
             var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
 
@@ -33,7 +33,7 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
         }
 
         [TestMethod]
-        public void Map_FromReviewToReviewDTO_ValidReview_MapsReviewIdCorrectly()
+        public void Map_ValidReview_MapsReviewIdCorrectly()
         {
             var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
 
@@ -41,7 +41,7 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
         }
 
         [TestMethod]
-        public void Map_FromReviewToReviewDTO_ValidReview_MapsUserIdCorrectly()
+        public void Map_ValidReview_MapsUserIdCorrectly()
         {
             var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
 
@@ -49,7 +49,7 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
         }
 
         [TestMethod]
-        public void Map_FromReviewToReviewDTO_ValidReview_MapsUserNameCOrrectly()
+        public void Map_ValidReview_MapsUserNameCOrrectly()
         {
             var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
 
@@ -57,7 +57,7 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
         }
 
         [TestMethod]
-        public void Map_FromReviewToReviewDTO_ValidReview_MapsMessageCorrectly()
+        public void Map_ValidReview_MapsMessageCorrectly()
         {
             var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
 
@@ -65,7 +65,7 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
         }
 
         [TestMethod]
-        public void Map_FromReviewToReviewDTO_ValidReview_MapsDutyFreeRatingCorrectly()
+        public void Map_ValidReview_MapsDutyFreeRatingCorrectly()
         {
             var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
 
@@ -73,7 +73,7 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
         }
 
         [TestMethod]
-        public void Map_FromReviewToReviewDTO_ValidReview_MapsFlightExprienceRatingCorrectly()
+        public void Map_ValidReview_MapsFlightExprienceRatingCorrectly()
         {
             var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
 
@@ -81,7 +81,7 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
         }
 
         [TestMethod]
-        public void Map_FromReviewToReviewDTO_ValidReview_MapsStaffFriendlinessRatingCorrectly()
+        public void Map_ValidReview_MapsStaffFriendlinessRatingCorrectly()
         {
             var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
 
@@ -89,7 +89,7 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
         }
 
         [TestMethod]
-        public void Map_FromReviewToReviewDTO_ValidReview_MapsCleanlinessRatingCorrectly()
+        public void Map_ValidReview_MapsCleanlinessRatingCorrectly()
         {
             var resultDataTransferObject = _mapper.Map<ReviewDTO>(_testReview);
 
@@ -99,11 +99,10 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
 
 
         [TestMethod]
-        public void Map_FromReviewToReviewDTO_AllRatingsEqual_OverallRatingCalculatedCorrectly()
+        public void Map_AllRatingsEqual_OverallRatingCalculatedCorrectly()
         {
             
             var user = new User(102, "Jane Doe", "jane@example.com");
-            // All 4s should equal exactly 4.0 average
             var sourceReview = new Review(2, user, "Good", 4, 4, 4, 4);
 
            
@@ -113,7 +112,7 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
         }
 
         [TestMethod]
-        public void Map_FromReviewToReviewDTO_ZeroRatings_OverallRatingIsZero()
+        public void Map_ZeroRatings_OverallRatingIsZero()
         {
             
             var user = new User(103, "Bob", "bob@example.com");
