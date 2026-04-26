@@ -48,9 +48,9 @@ namespace CloudSpritzers1Tests.Src.Service.Bot.Strategy
             mockMessage.GetMessage().Returns("Go to 2");
             mockMessage.GetChat().Returns(new Chat(1, 1, ChatStatus.Active));
 
-            var result = _strategy.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(null!, mockMessage);
+            var resultedSelectedNode = _strategy.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(null!, mockMessage);
 
-            Assert.AreEqual("Second Node", result.GetMessage());
+            Assert.AreEqual("Second Node", resultedSelectedNode.GetMessage());
         }
 
         [TestMethod]
@@ -60,13 +60,13 @@ namespace CloudSpritzers1Tests.Src.Service.Bot.Strategy
             mockMessage.GetMessage().Returns("Some random gibberish");
             mockMessage.GetChat().Returns(new Chat(1, 1, ChatStatus.Active));
 
-            var result = _strategy.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(null!, mockMessage);
+            var resultedSelectedNode = _strategy.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(null!, mockMessage);
 
-            Assert.AreEqual(_fakeDatabase[_restartId].questionText, result.GetMessage());
+            Assert.AreEqual(_fakeDatabase[_restartId].questionText, resultedSelectedNode.GetMessage());
         }
 
         [TestMethod]
-        public void ResetCurrentlyActiveConversationNode_ResetsToNode1()
+        public void ResetCurrentlyActiveConversationNode_WhenCalled_ResetsToNode1()
         {
             var mockMessage = Substitute.For<IMessage>();
             mockMessage.GetMessage().Returns("Go to 2");

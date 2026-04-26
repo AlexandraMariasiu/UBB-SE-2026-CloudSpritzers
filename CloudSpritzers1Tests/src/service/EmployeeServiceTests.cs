@@ -32,12 +32,12 @@ namespace CloudSpritzers1Tests.Src.Service
         }
 
         [TestMethod()]
-        public void GetAllEmployees_ReturnsAllEntities()
+        public void GetAllEmployees_WhenCalled_ReturnsAllEntities()
         {
-            var result = _employeeService.GetAllEmployees();
+            var resultedEmployees = _employeeService.GetAllEmployees();
 
             
-            Assert.AreEqual(2, result.Count); 
+            Assert.AreEqual(2, resultedEmployees.Count); 
              _employeeRepository.Received(1).GetAll();
         }
 
@@ -55,14 +55,14 @@ namespace CloudSpritzers1Tests.Src.Service
         }
 
         [TestMethod()]
-        public void ValidateEmployeeIntegrity_NullEmployee_ThrowsArgumentNullException()
+        public void ValidateEmployeeIntegrity_WithNullEmployee_ThrowsArgumentNullException()
         {
             Assert.ThrowsExactly<ArgumentNullException>(() =>
                 _employeeService.ValidateEmployeeIntegrity(null!));
         }
 
         [TestMethod()]
-        public void ValidateEmployeeIntegrity_EmptyName_ThrowsArgumentException()
+        public void ValidateEmployeeIntegrity_WithEmptyName_ThrowsArgumentException()
         {
             var invalidEmployee = new Employee(4, "", "test@test.com", EmployeeDepartment.ADMIN);
 
@@ -75,15 +75,16 @@ namespace CloudSpritzers1Tests.Src.Service
         public void ValidateEmployeeIntegrity_InvalidDepartment_ThrowsArgumentException()
         {
             
-            var employee = new Employee(5, "Name", "email@test.com", (EmployeeDepartment)999);
+            var employeeToValidate = new Employee(5, "Name", "email@test.com", (EmployeeDepartment)999);
 
             var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
-                _employeeService.ValidateEmployeeIntegrity(employee)); 
+                _employeeService.ValidateEmployeeIntegrity(employeeToValidate)); 
+            
             StringAssert.Contains("Invalid group", exceptionThrown.Message); 
         }
 
         [TestMethod()]
-        public void DeleteEmployeeById_CallsRepository()
+        public void DeleteEmployeeById_CallsRepository_IsSuccessful()
         {
             
             _employeeService.DeleteEmployeeById(1);
@@ -92,7 +93,7 @@ namespace CloudSpritzers1Tests.Src.Service
         }
 
         [TestMethod()]
-        public void ValidateEmployeeIntegrity_DuplicateEmployee_ThrowsArgumentException()
+        public void ValidateEmployeeIntegrity_ForDuplicateEmployee_ThrowsArgumentException()
         {
             var existingEmployee = new Employee(1, "Andrei Muresan", "andrei@test.com", EmployeeDepartment.ADMIN);
             _employeeRepository.GetAll().Returns(new List<Employee> { existingEmployee }); 
@@ -104,7 +105,7 @@ namespace CloudSpritzers1Tests.Src.Service
         }
 
         [TestMethod()]
-        public void CreateNewEmployee_InvalidDepartmentString_ThrowsArgumentException()
+        public void CreateNewEmployee_WithInvalidDepartmentString_ThrowsArgumentException()
         {
             int identificationNumber = 10;
             string fullName = "Cristi Dan";
@@ -116,19 +117,19 @@ namespace CloudSpritzers1Tests.Src.Service
         }
 
         [TestMethod()]
-        public void GetEmployeeById_ExistingId_ReturnsEmployeeFromRepository()
+        public void GetEmployeeById_WithExistingId_ReturnsEmployeeFromRepository()
         {
             var expectedEmployee = new Employee(1, "Test Name", "test@test.com", EmployeeDepartment.ADMIN);
             _employeeRepository.GetById(1).Returns(expectedEmployee);
 
-            var result = _employeeService.GetEmployeeById(1);
+            var resultedEmployee = _employeeService.GetEmployeeById(1);
 
-            Assert.AreEqual(expectedEmployee, result);
+            Assert.AreEqual(expectedEmployee, resultedEmployee);
             _employeeRepository.Received(1).GetById(1);
         }
 
         [TestMethod()]
-        public void UpdateEmployeeById_CallsRepositoryWithCorrectData()
+        public void UpdateEmployeeById_CallsRepositoryWithCorrectData_Succeeds()
         {
             var employeeToUpdate = new Employee(1, "Updated Name", "email@test.com", EmployeeDepartment.HR);
 

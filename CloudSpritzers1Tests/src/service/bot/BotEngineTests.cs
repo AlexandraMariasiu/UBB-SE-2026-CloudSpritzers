@@ -34,13 +34,13 @@ namespace CloudSpritzers1Tests.Src.Service.Bot
             _mockStrategy.ProcessIncomingUserMessageAndDetermineNextDecisionTreeNode(_botEngine, mockIncomingMessage)
                 .Returns(expectedResponse);
 
-            var result = _botEngine.GenerateAppropriateResponseBasedOnCurrentStrategy(mockIncomingMessage);
+            var resultedBotResponse = _botEngine.GenerateAppropriateResponseBasedOnCurrentStrategy(mockIncomingMessage);
 
-            Assert.AreEqual(expectedResponse, result);
+            Assert.AreEqual(expectedResponse, resultedBotResponse);
         }
 
         [TestMethod]
-        public void ResetBotConversationState_CallsStrategyResetMethodExactlyOnce()
+        public void ResetBotConversationState_CallsStrategyResetMethod_ExactlyOnce()
         {
             _botEngine.ResetBotConversationStateToInitialRootNode();
 
@@ -48,15 +48,15 @@ namespace CloudSpritzers1Tests.Src.Service.Bot
         }
 
         [TestMethod]
-        public void RetrieveConfiguredEmailAddressForBotContact_ReturnsCorrectEmail()
+        public void RetrieveConfiguredEmailAddressForBotContact_WhenCalled_ReturnsCorrectEmail()
         {
-            var result = _botEngine.RetrieveConfiguredEmailAddressForBotContact();
+            var resultedEmail = _botEngine.RetrieveConfiguredEmailAddressForBotContact();
 
-            Assert.AreEqual("customer-support@cloudspritzers.com", result);
+            Assert.AreEqual("customer-support@cloudspritzers.com", resultedEmail);
         }
 
         [TestMethod]
-        public void RetrieveConfiguredDisplayFullNameForBot_ReturnsCarlos()
+        public void RetrieveConfiguredDisplayFullNameForBot_WhenCalled_ReturnsCarlos()
         {
             var result = _botEngine.RetrieveConfiguredDisplayFullNameForBot();
 
@@ -64,7 +64,7 @@ namespace CloudSpritzers1Tests.Src.Service.Bot
         }
 
         [TestMethod]
-        public void RetrieveUniqueDatabaseIdentifierForBot_ReturnsZero()
+        public void RetrieveUniqueDatabaseIdentifierForBot_WhenCalled_ReturnsZero()
         {
             var result = _botEngine.RetrieveUniqueDatabaseIdentifierForBot();
 

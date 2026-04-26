@@ -21,7 +21,7 @@ namespace CloudSpritzers1Tests.Src.Model
         }
 
         [TestMethod]
-        public void UserIdProperty_ReturnsCorrectValue()
+        public void UserIdProperty_WhenUserCreated_ReturnsCorrectValue()
         {
             var user = new User(10, "Test User", "test@test.com");
 

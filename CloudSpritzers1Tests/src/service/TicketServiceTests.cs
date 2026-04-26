@@ -98,7 +98,6 @@ namespace CloudSpritzers1Tests.Src.Service
             //testul asta a fost facut sa forteze testarea null Category , penru ca , quite frankly , constructorul Ticket nu permite sa fie null , iar ValidateTicket nu are cum sa prinda asta , deci am folosit reflection ca sa setez Category la null si sa vad daca ValidateTicket arunca exceptionul cu mesajul custom pe care l-am pus acolo
             // a.k.a innebunescu la propriu ca sa testez ceva ce nu ar trebui sa fie posibil in primul rand
             var ticket = new Ticket(1, _testUser, TicketStatusEnum.OPEN, _testCategory, _testSubcategory, "Subject", "Description", DateTime.Now);
-
             var categoryField = typeof(Ticket)
                 .GetFields(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                 .FirstOrDefault(field => field.FieldType == typeof(TicketCategory));
@@ -138,7 +137,9 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             var ticket = new Ticket(1, _testUser, TicketStatusEnum.OPEN, _testCategory, _testSubcategory, "Sub", "Desc", DateTime.Now);
             _ticketRepository.GetById(1).Returns(ticket);
+            
             _ticketService.UpdateStatus(1, TicketStatusEnum.RESOLVED);
+            
             Assert.AreEqual(TicketStatusEnum.RESOLVED, ticket.CurrentStatus);
             _ticketRepository.Received(1).UpdateById(1, ticket);
         }
@@ -146,7 +147,6 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod]
         public void UpdateUrgencyLevel_ExistingTicket_UpdatesAndSaves()
         {
-
             var ticket = new Ticket(1, _testUser, TicketStatusEnum.OPEN, _testCategory, _testSubcategory, "Sub", "Desc", DateTime.Now, TicketUrgencyLevelEnum.LOW);
             _ticketRepository.GetById(1).Returns(ticket);
 
@@ -168,17 +168,15 @@ namespace CloudSpritzers1Tests.Src.Service
         [TestMethod]
         public void GetTicketById_WhenTicketExists_ReturnsCorrectTicket()
         {
-
             int targetId = 7;
             var expectedTicket = new Ticket(targetId, _testUser, TicketStatusEnum.OPEN, _testCategory, _testSubcategory, "Subiect Test", "Descriere Test", DateTime.Now);
 
             _ticketRepository.GetById(targetId).Returns(expectedTicket);
+            var resultedTicket = _ticketService.GetTicketById(targetId);
 
-            var result = _ticketService.GetTicketById(targetId);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(targetId, result.TicketId);
-            Assert.AreEqual("Subiect Test", result.Subject);
+            Assert.IsNotNull(resultedTicket);
+            Assert.AreEqual(targetId, resultedTicket.TicketId);
+            Assert.AreEqual("Subiect Test", resultedTicket.Subject);
             _ticketRepository.Received(1).GetById(targetId);
         }
 
@@ -188,9 +186,9 @@ namespace CloudSpritzers1Tests.Src.Service
             int nonExistentId = 999;
             _ticketRepository.GetById(nonExistentId).Returns((Ticket)null);
 
-            var result = _ticketService.GetTicketById(nonExistentId);
+            var resultedTicket = _ticketService.GetTicketById(nonExistentId);
 
-            Assert.IsNull(result);
+            Assert.IsNull(resultedTicket);
             _ticketRepository.Received(1).GetById(nonExistentId);
         }
 
@@ -205,22 +203,22 @@ namespace CloudSpritzers1Tests.Src.Service
             };
             _ticketRepository.GetAll().Returns(tickets);
 
-            var result = _ticketService.GetAllTickets();
+            var resultedTickets = _ticketService.GetAllTickets();
 
-            Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.Count());
+            Assert.IsNotNull(resultedTickets);
+            Assert.AreEqual(2, resultedTickets.Count());
             _ticketRepository.Received(1).GetAll();
         }
 
         [TestMethod]
         public void UpdateTicketById_WhenCalled_CallsRepositoryUpdateWithCorrectData()
         {
-            int targetId = 5;
-            var updatedTicket = new Ticket(targetId, _testUser, TicketStatusEnum.RESOLVED, _testCategory, _testSubcategory, "Updated Subject", "Updated Desc", DateTime.Now);
+            int targetTicketId = 5;
+            var updatedTicket = new Ticket(targetTicketId, _testUser, TicketStatusEnum.RESOLVED, _testCategory, _testSubcategory, "Updated Subject", "Updated Desc", DateTime.Now);
 
-            _ticketService.UpdateTicketById(targetId, updatedTicket);
+            _ticketService.UpdateTicketById(targetTicketId, updatedTicket);
 
-            _ticketRepository.Received(1).UpdateById(targetId, updatedTicket);
+            _ticketRepository.Received(1).UpdateById(targetTicketId, updatedTicket);
         }
 
         [TestMethod]
@@ -231,9 +229,11 @@ namespace CloudSpritzers1Tests.Src.Service
                 new TicketDTO(1, 1, "myoneemail", TicketUrgencyLevelEnum.HIGH, TicketStatusEnum.IN_PROGRESS, 1, "ISSbestDomain", 10, "Some subdomain", "Subj", "D1", DateTime.Now),
                 new TicketDTO(2, 1, "myoneemail", TicketUrgencyLevelEnum.LOW, TicketStatusEnum.OPEN, 1, "ISSbestDomain", 10, "Some subdomain", "Subj", "D2", DateTime.Now)
             };
-            var result = _ticketService.FilterTicketsByStatus(ticketsDataTransferObject, TicketFilterStatusEnum.IN_PROGRESS).ToList();
-            Assert.AreEqual(1, result.Count);
-            Assert.AreEqual(TicketStatusEnum.IN_PROGRESS, result.First().currentStatus);
+            
+            var resultedTickets = _ticketService.FilterTicketsByStatus(ticketsDataTransferObject, TicketFilterStatusEnum.IN_PROGRESS).ToList();
+            
+            Assert.AreEqual(1, resultedTickets.Count);
+            Assert.AreEqual(TicketStatusEnum.IN_PROGRESS, resultedTickets.First().currentStatus);
         }
 
         [TestMethod]
@@ -244,9 +244,11 @@ namespace CloudSpritzers1Tests.Src.Service
                 new TicketDTO(1, 1, "e1", TicketUrgencyLevelEnum.HIGH, TicketStatusEnum.RESOLVED, 1, "C1", 10, "S1", "Sub1", "D1", DateTime.Now),
                 new TicketDTO(2, 1, "e1", TicketUrgencyLevelEnum.LOW, TicketStatusEnum.OPEN, 1, "C1", 10, "S1", "Sub2", "D2", DateTime.Now)
             };
-            var result = _ticketService.FilterTicketsByStatus(ticketsDataTransferObject, TicketFilterStatusEnum.RESOLVED).ToList();
-            Assert.AreEqual(1, result.Count);
-            Assert.AreEqual(TicketStatusEnum.RESOLVED, result.First().currentStatus);
+            
+            var resultedTickets = _ticketService.FilterTicketsByStatus(ticketsDataTransferObject, TicketFilterStatusEnum.RESOLVED).ToList();
+            
+            Assert.AreEqual(1, resultedTickets.Count);
+            Assert.AreEqual(TicketStatusEnum.RESOLVED, resultedTickets.First().currentStatus);
         }
 
 
@@ -277,14 +279,12 @@ namespace CloudSpritzers1Tests.Src.Service
         };
 
             var unknownFilter = (TicketFilterStatusEnum)999;
+            
             var result = _ticketService.FilterTicketsByStatus(ticketsDataTransferObject, unknownFilter).ToList();
 
             Assert.AreEqual(2, result.Count);
             Assert.AreEqual(ticketsDataTransferObject[0].subject, result[0].subject);
             Assert.AreEqual(ticketsDataTransferObject[1].subject, result[1].subject);
         }
-
-
-
     }
 }

@@ -33,8 +33,8 @@ public class ChatTests
         int userId = 1;
         ChatStatus status = ChatStatus.Active;
         Chat chat = new Chat(chatId, userId, status);
-        var sender = new User(1, "John Doe", "johndoe.example@com");
-        var newMessage = new Message(sender, chat, "Hello");
+        var messageSender = new User(1, "John Doe", "johndoe.example@com");
+        var newMessage = new Message(messageSender, chat, "Hello");
 
         chat.AddMessage(newMessage);
 
@@ -49,13 +49,13 @@ public class ChatTests
         int userId = 1;
         ChatStatus status = ChatStatus.Active;
         Chat chat = new Chat(chatId, userId, status);
-        var sender = new User(1, "John Doe", "johndoe.example@com");
+        var messageSender = new User(1, "John Doe", "johndoe.example@com");
 
         Assert.ThrowsExactly<ArgumentNullException>(() => chat.AddMessage(null));
     }
 
     [TestMethod]
-    public void CloseChat_UpdatesChatStatusToClosed()
+    public void CloseChat_WhenCalled_UpdatesChatStatusToClosed()
     {
         int chatId = 1;
         int userId = 1;

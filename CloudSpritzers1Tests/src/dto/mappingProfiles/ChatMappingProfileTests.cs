@@ -24,33 +24,33 @@ public class ChatMappingProfileTests
     [TestMethod]
     public void Map_ChatToChatDTO_MapsChatIdCorrectly()
     {
-        var result = _mapper.Map<ChatDTO>(_chat);
+        var resultedDataTransferObject = _mapper.Map<ChatDTO>(_chat);
 
-        Assert.AreEqual(_chat.ChatId, result.chatId);
+        Assert.AreEqual(_chat.ChatId, resultedDataTransferObject.chatId);
     }
 
     [TestMethod]
     public void Map_ChatToChatDTO_MapsUserIdCorrectly()
     {
-        var result = _mapper.Map<ChatDTO>(_chat);
+        var resultedDataTransferObject = _mapper.Map<ChatDTO>(_chat);
 
-        Assert.AreEqual(_chat.UserId, result.userId);
+        Assert.AreEqual(_chat.UserId, resultedDataTransferObject.userId);
     }
 
     [TestMethod]
     public void Map_ChatToChatDTO_MapsStatusCorrectly()
     {
-        var result = _mapper.Map<ChatDTO>(_chat);
+        var resultedDataTransferObject = _mapper.Map<ChatDTO>(_chat);
 
-        Assert.AreEqual(_chat.Status, result.status);
+        Assert.AreEqual(_chat.Status, resultedDataTransferObject.status);
     }
 
     [TestMethod]
     public void Map_ChatToChatDTO_MapsMessageCountCorrectly()
     {
-        var result = _mapper.Map<ChatDTO>(_chat);   
+        var resultedDataTransferObject = _mapper.Map<ChatDTO>(_chat);   
 
-        Assert.AreEqual(0, result.messageCount); 
+        Assert.AreEqual(0, resultedDataTransferObject.messageCount); 
     }
 
     [TestMethod]

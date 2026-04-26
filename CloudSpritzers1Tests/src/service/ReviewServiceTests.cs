@@ -39,9 +39,9 @@ namespace CloudSpritzers1Tests.Src.Service
         {
             var review = new Review(1, _testUser, "Test", 1, 2, 3, 4); // Sum = 10
            
-            var result = _reviewService.CalculateAverageRating(review);
+            var resultedReviewAverageRating = _reviewService.CalculateAverageRating(review);
 
-            Assert.AreEqual(2.5f, result);
+            Assert.AreEqual(2.5f, resultedReviewAverageRating);
         }
 
         [TestMethod]
@@ -112,7 +112,6 @@ namespace CloudSpritzers1Tests.Src.Service
 
             var exceptionThrown = Assert.ThrowsExactly<ArgumentException>(() =>
                 _reviewService.ValidateReview(existingReview));
-
             StringAssert.Contains("Review already exists", exceptionThrown.Message);
         }
 

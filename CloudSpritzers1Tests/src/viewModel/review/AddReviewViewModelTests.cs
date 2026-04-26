@@ -83,11 +83,9 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         [TestMethod]
         public void SubmitReview_WhenUserIsNull_TriggersNotLoggedInAlert()
         {
-            // Arrange
             bool alertFired = false;
             string? alertTitle = null;
 
-            // Subscribe to the event
             _viewModel.AlertRequested += (sender, arguments) =>
             {
                 alertFired = true;
@@ -173,8 +171,5 @@ namespace CloudSpritzers1Tests.Src.ViewModel
             
             Assert.AreEqual("5/5", _viewModel.CleanText);
         }
-
-
-
     }
 }

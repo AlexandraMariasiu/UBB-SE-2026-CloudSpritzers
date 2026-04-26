@@ -28,9 +28,10 @@ namespace CloudSpritzers1Tests.Src.Service
            
             var expectedCategory = new TicketCategory(1, "Technical", TicketUrgencyLevelEnum.HIGH);
             _categoryRepositoryMock.GetById(1).Returns(expectedCategory);          
-            var result = _categoryService.GetCategoryById(1);
+            
+            var resultedCategory = _categoryService.GetCategoryById(1);
 
-            Assert.AreEqual(expectedCategory.CategoryName, result.CategoryName);
+            Assert.AreEqual(expectedCategory.CategoryName, resultedCategory.CategoryName);
             _categoryRepositoryMock.Received(1).GetById(1);
         }
 
@@ -45,9 +46,9 @@ namespace CloudSpritzers1Tests.Src.Service
             };
             _categoryRepositoryMock.GetAll().Returns(categories);
 
-            var result = _categoryService.GetAllCategories().ToList();
+            var resultedCategories = _categoryService.GetAllCategories().ToList();
 
-            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(2, resultedCategories.Count);
             _categoryRepositoryMock.Received(1).GetAll();
         }
 

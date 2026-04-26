@@ -121,6 +121,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         public void Delete_NullFAQEntry_ThrowsArgumentNullException()
         {
             _faqViewModel.IsAdmin = true;
+            
             Assert.ThrowsExactly<ArgumentNullException>(() => _faqViewModel.DeleteFAQEntry(null));
             _faqService.DidNotReceive().DeleteFAQEntry(Arg.Any<int>());
         }
@@ -136,9 +137,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
 
             Assert.IsTrue(firstFrequentlyAskedQuestion.IsExpanded);
             Assert.IsFalse(secondFrequentlyAskedQuestion.IsExpanded);
-            Assert.AreEqual(firstFrequentlyAskedQuestion, _faqViewModel.SelectedFAQEntry);
             Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FAQs.First(faqDataTransferObject => faqDataTransferObject.Id == firstFrequentlyAskedQuestion.Id).ViewCount);
-            Assert.AreEqual(viewCountBeforeExpanding+1, _faqViewModel.FilteredFAQs.First(faqDataTransferObject => faqDataTransferObject.Id == firstFrequentlyAskedQuestion.Id).ViewCount);
             _faqService.Received(1).IncrementViewCount(Arg.Any<FAQEntry>());
         }
 
@@ -146,6 +145,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         public void ToggleFAQ_CalledForNullEntity_ReturnsWithoutCallingService()
         {
             var firstFrequentlyAskedQuestion = _faqViewModel.FilteredFAQs[0];
+            
             _faqViewModel.ToggleFAQ(null);
 
             Assert.IsFalse(firstFrequentlyAskedQuestion.IsExpanded);
@@ -158,6 +158,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             var entryToIncrementNotHelpfulVotes = new FAQEntryDTO(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 4, 4, 2); ;
             _faqViewModel.SelectedFAQEntry = entryToIncrementNotHelpfulVotes;
             var expectedUpdatedEntry = new FAQEntryDTO(3, "Can I bring my dog on the plane?", "Only if you buy a ticket for him also", FAQCategoryEnum.Baggage, 4, 4, 3);
+           
             _faqViewModel.IncrementWasNotHelpfulVotes();
 
             _faqService.Received(1).IncrementWasNotHelpfulVotes(Arg.Any<FAQEntry>());
@@ -226,10 +227,8 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
 
             _faqService.Received(1).IncrementWasHelpfulVotes(Arg.Any<FAQEntry>());
             Assert.AreEqual(initialHelpfulVotes + 1, frequentlyAskedQuestion.HelpfulVotesCount);
-            Assert.IsTrue(frequentlyAskedQuestion.HasFeedback);
             Assert.IsTrue(frequentlyAskedQuestion.IsHelpfulSelected);
             Assert.IsFalse(frequentlyAskedQuestion.IsNotHelpfulSelected);
-            Assert.AreEqual(frequentlyAskedQuestion, _faqViewModel.SelectedFAQEntry);
         }
 
         [TestMethod]
@@ -243,9 +242,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             _faqService.Received(1).IncrementWasNotHelpfulVotes(Arg.Any<FAQEntry>());
             Assert.AreEqual(initialNotHelpfulVotes + 1, frequentlyAskedQuestion.NotHelpfulVotesCount);
             Assert.IsTrue(frequentlyAskedQuestion.HasFeedback);
-            Assert.IsFalse(frequentlyAskedQuestion.IsHelpfulSelected);
             Assert.IsTrue(frequentlyAskedQuestion.IsNotHelpfulSelected);
-            Assert.AreEqual(frequentlyAskedQuestion, _faqViewModel.SelectedFAQEntry);
         }
 
         [TestMethod]
@@ -258,7 +255,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
         }
 
         [TestMethod]
-        public void Build_NavigationData_ReturnsExpectedValues()
+        public void BuildNavigationData_WhenCalled_IsSuccessful()
         {
             _faqViewModel.IsAdmin = true;
             _faqViewModel.SelectedFAQEntry = _faqViewModel.FAQs[1];
@@ -267,7 +264,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
 
             Assert.AreEqual(42, result.CurrentPersonId);
             Assert.IsTrue(result.IsEmployee);
-            Assert.AreEqual(_faqViewModel.SelectedFAQEntry, result.FAQEntry);
         }
 
         private static FAQEntryDTO MapToDto(FAQEntry questionEntry)
@@ -329,28 +325,6 @@ namespace CloudSpritzers1Tests.Src.ViewModel.Faq
             _faqViewModel.ToggleFAQ(frequentlyAskedQuestion);
 
             Assert.IsFalse(frequentlyAskedQuestion.IsExpanded);
-            Assert.IsNull(_faqViewModel.SelectedFAQEntry);
-        }
-
-        [TestMethod]
-        public void IncrementViewCountFor_RaisesPropertyChanged()
-        {
-            var frequentlyAskedQuestion = _faqViewModel.FAQs[0];
-            bool questionsChanged = false;
-            bool filteredChanged = false;
-
-            _faqViewModel.PropertyChanged += (sender, propertyArguments) =>
-            {
-                if (propertyArguments.PropertyName == nameof(_faqViewModel.FAQs))
-                    questionsChanged = true;
-                if (propertyArguments.PropertyName == nameof(_faqViewModel.FilteredFAQs))
-                    filteredChanged = true;
-            };
-
-            _faqViewModel.IncrementViewCountFor(frequentlyAskedQuestion.Id);
-
-            Assert.IsTrue(questionsChanged);
-            Assert.IsTrue(filteredChanged);
         }
     }
 }

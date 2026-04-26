@@ -1,10 +1,8 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using CloudSpritzers1.Src.Dto;
+using CloudSpritzers1.Src.Dto.MappingProfiles;
 using CloudSpritzers1.Src.Model;
 using CloudSpritzers1.Src.Model.Ticket;
-using CloudSpritzers1.Src.Dto.MappingProfiles;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
 {
@@ -43,105 +41,105 @@ namespace CloudSpritzers1Tests.Src.Dto.MappingProfiles
         [TestMethod]
         public void Map_ValidTicket_ReturnsNotNullObject()
         {
-            var resultDTO = _mapper.Map<TicketDTO>(_testTicket);
+            var resultDataTransferObject = _mapper.Map<TicketDTO>(_testTicket);
 
-            Assert.IsNotNull(resultDTO);
+            Assert.IsNotNull(resultDataTransferObject);
         }
 
         [TestMethod]
         public void Map_ValidTicket_MapsTicketIdCorrectly()
         {
-            var resultDTO = _mapper.Map<TicketDTO>(_testTicket);
+            var resultDataTransferObject = _mapper.Map<TicketDTO>(_testTicket);
 
-            Assert.AreEqual(_testTicket.TicketId, resultDTO.ticketId);
+            Assert.AreEqual(_testTicket.TicketId, resultDataTransferObject.ticketId);
         }
 
         [TestMethod]
         public void Map_ValidTicket_MapsCreatorAccountIdCorrectly()
         {
-            var resultDTO = _mapper.Map<TicketDTO>(_testTicket);
+            var resultDataTransferObject = _mapper.Map<TicketDTO>(_testTicket);
 
-            Assert.AreEqual(_testTicket.Creator.UserId, resultDTO.creatorAccountId);
+            Assert.AreEqual(_testTicket.Creator.UserId, resultDataTransferObject.creatorAccountId);
         }
 
         [TestMethod]
         public void Map_ValidTicket_MapsCreatorEmailAddressCorrectly()
         {
-            var resultDTO = _mapper.Map<TicketDTO>(_testTicket);
+            var resultDataTransferObject = _mapper.Map<TicketDTO>(_testTicket);
 
-            Assert.AreEqual(_testTicket.Creator.RetrieveConfiguredEmailAddressForBotContact(), resultDTO.creatorEmailAddress);
+            Assert.AreEqual(_testTicket.Creator.RetrieveConfiguredEmailAddressForBotContact(), resultDataTransferObject.creatorEmailAddress);
         }
 
         [TestMethod]
         public void Map_ValidTicket_MapsUrgencyLevelCorrectly()
         {
-            var resultDTO = _mapper.Map<TicketDTO>(_testTicket);
+            var resultDataTransferObject = _mapper.Map<TicketDTO>(_testTicket);
 
-            Assert.AreEqual(_testTicket.UrgencyLevel, resultDTO.urgencyLevel);
+            Assert.AreEqual(_testTicket.UrgencyLevel, resultDataTransferObject.urgencyLevel);
         }
 
         [TestMethod]
         public void Map_ValidTicket_MapsCurrentStatusCorrectly()
         {
-            var resultDTO = _mapper.Map<TicketDTO>(_testTicket);
+            var resultDataTransferObject = _mapper.Map<TicketDTO>(_testTicket);
 
-            Assert.AreEqual(_testTicket.CurrentStatus, resultDTO.currentStatus);
+            Assert.AreEqual(_testTicket.CurrentStatus, resultDataTransferObject.currentStatus);
         }
 
         [TestMethod]
         public void Map_ValidTicket_MapsCategoryIdCorrectly()
         {
-            var resultDTO = _mapper.Map<TicketDTO>(_testTicket);
+            var resultDataTransferObject = _mapper.Map<TicketDTO>(_testTicket);
 
-            Assert.AreEqual(_testTicket.Category.CategoryId, resultDTO.categoryId);
+            Assert.AreEqual(_testTicket.Category.CategoryId, resultDataTransferObject.categoryId);
         }
 
         [TestMethod]
         public void Map_ValidTicket_MapsCategoryNameCorrectly()
         {
-            var resultDTO = _mapper.Map<TicketDTO>(_testTicket);
+            var resultDataTransferObject = _mapper.Map<TicketDTO>(_testTicket);
 
-            Assert.AreEqual(_testTicket.Category.CategoryName, resultDTO.categoryName);
+            Assert.AreEqual(_testTicket.Category.CategoryName, resultDataTransferObject.categoryName);
         }
 
         [TestMethod]
         public void Map_ValidTicket_MapsSubcategoryIdCorrectly()
         {
-            var resultDTO = _mapper.Map<TicketDTO>(_testTicket);
+            var resultDataTransferObject = _mapper.Map<TicketDTO>(_testTicket);
 
-            Assert.AreEqual(_testTicket.Subcategory.SubcategoryId, resultDTO.subcategoryId);
+            Assert.AreEqual(_testTicket.Subcategory.SubcategoryId, resultDataTransferObject.subcategoryId);
         }
 
         [TestMethod]
         public void Map_ValidTicket_MapsSubcategoryNameCorrectly()
         {
-            var resultDTO = _mapper.Map<TicketDTO>(_testTicket);
+            var resultDataTransferObject = _mapper.Map<TicketDTO>(_testTicket);
 
-            Assert.AreEqual(_testTicket.Subcategory.SubcategoryName, resultDTO.subcategoryName);
+            Assert.AreEqual(_testTicket.Subcategory.SubcategoryName, resultDataTransferObject.subcategoryName);
         }
 
         [TestMethod]
         public void Map_ValidTicket_MapsSubjectCorrectly()
         {
-            var resultDTO = _mapper.Map<TicketDTO>(_testTicket);
+            var resultDataTransferObject = _mapper.Map<TicketDTO>(_testTicket);
 
-            Assert.AreEqual(_testTicket.Subject, resultDTO.subject);
+            Assert.AreEqual(_testTicket.Subject, resultDataTransferObject.subject);
         }
 
         [TestMethod]
         public void Map_ValidTicket_MapsDescriptionCorrectly()
         {
-            var resultDTO = _mapper.Map<TicketDTO>(_testTicket);
+            var resultDataTransferObject = _mapper.Map<TicketDTO>(_testTicket);
 
-            Assert.AreEqual(_testTicket.Description, resultDTO.description);
+            Assert.AreEqual(_testTicket.Description, resultDataTransferObject.description);
         }
 
         [TestMethod]
         public void Map_ValidTicket_MapsCreationTimestampCorrectly()
         {
-            var resultDTO = _mapper.Map<TicketDTO>(_testTicket);
+            var resultDataTransferObject = _mapper.Map<TicketDTO>(_testTicket);
 
-            Assert.AreEqual(_testTicket.CreationTimestamp, resultDTO.creationTimestamp);
+            Assert.AreEqual(_testTicket.CreationTimestamp, resultDataTransferObject.creationTimestamp);
         }
     }
 }

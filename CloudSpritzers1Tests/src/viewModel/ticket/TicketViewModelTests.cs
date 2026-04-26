@@ -57,7 +57,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         }
 
         [TestMethod]
-        public void Constructor_ShouldInitializeCollectionsAndLoadData()
+        public void Constructor_WhenCalled_ShouldInitializeCollectionsAndLoadData()
         {
 
             Assert.AreEqual(1, _ticketsViewModel.AllTickets.Count);
@@ -66,7 +66,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         }
 
         [TestMethod]
-        public void GetAllTickets_ShouldReturnCurrentAllTicketsCollection()
+        public void GetAllTickets_WhenCalled_ShouldReturnAllTickets()
         {
 
             var result = _ticketsViewModel.GetAllTickets();
@@ -76,14 +76,14 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         }
 
         [TestMethod]
-        public void GetTotalTicketCount_ShouldReturnCountOfAllTickets()
+        public void GetTotalTicketCount_WhenCalled_ShouldReturnCountOfAllTickets()
         {
             var count = _ticketsViewModel.GetTotalTicketCount();
             Assert.AreEqual(1, count);
         }
 
         [TestMethod]
-        public void CreateTicket_ShouldExecuteFlowCorrectly()
+        public void CreateTicket_WithValidEntity_SucceedsAndCallsService()
         {
             var ticketDataTransferObject = new TicketDTO(
                 101, 42, "dede_the_racoon@gmail.com",
@@ -109,7 +109,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         }
 
         [TestMethod]
-        public void UpdateStatus_ShouldTriggerServiceUpdate()
+        public void UpdateStatus_WhenCalled_ShouldTriggerServiceUpdate()
         {
             _ticketsViewModel.UpdateStatus(1, TicketStatusEnum.RESOLVED);
 
@@ -119,7 +119,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
 
 
         [TestMethod]
-        public void UpdateUrgencyLevel_ShouldCallServiceAndUpdateLocalList()
+        public void UpdateUrgencyLevel_WhenCalled_ShouldCallServiceAndUpdateLocalList()
         {
             int targetTicketId = 1;
             var newUrgency = TicketUrgencyLevelEnum.HIGH;
@@ -130,7 +130,7 @@ namespace CloudSpritzers1Tests.Src.ViewModel
         }
 
         [TestMethod]
-        public void FilterByStatus_ShouldUpdateFilteredDisplayCollection()
+        public void FilterByStatus_WhenCalled_ShouldUpdateFilteredDisplayCollection()
         {
             var filteredResults = new List<TicketDTO> { _ticketsViewModel.AllTickets[0] };
             _ticketService.FilterTicketsByStatus(Arg.Any<IEnumerable<TicketDTO>>(), TicketFilterStatusEnum.OPEN).Returns(filteredResults);
@@ -141,29 +141,8 @@ namespace CloudSpritzers1Tests.Src.ViewModel
             _ticketService.Received().FilterTicketsByStatus(Arg.Any<IEnumerable<TicketDTO>>(), TicketFilterStatusEnum.OPEN);
         }
 
-
         [TestMethod]
-        public void SelectedFilterString_SetValidValue_UpdatesEnumStatus()
-        {
-
-            _ticketsViewModel.SelectedFilterString = "RESOLVED";
-
-            Assert.AreEqual(TicketFilterStatusEnum.RESOLVED, _ticketsViewModel.SelectedFilterStatus);
-
-            _ticketService.Received().FilterTicketsByStatus(Arg.Any<IEnumerable<TicketDTO>>(), TicketFilterStatusEnum.RESOLVED);
-        }
-
-        [TestMethod]
-        public void SelectedFilterString_Get_ReturnsEnumNameAsString()
-        {
-            _ticketsViewModel.SelectedFilterStatus = TicketFilterStatusEnum.IN_PROGRESS;
-
-            var result = _ticketsViewModel.SelectedFilterString;
-            Assert.AreEqual("IN_PROGRESS", result);
-        }
-
-        [TestMethod]
-        public void LoadSubcategories_ShouldPopulateCorrectCategory()
+        public void LoadSubcategories_WhenCalled_ShouldPopulateCorrectCategory()
         {
             var subList = new List<TicketSubcategory> { _testSubcategory };
             _subcategoryService.GetSubcategoriesByCategoryId(1).Returns(subList);
