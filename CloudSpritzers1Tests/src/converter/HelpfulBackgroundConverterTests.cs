@@ -56,7 +56,7 @@ public class HelpfulBackgroundConverterTests
     //}
 
     [TestMethod()]
-    public void ConvertBack_ThrowsNotImplementedException()
+    public void ConvertBack_WhenCalled_ThrowsNotImplementedException()
     {
 
         Assert.ThrowsExactly<NotImplementedException>(() => _converter.ConvertBack(Color.FromArgb(255, 248, 249, 251), typeof(bool), null, null));

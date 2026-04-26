@@ -48,7 +48,7 @@ public class BooleanToAlignmentConversterTests
     }
 
     [TestMethod]
-    public void ConvertBack_ThrowsNotImplementedException()
+    public void ConvertBack_WhenCalled_ThrowsNotImplementedException()
     {
         Assert.ThrowsExactly<NotImplementedException>(() => _converter.ConvertBack(HorizontalAlignment.Left, typeof(bool), null, null));
     }
